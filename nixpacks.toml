@@ -28,7 +28,6 @@ cmds = [
 [phases.install]
 cmds = [
     "mkdir -p /var/log/nginx && mkdir -p /var/cache/nginx",
-    "composer self-update",
     "composer install --no-dev --optimize-autoloader --no-scripts --ignore-platform-reqs",
     "pnpm self-update",
     "pnpm install --frozen-lockfile",
