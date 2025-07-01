@@ -12,7 +12,7 @@ LC_ALL = "en_US.UTF-8"
 LOCALE_ARCHIVE = "/usr/lib/locale/locale-archive"
 
 [phases.setup]
-nixPkgs = ["...", "(lib.hiPrio phpPackages.composer)", "glibcLocales", "phpredis"]
+nixPkgs = ["...", "(lib.hiPrio phpPackages.composer)", "glibcLocales"]
 
 aptPkgs = ["...", "locales", "imagemagick", "graphicsmagick"]
 
