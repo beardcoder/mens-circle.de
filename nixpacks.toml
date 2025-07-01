@@ -28,7 +28,7 @@ cmds = [
 [phases.install]
 cmds = [
     "mkdir -p /var/log/nginx && mkdir -p /var/cache/nginx",
-    "composer install --no-dev --optimize-autoloader --no-scripts",
+    "composer install --no-dev --optimize-autoloader --no-scripts --ignore-platform-reqs",
 ]
 
 [staticAssets]
