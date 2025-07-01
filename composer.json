@@ -5,6 +5,7 @@
   "type": "project",
   "require": {
     "php": "^8.4",
+    "ext-redis": "*",
     "ext-sodium": "*",
     "b13/container": "dev-master",
     "b13/picture": "dev-master",
