@@ -4,6 +4,7 @@
   "license": "GPL-2.0-or-later",
   "type": "project",
   "require": {
+    "php": "^8.4",
     "ext-sodium": "*",
     "b13/container": "dev-master",
     "b13/picture": "dev-master",
