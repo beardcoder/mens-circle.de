@@ -31,14 +31,13 @@ cmds = [
     "composer install --no-dev --optimize-autoloader --no-scripts --ignore-platform-reqs",
     "npm install -g corepack",
     "corepack enable",
-    "pnpm install"
+    "pnpm install",
+    "pnpm build",
 ]
 
 
 [phases.build]
-cmds = [
-    "pnpm build",
-]
+cmds = []
 
 [staticAssets]
 "php-fpm.conf" = '''
