@@ -2102,7 +2102,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/sitepackage",
-                "reference": "45267922ac96cc0b5cc537c4caef5509480886ed"
+                "reference": "c39984c5ffc086c5e06370fcc19fb34dd5a66ad3"
             },
             "require": {
                 "typo3/cms-core": "^13.2"

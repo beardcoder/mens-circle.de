@@ -3,14 +3,14 @@
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:i="http://typo3.org/ns/B13/Picture/ViewHelpers"
     xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
-    xmlns:vac="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
+    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
 
 <f:layout name="Default" />
 
 <f:section name="Main">
 <f:if condition="{events}">
-    <vac:asset.vite entry="EXT:sitepackage/Resources/Private/Templates/Plugins/Events/List.entry.css" />
+    <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Plugins/Events/List.entry.css" />
     <div class="o-event-list">
         <f:render arguments="{layout: 2}" contentAs="header" partial="ContentElements/Header">Nächste Veranstaltungen
         </f:render>
