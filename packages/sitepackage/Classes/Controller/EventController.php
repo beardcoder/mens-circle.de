@@ -132,17 +132,13 @@ class EventController extends ActionController
             ],
         );
 
-        $dateTimeZone = new \DateTimeZone('Europe/Berlin');
-        $startDateTime = new \DateTime($event->startDate->format('d.m.Y H:i'), $dateTimeZone);
-        $endDateTime = new \DateTime($event->endDate->format('d.m.Y H:i'), $dateTimeZone);
-
         $calendarEvent = CalendarEvent::create()
             ->name($event->title)
             ->description($event->description)
             ->url($this->getUrlForEvent($event))
             ->image($this->imageService->getImageUri($processedFile, true))
-            ->startsAt($startDateTime)
-            ->endsAt($endDateTime)
+            ->startsAt($event->startDate)
+            ->endsAt($event->endDate)
             ->organizer('markus@letsbenow.de', 'Markus Sommer');
 
         if (

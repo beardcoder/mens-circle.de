@@ -248,10 +248,13 @@ return [
         'encryptionKey' => '7bf24e59234ae81bb2875eac483d6a45ff37b012bbca68ddc75eb5dd9d94718bdf647f1f363466ba3317e8a5377a3b37',
         'exceptionalErrors' => 4096,
         'features' => [
+            'extbase.consistentDateTimeHandling' => true,
+            'frontend.cache.autoTagging' => true,
             'security.backend.enforceReferrer' => false,
             'security.backend.htmlSanitizeRte' => true,
             'security.frontend.enforceContentSecurityPolicy' => true,
         ],
+        'phpTimeZone' => 'Europe/Berlin',
         'sitename' => 'Men\'s Circle Niederbayern',
         'systemMaintainers' => [
             1,
