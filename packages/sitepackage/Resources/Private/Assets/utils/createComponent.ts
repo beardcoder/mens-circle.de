@@ -235,6 +235,11 @@ const createComponentInstance = <TElement extends HTMLElement, TProps extends Re
  * // Basic usage
  * const component = createComponent<HTMLDivElement>('.my-div');
  *
+ * // With callback
+ * createComponent('.selector', (component) => {
+ *   component.on('click', () => console.log('clicked'));
+ * });
+ *
  * // With typed props
  * interface MyProps {
  *   count: number;
@@ -248,7 +253,22 @@ const createComponentInstance = <TElement extends HTMLElement, TProps extends Re
 export function createComponent<
     TElement extends HTMLElement = HTMLElement,
     TProps extends Record<string, any> = Record<string, any>,
->(selector: string | TElement, options: ComponentOptions<TProps> = {}): ComponentElement<TElement, TProps> | null {
+>(
+    selector: string | TElement,
+    callbackOrOptions?: ((component: ComponentElement<TElement, TProps>) => void) | ComponentOptions<TProps>,
+    options?: ComponentOptions<TProps>,
+): ComponentElement<TElement, TProps> | null {
+    // Determine if callback or options is provided
+    let callback: ((component: ComponentElement<TElement, TProps>) => void) | undefined;
+    let finalOptions: ComponentOptions<TProps> = {};
+
+    if (typeof callbackOrOptions === 'function') {
+        callback = callbackOrOptions;
+        finalOptions = options || {};
+    } else {
+        finalOptions = callbackOrOptions || {};
+    }
+
     // Resolve element
     const element = typeof selector === 'string' ? document.querySelector<TElement>(selector) : selector;
 
@@ -261,10 +281,10 @@ export function createComponent<
     const extractedProps = extractProps<TProps>(element);
 
     // Merge with initial props
-    const mergedProps = { ...extractedProps, ...options.initialProps } as TProps;
+    const mergedProps = { ...extractedProps, ...finalOptions.initialProps } as TProps;
 
     // Create reactive or static props
-    const props = options.reactive === false ? mergedProps : createReactiveProps(mergedProps, element);
+    const props = finalOptions.reactive === false ? mergedProps : createReactiveProps(mergedProps, element);
 
     // Create component
     const component = createComponentInstance<TElement, TProps>(element, props as TProps);
@@ -273,10 +293,15 @@ export function createComponent<
     componentRegistry.set(element, component);
 
     // Attach event handlers
-    if (options.eventHandlers) {
-        Object.entries(options.eventHandlers).forEach(([event, handler]) => {
+    if (finalOptions.eventHandlers) {
+        Object.entries(finalOptions.eventHandlers).forEach(([event, handler]) => {
             component.on(event, handler);
         });
+    }
+
+    // Execute callback if provided
+    if (callback) {
+        callback(component);
     }
 
     return component;
