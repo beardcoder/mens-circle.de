@@ -146,7 +146,6 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_sitepackage_domain_model_location',
-                'foreign_field' => 'event',
                 'maxitems' => 1,
             ],
         ],
