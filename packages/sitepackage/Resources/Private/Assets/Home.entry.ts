@@ -1,28 +1,27 @@
-const usePopup = (dialog: HTMLDialogElement) => {
-  const lastPopupTime = Number(localStorage.getItem('lastPopupTime'));
-  const now = new Date().getTime();
-  const twoHours = 2 * 60 * 60 * 1000;
+import { createComponent } from './utils/createComponent.ts';
 
-  if (!lastPopupTime || now - lastPopupTime > twoHours) {
-    setTimeout(() => {
-      dialog?.showModal();
-      setLastPopupTime();
-    }, 10000);
-  }
+createComponent<HTMLDialogElement>('[data-component="newsletter-dialog"]', (component) => {
+    const { element } = component;
 
-  dialog
-    ?.querySelector('[data-component="newsletter-dialog__close"]')
-    ?.addEventListener('click', closeDialog);
-
-  function closeDialog() {
-    dialog?.close();
-  }
-
-  function setLastPopupTime() {
+    const lastPopupTime = Number(localStorage.getItem('lastPopupTime'));
     const now = new Date().getTime();
-    localStorage.setItem('lastPopupTime', String(now));
-  }
-}
-document.addEventListener('DOMContentLoaded', () => {
-  Array.from(document.querySelectorAll<HTMLDialogElement>('[data-component="newsletter-dialog"]')).map(usePopup)
+    const twoHours = 2 * 60 * 60 * 1000;
+
+    if (!lastPopupTime || now - lastPopupTime > twoHours) {
+        setTimeout(() => {
+            element?.showModal();
+            setLastPopupTime();
+        }, 10_000);
+    }
+
+    component.querySelector('[data-component="newsletter-dialog__close"]')?.addEventListener('click', closeDialog);
+
+    function closeDialog() {
+        element?.close();
+    }
+
+    function setLastPopupTime() {
+        const now = new Date().getTime();
+        localStorage.setItem('lastPopupTime', String(now));
+    }
 });
