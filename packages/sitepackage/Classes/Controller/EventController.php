@@ -118,6 +118,10 @@ class EventController extends ActionController
         return $this->redirectToUri($redirectUrl);
     }
 
+    /**
+     * @throws \DateMalformedStringException
+     * @throws PropagateResponseException
+     */
     public function iCalAction(Event $event): \Psr\Http\Message\ResponseInterface
     {
         $processedFile = $this->imageService->applyProcessingInstructions(
@@ -128,18 +132,27 @@ class EventController extends ActionController
             ],
         );
 
+        $dateTimeZone = new \DateTimeZone('Europe/Berlin');
+        $startDateTime = new \DateTime($event->startDate->format('d.m.Y H:i'), $dateTimeZone);
+        $endDateTime = new \DateTime($event->endDate->format('d.m.Y H:i'), $dateTimeZone);
+
         $calendarEvent = CalendarEvent::create()
-            ->name($event->getLongTitle())
+            ->name($event->title)
             ->description($event->description)
             ->url($this->getUrlForEvent($event))
             ->image($this->imageService->getImageUri($processedFile, true))
-            ->startsAt(new \DateTime($event->startDate->format('d.m.Y H:i')))
-            ->endsAt(new \DateTime($event->endDate->format('d.m.Y H:i')))
+            ->startsAt($startDateTime)
+            ->endsAt($endDateTime)
             ->organizer('markus@letsbenow.de', 'Markus Sommer');
 
-        if ($event->isOffline() && $event->latitude && $event->longitude) {
-            $calendarEvent->address($event->getFullAddress(), $event->place)
-                ->coordinates($event->latitude, $event->longitude);
+        if (
+            $event->isOffline()
+            && $event->location->latitude
+            && $event->location->longitude
+        ) {
+            $calendarEvent
+                ->address($event->getFullAddress(), $event->location->place)
+                ->coordinates($event->location->latitude, $event->location->longitude);
         }
 
         $calendar = Calendar::create($event->getLongTitle())->event($calendarEvent);
