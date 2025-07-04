@@ -49,8 +49,7 @@
     "typo3/cms-belog": ">=13.3",
     "typo3/cms-lowlevel": ">=13.3",
     "typo3/cms-styleguide": "^13.4.14",
-    "typo3/coding-standards": "^0.8.0",
-    "vimeo/psalm": "^7.0.0-beta9"
+    "typo3/coding-standards": "^0.8.0"
   },
   "repositories": [
     {
