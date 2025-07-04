@@ -32,23 +32,13 @@ class Event extends AbstractEntity
 
     public ?\DateTime $crdate = null;
 
-    public string $place;
-
-    public string $address;
-
-    public string $zip;
-
-    public string $city;
-
     public string $callUrl = '';
 
     public bool $cancelled = false;
 
     public int $attendanceMode = 0;
 
-    public float $longitude = 0.0;
-
-    public float $latitude = 0.0;
+    public Location $location;
 
     #[Extbase\ORM\Lazy()]
     protected FileReference|LazyLoadingProxy $image;
@@ -117,7 +107,6 @@ class Event extends AbstractEntity
             ]);
 
         $imageService = GeneralUtility::makeInstance(ImageService::class);
-        \assert($imageService instanceof ImageService);
 
         $processedFile = $imageService->applyProcessingInstructions(
             $this->getImage()
@@ -129,12 +118,12 @@ class Event extends AbstractEntity
         );
 
         $place = $this->isOffline() ? Schema::place()
-            ->name($this->place)
+            ->name($this->location->place)
             ->address(
                 Schema::postalAddress()
-                    ->streetAddress($this->address)
-                    ->addressLocality($this->city)
-                    ->postalCode($this->zip)
+                    ->streetAddress($this->location->address)
+                    ->addressLocality($this->location->city)
+                    ->postalCode($this->location->zip)
                     ->addressCountry('DE'),
             ) : Schema::place()->url($this->callUrl);
 
@@ -183,7 +172,7 @@ class Event extends AbstractEntity
 
     public function getFullAddress(): string
     {
-        return "{$this->address}, {$this->zip} {$this->city}, Deutschland";
+        return "{$this->location->address}, {$this->location->zip} {$this->location->city}, Deutschland";
     }
 
     public function setParticipants(ObjectStorage $objectStorage): void
@@ -207,4 +196,5 @@ class Event extends AbstractEntity
         $this->participants->detach($participant);
         $this->registration->detach($participant);
     }
+
 }

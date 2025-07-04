@@ -55,10 +55,10 @@
     <section class="c-event-detail__map">
         <div
             class="c-event-detail__map-inner"
-            data-lat="{event.latitude}"
-            data-long="{event.longitude}"
-            data-popup="{event.place} - {event.address}, {event.plz} {event.city}"
-            id="map"
+            data-lat="{event.location.latitude}"
+            data-long="{event.location.longitude}"
+            data-popup="{event.location.place} - {event.location.address}, {event.location.plz} {event.location.city}"
+            data-component="event-location"
         ></div>
     </section>
 </f:if>
