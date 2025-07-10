@@ -5,21 +5,19 @@ declare(strict_types=1);
 namespace MensCircle\Sitepackage\Controller;
 
 use MensCircle\Sitepackage\Domain\Model\Event;
-use MensCircle\Sitepackage\Domain\Model\FrontendUser;
 use MensCircle\Sitepackage\Domain\Model\Participant;
 use MensCircle\Sitepackage\Domain\Repository\EventRepository;
 use MensCircle\Sitepackage\Domain\Repository\ParticipantRepository;
+use MensCircle\Sitepackage\Enum\ExtensionEnum;
 use MensCircle\Sitepackage\PageTitle\EventPageTitleProvider;
 use MensCircle\Sitepackage\Service\EmailService;
 use MensCircle\Sitepackage\Service\FrontendUserService;
 use Psr\Http\Message\ResponseInterface;
-use Spatie\IcalendarGenerator\Components\Calendar;
-use Spatie\IcalendarGenerator\Components\Event as CalendarEvent;
-use Symfony\Component\Uid\Uuid;
-use TYPO3\CMS\Core\Http\PropagateResponseException;
+use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Site\Entity\Site;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -38,6 +36,7 @@ class EventController extends ActionController
         private readonly EmailService $emailService,
         private readonly FrontendUserService $frontendUserService,
         private readonly PersistenceManager $persistenceManager,
+        private readonly LoggerInterface $logger,
     ) {}
 
     public function listAction(): ResponseInterface
@@ -51,7 +50,7 @@ class EventController extends ActionController
     {
         $upcomingEvent = $event ?? $this->eventRepository->findNextUpcomingEvent();
 
-        if (!$upcomingEvent instanceof \MensCircle\Sitepackage\Domain\Model\Event) {
+        if (!$upcomingEvent instanceof Event) {
             return $this->handleEventNotFoundError();
         }
 
@@ -60,11 +59,11 @@ class EventController extends ActionController
         ]);
     }
 
-    public function detailAction(?Event $event = null, ?Participant $participant = null): ResponseInterface
+    public function detailAction(?Event $event = null, ?Participant $participant = null, ?bool $registrationComplete = false): ResponseInterface
     {
         $participantToAssign = $participant ?? GeneralUtility::makeInstance(Participant::class);
 
-        if (!$event instanceof \MensCircle\Sitepackage\Domain\Model\Event) {
+        if (!$event instanceof Event) {
             return $this->handleEventNotFoundError();
         }
 
@@ -73,6 +72,7 @@ class EventController extends ActionController
         $this->pageRenderer->addHeaderData($event->buildSchema($this->uriBuilder));
 
         $this->view->assign('event', $event);
+        $this->view->assign('registrationComplete', $registrationComplete);
         $this->view->assign('participant', $participantToAssign);
 
         return $this->htmlResponse();
@@ -85,92 +85,56 @@ class EventController extends ActionController
 
     public function registrationAction(Participant $participant): ResponseInterface
     {
-        $frontendUser = $this->frontendUserService->mapToFrontendUser($participant);
-        $participant->setFeUser($frontendUser);
-        $this->participantRepository->add($participant);
-        $this->persistenceManager->persistAll();
+        try {
+            $frontendUser = $this->frontendUserService->mapToFrontendUser($participant);
+            $participant->setFeUser($frontendUser);
+            $this->participantRepository->add($participant);
+            $this->persistenceManager->persistAll();
 
-        $this->addFlashMessage(
-            LocalizationUtility::translate(
-                'registration.success',
-                'sitepackage',
-                [$participant->event->startDate->format('d.m.Y')],
-            ),
-        );
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registration.success',
+                    ExtensionEnum::getName(),
+                    [$participant->event->startDate->format('d.m.Y')],
+                )
+            );
 
-        $this->emailService->sendMail(
-            'hallo@mens-circle.de',
-            'MailToAdminOnRegistration',
-            [
-                'participant' => $participant,
-            ],
-            'Neue Anmeldung von ' . $participant->getName(),
-            $this->request,
-        );
+            $this->emailService->sendMail(
+                'hallo@mens-circle.de',
+                'MailToAdminOnRegistration',
+                [
+                    'participant' => $participant,
+                ],
+                'Neue Anmeldung von ' . $participant->getName(),
+                $this->request,
+            );
+        } catch (\Exception $exception) {
+            $this->logger->error($exception->getMessage());
 
-        $redirectUrl = $this->uriBuilder->reset()
-            ->setTargetPageUid(3)
-            ->setNoCache(true)
-            ->uriFor('detail', [
-                'event' => $participant->event->getUid(),
-            ]);
-
-        return $this->redirectToUri($redirectUrl);
-    }
-
-    /**
-     * @throws \DateMalformedStringException
-     * @throws PropagateResponseException
-     */
-    public function iCalAction(Event $event): \Psr\Http\Message\ResponseInterface
-    {
-        $processedFile = $this->imageService->applyProcessingInstructions(
-            $event->getImage()?->getOriginalResource(),
-            [
-                'width' => '600c',
-                'height' => '600c',
-            ],
-        );
-
-        $calendarEvent = CalendarEvent::create()
-            ->name($event->title)
-            ->description($event->description)
-            ->url($this->getUrlForEvent($event))
-            ->image($this->imageService->getImageUri($processedFile, true))
-            ->startsAt($event->startDate)
-            ->endsAt($event->endDate)
-            ->organizer('markus@letsbenow.de', 'Markus Sommer');
-
-        if (
-            $event->isOffline()
-            && $event->location->latitude
-            && $event->location->longitude
-        ) {
-            $calendarEvent
-                ->address($event->getFullAddress(), $event->location->place)
-                ->coordinates($event->location->latitude, $event->location->longitude);
+            $this->addFlashMessage(
+                LocalizationUtility::translate('registration.error', ExtensionEnum::getName()),
+                '',
+                ContextualFeedbackSeverity::ERROR,
+            );
         }
 
-        $calendar = Calendar::create($event->getLongTitle())->event($calendarEvent);
-
-        $response = $this->responseFactory->createResponse()
-            ->withHeader('Cache-Control', 'private')
-            ->withHeader('Content-Disposition', 'attachment; filename="' . $event->getLongTitle() . '.ics"')
-            ->withHeader('Content-Type', 'text/calendar; charset=utf-8')
-            ->withBody($this->streamFactory->createStream($calendar->get()));
-
-        throw new PropagateResponseException($response, 200);
+        return $this->redirect(
+            'detail',
+            null,
+            null,
+            ['event' => $participant->event->getUid(), 'registrationComplete' => true]
+        );
     }
 
     protected function setRegistrationFieldValuesToArguments(): void
     {
         $arguments = $this->request->getArguments();
-        if (! isset($arguments['event'])) {
+        if (!isset($arguments['event'])) {
             return;
         }
 
         $event = $this->eventRepository->findByUid((int)$this->request->getArgument('event'));
-        if (! $event instanceof Event) {
+        if (!$event instanceof Event) {
             return;
         }
 
@@ -196,20 +160,6 @@ class EventController extends ActionController
             ]);
     }
 
-    private function mapParticipantToFeUser(Participant $participant): FrontendUser
-    {
-        /** @var FrontendUser $frontendUser */
-        $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
-
-        $frontendUser->setEmail($participant->getEmail());
-        $frontendUser->setFirstName($participant->getFirstName());
-        $frontendUser->setLastName($participant->getLastName());
-        $frontendUser->setUsername($participant->getEmail());
-        $frontendUser->setPassword(Uuid::v4()->toHex());
-
-        return $frontendUser;
-    }
-
     private function prepareSeoForEvent(Event $event): void
     {
         $this->eventPageTitleProvider->setTitle($event->getLongTitle());
@@ -225,37 +175,37 @@ class EventController extends ActionController
         $this->setPageMetaProperty('og:image', $imageUri, [
             'width' => 600,
             'height' => 600,
-            'alt' => $event->getImage()
-                ->getOriginalResource()
-                ->getAlternative(),
+            'alt' => $event->getImage()->getOriginalResource()->getAlternative(),
         ]);
         $this->setPageMetaProperty('og:url', $this->getUrlForEvent($event));
     }
 
     private function setPageMetaProperty(string $property, string $value, array $additionalData = []): void
     {
-        $this->metaTagManagerRegistry->getManagerForProperty($property)
-            ->addProperty($property, $value, $additionalData);
+        $this->metaTagManagerRegistry->getManagerForProperty($property)->addProperty($property, $value, $additionalData);
     }
 
     private function handleEventNotFoundError(): ResponseInterface
     {
         $upcomingEvent = $this->eventRepository->findNextUpcomingEvent();
-        if (!$upcomingEvent instanceof \MensCircle\Sitepackage\Domain\Model\Event) {
+        if (!$upcomingEvent instanceof Event) {
             $site = $this->request->getAttribute('site');
             assert($site instanceof Site);
 
             return $this->redirectToUri($site->getBase(), 301);
         }
 
-        $this->addFlashMessage(LocalizationUtility::translate('event.not_found', 'sitepackage'));
+        $this->addFlashMessage(LocalizationUtility::translate('event.not_found', ExtensionEnum::getName()));
 
         $redirectUrl = $this->uriBuilder->reset()
             ->setTargetPageUid(3)
             ->setNoCache(true)
-            ->uriFor('detail', [
-                'event' => $upcomingEvent,
-            ]);
+            ->uriFor(
+                'detail',
+                [
+                    'event' => $upcomingEvent,
+                ]
+            );
 
         return $this->redirectToUri($redirectUrl);
     }

@@ -28,8 +28,12 @@
         </h1>
         <f:if condition="{event.cancelled}">
             <f:else>
-                <f:render section="message"></f:render>
-                <f:render arguments="{_all}" partial="Events/Registration" />
+                <turbo-frame id="turbo__event-registration">
+                    <f:render section="message"></f:render>
+                    <f:if condition="!{registrationComplete}">
+                        <f:render arguments="{_all}" partial="Events/Registration" />
+                    </f:if>
+                </turbo-frame>
             </f:else>
         </f:if>
         <div class="c-event-detail__details" data-fade="left">

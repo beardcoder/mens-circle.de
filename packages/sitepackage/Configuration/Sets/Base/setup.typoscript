@@ -47,6 +47,8 @@ page {
       override.field = description
     }
 
+    view-transition = same-origin
+
     author = {$page.meta.author}
     author {
       override.field = author

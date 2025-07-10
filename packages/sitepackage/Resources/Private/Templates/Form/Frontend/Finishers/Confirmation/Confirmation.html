@@ -1,0 +1,17 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers">
+
+<turbo-frame id="turbo__{form.identifier}">
+    <div id="{form.identifier}">
+        <f:if condition="{isPreparedMessage}">
+            <f:then>
+                {message -> f:format.raw()}
+            </f:then>
+            <f:else>
+                {message -> f:format.nl2br()}
+            </f:else>
+        </f:if>
+    </div>
+</turbo-frame>
+
+</html>

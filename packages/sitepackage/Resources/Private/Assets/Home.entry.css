@@ -34,10 +34,10 @@
 
 [data-animate="fadeUp"] {
     opacity: 0;
-    transform: translateY(100px);
+    transform: translateY(40px);
 }
 
 [data-animate="fadeDown"] {
     opacity: 0;
-    transform: translateY(-100px);
+    transform: translateY(-40px);
 }

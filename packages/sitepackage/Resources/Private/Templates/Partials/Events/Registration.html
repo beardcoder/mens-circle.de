@@ -2,65 +2,65 @@
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 >
-<f:form
-    action="registration"
-    arguments="{event: event}"
-    class="c-event-registration"
-    name="participant"
-    object="{participant}"
->
-    <div class="c-event-registration__grid">
+
+    <f:form
+        action="registration"
+        arguments="{event: event}"
+        class="c-event-registration"
+        name="participant"
+        object="{participant}"
+    >
+        <div class="c-event-registration__grid">
+            <div data-fade="left">
+                <label class="c-event-registration__label c-event-registration__label--dark" for="firstName">
+                    Vorname
+                </label>
+                <f:form.textfield
+                    autocomplete="given-name"
+                    class="c-event-registration__input c-event-registration__input--dark"
+                    id="firstName"
+                    property="firstName"
+                    required=""
+                    type="text"
+                />
+                <f:render arguments="{property: 'firstName'}" partial="Events/ValidationResult"/>
+            </div>
+            <div data-fade="left">
+                <label class="c-event-registration__label c-event-registration__label--dark" for="lastName">
+                    Nachname
+                </label>
+                <f:form.textfield
+                    autocomplete="family-name"
+                    class="c-event-registration__input c-event-registration__input--dark"
+                    id="lastName"
+                    property="lastName"
+                    required=""
+                    type="text"
+                />
+                <f:render arguments="{property: 'lastName'}" partial="Events/ValidationResult"/>
+            </div>
+        </div>
 
         <div data-fade="left">
-            <label class="c-event-registration__label c-event-registration__label--dark" for="firstName">
-                Vorname
+            <label class="c-event-registration__label c-event-registration__label--dark" for="email">
+                E-Mail
             </label>
             <f:form.textfield
-                autocomplete="given-name"
+                autocomplete="email"
                 class="c-event-registration__input c-event-registration__input--dark"
-                id="firstName"
-                property="firstName"
+                id="email"
+                property="email"
                 required=""
-                type="text"
+                type="email"
             />
-            <f:render arguments="{property: 'firstName'}" partial="Events/ValidationResult" />
+            <f:render arguments="{property: 'email'}" partial="Events/ValidationResult"/>
         </div>
         <div data-fade="left">
-            <label class="c-event-registration__label c-event-registration__label--dark" for="lastName">
-                Nachname
-            </label>
-            <f:form.textfield
-                autocomplete="family-name"
-                class="c-event-registration__input c-event-registration__input--dark"
-                id="lastName"
-                property="lastName"
-                required=""
-                type="text"
+            <f:form.submit
+                class="c-button"
+                value="Jetzt anmelden"
             />
-            <f:render arguments="{property: 'lastName'}" partial="Events/ValidationResult" />
         </div>
-    </div>
+    </f:form>
 
-    <div data-fade="left">
-        <label class="c-event-registration__label c-event-registration__label--dark" for="email">
-            E-Mail
-        </label>
-        <f:form.textfield
-            autocomplete="email"
-            class="c-event-registration__input c-event-registration__input--dark"
-            id="email"
-            property="email"
-            required=""
-            type="email"
-        />
-        <f:render arguments="{property: 'email'}" partial="Events/ValidationResult" />
-    </div>
-    <div data-fade="left">
-        <f:form.submit
-            class="c-button"
-            value="Jetzt anmelden"
-        />
-    </div>
-
-</f:form>
 </html>

@@ -94,9 +94,9 @@
                 stroke-width="2"
             />
         </svg>
-        <f:link.action action="iCal" additionalAttributes="{ download: 'download' }" arguments="{event: event}">
+        <a href="/api/event/{event.uid}/ical" download>
             Kalender Download
-        </f:link.action>
+        </a>
     </li>
 </ul>
 </html>

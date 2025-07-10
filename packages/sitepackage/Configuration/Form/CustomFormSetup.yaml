@@ -1,5 +1,10 @@
 prototypes:
   standard:
+    finishersDefinition:
+      Confirmation:
+        options:
+          templateRootPaths:
+            200: 'EXT:sitepackage/Resources/Private/Templates/Form/Frontend/Finishers/Confirmation/'
     formElementsDefinition:
       Form:
         renderingOptions:

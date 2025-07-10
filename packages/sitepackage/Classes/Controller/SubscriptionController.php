@@ -24,43 +24,33 @@ class SubscriptionController extends ActionController
         private readonly EmailService $emailService,
         private readonly DoubleOptInService $doubleOptInService,
         private readonly FrontendUserService $frontendUserService,
-    ) {}
+    )
+    {
+    }
 
-    public function formAction(?Subscription $subscription = null): ResponseInterface
+    public function formAction(?Subscription $subscription = null, ?bool $subscriptionComplete = false): ResponseInterface
     {
         $subscription ??= GeneralUtility::makeInstance(Subscription::class);
         $this->view->assign('subscription', $subscription);
+        $this->view->assign('subscriptionComplete', $subscriptionComplete);
 
         return $this->htmlResponse();
     }
 
     /**
      * @throws IllegalObjectTypeException
-     * @throws \JsonException
      */
     public function subscribeAction(Subscription $subscription): ResponseInterface
     {
-        $validationErrors = $this->validateSubscription($subscription);
-
-        if ($validationErrors !== []) {
-            return $this->jsonResponse(json_encode([
-                'success' => false,
-                'errors' => $validationErrors,
-                'message' => 'Es sind Fehler aufgetreten. Bitte korrigiere die Eingaben.',
-            ], JSON_THROW_ON_ERROR));
-        }
 
         $existingSubscription = $this->subscriptionRepository->findOneBy(['email' => $subscription->email]);
-        if ($existingSubscription instanceof Subscription) {
-            $existingError = $this->handleExistingSubscription($existingSubscription);
 
-            if ($existingError) {
-                return $this->jsonResponse(json_encode([
-                    'success' => false,
-                    'errors' => [$existingError],
-                    'message' => 'Es sind Fehler aufgetreten. Bitte korrigiere die Eingaben.',
-                ], JSON_THROW_ON_ERROR));
+        if ($existingSubscription instanceof Subscription) {
+            if ($existingSubscription->status->is(SubscriptionStatusEnum::Active)) {
+                return $this->htmlResponse();
             }
+
+            $this->subscriptionRepository->remove($existingSubscription);
         }
 
         $feUser = $this->frontendUserService->mapToFrontendUser($subscription);
@@ -73,18 +63,17 @@ class SubscriptionController extends ActionController
         $this->emailService->sendMail(
             $subscription->email,
             'doubleOptIn',
-            [
-                'subscription' => $subscription,
-            ],
+            ['subscription' => $subscription],
             'Bestätige deine Anmeldung für den Newsletter',
-            $this->request,
+            $this->request
         );
 
-        return $this->jsonResponse(json_encode([
-            'success' => true,
-            'errors' => [],
-            'message' => 'Danke für die Anmeldung! Bitte bestätige deine E-Mail-Adresse über den Link, den wir dir gesendet haben.',
-        ], JSON_THROW_ON_ERROR));
+        return $this->redirect(
+            'form',
+            null,
+            null,
+            [ 'subscriptionComplete' => true ]
+        );
     }
 
     public function doubleOptInAction(string $token): ResponseInterface
@@ -123,27 +112,5 @@ class SubscriptionController extends ActionController
 
         $this->subscriptionRepository->remove($existingSubscription);
         return null;
-    }
-
-    private function validateSubscription(Subscription $subscription): array
-    {
-        $errors = [];
-
-        if (! isset($subscription->email) || ($subscription->email === '' || $subscription->email === '0') || ! filter_var(
-            $subscription->email,
-            FILTER_VALIDATE_EMAIL,
-        )) {
-            $errors[] = 'Bitte eine gültige E-Mail-Adresse eingeben.';
-        }
-
-        if (! isset($subscription->firstName) || ($subscription->firstName === '' || $subscription->firstName === '0')) {
-            $errors[] = 'Bitte einen Vornamen angeben.';
-        }
-
-        if (! isset($subscription->lastName) || ($subscription->lastName === '' || $subscription->lastName === '0')) {
-            $errors[] = 'Bitte einen Nachnamen angeben.';
-        }
-
-        return $errors;
     }
 }
