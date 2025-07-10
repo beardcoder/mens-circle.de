@@ -38,10 +38,6 @@ return RectorConfig::configure()
     ->withPHPStanConfigs([
         Typo3Option::PHPSTAN_FOR_RECTOR_PATH,
     ])
-    ->withRules([
-        AddVoidReturnTypeWhereNoReturnRector::class,
-        ConvertImplicitVariablesToExplicitGlobalsRector::class,
-    ])
     ->withConfiguredRule(ExtEmConfRector::class, [
         ExtEmConfRector::PHP_VERSION_CONSTRAINT => '8.1.0-8.4.99',
         ExtEmConfRector::TYPO3_VERSION_CONSTRAINT => '13.2.0-13.6.99',

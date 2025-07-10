@@ -88,7 +88,7 @@ class NewsletterController extends ActionController
         );
         $this->newsletterRepository->add($newsletter);
 
-        $tokenService = GeneralUtility::makeInstance(UniversalSecureTokenService::class);
+        $universalSecureTokenService = GeneralUtility::makeInstance(UniversalSecureTokenService::class);
         foreach ($emailAddresses as $emailAddress) {
             $fluidEmail = new FluidEmail();
             $fluidEmail
@@ -99,11 +99,10 @@ class NewsletterController extends ActionController
                 ->setTemplate('Newsletter')
                 ->setRequest($this->request)
                 ->assign('subject', $newsletter->subject)
-                ->assign('unsubscribeLink', $this->generateFrontendLinkInBackendContext($tokenService->encrypt(['email' => $emailAddress->getAddress()])))
+                ->assign('unsubscribeLink', $this->generateFrontendLinkInBackendContext($universalSecureTokenService->encrypt(['email' => $emailAddress->getAddress()])))
                 ->assign('message', $newsletter->message);
             $this->mailer->send($fluidEmail);
         }
-
 
         $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
         $flashMessageQueue = $flashMessageService->getMessageQueueByIdentifier();

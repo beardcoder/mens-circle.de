@@ -101,8 +101,8 @@ class SubscriptionController extends ActionController
      */
     public function unsubscribeAction(string $token): ResponseInterface
     {
-        $tokenService = GeneralUtility::makeInstance(UniversalSecureTokenService::class);
-        $email = $tokenService->decrypt($token)['email'];
+        $universalSecureTokenService = GeneralUtility::makeInstance(UniversalSecureTokenService::class);
+        $email = $universalSecureTokenService->decrypt($token)['email'];
         $subscription = $this->subscriptionRepository->findOneBy(['email' => $email]);
         if ($subscription instanceof Subscription) {
             $subscription->optOutDate = new \DateTime();

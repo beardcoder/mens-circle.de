@@ -7,7 +7,7 @@ use MensCircle\Sitepackage\Controller\SubscriptionController;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-(static function () {
+(static function (): void {
     $extensionKey = 'sitepackage';
     $GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets'][$extensionKey] = 'EXT:sitepackage/Configuration/RTE/Default.yaml';
 

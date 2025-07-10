@@ -51,7 +51,7 @@ class EventController extends ActionController
     {
         $upcomingEvent = $event ?? $this->eventRepository->findNextUpcomingEvent();
 
-        if ($upcomingEvent === null) {
+        if (!$upcomingEvent instanceof \MensCircle\Sitepackage\Domain\Model\Event) {
             return $this->handleEventNotFoundError();
         }
 
@@ -64,7 +64,7 @@ class EventController extends ActionController
     {
         $participantToAssign = $participant ?? GeneralUtility::makeInstance(Participant::class);
 
-        if ($event === null) {
+        if (!$event instanceof \MensCircle\Sitepackage\Domain\Model\Event) {
             return $this->handleEventNotFoundError();
         }
 
@@ -241,7 +241,7 @@ class EventController extends ActionController
     private function handleEventNotFoundError(): ResponseInterface
     {
         $upcomingEvent = $this->eventRepository->findNextUpcomingEvent();
-        if ($upcomingEvent === null) {
+        if (!$upcomingEvent instanceof \MensCircle\Sitepackage\Domain\Model\Event) {
             $site = $this->request->getAttribute('site');
             assert($site instanceof Site);
 

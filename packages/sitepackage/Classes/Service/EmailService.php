@@ -23,7 +23,7 @@ readonly class EmailService
         string $subject,
         ServerRequestInterface $serverRequest,
     ): void {
-        $fluidEmail = (new FluidEmail())
+        $fluidEmail = new FluidEmail()
             ->to($toEmail)
             ->from(new Address('hallo@mens-circle.de', 'Men\'s Circle Website'))
             ->subject($subject)

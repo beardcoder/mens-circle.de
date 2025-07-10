@@ -1,10 +1,5 @@
 <?php
 
-use MensCircle\Sitepackage\Enum\EventAttendanceModeEnum;
-use MensCircle\Sitepackage\Service\EventSlugService;
-
-use function Symfony\Component\Clock\now;
-
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tx_sitepackage_domain_model_location',

@@ -69,7 +69,6 @@ call_user_func(static function (): void {
     );
 
     GeneralUtility::makeInstance(Registry::class)->configureContainer(
-        (
         new ContainerConfiguration(
             'features', // CType
             'Features Container', // label
@@ -89,12 +88,10 @@ call_user_func(static function (): void {
                     ],
                 ],
             ], // grid configuration
-        )
         )->setIcon('container-1col'),
     );
 
     GeneralUtility::makeInstance(Registry::class)->configureContainer(
-        (
         new ContainerConfiguration(
             'container', // CType
             'Container', // label
@@ -107,7 +104,6 @@ call_user_func(static function (): void {
                     ],
                 ],
             ], // grid configuration
-        )
         )->setIcon('container-1col'),
     );
 });

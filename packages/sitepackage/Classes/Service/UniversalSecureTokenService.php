@@ -53,7 +53,7 @@ readonly class UniversalSecureTokenService
         );
 
         if ($plaintext === false) {
-            throw new \RuntimeException('Die Entschlüsselung ist fehlgeschlagen – ungültige Authentifizierung.');
+            throw new \RuntimeException('Die Entschlüsselung ist fehlgeschlagen – ungültige Authentifizierung.', 3859513393);
         }
 
         return json_decode($plaintext, true);
