@@ -5,6 +5,8 @@ ENV PHP_MEMORY_LIMIT="512M"
 ENV PHP_OPCACHE_ENABLE=1
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
+USER root
+
 # Install Composer dependencies
 FROM base AS vendor
 
