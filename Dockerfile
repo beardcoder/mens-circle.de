@@ -5,9 +5,6 @@ ENV PHP_MEMORY_LIMIT="512M"
 ENV PHP_OPCACHE_ENABLE=1
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-USER root
-RUN install-php-extensions intl
-
 # Install Composer dependencies
 FROM base AS vendor
 
@@ -41,6 +38,5 @@ COPY --from=vendor /var/www/html/vendor /var/www/html/vendor
 COPY --from=frontend-build /var/www/html/public /var/www/html/public
 
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
-RUN docker-php-serversideup-set-file-permissions --owner 1000:1000 --service nginx
 
 EXPOSE 80
