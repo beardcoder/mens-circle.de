@@ -47,7 +47,7 @@
     "symplify/easy-coding-standard": "^12.5.20",
     "typo3/cms-belog": ">=13.3",
     "typo3/cms-lowlevel": ">=13.3",
-    "typo3/cms-styleguide": "^13.4.14",
+    "typo3/cms-styleguide": "^13.4.15",
     "typo3/coding-standards": "^0.8.0"
   },
   "repositories": [
@@ -78,16 +78,16 @@
     }
   },
   "scripts": {
-    "post-install-cmd": [
-      "typo3 language:update --skip-extension=sitepackage --skip-extension=vite_asset_collector",
-      "typo3 upgrade:run"
-    ],
-    "post-autoload-dump": [
-      "typo3 extension:setup"
-    ],
     "fix:php": [
       "@fix:php:cs"
     ],
-    "fix:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php"
+    "fix:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php",
+    "run-extension-setup": [
+      "typo3 extension:setup"
+    ],
+    "run-upgrade": [
+      "typo3 language:update --skip-extension=sitepackage --skip-extension=vite_asset_collector",
+      "typo3 upgrade:run"
+    ]
   }
 }

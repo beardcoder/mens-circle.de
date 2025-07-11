@@ -7,13 +7,12 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 
 USER root
 RUN install-php-extensions intl
-USER 1000
-
-COPY . /var/www/html
-WORKDIR /var/www/html
 
 # Install Composer dependencies
 FROM base AS vendor
+
+COPY . /var/www/html
+WORKDIR /var/www/html
 
 RUN composer install --no-dev --optimize-autoloader --no-scripts --no-autoloader
 
@@ -36,12 +35,14 @@ RUN pnpm run build
 FROM base
 
 COPY . /var/www/html
+WORKDIR /var/www/html
+
 COPY --from=vendor /var/www/html/vendor /var/www/html/vendor
 COPY --from=frontend-build /var/www/html/public /var/www/html/public
 
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
 RUN docker-php-serversideup-set-file-permissions --owner 1000:1000 --service nginx
 
-WORKDIR /var/www/html
+USER www-data
 
 EXPOSE 80

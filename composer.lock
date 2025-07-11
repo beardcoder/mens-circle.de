@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0a7635a6b7c64a19f4de94fd621588f",
+    "content-hash": "b9a528d21bd153d7fab8aed9930d2614",
     "packages": [
         {
             "name": "b13/container",
@@ -360,16 +360,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "4.2.4",
+            "version": "4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "b37d160498ea91a2382a2ebe825c4ea6254fc0ec"
+                "reference": "acb68b388b2577bb211bb26dc22d20a8ad93d97d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/b37d160498ea91a2382a2ebe825c4ea6254fc0ec",
-                "reference": "b37d160498ea91a2382a2ebe825c4ea6254fc0ec",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/acb68b388b2577bb211bb26dc22d20a8ad93d97d",
+                "reference": "acb68b388b2577bb211bb26dc22d20a8ad93d97d",
                 "shasum": ""
             },
             "require": {
@@ -446,7 +446,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/4.2.4"
+                "source": "https://github.com/doctrine/dbal/tree/4.2.5"
             },
             "funding": [
                 {
@@ -462,7 +462,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-06-15T23:15:01+00:00"
+            "time": "2025-06-26T22:51:46+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -10378,16 +10378,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "d513dea45a94394b660e15c155d1fa27826f8e30"
+                "reference": "d0917c069bb0d9bb06ed111cf052510f609015a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/d513dea45a94394b660e15c155d1fa27826f8e30",
-                "reference": "d513dea45a94394b660e15c155d1fa27826f8e30",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/d0917c069bb0d9bb06ed111cf052510f609015a4",
+                "reference": "d0917c069bb0d9bb06ed111cf052510f609015a4",
                 "shasum": ""
             },
             "require": {
@@ -10426,7 +10426,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.1.0"
+                "source": "https://github.com/rectorphp/rector/tree/2.1.1"
             },
             "funding": [
                 {
@@ -10434,7 +10434,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-06-24T20:26:57+00:00"
+            "time": "2025-07-10T11:31:31+00:00"
         },
         {
             "name": "roave/security-advisories",
@@ -10442,12 +10442,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a76f62e135c8b583602bd99df737b5c20f4d7200"
+                "reference": "b34bea5e19970433575063dd74b68e5e880e10ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a76f62e135c8b583602bd99df737b5c20f4d7200",
-                "reference": "a76f62e135c8b583602bd99df737b5c20f4d7200",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b34bea5e19970433575063dd74b68e5e880e10ee",
+                "reference": "b34bea5e19970433575063dd74b68e5e880e10ee",
                 "shasum": ""
             },
             "conflict": {
@@ -10887,7 +10887,7 @@
                 "microsoft/microsoft-graph": ">=1.16,<1.109.1|>=2,<2.0.1",
                 "microsoft/microsoft-graph-beta": "<2.0.1",
                 "microsoft/microsoft-graph-core": "<2.0.2",
-                "microweber/microweber": "<=2.0.16",
+                "microweber/microweber": "<=2.0.19",
                 "mikehaertl/php-shellcommand": "<1.6.1",
                 "miniorange/miniorange-saml": "<1.4.3",
                 "mittwald/typo3_forum": "<1.2.1",
@@ -11248,6 +11248,7 @@
                 "ua-parser/uap-php": "<3.8",
                 "uasoft-indonesia/badaso": "<=2.9.7",
                 "unisharp/laravel-filemanager": "<2.9.1",
+                "universal-omega/dynamic-page-list3": "<3.6.4",
                 "unopim/unopim": "<0.1.5",
                 "userfrosting/userfrosting": ">=0.3.1,<4.6.3",
                 "usmanhalalit/pixie": "<1.0.3|>=2,<2.0.2",
@@ -11389,7 +11390,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-07-04T13:13:44+00:00"
+            "time": "2025-07-10T13:15:28+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -11464,12 +11465,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabbelasichon/typo3-rector.git",
-                "reference": "4831a97b89b85d6fbe764b82e343ba131f4282ad"
+                "reference": "2b2490d6ba0cbbe45c002ec03a258a51165aaa1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/4831a97b89b85d6fbe764b82e343ba131f4282ad",
-                "reference": "4831a97b89b85d6fbe764b82e343ba131f4282ad",
+                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/2b2490d6ba0cbbe45c002ec03a258a51165aaa1e",
+                "reference": "2b2490d6ba0cbbe45c002ec03a258a51165aaa1e",
                 "shasum": ""
             },
             "require": {
@@ -11573,7 +11574,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-08T17:39:52+00:00"
+            "time": "2025-07-10T20:26:32+00:00"
         },
         {
             "name": "symfony/polyfill-php81",

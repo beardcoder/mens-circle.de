@@ -21,11 +21,11 @@ importers:
         specifier: ^5.2.6
         version: 5.2.6
       '@sentry/browser':
-        specifier: ^9.34.0
-        version: 9.34.0
+        specifier: ^9.38.0
+        version: 9.38.0
       '@types/leaflet':
-        specifier: ^1.9.19
-        version: 1.9.19
+        specifier: ^1.9.20
+        version: 1.9.20
       aos:
         specifier: 3.0.0-beta.6
         version: 3.0.0-beta.6
@@ -36,8 +36,8 @@ importers:
         specifier: ^1.9.4
         version: 1.9.4
       motion:
-        specifier: ^12.23.0
-        version: 12.23.0
+        specifier: ^12.23.3
+        version: 12.23.3
       simple-aos:
         specifier: ^4.2.0
         version: 4.2.0
@@ -58,32 +58,32 @@ importers:
         specifier: 3.6.2
         version: 3.6.2
       stylelint:
-        specifier: ^16.21.0
-        version: 16.21.0(typescript@5.5.4)
+        specifier: ^16.21.1
+        version: 16.21.1(typescript@5.5.4)
       stylelint-config-standard:
         specifier: ^38.0.0
-        version: 38.0.0(stylelint@16.21.0(typescript@5.5.4))
+        version: 38.0.0(stylelint@16.21.1(typescript@5.5.4))
       stylelint-order:
         specifier: ^7.0.0
-        version: 7.0.0(stylelint@16.21.0(typescript@5.5.4))
+        version: 7.0.0(stylelint@16.21.1(typescript@5.5.4))
       stylelint-plugin-logical-css:
         specifier: ^1.2.3
-        version: 1.2.3(stylelint@16.21.0(typescript@5.5.4))
+        version: 1.2.3(stylelint@16.21.1(typescript@5.5.4))
       stylelint-selector-bem-pattern:
         specifier: ^4.0.1
-        version: 4.0.1(stylelint@16.21.0(typescript@5.5.4))
+        version: 4.0.1(stylelint@16.21.1(typescript@5.5.4))
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.4.1)(typescript@5.5.4)
       vite:
-        specifier: ^7.0.0
-        version: 7.0.0(@types/node@22.4.1)(lightningcss@1.30.1)
+        specifier: ^7.0.4
+        version: 7.0.4(@types/node@22.4.1)(lightningcss@1.30.1)
       vite-plugin-auto-origin:
         specifier: ^1.2.1
-        version: 1.2.1(vite@7.0.0(@types/node@22.4.1)(lightningcss@1.30.1))
+        version: 1.2.1(vite@7.0.4(@types/node@22.4.1)(lightningcss@1.30.1))
       vite-plugin-typo3:
         specifier: ^2.0.1
-        version: 2.0.1(vite@7.0.0(@types/node@22.4.1)(lightningcss@1.30.1))
+        version: 2.0.1(vite@7.0.4(@types/node@22.4.1)(lightningcss@1.30.1))
 
 packages:
 
@@ -416,28 +416,28 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@sentry-internal/browser-utils@9.34.0':
-    resolution: {integrity: sha512-pXVznvP4CROejYtk6y7UQvPTieWz2vXjukGlO45fsnQa9nNo30lkQh3Ws2HZw2YbTxYZQYx75FBDezwKl2q0hQ==}
+  '@sentry-internal/browser-utils@9.38.0':
+    resolution: {integrity: sha512-BkTaMPm4pjgoT1qNsLX5e3HjTCwBmsR/OGyKHFpMUnN+HINi9L1nGGbRroOEtfU49vMKi8MlM7HpuzzYV/3D1A==}
     engines: {node: '>=18'}
 
-  '@sentry-internal/feedback@9.34.0':
-    resolution: {integrity: sha512-HT/EBRl1DR8XqlJk2wFNPJFcnIzNcEDjmW7C/o7K0GeP5jcSH0dKpcH7ykz2bi46gMRPrkO5EK2eXGK81KYI3g==}
+  '@sentry-internal/feedback@9.38.0':
+    resolution: {integrity: sha512-vDVufE9WLqHCmUL2sa3nIKz5ARaBdaqCG+b9/hwkmkLnqaQUBiHE+ArxoYuc2toWqaELxSHcMDp2ajkeDBQeLA==}
     engines: {node: '>=18'}
 
-  '@sentry-internal/replay-canvas@9.34.0':
-    resolution: {integrity: sha512-GCtqMFk9WwrU3JNz1tlCFAhzmNfgZhLRaS0cLzoTuxPbG3CC2VUIWYEOw7+AdCJZGm8ElTMxu+BkChgGb8qthQ==}
+  '@sentry-internal/replay-canvas@9.38.0':
+    resolution: {integrity: sha512-87BZDTjszdaSB5p0CTiVav2QgxLMAab/6q1jcIUBzNsrXHZbqcoMaJmd446mCsQkR6wAccM/uAxJlgh9FIqA8w==}
     engines: {node: '>=18'}
 
-  '@sentry-internal/replay@9.34.0':
-    resolution: {integrity: sha512-joYSqWltmpkcqI8Gg8jwFtPv0F01whmuQfNGoGaL7Z6B/xO1vvkqEudrg1tmswUHhqtYpZYaEaCvrmv0sPGCfA==}
+  '@sentry-internal/replay@9.38.0':
+    resolution: {integrity: sha512-LLZuQk5Khvco+EYKg2+woiSNMLyR4XZeoAdgvAa+HZriFoAQR6GFNAuu+TlynCDDt2H+w90HcIAV66NWFy8QoQ==}
     engines: {node: '>=18'}
 
-  '@sentry/browser@9.34.0':
-    resolution: {integrity: sha512-6oJxU7JEA/RCgMTVlHXT54U9d0DWg61GgzyLTM+FUa8OUrAoK/t+CZGSMc/13nYN8xs7vcpiORdRx0ogch9zGw==}
+  '@sentry/browser@9.38.0':
+    resolution: {integrity: sha512-ZUIeU+3VUD3BntYgB2DkhBD6N9oybsuk1+U7yK1ezHIw/nvkPILcH6MZgPs0Km0RcWWozMUDSbdZNud9/isYmw==}
     engines: {node: '>=18'}
 
-  '@sentry/core@9.34.0':
-    resolution: {integrity: sha512-M/zikVaE3KLkhCFDyrHB35sF7pVkB2RPy07BcRsdFsSsdpjoG+Zq2Sxth2tMTbjd0x9Vtb/X6LVjyCj9GSEvVg==}
+  '@sentry/core@9.38.0':
+    resolution: {integrity: sha512-dUwSv1VXDfsrcY69a/cgZNDsFal6iYOf0C4T+/ylpmgYp5SVe3vQK+2FLXUMuvgnOf+kHO6IeW0RhnhSyUflmA==}
     engines: {node: '>=18'}
 
   '@tsconfig/node10@1.0.11':
@@ -458,8 +458,8 @@ packages:
   '@types/geojson@7946.0.16':
     resolution: {integrity: sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==}
 
-  '@types/leaflet@1.9.19':
-    resolution: {integrity: sha512-pB+n2daHcZPF2FDaWa+6B0a0mSDf4dPU35y5iTXsx7x/PzzshiX5atYiS1jlBn43X7XvM8AP+AB26lnSk0J4GA==}
+  '@types/leaflet@1.9.20':
+    resolution: {integrity: sha512-rooalPMlk61LCaLOvBF2VIf9M47HgMQqi5xQ9QRi7c8PkdIe0WrIi5IxXUXQjAdL0c+vcQ01mYWbthzmp9GHWw==}
 
   '@types/node@22.4.1':
     resolution: {integrity: sha512-1tbpb9325+gPnKK0dMm+/LMriX0vKxf6RnB0SZUqfyVkQ4fMgUSySqhxE/y8Jvs4NyF1yHzTfG9KlnkIODxPKg==}
@@ -657,8 +657,8 @@ packages:
   flatted@3.3.3:
     resolution: {integrity: sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==}
 
-  framer-motion@12.23.0:
-    resolution: {integrity: sha512-xf6NxTGAyf7zR4r2KlnhFmsRfKIbjqeBupEDBAaEtVIBJX96sAon00kMlsKButSIRwPSHjbRrAPnYdJJ9kyhbA==}
+  framer-motion@12.23.3:
+    resolution: {integrity: sha512-llmLkf44zuIZOPSrE4bl4J0UTg6bav+rlKEfMRKgvDMXqBrUtMg6cspoQeRVK3nqRLxTmAJhfGXk39UDdZD7Kw==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -886,14 +886,14 @@ packages:
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
 
-  motion-dom@12.22.0:
-    resolution: {integrity: sha512-ooH7+/BPw9gOsL9VtPhEJHE2m4ltnhMlcGMhEqA0YGNhKof7jdaszvsyThXI6LVIKshJUZ9/CP6HNqQhJfV7kw==}
+  motion-dom@12.23.2:
+    resolution: {integrity: sha512-73j6xDHX/NvVh5L5oS1ouAVnshsvmApOq4F3VZo5MkYSD/YVsVLal4Qp9wvVgJM9uU2bLZyc0Sn8B9c/MMKk4g==}
 
-  motion-utils@12.19.0:
-    resolution: {integrity: sha512-BuFTHINYmV07pdWs6lj6aI63vr2N4dg0vR+td0rtrdpWOhBzIkEklZyLcvKBoEtwSqx8Jg06vUB5RS0xDiUybw==}
+  motion-utils@12.23.2:
+    resolution: {integrity: sha512-cIEXlBlXAOUyiAtR0S+QPQUM9L3Diz23Bo+zM420NvSd/oPQJwg6U+rT+WRTpp0rizMsBGQOsAwhWIfglUcZfA==}
 
-  motion@12.23.0:
-    resolution: {integrity: sha512-PPNwblArRH9GRC4F3KtOTiIaYd+mtp324vYq3HIL+ueseoAVqPRK5TPFTAQBcIprfVd0NWo3DLzZSiyWaYFXXQ==}
+  motion@12.23.3:
+    resolution: {integrity: sha512-7N0Q4c+Xms+wuq2o27rPONLYNOhQUsLRpMi8CcVxv9FFJhGAqRNjJ1hrBCxHh+Rx6B2W2WPbCOLQc+QJ3rw6Rw==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -1072,8 +1072,8 @@ packages:
     peerDependencies:
       stylelint: ^16.2.1
 
-  stylelint@16.21.0:
-    resolution: {integrity: sha512-ki3PpJGG7xhm3WtINoWGnlvqAmbqSexoRMbEMJzlwewSIOqPRKPlq452c22xAdEJISVi80r+I7KL9GPUiwFgbg==}
+  stylelint@16.21.1:
+    resolution: {integrity: sha512-WCXdXnYK2tpCbebgMF0Bme3YZH/Rh/UXerj75twYo4uLULlcrLwFVdZTvTEF8idFnAcW21YUDJFyKOfaf6xJRw==}
     engines: {node: '>=18.12.0'}
     hasBin: true
 
@@ -1151,8 +1151,8 @@ packages:
     peerDependencies:
       vite: ^6.0
 
-  vite@7.0.0:
-    resolution: {integrity: sha512-ixXJB1YRgDIw2OszKQS9WxGHKwLdCsbQNkpJN171udl6szi/rIySHL6/Os3s2+oE4P/FLD4dxg4mD7Wust+u5g==}
+  vite@7.0.4:
+    resolution: {integrity: sha512-SkaSguuS7nnmV7mfJ8l81JGBFV7Gvzp8IzgE8A8t23+AxuNX61Q5H1Tpz5efduSN7NHC8nQXD3sKQKZAu5mNEA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -1404,33 +1404,33 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.44.1':
     optional: true
 
-  '@sentry-internal/browser-utils@9.34.0':
+  '@sentry-internal/browser-utils@9.38.0':
     dependencies:
-      '@sentry/core': 9.34.0
+      '@sentry/core': 9.38.0
 
-  '@sentry-internal/feedback@9.34.0':
+  '@sentry-internal/feedback@9.38.0':
     dependencies:
-      '@sentry/core': 9.34.0
+      '@sentry/core': 9.38.0
 
-  '@sentry-internal/replay-canvas@9.34.0':
+  '@sentry-internal/replay-canvas@9.38.0':
     dependencies:
-      '@sentry-internal/replay': 9.34.0
-      '@sentry/core': 9.34.0
+      '@sentry-internal/replay': 9.38.0
+      '@sentry/core': 9.38.0
 
-  '@sentry-internal/replay@9.34.0':
+  '@sentry-internal/replay@9.38.0':
     dependencies:
-      '@sentry-internal/browser-utils': 9.34.0
-      '@sentry/core': 9.34.0
+      '@sentry-internal/browser-utils': 9.38.0
+      '@sentry/core': 9.38.0
 
-  '@sentry/browser@9.34.0':
+  '@sentry/browser@9.38.0':
     dependencies:
-      '@sentry-internal/browser-utils': 9.34.0
-      '@sentry-internal/feedback': 9.34.0
-      '@sentry-internal/replay': 9.34.0
-      '@sentry-internal/replay-canvas': 9.34.0
-      '@sentry/core': 9.34.0
+      '@sentry-internal/browser-utils': 9.38.0
+      '@sentry-internal/feedback': 9.38.0
+      '@sentry-internal/replay': 9.38.0
+      '@sentry-internal/replay-canvas': 9.38.0
+      '@sentry/core': 9.38.0
 
-  '@sentry/core@9.34.0': {}
+  '@sentry/core@9.38.0': {}
 
   '@tsconfig/node10@1.0.11': {}
 
@@ -1444,7 +1444,7 @@ snapshots:
 
   '@types/geojson@7946.0.16': {}
 
-  '@types/leaflet@1.9.19':
+  '@types/leaflet@1.9.20':
     dependencies:
       '@types/geojson': 7946.0.16
 
@@ -1643,10 +1643,10 @@ snapshots:
 
   flatted@3.3.3: {}
 
-  framer-motion@12.23.0:
+  framer-motion@12.23.3:
     dependencies:
-      motion-dom: 12.22.0
-      motion-utils: 12.19.0
+      motion-dom: 12.23.2
+      motion-utils: 12.23.2
       tslib: 2.8.1
 
   fsevents@2.3.3:
@@ -1810,15 +1810,15 @@ snapshots:
     dependencies:
       brace-expansion: 1.1.11
 
-  motion-dom@12.22.0:
+  motion-dom@12.23.2:
     dependencies:
-      motion-utils: 12.19.0
+      motion-utils: 12.23.2
 
-  motion-utils@12.19.0: {}
+  motion-utils@12.23.2: {}
 
-  motion@12.23.0:
+  motion@12.23.3:
     dependencies:
-      framer-motion: 12.23.0
+      framer-motion: 12.23.3
       tslib: 2.8.1
 
   ms@2.1.3: {}
@@ -1951,33 +1951,33 @@ snapshots:
     dependencies:
       ansi-regex: 5.0.1
 
-  stylelint-config-recommended@16.0.0(stylelint@16.21.0(typescript@5.5.4)):
+  stylelint-config-recommended@16.0.0(stylelint@16.21.1(typescript@5.5.4)):
     dependencies:
-      stylelint: 16.21.0(typescript@5.5.4)
+      stylelint: 16.21.1(typescript@5.5.4)
 
-  stylelint-config-standard@38.0.0(stylelint@16.21.0(typescript@5.5.4)):
+  stylelint-config-standard@38.0.0(stylelint@16.21.1(typescript@5.5.4)):
     dependencies:
-      stylelint: 16.21.0(typescript@5.5.4)
-      stylelint-config-recommended: 16.0.0(stylelint@16.21.0(typescript@5.5.4))
+      stylelint: 16.21.1(typescript@5.5.4)
+      stylelint-config-recommended: 16.0.0(stylelint@16.21.1(typescript@5.5.4))
 
-  stylelint-order@7.0.0(stylelint@16.21.0(typescript@5.5.4)):
+  stylelint-order@7.0.0(stylelint@16.21.1(typescript@5.5.4)):
     dependencies:
       postcss: 8.5.6
       postcss-sorting: 9.1.0(postcss@8.5.6)
-      stylelint: 16.21.0(typescript@5.5.4)
+      stylelint: 16.21.1(typescript@5.5.4)
 
-  stylelint-plugin-logical-css@1.2.3(stylelint@16.21.0(typescript@5.5.4)):
+  stylelint-plugin-logical-css@1.2.3(stylelint@16.21.1(typescript@5.5.4)):
     dependencies:
-      stylelint: 16.21.0(typescript@5.5.4)
+      stylelint: 16.21.1(typescript@5.5.4)
 
-  stylelint-selector-bem-pattern@4.0.1(stylelint@16.21.0(typescript@5.5.4)):
+  stylelint-selector-bem-pattern@4.0.1(stylelint@16.21.1(typescript@5.5.4)):
     dependencies:
       lodash: 4.17.21
       postcss: 8.5.1
       postcss-bem-linter: 4.0.1(postcss@8.5.1)
-      stylelint: 16.21.0(typescript@5.5.4)
+      stylelint: 16.21.1(typescript@5.5.4)
 
-  stylelint@16.21.0(typescript@5.5.4):
+  stylelint@16.21.1(typescript@5.5.4):
     dependencies:
       '@csstools/css-parser-algorithms': 3.0.5(@csstools/css-tokenizer@3.0.4)
       '@csstools/css-tokenizer': 3.0.4
@@ -2085,18 +2085,18 @@ snapshots:
 
   v8-compile-cache-lib@3.0.1: {}
 
-  vite-plugin-auto-origin@1.2.1(vite@7.0.0(@types/node@22.4.1)(lightningcss@1.30.1)):
+  vite-plugin-auto-origin@1.2.1(vite@7.0.4(@types/node@22.4.1)(lightningcss@1.30.1)):
     dependencies:
-      vite: 7.0.0(@types/node@22.4.1)(lightningcss@1.30.1)
+      vite: 7.0.4(@types/node@22.4.1)(lightningcss@1.30.1)
 
-  vite-plugin-typo3@2.0.1(vite@7.0.0(@types/node@22.4.1)(lightningcss@1.30.1)):
+  vite-plugin-typo3@2.0.1(vite@7.0.4(@types/node@22.4.1)(lightningcss@1.30.1)):
     dependencies:
       picocolors: 1.1.1
       tinyglobby: 0.2.14
-      vite: 7.0.0(@types/node@22.4.1)(lightningcss@1.30.1)
-      vite-plugin-auto-origin: 1.2.1(vite@7.0.0(@types/node@22.4.1)(lightningcss@1.30.1))
+      vite: 7.0.4(@types/node@22.4.1)(lightningcss@1.30.1)
+      vite-plugin-auto-origin: 1.2.1(vite@7.0.4(@types/node@22.4.1)(lightningcss@1.30.1))
 
-  vite@7.0.0(@types/node@22.4.1)(lightningcss@1.30.1):
+  vite@7.0.4(@types/node@22.4.1)(lightningcss@1.30.1):
     dependencies:
       esbuild: 0.25.5
       fdir: 6.4.6(picomatch@4.0.2)
