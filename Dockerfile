@@ -6,6 +6,7 @@ ENV PHP_OPCACHE_ENABLE=1
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 USER root
+RUN install-php-extensions intl
 
 # Install Composer dependencies
 FROM base AS vendor
@@ -40,5 +41,3 @@ COPY --from=vendor /var/www/html/vendor /var/www/html/vendor
 COPY --from=frontend-build /var/www/html/public /var/www/html/public
 
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
-
-EXPOSE 80
