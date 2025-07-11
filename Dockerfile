@@ -41,3 +41,7 @@ COPY --from=vendor /var/www/html/vendor /var/www/html/vendor
 COPY --from=frontend-build /var/www/html/public /var/www/html/public
 
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
+
+RUN chown -R www-data:www-data /var/www/html
+
+USER www-data
