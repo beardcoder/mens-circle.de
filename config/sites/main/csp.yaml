@@ -1,15 +1,15 @@
-inheritDefault: false
+inheritDefault: true
 mutations:
   - mode: set
     directive: 'default-src'
     sources:
       - "'self'"
-      # DDEV Vite server
 
   - mode: extend
     directive: 'img-src'
     sources:
       - 'data:'
+      - 'https://*.basemaps.cartocdn.com'
 
   - mode: extend
     directive: 'font-src'
@@ -19,14 +19,30 @@ mutations:
   - mode: extend
     directive: 'script-src'
     sources:
-      - "'nonce-proxy'"
+      - "'unsafe-inline'"
+      - "'unsafe-eval'"
+      - 'https://tracking.letsbenow.de'
+      - 'https://bug.letsbenow.de'
+      - 'https://static.cloudflareinsights.com'
+      - 'https://cdnjs.cloudflare.com'
+      - "'report-sample'"
 
   - mode: extend
+    directive: 'connect-src'
+    sources:
+      - "'unsafe-inline'"
+      - "'unsafe-eval'"
+      - 'https://tracking.letsbenow.de'
+      - 'https://bug.letsbenow.de'
+
+  - mode: set
     directive: 'style-src'
     sources:
+      - "'self'"
       - "'unsafe-inline'"
 
   - mode: set
     directive: 'worker-src'
     sources:
-      - 'blob:'
+      - "'self'"
+      - "blob:"
