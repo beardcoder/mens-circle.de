@@ -1,6 +1,7 @@
 import { createComponent } from './utils/createComponent.ts';
 
-createComponent<HTMLDialogElement>('[data-component="newsletter-dialog"]', (component) => {
+document.addEventListener('turbo:load', () => {
+  createComponent<HTMLDialogElement>('[data-component="newsletter-dialog"]', (component) => {
     const { element } = component;
 
     const lastPopupTime = Number(localStorage.getItem('lastPopupTime'));
@@ -8,20 +9,23 @@ createComponent<HTMLDialogElement>('[data-component="newsletter-dialog"]', (comp
     const twoHours = 2 * 60 * 60 * 1000;
 
     if (!lastPopupTime || now - lastPopupTime > twoHours) {
-        setTimeout(() => {
-            element?.showModal();
-            setLastPopupTime();
-        }, 10_000);
+      setTimeout(() => {
+        if (element) {
+          element?.showModal();
+          setLastPopupTime();
+        }
+      }, 10_000);
     }
 
     component.querySelector('[data-component="newsletter-dialog__close"]')?.addEventListener('click', closeDialog);
 
     function closeDialog() {
-        element?.close();
+      element?.close();
     }
 
     function setLastPopupTime() {
-        const now = new Date().getTime();
-        localStorage.setItem('lastPopupTime', String(now));
+      const now = new Date().getTime();
+      localStorage.setItem('lastPopupTime', String(now));
     }
-});
+  });
+})
