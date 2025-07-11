@@ -1,9 +1,10 @@
+FROM ghcr.io/serversideup/php:8.4-fpm-nginx-alpine AS base
+
 ENV PHP_DATE_TIMEZONE="Europe/Berlin"
 ENV PHP_MEMORY_LIMIT="512M"
 ENV PHP_OPCACHE_ENABLE=1
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-FROM ghcr.io/serversideup/php:8.4-fpm-nginx-alpine AS base
 RUN install-php-extensions \
     intl \
     zip
@@ -43,4 +44,4 @@ RUN docker-php-serversideup-set-file-permissions --owner 1000:1000 --service ngi
 
 WORKDIR /var/www/html
 
-EXPOSE 8080
+EXPOSE 80
