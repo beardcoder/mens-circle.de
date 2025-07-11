@@ -5,8 +5,9 @@ ENV PHP_MEMORY_LIMIT="512M"
 ENV PHP_OPCACHE_ENABLE=1
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN docker-php-serversideup-install-php-ext-installer 2.8.5
+USER root
 RUN install-php-extensions intl
+USER 1000
 
 COPY . /var/www/html
 WORKDIR /var/www/html
