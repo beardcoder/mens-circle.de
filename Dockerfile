@@ -43,6 +43,4 @@ COPY --from=frontend-build /var/www/html/public /var/www/html/public
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
 RUN docker-php-serversideup-set-file-permissions --owner 1000:1000 --service nginx
 
-USER www-data
-
 EXPOSE 80
