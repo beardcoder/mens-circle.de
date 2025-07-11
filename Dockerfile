@@ -6,8 +6,7 @@ ENV PHP_OPCACHE_ENABLE=1
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN install-php-extensions \
-    intl \
-    zip
+    intl
 
 COPY . /var/www/html
 WORKDIR /var/www/html
