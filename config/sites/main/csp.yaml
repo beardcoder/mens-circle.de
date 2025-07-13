@@ -10,6 +10,8 @@ mutations:
     sources:
       - 'data:'
       - 'https://*.basemaps.cartocdn.com'
+      - 'https://a.basemaps.cartocdn.com'
+      - 'https://b.basemaps.cartocdn.com'
 
   - mode: extend
     directive: 'font-src'
