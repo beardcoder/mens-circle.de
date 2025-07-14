@@ -548,7 +548,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
     width: 24px;
     height: 24px;
     font:
-        16px/24px Tahoma,
+        16px / 24px Tahoma,
         Verdana,
         sans-serif;
     color: #757575;
@@ -569,9 +569,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .leaflet-oldie .leaflet-popup-tip {
     width: 24px;
     margin: 0 auto;
-
-    -ms-filter: 'progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)';
-    filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
 }
 
 .leaflet-oldie .leaflet-control-zoom,

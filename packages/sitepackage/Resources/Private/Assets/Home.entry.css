@@ -32,12 +32,12 @@
     }
 }
 
-[data-animate="fadeUp"] {
+[data-animate='fadeUp'] {
     opacity: 0;
     transform: translateY(40px);
 }
 
-[data-animate="fadeDown"] {
+[data-animate='fadeDown'] {
     opacity: 0;
     transform: translateY(-40px);
 }

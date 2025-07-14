@@ -13,7 +13,6 @@
     }
 }
 
-
 .c-container__content--space-y-8 > * + * {
     margin-block-start: 2rem;
 }

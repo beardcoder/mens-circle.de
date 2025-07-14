@@ -1,4 +1,3 @@
-
 .o-footer {
     background-color: var(--color--secondary);
     color: #fff;
@@ -37,7 +36,6 @@
     margin-block-end: 1.5rem;
     text-transform: uppercase;
 }
-
 
 .o-footer__nav-item {
     color: #fff;

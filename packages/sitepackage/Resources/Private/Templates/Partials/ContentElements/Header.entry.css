@@ -12,7 +12,6 @@
     }
 }
 
-
 .c-header--h1 {
     font-size: clamp(4.688rem, 3.8vi + 3.7rem, 7.5rem);
     line-height: clamp(6.25rem, 3.67vi + 5.9rem, 9rem);

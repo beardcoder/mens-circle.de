@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite';
-import typo3 from 'vite-plugin-typo3';
-import { browserslistToTargets } from 'lightningcss';
-import browserslist from 'browserslist';
+import { defineConfig } from 'vite'
+import typo3 from 'vite-plugin-typo3'
+import { browserslistToTargets } from 'lightningcss'
+import browserslist from 'browserslist'
 
 export default defineConfig({
     plugins: [typo3()],
@@ -14,4 +14,4 @@ export default defineConfig({
     build: {
         cssMinify: 'lightningcss',
     },
-});
+})
