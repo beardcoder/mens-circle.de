@@ -11,11 +11,11 @@ export function mount(id: string, callback: () => void): void {
         throw new Error('mount: "id" must be a non-empty string')
     }
 
-    const documentBody = document.body
     const attrName = `data-mounted-${id}`
 
     const runOnce = (): void => {
-        // If we’ve already mounted under this id, bail out
+        const documentBody = document.body
+
         if (documentBody.hasAttribute(attrName)) {
             return
         }
@@ -31,16 +31,12 @@ export function mount(id: string, callback: () => void): void {
         }
     }
 
-    // Run on DOMContentLoaded
-    if (document.readyState === 'loading') {
-        // Use `{ once: true }` so the listener auto-removes
-        document.addEventListener('DOMContentLoaded', runOnce, {
-            once: true,
-        })
+    const isTurbo = typeof Turbo === 'object' && typeof Turbo.navigator === 'object'
+    const loadEvent = isTurbo ? 'turbo:load' : 'DOMContentLoaded'
+
+    if (document.readyState === 'loading' || isTurbo) {
+        document.addEventListener(loadEvent, runOnce, { once: !isTurbo })
     } else {
         runOnce()
     }
-
-    // Also run on Turbo page changes
-    window.addEventListener('turbo:load', runOnce)
 }
