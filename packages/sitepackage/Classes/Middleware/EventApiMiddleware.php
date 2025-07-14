@@ -23,13 +23,11 @@ readonly class EventApiMiddleware implements MiddlewareInterface
     public const string BASE_PATH = '/api/event/';
     public const string PATH_ICAL = '/ical';
 
-    public function __construct(private string $basePath = self::BASE_PATH) {}
-
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $currentPath = $request->getUri()->getPath();
         $response = $handler->handle($request);
-        if (preg_match('#^' . preg_quote($this->basePath, '#') . '(\d+)' . preg_quote(self::PATH_ICAL, '#') . '$#', $currentPath, $matches)) {
+        if (preg_match('#^' . preg_quote(self::BASE_PATH, '#') . '(\d+)' . preg_quote(self::PATH_ICAL, '#') . '$#', $currentPath, $matches)) {
             $eventId = (int)$matches[1];
             // You can now use $eventId as needed
             return $this->generateICalForEvent($request, $response, $eventId);
