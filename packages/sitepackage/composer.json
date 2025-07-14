@@ -1,21 +1,25 @@
 {
-    "name": "mens-circle/sitepackage",
-    "description": "",
-    "license": ["GPL-2.0-or-later"],
-    "type": "typo3-cms-extension",
-    "keywords": ["TYPO3 CMS"],
-    "homepage": "https://mens-circle.de",
-    "require": {
-        "typo3/cms-core": "^13.2"
-    },
-    "autoload": {
-        "psr-4": {
-            "MensCircle\\Sitepackage\\": "Classes/"
-        }
-    },
-    "extra": {
-        "typo3/cms": {
-            "extension-key": "sitepackage"
-        }
+  "name": "mens-circle/sitepackage",
+  "description": "",
+  "license": [
+    "GPL-2.0-or-later"
+  ],
+  "type": "typo3-cms-extension",
+  "keywords": [
+    "TYPO3 CMS"
+  ],
+  "homepage": "https://mens-circle.de",
+  "require": {
+    "typo3/cms-core": "^13.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "MensCircle\\Sitepackage\\": "Classes/"
     }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "sitepackage"
+    }
+  }
 }
