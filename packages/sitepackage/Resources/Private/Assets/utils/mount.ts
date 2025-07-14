@@ -31,6 +31,7 @@ export function mount(id: string, callback: () => void): void {
         }
     }
 
+    // Run on DOMContentLoaded
     if (document.readyState === 'loading') {
         // Use `{ once: true }` so the listener auto-removes
         document.addEventListener('DOMContentLoaded', runOnce, {
@@ -39,4 +40,7 @@ export function mount(id: string, callback: () => void): void {
     } else {
         runOnce()
     }
+
+    // Also run on Turbo page changes
+    window.addEventListener('turbo:load', runOnce)
 }
