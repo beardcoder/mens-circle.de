@@ -14,6 +14,7 @@ use MensCircle\Sitepackage\Service\EmailService;
 use MensCircle\Sitepackage\Service\FrontendUserService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Site\Entity\Site;
@@ -91,14 +92,6 @@ class EventController extends ActionController
             $this->participantRepository->add($participant);
             $this->persistenceManager->persistAll();
 
-            $this->addFlashMessage(
-                LocalizationUtility::translate(
-                    'registration.success',
-                    ExtensionEnum::getName(),
-                    [$participant->event->startDate->format('d.m.Y')],
-                )
-            );
-
             $this->emailService->sendMail(
                 'hallo@mens-circle.de',
                 'MailToAdminOnRegistration',
@@ -110,12 +103,6 @@ class EventController extends ActionController
             );
         } catch (\Exception $exception) {
             $this->logger->error($exception->getMessage());
-
-            $this->addFlashMessage(
-                LocalizationUtility::translate('registration.error', ExtensionEnum::getName()),
-                '',
-                ContextualFeedbackSeverity::ERROR,
-            );
         }
 
         return $this->redirect(
