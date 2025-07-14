@@ -1,6 +1,6 @@
 /**
  * Mounts a callback exactly once per identifier, after DOM is ready.
- * Internally it marks the <html> element with a data attribute
+ * Internally it marks the <documentBody> element with a data attribute
  * (`data-mounted-{id}`), so repeated calls with the same id are no-ops.
  *
  * @param id        A unique string to distinguish this mount instance
@@ -11,22 +11,22 @@ export function mount(id: string, callback: () => void): void {
         throw new Error('mount: "id" must be a non-empty string')
     }
 
-    const html = document.documentElement
+    const documentBody = document.body
     const attrName = `data-mounted-${id}`
 
     const runOnce = (): void => {
         // If we’ve already mounted under this id, bail out
-        if (html.hasAttribute(attrName)) {
+        if (documentBody.hasAttribute(attrName)) {
             return
         }
 
         try {
             // Mark as mounted before running, so even if callback re-enters mount, it won’t loop
-            html.setAttribute(attrName, 'true')
+            documentBody.setAttribute(attrName, 'true')
             callback()
         } catch (err) {
             // If your init throws, clean up the flag so you can retry
-            html.removeAttribute(attrName)
+            documentBody.removeAttribute(attrName)
             throw err
         }
     }
