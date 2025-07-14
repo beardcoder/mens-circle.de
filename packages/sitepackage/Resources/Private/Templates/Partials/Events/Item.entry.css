@@ -1,9 +1,7 @@
 .c-event-item {
     align-items: center;
     background-color: var(--bg-color--layer-1);
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: row;
+    flex-direction: column;
     transition: background-color 0.2s ease-in-out;
 }
 
@@ -14,23 +12,21 @@
 .c-event-item__link {
     display: flex;
     text-decoration: none;
+    color: inherit;
 }
 
 .c-event-item__image {
-    max-inline-size: 200px;
     object-fit: cover;
     object-position: center;
-
-    @media (width >= 640px) {
-        inline-size: 100%;
-    }
+    inline-size: 100%;
+    max-block-size: 300px;
 }
 
 .c-event-item__content {
     display: flex;
     flex-direction: column;
     line-height: 1.5;
-    padding: 1rem;
+    padding: 1rem 2rem;
 }
 
 .c-event-item__title {

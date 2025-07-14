@@ -5,92 +5,93 @@
     xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
-<vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Partials/Events/Item.entry.css" />
-<div class="c-event-item" data-animate="fadeUp">
-    <f:link.action
-        action="detail"
-        arguments="{ event:event }"
-        class="c-event-item__link"
-        pageUid="{settings.detailPid as integer}"
-    >
-        <i:image
-            loading="lazy"
-            alt="{event.image.alternative}"
-            class="c-event-item__image"
-            height="300c"
-            image="{event.image}"
-            width="200c"
-        />
-        <div class="c-event-item__content">
-            <h5 class="c-event-item__title" data-animate="fadeUp" data-delay="0.2">
+<vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Partials/Events/Item.entry.css"/>
+<div class="c-event-item" data-animate="fadeUp" data-component="card">
+
+    <i:image
+        alt="{event.image.alternative}"
+        class="c-event-item__image"
+        height="300c"
+        image="{event.image}"
+        loading="lazy"
+        width="500c"
+    />
+    <div class="c-event-item__content">
+        <h5 class="c-event-item__title" data-animate="fadeUp" data-delay="0.2">
+            <f:link.action
+                action="detail"
+                arguments="{ event:event }"
+                class="c-event-item__link"
+                pageUid="{settings.detailPid as integer}"
+            >
                 {event.title}
-            </h5>
-            <div data-animate="fadeUp" data-delay="0.4">
+            </f:link.action>
+        </h5>
+        <div data-animate="fadeUp" data-delay="0.4">
             <time
                 class="c-event-item__time"
                 datetime="{event.startDate -> f:format.date(format: 'c')}"
             >
                 {event.startDate -> f:format.date(format: 'd.m.Y H:i')}
             </time>
-            </div>
+        </div>
 
-            <ul class="c-event-item__list">
-                <f:if condition="{event.offline}">
-                    <li class="c-event-item__list-item" data-animate="fadeUp" data-delay="0.6">
-                        <svg
-                            aria-hidden="true"
-                            class="c-event-item__icon"
-                            fill="currentColor"
-                            viewBox="0 0 14 20"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M7 0a7 7 0 0 0-1 13.92V19a1 1 0 1 0 2 0v-5.08A7 7 0 0 0 7 0Zm0 5.5A1.5 1.5 0 0 0 5.5 7a1 1 0 0 1-2 0A3.5 3.5 0 0 1 7 3.5a1 1 0 0 1 0 2Z"
-                            />
-                        </svg>
-                        {event.location.place} - {event.location.address}
-                    </li>
-                </f:if>
-                <li class="c-event-item__list-item" data-animate="fadeUp" data-delay="0.8">
+        <ul class="c-event-item__list">
+            <f:if condition="{event.offline}">
+                <li class="c-event-item__list-item" data-animate="fadeUp" data-delay="0.6">
                     <svg
                         aria-hidden="true"
                         class="c-event-item__icon"
                         fill="currentColor"
-                        viewBox="0 0 14 18"
+                        viewBox="0 0 14 20"
                         xmlns="http://www.w3.org/2000/svg"
                     >
                         <path
-                            d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
+                            d="M7 0a7 7 0 0 0-1 13.92V19a1 1 0 1 0 2 0v-5.08A7 7 0 0 0 7 0Zm0 5.5A1.5 1.5 0 0 0 5.5 7a1 1 0 0 1-2 0A3.5 3.5 0 0 1 7 3.5a1 1 0 0 1 0 2Z"
                         />
                     </svg>
-                    Markus Sommer
+                    {event.location.place} - {event.location.address}
                 </li>
-                <li class="c-event-item__list-item" data-animate="fadeUp" data-delay="1">
-                    <svg
-                        aria-hidden="true"
-                        class="c-event-item__icon"
-                        fill="none"
-                        viewBox="0 0 14 18"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M1 7h9.231M1 11h9.231M13 2.086A5.95 5.95 0 0 0 9.615 1C5.877 1 2.846 4.582 2.846 9s3.031 8 6.769 8A5.94 5.94 0 0 0 13 15.916"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                        />
-                    </svg>
-                    <f:format.currency
-                        decimalSeparator="," decimals="2"
-                        separateCurrency="true" thousandsSeparator="."
-                    >
-                        0
-                    </f:format.currency>
-                </li>
-            </ul>
-        </div>
-    </f:link.action>
+            </f:if>
+            <li class="c-event-item__list-item" data-animate="fadeUp" data-delay="0.8">
+                <svg
+                    aria-hidden="true"
+                    class="c-event-item__icon"
+                    fill="currentColor"
+                    viewBox="0 0 14 18"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
+                    />
+                </svg>
+                Markus Sommer
+            </li>
+            <li class="c-event-item__list-item" data-animate="fadeUp" data-delay="1">
+                <svg
+                    aria-hidden="true"
+                    class="c-event-item__icon"
+                    fill="none"
+                    viewBox="0 0 14 18"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M1 7h9.231M1 11h9.231M13 2.086A5.95 5.95 0 0 0 9.615 1C5.877 1 2.846 4.582 2.846 9s3.031 8 6.769 8A5.94 5.94 0 0 0 13 15.916"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                    />
+                </svg>
+                <f:format.currency
+                    decimalSeparator="," decimals="2"
+                    separateCurrency="true" thousandsSeparator="."
+                >
+                    0
+                </f:format.currency>
+            </li>
+        </ul>
+    </div>
 </div>
 
 </html>

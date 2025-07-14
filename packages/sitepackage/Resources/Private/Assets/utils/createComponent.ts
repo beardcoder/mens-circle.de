@@ -276,7 +276,6 @@ export function createComponent<
     const element = typeof selector === 'string' ? document.querySelector<TElement>(selector) : selector
 
     if (!element) {
-        console.warn(`Component: no element found for '${selector}'`)
         return null
     }
 

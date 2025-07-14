@@ -4,6 +4,7 @@ import { animate, inView } from 'motion'
 import '@hotwired/turbo'
 import { mount } from './utils/mount.ts'
 import * as Sentry from '@sentry/browser'
+import './Components/Card.ts'
 
 const init = () => {
     Sentry.init({
