@@ -9,6 +9,7 @@ import './Components/Card.ts'
 const init = () => {
     Sentry.init({
         dsn: 'https://3c75af6221aa112964afd403d8b4f7dc@o4508569353977856.ingest.de.sentry.io/4509593780224080',
+        tracesSampleRate: 1.0,
         sendDefaultPii: true,
     })
 
