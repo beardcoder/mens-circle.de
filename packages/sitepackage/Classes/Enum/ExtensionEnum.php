@@ -10,9 +10,6 @@ enum ExtensionEnum: string
 {
     case key = 'sitepackage';
 
-    /**
-     * @return string
-     */
     public static function getName(): string
     {
         return GeneralUtility::underscoredToUpperCamelCase(self::key->value);

@@ -8,14 +8,10 @@ readonly class UniversalSecureTokenService
 
     public function __construct()
     {
-        $systemKey = (string)$GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'];
+        $systemKey = (string) $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'];
         $this->encryptionKey = hash('sha256', $systemKey, true);
     }
 
-    /**
-     * @throws \SodiumException
-     * @throws \Random\RandomException
-     */
     public function encrypt(array $data, string $additionalData = ''): string
     {
         $nonceLength = SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_NPUBBYTES;
@@ -25,7 +21,7 @@ readonly class UniversalSecureTokenService
             json_encode($data),
             $additionalData,
             $nonce,
-            $this->encryptionKey
+            $this->encryptionKey,
         );
 
         $encrypted = $nonce . $ciphertext;
@@ -33,10 +29,6 @@ readonly class UniversalSecureTokenService
         return sodium_bin2base64($encrypted, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
     }
 
-    /**
-     * @throws \RuntimeException
-     * @throws \SodiumException
-     */
     public function decrypt(string $encodedData, string $additionalData = ''): array
     {
         $decoded = sodium_base642bin($encodedData, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
@@ -49,11 +41,14 @@ readonly class UniversalSecureTokenService
             $ciphertext,
             $additionalData,
             $nonce,
-            $this->encryptionKey
+            $this->encryptionKey,
         );
 
         if ($plaintext === false) {
-            throw new \RuntimeException('Die Entschlüsselung ist fehlgeschlagen – ungültige Authentifizierung.', 3859513393);
+            throw new \RuntimeException(
+                'Die Entschlüsselung ist fehlgeschlagen – ungültige Authentifizierung.',
+                3859513393,
+            );
         }
 
         return json_decode($plaintext, true);

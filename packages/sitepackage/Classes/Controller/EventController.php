@@ -14,11 +14,9 @@ use MensCircle\Sitepackage\Service\EmailService;
 use MensCircle\Sitepackage\Service\FrontendUserService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Site\Entity\Site;
-use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -51,7 +49,7 @@ class EventController extends ActionController
     {
         $upcomingEvent = $event ?? $this->eventRepository->findNextUpcomingEvent();
 
-        if (!$upcomingEvent instanceof Event) {
+        if (! $upcomingEvent instanceof Event) {
             return $this->handleEventNotFoundError();
         }
 
@@ -60,11 +58,14 @@ class EventController extends ActionController
         ]);
     }
 
-    public function detailAction(?Event $event = null, ?Participant $participant = null, ?bool $registrationComplete = false): ResponseInterface
-    {
+    public function detailAction(
+        ?Event $event = null,
+        ?Participant $participant = null,
+        ?bool $registrationComplete = false,
+    ): ResponseInterface {
         $participantToAssign = $participant ?? GeneralUtility::makeInstance(Participant::class);
 
-        if (!$event instanceof Event) {
+        if (! $event instanceof Event) {
             return $this->handleEventNotFoundError();
         }
 
@@ -109,19 +110,22 @@ class EventController extends ActionController
             'detail',
             null,
             null,
-            ['event' => $participant->event->getUid(), 'registrationComplete' => true]
+            [
+                'event' => $participant->event->getUid(),
+                'registrationComplete' => true,
+            ],
         );
     }
 
     protected function setRegistrationFieldValuesToArguments(): void
     {
         $arguments = $this->request->getArguments();
-        if (!isset($arguments['event'])) {
+        if (! isset($arguments['event'])) {
             return;
         }
 
-        $event = $this->eventRepository->findByUid((int)$this->request->getArgument('event'));
-        if (!$event instanceof Event) {
+        $event = $this->eventRepository->findByUid((int) $this->request->getArgument('event'));
+        if (! $event instanceof Event) {
             return;
         }
 
@@ -132,7 +136,7 @@ class EventController extends ActionController
         $mvcPropertyMappingConfiguration->allowProperties('event');
         $mvcPropertyMappingConfiguration->allowCreationForSubProperty('event');
         $mvcPropertyMappingConfiguration->allowModificationForSubProperty('event');
-        $arguments['participant']['event'] = (int)$this->request->getArgument('event');
+        $arguments['participant']['event'] = (int) $this->request->getArgument('event');
 
         $this->request = $this->request->withArguments($arguments);
     }
@@ -162,22 +166,25 @@ class EventController extends ActionController
         $this->setPageMetaProperty('og:image', $imageUri, [
             'width' => 600,
             'height' => 600,
-            'alt' => $event->getImage()->getOriginalResource()->getAlternative(),
+            'alt' => $event->getImage()
+                ->getOriginalResource()
+                ->getAlternative(),
         ]);
         $this->setPageMetaProperty('og:url', $this->getUrlForEvent($event));
     }
 
     private function setPageMetaProperty(string $property, string $value, array $additionalData = []): void
     {
-        $this->metaTagManagerRegistry->getManagerForProperty($property)->addProperty($property, $value, $additionalData);
+        $this->metaTagManagerRegistry->getManagerForProperty($property)
+            ->addProperty($property, $value, $additionalData);
     }
 
     private function handleEventNotFoundError(): ResponseInterface
     {
         $upcomingEvent = $this->eventRepository->findNextUpcomingEvent();
-        if (!$upcomingEvent instanceof Event) {
+        if (! $upcomingEvent instanceof Event) {
             $site = $this->request->getAttribute('site');
-            assert($site instanceof Site);
+            \assert($site instanceof Site);
 
             return $this->redirectToUri($site->getBase(), 301);
         }
@@ -187,12 +194,9 @@ class EventController extends ActionController
         $redirectUrl = $this->uriBuilder->reset()
             ->setTargetPageUid(3)
             ->setNoCache(true)
-            ->uriFor(
-                'detail',
-                [
+            ->uriFor('detail', [
                     'event' => $upcomingEvent,
-                ]
-            );
+                ]);
 
         return $this->redirectToUri($redirectUrl);
     }

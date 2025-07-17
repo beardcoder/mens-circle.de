@@ -9,13 +9,19 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Subscription extends AbstractEntity
 {
-    #[Validate(['validator' => 'EmailAddress'])]
+    #[Validate([
+        'validator' => 'EmailAddress',
+    ])]
     public string $email;
 
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate([
+        'validator' => 'NotEmpty',
+    ])]
     public string $firstName;
 
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate([
+        'validator' => 'NotEmpty',
+    ])]
     public string $lastName;
 
     public ?FrontendUser $feUser = null;

@@ -196,5 +196,4 @@ class Event extends AbstractEntity
         $this->participants->detach($participant);
         $this->registration->detach($participant);
     }
-
 }

@@ -25,18 +25,25 @@ use TYPO3\CMS\Core\SingletonInterface;
 class EventCalendarService implements SingletonInterface
 {
     private const string FORMAT_JSON = 'json';
+
     private const string FORMAT_ICS = 'ics';
+
     private const string FORMAT_JCAL = 'jcal';
 
     // iOS/Android refresh intervals - optimized for battery and data usage
     private const string TTL_DURATION = 'PT1H'; // 1 hour for mobile compatibility
+
     private const int CACHE_MAX_AGE = 3600; // Matches TTL for consistency
 
     // Calendar metadata for iOS/Android compatibility
     private const string CALENDAR_NAME = 'Mens Circle Veranstaltungen';
+
     private const string CALENDAR_DESCRIPTION = 'Bevorstehende Veranstaltungen der Mens Circle Community';
+
     private const string PRODID = '-//MensCircle//Event Calendar v2.0//DE';
+
     private const string ORGANIZER_EMAIL = 'hallo@mens-circle.de';
+
     private const string ORGANIZER_NAME = 'Mens Circle (Markus Sommer)';
 
     // Timezone constants
@@ -44,7 +51,9 @@ class EventCalendarService implements SingletonInterface
 
     private ?array $cachedEvents = null;
 
-    public function __construct(private readonly EventRepository $eventRepository) {}
+    public function __construct(
+        private readonly EventRepository $eventRepository,
+    ) {}
 
     public function getFeed(string $format): string
     {
@@ -54,7 +63,7 @@ class EventCalendarService implements SingletonInterface
             self::FORMAT_JSON => $this->generateJsonFeed($events),
             self::FORMAT_ICS => $this->generateIcsFeed($events),
             self::FORMAT_JCAL => $this->generateJcalFeed($events),
-            default => throw new \InvalidArgumentException("Unsupported format: {$format}")
+            default => throw new \InvalidArgumentException("Unsupported format: {$format}"),
         };
     }
 
@@ -72,7 +81,8 @@ class EventCalendarService implements SingletonInterface
     private function getUpcomingEvents(): array
     {
         if ($this->cachedEvents === null) {
-            $this->cachedEvents = $this->eventRepository->findNextEvents()->toArray();
+            $this->cachedEvents = $this->eventRepository->findNextEvents()
+                ->toArray();
         }
 
         return $this->cachedEvents;
@@ -88,7 +98,8 @@ class EventCalendarService implements SingletonInterface
             'description' => trim($event->description),
             'location' => $this->sanitizeLocationForHash($event),
             'cancelled' => $event->isCancelled(),
-            'attendanceMode' => $event->getRealAttendanceMode()->value,
+            'attendanceMode' => $event->getRealAttendanceMode()
+                ->value,
         ], $events);
     }
 
@@ -108,7 +119,7 @@ class EventCalendarService implements SingletonInterface
         $feedData = [
             'events' => $jsonEvents,
             'meta' => [
-                'count' => count($jsonEvents),
+                'count' => \count($jsonEvents),
                 'generated' => (new \DateTime())->format('c'),
                 'ttl' => self::CACHE_MAX_AGE,
                 'timezone' => self::DEFAULT_TIMEZONE,
@@ -131,7 +142,8 @@ class EventCalendarService implements SingletonInterface
             'isOnline' => $event->isOnline(),
             'callUrl' => $event->isOnline() ? trim($event->callUrl) : null,
             'cancelled' => $event->isCancelled(),
-            'attendanceMode' => $event->getRealAttendanceMode()->value,
+            'attendanceMode' => $event->getRealAttendanceMode()
+                ->value,
             'organizer' => [
                 'name' => self::ORGANIZER_NAME,
                 'email' => self::ORGANIZER_EMAIL,
@@ -192,7 +204,7 @@ class EventCalendarService implements SingletonInterface
         return TimeZone::createFromPhpDateTimeZone(
             new \DateTimeZone(self::DEFAULT_TIMEZONE),
             new \DateTime('2024-01-01'),
-            new \DateTime('2027-12-31') // Extended range for better mobile support
+            new \DateTime('2027-12-31'), // Extended range for better mobile support
         );
     }
 
@@ -204,7 +216,7 @@ class EventCalendarService implements SingletonInterface
         if ($event->startDate && $event->endDate) {
             $icalEvent->setOccurrence(new TimeSpan(
                 new ICalDateTime($event->startDate, false), // Use floating time for local events
-                new ICalDateTime($event->endDate, false)
+                new ICalDateTime($event->endDate, false),
             ));
         }
 
@@ -214,10 +226,7 @@ class EventCalendarService implements SingletonInterface
         $icalEvent->setLocation(new ICalLocation($this->formatLocationForIcs($event)));
 
         // Set organizer (improves compatibility with mobile calendar apps)
-        $organizer = new Organizer(
-            new EmailAddress(self::ORGANIZER_EMAIL),
-            self::ORGANIZER_NAME
-        );
+        $organizer = new Organizer(new EmailAddress(self::ORGANIZER_EMAIL), self::ORGANIZER_NAME);
         $icalEvent->setOrganizer($organizer);
 
         // Set status (essential for iOS/Android event handling)
@@ -234,14 +243,14 @@ class EventCalendarService implements SingletonInterface
         // Primary alarm: 15 minutes before (iOS/Android standard)
         $primaryAlarm = new Alarm(
             new DisplayAction($this->sanitizeText('Event reminder')),
-            new RelativeTrigger(\DateInterval::createFromDateString('-15 minutes'))
+            new RelativeTrigger(\DateInterval::createFromDateString('-15 minutes')),
         );
         $event->addAlarm($primaryAlarm);
 
         // Secondary alarm: 1 hour before (for important events)
         $secondaryAlarm = new Alarm(
             new DisplayAction($this->sanitizeText('Event starting in 1 hour')),
-            new RelativeTrigger(\DateInterval::createFromDateString('-1 hour'))
+            new RelativeTrigger(\DateInterval::createFromDateString('-1 hour')),
         );
         $event->addAlarm($secondaryAlarm);
     }
@@ -267,14 +276,10 @@ class EventCalendarService implements SingletonInterface
         $icsContent = str_replace(
             "VERSION:2.0\r\n",
             "VERSION:2.0\r\nMETHOD:PUBLISH\r\nCALSCALE:GREGORIAN\r\n",
-            $icsContent
+            $icsContent,
         );
 
-        return str_replace(
-            'END:VCALENDAR',
-            $headerString . 'END:VCALENDAR',
-            $icsContent
-        );
+        return str_replace('END:VCALENDAR', $headerString . 'END:VCALENDAR', $icsContent);
     }
 
     private function generateJcalFeed(array $events): string
@@ -306,7 +311,7 @@ class EventCalendarService implements SingletonInterface
             'vevent',
             [
                 'uid' => ['text', $this->generateStableEventUid($event)],
-                'dtstamp' => ['date-time', (new \DateTime())->format('Ymd\THis\Z')],
+                'dtstamp' => ['date-time', new \DateTime()->format('Ymd\THis\Z')],
                 'dtstart' => ['date-time', $event->startDate?->format('Ymd\THis')],
                 'dtend' => ['date-time', $event->endDate?->format('Ymd\THis')],
                 'summary' => ['text', $this->sanitizeText($event->title)],
@@ -343,11 +348,7 @@ class EventCalendarService implements SingletonInterface
     private function generateStableEventUid(Event $event): string
     {
         // Generate stable UID that doesn't change between requests
-        return sprintf(
-            'event-%d-%s@mens-circle.de',
-            $event->getUid(),
-            md5($event->startDate?->format('c') ?? '')
-        );
+        return \sprintf('event-%d-%s@mens-circle.de', $event->getUid(), md5($event->startDate?->format('c') ?? ''));
     }
 
     private function formatLocationForIcs(Event $event): string
@@ -373,7 +374,7 @@ class EventCalendarService implements SingletonInterface
     private function isValidEvent(Event $event): bool
     {
         // Validate event has required fields for mobile compatibility
-        return !empty($event->title)
+        return ! empty($event->title)
             && $event->startDate instanceof \DateTime
             && $event->endDate instanceof \DateTime
             && $event->startDate < $event->endDate;

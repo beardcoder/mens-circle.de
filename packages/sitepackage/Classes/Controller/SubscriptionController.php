@@ -13,8 +13,6 @@ use MensCircle\Sitepackage\Service\UniversalSecureTokenService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
-use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 
 class SubscriptionController extends ActionController
 {
@@ -24,12 +22,12 @@ class SubscriptionController extends ActionController
         private readonly EmailService $emailService,
         private readonly DoubleOptInService $doubleOptInService,
         private readonly FrontendUserService $frontendUserService,
-    )
-    {
-    }
+    ) {}
 
-    public function formAction(?Subscription $subscription = null, ?bool $subscriptionComplete = false): ResponseInterface
-    {
+    public function formAction(
+        ?Subscription $subscription = null,
+        ?bool $subscriptionComplete = false,
+    ): ResponseInterface {
         $subscription ??= GeneralUtility::makeInstance(Subscription::class);
         $this->view->assign('subscription', $subscription);
         $this->view->assign('subscriptionComplete', $subscriptionComplete);
@@ -37,13 +35,12 @@ class SubscriptionController extends ActionController
         return $this->htmlResponse();
     }
 
-    /**
-     * @throws IllegalObjectTypeException
-     */
     public function subscribeAction(Subscription $subscription): ResponseInterface
     {
 
-        $existingSubscription = $this->subscriptionRepository->findOneBy(['email' => $subscription->email]);
+        $existingSubscription = $this->subscriptionRepository->findOneBy([
+            'email' => $subscription->email,
+        ]);
 
         if ($existingSubscription instanceof Subscription) {
             if ($existingSubscription->status->is(SubscriptionStatusEnum::Active)) {
@@ -63,17 +60,16 @@ class SubscriptionController extends ActionController
         $this->emailService->sendMail(
             $subscription->email,
             'doubleOptIn',
-            ['subscription' => $subscription],
+            [
+                'subscription' => $subscription,
+            ],
             'Bestätige deine Anmeldung für den Newsletter',
-            $this->request
+            $this->request,
         );
 
-        return $this->redirect(
-            'form',
-            null,
-            null,
-            [ 'subscriptionComplete' => true ]
-        );
+        return $this->redirect('form', null, null, [
+                'subscriptionComplete' => true,
+            ]);
     }
 
     public function doubleOptInAction(string $token): ResponseInterface
@@ -83,16 +79,13 @@ class SubscriptionController extends ActionController
         return $this->htmlResponse();
     }
 
-    /**
-     * @throws UnknownObjectException
-     * @throws IllegalObjectTypeException
-     * @throws \SodiumException
-     */
     public function unsubscribeAction(string $token): ResponseInterface
     {
         $universalSecureTokenService = GeneralUtility::makeInstance(UniversalSecureTokenService::class);
         $email = $universalSecureTokenService->decrypt($token)['email'];
-        $subscription = $this->subscriptionRepository->findOneBy(['email' => $email]);
+        $subscription = $this->subscriptionRepository->findOneBy([
+            'email' => $email,
+        ]);
         if ($subscription instanceof Subscription) {
             $subscription->optOutDate = new \DateTime();
             $subscription->status = SubscriptionStatusEnum::Unsubscribed;
@@ -101,9 +94,6 @@ class SubscriptionController extends ActionController
         return $this->htmlResponse();
     }
 
-    /**
-     * @throws IllegalObjectTypeException
-     */
     private function handleExistingSubscription(Subscription $existingSubscription): ?string
     {
         if ($existingSubscription->status->is(SubscriptionStatusEnum::Active)) {

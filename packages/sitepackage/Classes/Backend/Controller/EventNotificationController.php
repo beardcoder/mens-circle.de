@@ -144,7 +144,7 @@ class EventNotificationController extends ActionController
             $menu->addMenuItem(
                 $menu->makeMenuItem()
                     ->setTitle($event->getLongTitle())
-                    ->setActive(isset($params['event']) && $event->getUid() === (int)$params['event'])
+                    ->setActive(isset($params['event']) && $event->getUid() === (int) $params['event'])
                     ->setHref(
                         $this->backendUriBuilder->buildUriFromRoute(
                             'events_notification.EventNotification_new',

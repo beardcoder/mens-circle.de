@@ -10,7 +10,7 @@ class EventSlugService
 {
     public function modifySlug(array $params): string
     {
-        return date('d-m-Y', strtotime((string)$params['record']['start_date']));
+        return date('d-m-Y', strtotime((string) $params['record']['start_date']));
     }
 
     public function getPrefix(array $parameters, TcaSlug $tcaSlug): string

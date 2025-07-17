@@ -9,81 +9,92 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use TYPO3\CMS\Core\Http\JsonResponse;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Http\Stream;
 
 class EventFeedMiddleware implements MiddlewareInterface
 {
-    private const ROUTE_PATH = '/events/feed';
+    private const ROUTE_BASE = '/events/feed';
 
-    private const FORMAT_JSON = 'json';
-    private const FORMAT_ICS = 'ics';
-    private const FORMAT_JCAL = 'jcal';
-
-    private const CONTENT_TYPES = [
-        self::FORMAT_JSON => 'application/json',
-        self::FORMAT_ICS => 'text/calendar',
-        self::FORMAT_JCAL => 'application/calendar+json',
+    private const FORMATS = [
+        'json' => 'application/json',
+        'ics' => 'text/calendar',
+        'jcal' => 'application/calendar+json',
     ];
 
     public function __construct(
-        private readonly EventCalendarService $eventCalendarService
+        private readonly EventCalendarService $eventCalendarService,
     ) {}
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $uri = $request->getUri();
-        $path = $uri->getPath();
+        $path = $request->getUri()
+            ->getPath();
 
-        if ($path !== self::ROUTE_PATH) {
+        if (! str_starts_with($path, self::ROUTE_BASE)) {
             return $handler->handle($request);
         }
 
-        $format = $this->determineFormat($request);
-        $contentType = self::CONTENT_TYPES[$format];
+        $format = $this->extractFormat($path, $request->getHeaderLine('Accept'));
+        if (! $format) {
+            return $handler->handle($request);
+        }
 
         $feedContent = $this->eventCalendarService->getFeed($format);
         $etag = $this->eventCalendarService->getETag($format);
 
-        // Check if client has matching ETag
-        $ifNoneMatch = $request->getHeaderLine('If-None-Match');
-        if ($ifNoneMatch === '"' . $etag . '"') {
-            return new Response('php://temp', 304, [
-                'ETag' => '"' . $etag . '"',
-                'Cache-Control' => 'public, max-age=3600',
-            ]);
+        // Handle conditional request
+        if ($request->getHeaderLine('If-None-Match') === '"' . $etag . '"') {
+            return $this->createResponse('', 304, $etag);
         }
 
-        $stream = new Stream('php://temp', 'rw');
-        $stream->write($feedContent);
-        $stream->rewind();
-
-        return new Response(
-            $stream,
-            200,
-            [
-                'Content-Type' => $contentType . '; charset=utf-8',
-                'ETag' => '"' . $etag . '"',
-                'Cache-Control' => 'public, max-age=3600',
-                'X-Content-Type-Options' => 'nosniff',
-            ]
-        );
+        return $this->createResponse($feedContent, 200, $etag, self::FORMATS[$format]);
     }
 
-    private function determineFormat(ServerRequestInterface $request): string
+    private function extractFormat(string $path, string $acceptHeader): ?string
     {
-        $acceptHeader = $request->getHeaderLine('Accept');
-
-        if (str_contains($acceptHeader, 'text/calendar')) {
-            return self::FORMAT_ICS;
+        // Check for file extension
+        if (preg_match('#' . preg_quote(self::ROUTE_BASE) . '\.(\w+)$#', $path, $matches)) {
+            $extension = $matches[1];
+            return \array_key_exists($extension, self::FORMATS) ? $extension : null;
         }
 
-        if (str_contains($acceptHeader, 'application/calendar+json')) {
-            return self::FORMAT_JCAL;
+        // Check for exact path match
+        if ($path !== self::ROUTE_BASE) {
+            return null;
         }
 
-        // Default fallback to JSON
-        return self::FORMAT_JSON;
+        // Determine format from Accept header
+        return match (true) {
+            str_contains($acceptHeader, 'text/calendar') => 'ics',
+            str_contains($acceptHeader, 'application/calendar+json') => 'jcal',
+            default => 'json',
+        };
+    }
+
+    private function createResponse(
+        string $content,
+        int $status,
+        string $etag,
+        ?string $contentType = null,
+    ): ResponseInterface {
+        $headers = [
+            'ETag' => '"' . $etag . '"',
+            'Cache-Control' => 'public, max-age=3600',
+        ];
+
+        if ($contentType && $content) {
+            $headers['Content-Type'] = $contentType . '; charset=utf-8';
+            $headers['X-Content-Type-Options'] = 'nosniff';
+        }
+
+        if ($content) {
+            $stream = new Stream('php://temp', 'rw');
+            $stream->write($content);
+            $stream->rewind();
+            return new Response($stream, $status, $headers);
+        }
+
+        return new Response('php://temp', $status, $headers);
     }
 }
