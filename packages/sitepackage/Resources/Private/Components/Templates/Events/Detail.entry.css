@@ -3,24 +3,12 @@
     display: grid;
     gap: 0;
     grid-template-columns: 1fr;
-    min-block-size: 100vb;
     overflow: hidden;
     position: relative;
 }
 
 .c-event-detail__logo-container {
-    block-size: 8rem;
-    inline-size: 8rem;
-    inset-block-start: 915px;
-    inset-inline-start: 50%;
-    pointer-events: none;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-
-    @media (width >= 1024px) {
-        inset-block-start: 50%;
-    }
+    display: none;
 }
 
 .c-event-detail__logo {
@@ -36,7 +24,6 @@
 }
 
 .c-event-detail__content {
-    block-size: 850px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,11 +31,16 @@
     max-inline-size: 600px;
     padding-block: 2rem;
     padding-inline: 1.5rem;
+    position: relative;
+    z-index: 10;
+    background-color: var(--bg-color--light-overlay);
+    margin-inline: 2rem;
+    margin-block: 2rem;
 }
 
 .c-event-detail__title {
     color: var(--font-color);
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
     line-height: 1.2;
     margin-block-end: 20px;
@@ -85,7 +77,9 @@
 }
 
 .c-event-detail__image-container {
-    block-size: 660px;
+    position: absolute;
+    inset: -1rem;
+    filter: blur(10px);
 }
 
 .c-event-detail__image {
@@ -96,23 +90,36 @@
 
 @media (width >= 1024px) {
     .c-event-detail__image-container {
+        filter: blur(0);
         block-size: 100%;
+        inset: auto;
+        position: relative;
     }
 
     .c-event-detail {
+        min-block-size: 100vb;
         grid-template-columns: repeat(2, 1fr);
     }
 
     .c-event-detail__logo-container {
+        inset: auto;
+        display: block;
+        block-size: 8rem;
+        inline-size: 8rem;
         inset-block-start: 50%;
         inset-inline-start: 50%;
+        pointer-events: none;
         transform: translate(-50%, -50%);
+        z-index: 10;
+        position: absolute;
     }
 
     .c-event-detail__content {
         block-size: auto;
         padding-block: 20px;
         padding-inline: 20px 100px;
+        margin: 0 auto;
+        background: transparent;
     }
 
     .c-event-detail__title {

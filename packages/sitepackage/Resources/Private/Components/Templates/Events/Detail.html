@@ -7,67 +7,9 @@
 >
 <vite:asset entry="EXT:sitepackage/Resources/Private/Components/Templates/Events/Detail.entry.ts"/>
 <vite:asset entry="EXT:sitepackage/Resources/Private/Components/Templates/Events/Detail.entry.css"/>
-<section class="c-event-detail">
-    <div class="c-event-detail__logo-container">
-        <div class="c-event-detail__logo" data-animate="fadeUp">
-            <f:image
-                alt="logo"
-                class="c-event-detail__logo-img"
-                height="500"
-                src="EXT:sitepackage/Resources/Public/Images/logo-white.svg"
-                width="500"
-            />
-        </div>
-    </div>
-    <div class="c-event-detail__content">
-        <h1 class="c-event-detail__title" data-fade="left">
-            Anmeldung zum {event.title} am
-            <time datetime="{event.startDate -> f:format.date(format: 'c')}">
-                {event.startDate -> f:format.date(format: 'd.m.Y H:i')}
-            </time>
-        </h1>
-        <f:if condition="{event.cancelled}">
-            <f:else>
-                <turbo-frame id="turbo__event-registration">
-                    <f:if condition="{registrationComplete}">
-                        <f:then>
-                            <f:variable name="eventStartDate" value="{event.startDate -> f:format.date(format: 'd.m.Y H:i')}" />
-                            <div class="c-event-detail__message space-y-2">
-                                <div class="c-event-detail__message-item" role="alert">
-                                    <span><f:translate
-                                        arguments="{ 0: eventStartDate }"
-                                        id="registration.success"
-                                    /></span>
-                                </div>
-                            </div>
 
+<f:render partial="Events/Header" arguments="{event: event}" />
 
-                        </f:then>
-                        <f:else>
-                            <f:render arguments="{_all}" partial="Events/Registration"/>
-                        </f:else>
-                    </f:if>
-                </turbo-frame>
-            </f:else>
-        </f:if>
-        <div class="c-event-detail__details" data-fade="left">
-            <h2 class="c-event-detail__details-heading">Veranstaltungsdaten:</h2>
-            <f:if condition="{event.offline}">
-                <f:then>
-                    <f:render arguments="{_all}" partial="Events/Address"/>
-                </f:then>
-                <f:else>
-                    <f:render arguments="{_all}" partial="Events/Url"/>
-                </f:else>
-            </f:if>
-        </div>
-    </div>
-    <div class="c-event-detail__image-container">
-        <div class="c-event-detail__image" data-fade="right">
-            <i:image alt="{event.image.alternative}" class="c-event-detail__image-img" image="{event.image}"/>
-        </div>
-    </div>
-</section>
 <f:cObject data="{contentUid: 3}" typoscriptObjectPath="lib.renderContent"/>
 <f:if condition="{event.offline}">
     <section class="c-event-detail__map">
