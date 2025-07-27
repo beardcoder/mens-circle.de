@@ -18,6 +18,7 @@
     padding: 0.875rem 1.5rem;
 }
 
-.c-button:hover, .c-button:focus {
+.c-button:hover,
+.c-button:focus {
     background-color: color-mix(in srgb, var(--color--primary) 40%, black);
 }
