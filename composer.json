@@ -41,7 +41,7 @@
   "require-dev": {
     "b13/make": "dev-main",
     "ergebnis/composer-normalize": "^2.47",
-    "phpro/grumphp-shim": "^2.13",
+    "phpro/grumphp-shim": "^2.14",
     "roave/security-advisories": "dev-latest",
     "ssch/typo3-rector": "dev-main",
     "symfony/var-dumper": "^7.3.1",
