@@ -1,5 +1,4 @@
 <?php
-
 return [
     'BE' => [
         'compressionLevel' => 9,
@@ -29,7 +28,9 @@ return [
     ],
     'EXTCONF' => [
         'lang' => [
-            'availableLanguages' => ['de'],
+            'availableLanguages' => [
+                'de',
+            ],
         ],
     ],
     'EXTENSIONS' => [
@@ -165,10 +166,10 @@ return [
     ],
     'MAIL' => [
         'layoutRootPaths' => [
-            500 => 'EXT:sitepackage/Resources/Private/Templates/Layouts/Emails/',
+            500 => 'EXT:sitepackage/Resources/Private/Components/Layouts/Emails/',
         ],
         'templateRootPaths' => [
-            500 => 'EXT:sitepackage/Resources/Private/Templates/Emails/',
+            500 => 'EXT:sitepackage/Resources/Private/Components/Templates/Emails/',
         ],
         'transport' => 'sendmail',
         'transport_sendmail_command' => '/usr/local/bin/mailpit sendmail -t --smtp-addr 127.0.0.1:1025',
@@ -216,7 +217,9 @@ return [
         ],
         'phpTimeZone' => 'Europe/Berlin',
         'sitename' => 'Men\'s Circle Niederbayern',
-        'systemMaintainers' => [1],
+        'systemMaintainers' => [
+            1,
+        ],
         'trustedHostsPattern' => '.*.*',
     ],
 ];

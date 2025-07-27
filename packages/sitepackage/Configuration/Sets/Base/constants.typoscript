@@ -8,9 +8,9 @@
 ##############################
 styles {
   templates {
-    templateRootPath = EXT:sitepackage/Resources/Private/Templates/ContentElements/
-    layoutRootPath = EXT:sitepackage/Resources/Private/Templates/Layouts/ContentElements/
-    partialRootPath = EXT:sitepackage/Resources/Private/Templates/Partials/ContentElements/
+    templateRootPath = EXT:sitepackage/Resources/Private/Components/Templates/ContentElements/
+    layoutRootPath = EXT:sitepackage/Resources/Private/Components/Layouts/ContentElements/
+    partialRootPath = EXT:sitepackage/Resources/Private/Components/Partials/ContentElements/
   }
 }
 ############

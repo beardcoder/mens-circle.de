@@ -8,7 +8,7 @@ page {
 
     1736851139 = FLUIDTEMPLATE
     1736851139 {
-      file = EXT:sitepackage/Resources/Private/Templates/FavIcons.html
+      file = EXT:sitepackage/Resources/Private/Components/Templates/FavIcons.html
       dataProcessing.10 = site
     }
   }
@@ -16,7 +16,7 @@ page {
   10 = PAGEVIEW
   10 {
     paths {
-      100 = EXT:sitepackage/Resources/Private/Templates/
+      100 = EXT:sitepackage/Resources/Private/PageView/
     }
 
     dataProcessing {
@@ -156,8 +156,8 @@ config {
 
 lib.contentBlock {
   partialRootPaths {
-    100 = EXT:sitepackage/Resources/Private/Templates/Partials/ContentElements/
-    110 = EXT:sitepackage/Resources/Private/Templates/Partials/
+    100 = EXT:sitepackage/Resources/Private/Components/Partials/ContentElements/
+    110 = EXT:sitepackage/Resources/Private/Components/Partials/
   }
 }
 

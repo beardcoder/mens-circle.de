@@ -9,11 +9,11 @@
 <vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Home.entry.css" />
 <vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Home.entry.ts" />
 <div class="page">
-    <f:render arguments="{ mainnavigation: mainnavigation, dark: 1, absolute: 1 }" partial="Pages/Header" />
+    <f:render arguments="{ mainnavigation: mainnavigation, dark: 1, absolute: 1 }" partial="Header" />
     <main>
         <f:render section="Main" />
     </main>
-    <f:render arguments="{_all}" partial="Pages/Footer" />
+    <f:render arguments="{_all}" partial="Footer" />
 </div>
 <dialog class="newsletter-dialog" data-component="newsletter-dialog">
     <button class="newsletter-dialog__close" data-component="newsletter-dialog__close">
