@@ -1,5 +1,4 @@
-import { createComponent, createComponentAndMount } from '../utils/createComponent.ts'
-import { mount } from '../utils/mount.ts'
+import { createComponentAndMount } from '../utils/createComponent.ts'
 
 void createComponentAndMount<HTMLDivElement>('card', "[data-component='card']", component => {
     const { element } = component
@@ -18,7 +17,7 @@ void createComponentAndMount<HTMLDivElement>('card', "[data-component='card']", 
     const handler = (e: MouseEvent | KeyboardEvent) => {
         // keyboard “click”
         if (e instanceof KeyboardEvent) {
-            if (!['Enter', ' '].includes(e.key) || document.activeElement !== card) return
+            if (!['Enter', ' '].includes(e.key) || document.activeElement !== element) return
             e.preventDefault()
         }
         // no text selection, and didn’t hit a real control
@@ -30,4 +29,11 @@ void createComponentAndMount<HTMLDivElement>('card', "[data-component='card']", 
 
     element.addEventListener('click', handler)
     element.addEventListener('keydown', handler)
+
+    // Cleanup function to remove event listeners
+    return () => {
+        element.removeEventListener('click', handler)
+        element.removeEventListener('keydown', handler)
+        clickables.forEach(el => el.removeEventListener('click', e => e.stopPropagation()))
+    }
 })
