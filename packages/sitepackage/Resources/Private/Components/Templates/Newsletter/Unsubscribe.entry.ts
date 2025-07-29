@@ -10,9 +10,9 @@ requestAnimationFrame(() => {
                     pathLength: [0, 1],
                 },
                 {
+                    delay: 0.9,
                     duration: 0.5,
                     easing: 'ease-out',
-                    delay: 0.9,
                 },
             )
         })
@@ -27,9 +27,9 @@ requestAnimationFrame(() => {
                     pathLength: [0, 1.1],
                 },
                 {
+                    delay: 0.3,
                     duration: 0.6,
                     easing: 'ease-out',
-                    delay: 0.3,
                 },
             )
         })

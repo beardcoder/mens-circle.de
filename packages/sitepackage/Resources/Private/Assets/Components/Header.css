@@ -1,8 +1,8 @@
 .o-header {
-    block-size: 8rem;
-    inline-size: 100%;
     inset-block-start: 0;
     z-index: 20;
+    inline-size: 100%;
+    block-size: 8rem;
 }
 
 .o-header--absolute {
@@ -16,13 +16,13 @@
 }
 
 .o-header__container {
-    align-items: center;
-    block-size: 5rem;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    align-items: center;
     max-inline-size: 1280px;
+    block-size: 5rem;
     padding: 0.5rem;
+    margin: 0 auto;
 }
 
 .o-header__container--dark {
@@ -41,11 +41,11 @@
 }
 
 .o-header__logo-link {
-    align-items: center;
-    color: inherit;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
+    color: inherit;
     text-decoration: none;
 }
 
@@ -56,8 +56,8 @@
 }
 
 .o-header__logo {
-    block-size: 4rem;
     inline-size: auto;
+    block-size: 4rem;
 }
 
 .o-header__logo--dark-hidden {
@@ -79,22 +79,22 @@
 }
 
 .o-header__title {
-    color: inherit;
+    margin-inline-start: 0.5rem;
     font-size: 1.5rem;
     font-weight: 900;
-    margin-inline-start: 0.5rem;
+    color: inherit;
 }
 
 .o-header__nav {
     display: flex;
+    gap: 2rem;
     font-size: 1.25rem;
     font-weight: bold;
-    gap: 2rem;
     text-transform: uppercase;
 }
 
 .o-header__nav a {
-    color: inherit;
     display: block;
+    color: inherit;
     text-decoration: none;
 }

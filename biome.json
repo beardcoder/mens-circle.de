@@ -1,63 +1,70 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "recommended": true,
+        "useSortedKeys": "on",
+        "useSortedProperties": "on"
+      }
+    },
+    "enabled": true
+  },
+  "css": {
+    "assist": {
+      "enabled": true
+    },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 4,
+      "lineEnding": "lf",
+      "lineWidth": 120,
+      "quoteStyle": "single"
+    },
+    "linter": {
+      "enabled": true
+    }
   },
   "files": {
     "ignoreUnknown": false
   },
   "formatter": {
+    "attributePosition": "auto",
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 4,
     "lineEnding": "lf",
-    "lineWidth": 120,
-    "attributePosition": "auto"
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "a11y": "info",
-      "performance": "warn"
-    }
+    "lineWidth": 120
   },
   "javascript": {
     "formatter": {
-      "quoteStyle": "single",
       "arrowParentheses": "asNeeded",
-      "enabled": true,
-      "semicolons": "asNeeded",
+      "bracketSameLine": true,
       "bracketSpacing": true,
-      "bracketSameLine": true
-    }
-  },
-  "css": {
-    "formatter": {
       "enabled": true,
       "quoteStyle": "single",
-      "indentStyle": "space",
-      "indentWidth": 4,
-      "lineEnding": "lf",
-      "lineWidth": 120
+      "semicolons": "asNeeded"
     }
   },
   "json": {
     "formatter": {
-      "indentWidth": 2,
-      "expand": "always"
+      "expand": "always",
+      "indentWidth": 2
     }
   },
-  "assist": {
+  "linter": {
     "enabled": true,
-    "actions": {
-      "source": {
-        "organizeImports": "on",
-        "recommended": true,
-        "useSortedKeys": "on"
-      }
+    "rules": {
+      "a11y": "info",
+      "performance": "warn",
+      "recommended": true
     }
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
   }
 }

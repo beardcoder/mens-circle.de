@@ -1,13 +1,13 @@
 import { createComponentAndMount } from '../utils/createComponent.ts'
 
-void createComponentAndMount<HTMLDivElement>('card', "[data-component='card']", component => {
+void createComponentAndMount<HTMLDivElement>("[data-component='card']", component => {
     const { element } = component
 
     const mainLink = component.querySelector<HTMLAnchorElement>('a')
-    const clickables = Array.from(component.querySelectorAll('a'))
+    const clickable = Array.from(component.querySelectorAll('a'))
 
     // Don’t let inner controls trigger the card’s click
-    clickables.forEach(el => el.addEventListener('click', e => e.stopPropagation()))
+    clickable.forEach(el => el.addEventListener('click', e => e.stopPropagation()))
 
     // Make the card a focusable “button”
     element.tabIndex ||= 0
@@ -22,7 +22,7 @@ void createComponentAndMount<HTMLDivElement>('card', "[data-component='card']", 
         }
         // no text selection, and didn’t hit a real control
         if (window.getSelection()?.toString()) return
-        if (clickables.some(el => el.contains(e.target as Node))) return
+        if (clickable.some(el => el.contains(e.target as Node))) return
 
         mainLink?.click()
     }
@@ -34,6 +34,6 @@ void createComponentAndMount<HTMLDivElement>('card', "[data-component='card']", 
     return () => {
         element.removeEventListener('click', handler)
         element.removeEventListener('keydown', handler)
-        clickables.forEach(el => el.removeEventListener('click', e => e.stopPropagation()))
+        clickable.forEach(el => el.removeEventListener('click', e => e.stopPropagation()))
     }
 })

@@ -1,4 +1,27 @@
 {
+  "commonScopes": {
+    "dist-pack": {
+      "description": "Changes inside /packages/distribution_package"
+    }
+  },
+  "footerTypes": [
+    {
+      "description": "The commit introduces breaking changes",
+      "name": "BREAKING CHANGE"
+    },
+    {
+      "description": "The commit closes issues or pull requests",
+      "name": "Closes"
+    },
+    {
+      "description": "The commit is co-authored by another person.<br/>For multiple people use one line each",
+      "name": "Co-authored-by"
+    },
+    {
+      "description": "The commit references other commits by their hash ID.<br/>For multiple hash IDs use a comma as separator",
+      "name": "Refs"
+    }
+  ],
   "types": {
     "build": {
       "description": "Changes which affect the build system or external dependencies",
@@ -50,28 +73,5 @@
     "test": {
       "description": "Changes which add missing tests or correct existing tests"
     }
-  },
-  "commonScopes": {
-    "dist-pack": {
-      "description": "Changes inside /packages/distribution_package"
-    }
-  },
-  "footerTypes": [
-    {
-      "name": "BREAKING CHANGE",
-      "description": "The commit introduces breaking changes"
-    },
-    {
-      "name": "Closes",
-      "description": "The commit closes issues or pull requests"
-    },
-    {
-      "name": "Co-authored-by",
-      "description": "The commit is co-authored by another person.<br/>For multiple people use one line each"
-    },
-    {
-      "name": "Refs",
-      "description": "The commit references other commits by their hash ID.<br/>For multiple hash IDs use a comma as separator"
-    }
-  ]
+  }
 }

@@ -1,8 +1,8 @@
 .c-about {
-    background-color: var(--bg-color--light);
-    color: var(--font-color);
     max-inline-size: 100vi;
     overflow: hidden;
+    color: var(--font-color);
+    background-color: var(--bg-color--light);
 
     @media (width >= 768px) {
         display: flex;
@@ -20,18 +20,18 @@
 }
 
 .c-about__text-container {
-    margin: auto;
     max-inline-size: 42rem;
     padding: 5rem 1.5rem;
+    margin: auto;
 }
 
 .c-about__header {
-    color: var(--font-color);
+    margin-block-end: 1rem;
     font-size: 2.25rem;
     font-weight: 700;
-    letter-spacing: -0.025em;
     line-height: 1;
-    margin-block-end: 1rem;
+    color: var(--font-color);
+    letter-spacing: -0.025em;
 
     @media (width >= 1024px) {
         font-size: 3rem;
@@ -39,13 +39,13 @@
 }
 
 .c-about__subheader {
-    color: var(--color--primary);
     display: block;
+    color: var(--color--primary);
 }
 
 .c-about__body {
-    color: var(--font-color);
     max-inline-size: none;
+    color: var(--font-color);
 
     @media (width >= 1024px) {
         font-size: 1.125rem;
@@ -58,9 +58,9 @@
 }
 
 .c-about__image {
-    block-size: 100%;
     display: block;
     inline-size: 100%;
+    block-size: 100%;
     object-fit: cover;
     object-position: center;
 }

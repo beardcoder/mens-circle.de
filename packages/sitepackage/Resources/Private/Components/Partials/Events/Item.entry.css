@@ -1,7 +1,7 @@
 .c-event-item {
+    flex-direction: column;
     align-items: center;
     background-color: var(--bg-color--layer-1);
-    flex-direction: column;
     transition: background-color 0.2s ease-in-out;
 }
 
@@ -11,44 +11,44 @@
 
 .c-event-item__link {
     display: flex;
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
 }
 
 .c-event-item__image {
-    object-fit: cover;
-    object-position: center;
     inline-size: 100%;
     max-block-size: 300px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .c-event-item__content {
     display: flex;
     flex-direction: column;
-    line-height: 1.5;
     padding: 1rem 2rem;
+    line-height: 1.5;
 }
 
 .c-event-item__title {
-    color: var(--font-color);
+    margin-block-end: 1rem;
     font-size: 1.5rem;
     font-weight: 700;
+    color: var(--font-color);
     letter-spacing: -0.025em;
-    margin-block-end: 1rem;
 }
 
 .c-event-item__time {
-    font-size: 1rem;
     margin-block-end: 0.5rem;
+    font-size: 1rem;
 }
 
 .c-event-item__list {
-    color: #6b7280;
-    font-size: 0.875rem;
-    list-style-type: disc;
-    margin-inline-start: 0;
     max-inline-size: 28rem;
     padding-inline-start: 0;
+    margin-inline-start: 0;
+    font-size: 0.875rem;
+    color: #6b7280;
+    list-style-type: disc;
 
     @media (prefers-color-scheme: dark) {
         color: #9ca3af;
@@ -56,16 +56,16 @@
 }
 
 .c-event-item__list-item {
-    align-items: center;
     display: flex;
+    align-items: center;
 }
 
 .c-event-item__icon {
-    block-size: 0.875rem;
-    color: #6b7280;
     flex-shrink: 0;
     inline-size: 0.875rem;
+    block-size: 0.875rem;
     margin-inline-end: 0.5rem;
+    color: #6b7280;
 
     @media (prefers-color-scheme: dark) {
         color: #9ca3af;

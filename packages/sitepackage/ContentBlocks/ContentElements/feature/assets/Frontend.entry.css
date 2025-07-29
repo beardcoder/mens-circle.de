@@ -1,6 +1,6 @@
 .c-feature__header {
-    color: var(--font-color);
+    margin-block-end: 0.5rem;
     font-size: 1.25rem;
     font-weight: bold;
-    margin-block-end: 0.5rem;
+    color: var(--font-color);
 }

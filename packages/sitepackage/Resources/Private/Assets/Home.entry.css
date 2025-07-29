@@ -1,23 +1,22 @@
 .newsletter-dialog {
-    max-block-size: min(80vb, 100%);
-    max-block-size: min(80dvb, 100%);
     max-inline-size: min(90vi, 420px);
-    overflow: hidden;
+    max-block-size: min(80vb, 100%);
     padding: 2rem;
+    overflow: hidden;
 }
 
 .newsletter-dialog__close {
-    aspect-ratio: 1 / 1;
-    background-color: color-mix(in srgb, var(--bg-color) 90%, black);
-    block-size: 30px;
-    border: 1px solid #333;
-    border-radius: 10000000px;
-    color: var(--font-color);
-    cursor: pointer;
+    position: absolute;
     inset-block-start: 10px;
     inset-inline-end: 10px;
+    block-size: 30px;
+    aspect-ratio: 1 / 1;
     padding: 8px;
-    position: absolute;
+    color: var(--font-color);
+    cursor: pointer;
+    background-color: color-mix(in srgb, var(--bg-color) 90%, black);
+    border: 1px solid #333;
+    border-radius: 10000000px;
 
     @media (prefers-color-scheme: dark) {
         background-color: color-mix(in srgb, var(--bg-color) 80%, white);

@@ -1,33 +1,36 @@
 import { createComponentAndMount } from './utils/createComponent.ts'
+import { useLocalStorageSignal } from './utils/useLocalStorage.ts'
 
-void createComponentAndMount<HTMLDialogElement>(
-    'newsletter-dialog',
-    '[data-component="newsletter-dialog"]',
-    component => {
-        const { element } = component
+void createComponentAndMount<HTMLDialogElement>('[data-component="newsletter-dialog"]', component => {
+    const { element } = component
+    const lastPopupTime = useLocalStorageSignal('lastPopupTime')
+    const now = Date.now()
+    const twoHours = 2 * 60 * 60 * 1000
+    const closeButton = component.querySelector<HTMLButtonElement>('[data-component="newsletter-dialog__close"]')
 
-        const lastPopupTime = Number(localStorage.getItem('lastPopupTime'))
-        const now = new Date().getTime()
-        const twoHours = 2 * 60 * 60 * 1000
+    let timeoutId: ReturnType<typeof setTimeout> | undefined
 
-        if (!lastPopupTime || now - lastPopupTime > twoHours) {
-            setTimeout(() => {
-                if (element) {
-                    element?.showModal()
-                    setLastPopupTime()
-                }
-            }, 10_000)
+    const shouldShowDialog = !lastPopupTime.value || now - lastPopupTime.value > twoHours
+
+    const showDialog = () => {
+        if (element) {
+            element.showModal()
+            lastPopupTime.value = Date.now()
         }
+    }
 
-        component.querySelector('[data-component="newsletter-dialog__close"]')?.addEventListener('click', closeDialog)
+    if (shouldShowDialog) {
+        timeoutId = setTimeout(showDialog, 10_000)
+    }
 
-        function closeDialog() {
-            element?.close()
-        }
+    const onCloseDialog = () => {
+        element?.close()
+    }
 
-        function setLastPopupTime() {
-            const now = new Date().getTime()
-            localStorage.setItem('lastPopupTime', String(now))
-        }
-    },
-)
+    closeButton?.addEventListener('click', onCloseDialog)
+
+    return () => {
+        closeButton?.removeEventListener('click', onCloseDialog)
+        if (timeoutId) clearTimeout(timeoutId)
+    }
+})

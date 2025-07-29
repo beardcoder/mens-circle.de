@@ -1,7 +1,7 @@
 .page {
-    color: var(--font-color);
-    font-size: 1rem;
     overflow: hidden auto;
+    font-size: 1rem;
+    color: var(--font-color);
 }
 
 @media (width >= 1024px) {

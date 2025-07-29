@@ -1,23 +1,3 @@
-/**
- * Simple Component System
- *
- * A lightweight component system for creating reactive UI components with:
- * - State management
- * - Reactive props
- * - Cleanup handling
- * - Turbo support
- */
-
-// ============================================================================
-// TYPE DEFINITIONS
-// ============================================================================
-
-/** State setter function type */
-export type StateSetter<T> = (newValue: T | ((prev: T) => T)) => void
-
-/** State hook return type */
-export type StateHook<T> = [T, StateSetter<T>]
-
 /** Component cleanup function */
 export type CleanupFunction = () => void
 
@@ -27,7 +7,10 @@ export type RefHook<T extends Element> = T | null
 /**
  * Component instance interface that provides access to the DOM element and helper methods
  */
-export interface ComponentInstance<T extends HTMLElement = HTMLElement> {
+export interface ComponentInstance<
+    T extends HTMLElement = HTMLElement,
+    TProps extends Record<string, unknown> = Record<string, unknown>,
+> {
     /** The DOM element this component is bound to */
     readonly element: T
     /** Find a child element by selector within this component */
@@ -35,9 +18,7 @@ export interface ComponentInstance<T extends HTMLElement = HTMLElement> {
     /** Find all child elements by selector within this component */
     querySelectorAll<E extends Element = Element>(selector: string): NodeListOf<E>
     /** Props extracted from data-props-* attributes (reactive if enabled) */
-    readonly props: Record<string, unknown>
-    /** useState hook for creating reactive state */
-    useState: <TState>(initialValue: TState) => StateHook<TState>
+    readonly props: TProps
     /** useRef hook for referencing DOM elements by ref attribute */
     useRef: <TElement extends Element = Element>(refName: string) => RefHook<TElement>
 }
@@ -45,67 +26,52 @@ export interface ComponentInstance<T extends HTMLElement = HTMLElement> {
 /**
  * Component initialization callback function
  */
-export type ComponentCallback<T extends HTMLElement = HTMLElement> = (
-    component: ComponentInstance<T>,
-) => CleanupFunction | undefined
+export type ComponentCallback<
+    T extends HTMLElement = HTMLElement,
+    TProps extends Record<string, unknown> = Record<string, unknown>,
+> = (component: ComponentInstance<T, TProps>) => CleanupFunction | void
 
 /**
  * Component configuration object
  */
-export interface ComponentConfig<T extends HTMLElement = HTMLElement> {
-    readonly id: string
+export interface ComponentConfig<
+    T extends HTMLElement = HTMLElement,
+    TProps extends Record<string, unknown> = Record<string, unknown>,
+> {
     readonly selector: string
-    readonly callback: ComponentCallback<T>
+    readonly callback: ComponentCallback<T, TProps>
     readonly reactive?: boolean
 }
-
-/**
- * Component mount options
- */
-export interface ComponentMountOptions {
-    readonly reactive?: boolean
-}
-
-// ============================================================================
-// CONSTANTS
-// ============================================================================
-
-const KEBAB_CASE_REGEX = /-([a-z])/g
-const DATA_PROPS_PREFIX = 'data-props-'
-const MOUNTED_ATTR_PREFIX = 'data-mounted-'
-
-// ============================================================================
-// WEAK MAPS FOR MEMORY EFFICIENCY
-// ============================================================================
-
-const elementObserverCache = new WeakMap<HTMLElement, MutationObserver>()
-const componentInstanceCache = new WeakMap<HTMLElement, ComponentInstance<HTMLElement>>()
-
-// ============================================================================
-// UTILITY FUNCTIONS
-// ============================================================================
 
 /**
  * Converts kebab-case to camelCase
  */
 function kebabToCamelCase(str: string): string {
-    return str.replace(KEBAB_CASE_REGEX, (_, letter: string) => letter.toUpperCase())
+    return str.replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase())
 }
 
 /**
  * Safely parses a string value to its appropriate type
  */
-function parseValue(value: string): unknown {
+export function parseValue(value: string): unknown {
     // Handle boolean values
-    if (value === 'true') return true
-    if (value === 'false') return false
+    if (value === 'true') {
+        return true
+    }
+    if (value === 'false') {
+        return false
+    }
 
     // Handle empty string
-    if (value === '') return ''
+    if (value === '') {
+        return ''
+    }
 
     // Handle numeric values
     const numValue = Number(value)
-    if (!Number.isNaN(numValue)) return numValue
+    if (!Number.isNaN(numValue)) {
+        return numValue
+    }
 
     // Handle JSON values
     if (value.startsWith('{') || value.startsWith('[')) {
@@ -119,9 +85,6 @@ function parseValue(value: string): unknown {
     return value
 }
 
-/**
- * Check if Turbo is available
- */
 function isTurboAvailable(): boolean {
     return (
         typeof window !== 'undefined' &&
@@ -130,47 +93,55 @@ function isTurboAvailable(): boolean {
     )
 }
 
-// ============================================================================
-// STATE MANAGEMENT
-// ============================================================================
+type SignalSubscriber<T> = (value: T) => void
 
-const componentStates = new WeakMap<HTMLElement, Map<string, unknown>>()
-
-function createStateHook<T>(element: HTMLElement, key: string, initialValue: T): StateHook<T> {
-    if (!componentStates.has(element)) {
-        componentStates.set(element, new Map())
-    }
-
-    const states = componentStates.get(element)
-    if (states && !states.has(key)) {
-        states.set(key, initialValue)
-    }
-
-    const getValue = (): T => (states?.get(key) as T) ?? initialValue
-
-    const setValue: StateSetter<T> = newValue => {
-        if (!states) return
-
-        const currentValue = (states.get(key) as T) ?? initialValue
-        const nextValue = typeof newValue === 'function' ? (newValue as (prev: T) => T)(currentValue) : newValue
-
-        if (!Object.is(currentValue, nextValue)) {
-            states.set(key, nextValue)
-        }
-    }
-
-    return [getValue(), setValue]
+export interface Signal<T> {
+    value: T
+    subscribe(fn: SignalSubscriber<T>): () => void
 }
 
-// ============================================================================
-// PROPS MANAGEMENT
-// ============================================================================
+export function useSignal<T>(initial: T): Signal<T> {
+    let _value = initial
+    const subscribers = new Set<SignalSubscriber<T>>()
+    return {
+        subscribe(fn: SignalSubscriber<T>) {
+            subscribers.add(fn)
+            return () => subscribers.delete(fn)
+        },
+        get value() {
+            return _value
+        },
+        set value(next) {
+            if (!Object.is(_value, next)) {
+                _value = next
+                subscribers.forEach(fn => fn(_value))
+            }
+        },
+    }
+}
 
-/**
- * Extract props from data-props-* attributes
- * Using direct getAttribute() for better performance than dataset
- */
-function extractProps(element: HTMLElement, reactive = false): Record<string, unknown> {
+export function useEffect(callback: () => void | (() => void), ...signals: Signal<unknown>[]): () => void {
+    let cleanup: void | (() => void)
+    const run = () => {
+        if (typeof cleanup === 'function') {
+            cleanup()
+        }
+        cleanup = callback() ?? undefined
+    }
+    const unsubs = signals.map(sig => sig.subscribe(run))
+
+    run()
+    return () => {
+        if (typeof cleanup === 'function') {
+            cleanup()
+        }
+        unsubs.forEach(unsub => unsub())
+    }
+}
+
+function extractProps(element: HTMLElement): Record<string, unknown> {
+    const DATA_PROPS_PREFIX = 'data-props-'
+
     const props: Record<string, unknown> = {}
     const attributes = element.attributes
     const prefixLength = DATA_PROPS_PREFIX.length
@@ -183,55 +154,9 @@ function extractProps(element: HTMLElement, reactive = false): Record<string, un
         }
     }
 
-    if (reactive) {
-        setupReactiveProps(element, props)
-    }
-
     return props
 }
 
-/**
- * Setup reactive props with mutation observer
- * Optimized for performance with direct attribute access
- */
-function setupReactiveProps(element: HTMLElement, props: Record<string, unknown>): void {
-    if (elementObserverCache.has(element)) return
-
-    const prefixLength = DATA_PROPS_PREFIX.length
-
-    const observer = new MutationObserver(() => {
-        let hasChanges = false
-        const attributes = element.attributes
-
-        // Use traditional for loop for better performance
-        for (const attr of attributes) {
-            if (attr.name.startsWith(DATA_PROPS_PREFIX)) {
-                const propName = kebabToCamelCase(attr.name.slice(prefixLength))
-                const newValue = parseValue(attr.value)
-
-                if (props[propName] !== newValue) {
-                    props[propName] = newValue
-                    hasChanges = true
-                }
-            }
-        }
-
-        if (hasChanges) {
-            element.dispatchEvent(new CustomEvent('props:changed', { detail: { props } }))
-        }
-    })
-
-    observer.observe(element, { attributes: true })
-    elementObserverCache.set(element, observer)
-}
-
-// ============================================================================
-// REF MANAGEMENT
-// ============================================================================
-
-/**
- * Create a ref hook that finds elements by ref attribute within the component
- */
 function createRefHook<T extends HTMLElement>(
     element: T,
 ): <TElement extends Element = Element>(refName: string) => RefHook<TElement> {
@@ -240,9 +165,6 @@ function createRefHook<T extends HTMLElement>(
     }
 }
 
-/**
- * Standalone useRef function that finds elements by ref attribute within a container
- */
 export function useRef<TElement extends Element = Element>(
     refName: string,
     container: Element = document.body,
@@ -250,131 +172,61 @@ export function useRef<TElement extends Element = Element>(
     return container.querySelector<TElement>(`[ref="${refName}"]`)
 }
 
-// ============================================================================
-// COMPONENT INSTANCE CREATION
-// ============================================================================
+export function useDocumentLanguage(): string {
+    const htmlElement = document.documentElement
+    return htmlElement.lang || 'en'
+}
 
-/**
- * Create component instance with proper cleanup tracking
- */
-function createComponentInstance<T extends HTMLElement>(
-    element: T,
-    reactive = false,
-    componentId: string,
-): ComponentInstance<T> {
-    // Return cached instance if available (for non-reactive components)
-    if (!reactive && componentInstanceCache.has(element)) {
-        const cached = componentInstanceCache.get(element)
-        return cached as ComponentInstance<T>
-    }
+export function isEmpty(str: string) {
+    return !str || str.length === 0
+}
 
-    const props = extractProps(element, reactive)
-    let stateCounter = 0
-
-    // Create bound methods once
+function createComponentInstance<
+    T extends HTMLElement,
+    TProps extends Record<string, unknown> = Record<string, unknown>,
+>(element: T): ComponentInstance<T, TProps> {
+    const props = extractProps(element) as TProps
     const querySelector = element.querySelector.bind(element)
     const querySelectorAll = element.querySelectorAll.bind(element)
-
-    const useState = <StateType>(initialValue: StateType): StateHook<StateType> => {
-        const stateKey = `${componentId}-${stateCounter++}`
-        return createStateHook(element, stateKey, initialValue)
-    }
-
     const useRef = createRefHook(element)
 
-    const instance: ComponentInstance<T> = {
+    return {
         element,
         props,
         querySelector,
         querySelectorAll,
         useRef,
-        useState,
     }
-
-    // Cache instance for non-reactive components
-    if (!reactive) {
-        componentInstanceCache.set(element, instance)
-    }
-
-    return instance
 }
-
-// ============================================================================
-// COMPONENT INITIALIZATION
-// ============================================================================
 
 /**
  * Initialize components with proper error handling and cleanup
  */
-export function initializeComponents<T extends HTMLElement = HTMLElement>(
-    selector: string,
-    callback: ComponentCallback<T>,
-    reactive = false,
-    componentId = 'anonymous',
-): CleanupFunction[] {
+export function initializeComponents<
+    T extends HTMLElement = HTMLElement,
+    TProps extends Record<string, unknown> = Record<string, unknown>,
+>(selector: string, callback: ComponentCallback<T, TProps>): CleanupFunction[] {
     const elements = document.querySelectorAll<T>(selector)
     const cleanupFunctions: CleanupFunction[] = []
 
-    for (let i = 0; i < elements.length; i++) {
-        const element = elements[i]
-        const instanceId = `${componentId}-${i}`
-
+    for (const element of elements) {
         try {
-            const componentInstance = createComponentInstance(element, reactive, instanceId)
+            const componentInstance = createComponentInstance<T, TProps>(element)
 
-            const userCleanup = callback(componentInstance)
-
-            // Create comprehensive cleanup function
-            const enhancedCleanup: CleanupFunction = () => {
-                // Run user cleanup first
-                if (typeof userCleanup === 'function') {
-                    try {
-                        userCleanup()
-                    } catch (error) {
-                        console.error(`Error in cleanup for component ${instanceId}:`, error)
-                    }
-                }
-
-                // Clean up reactive props observer
-                if (reactive) {
-                    const observer = elementObserverCache.get(element)
-                    if (observer) {
-                        observer.disconnect()
-                        elementObserverCache.delete(element)
-                    }
-                }
-
-                // Clean up instance cache (WeakMaps handle state cleanup automatically)
-                componentInstanceCache.delete(element)
-            }
-
-            cleanupFunctions.push(enhancedCleanup)
+            callback(componentInstance)
         } catch (error) {
-            console.error(`Error initializing component ${instanceId}:`, error)
+            console.error('Error initializing component:', error)
         }
     }
 
     return cleanupFunctions
 }
 
-// ============================================================================
-// COMPONENT CONFIGURATION AND MOUNTING
-// ============================================================================
-
-/**
- * Create a component configuration
- */
-export function createComponent<T extends HTMLElement = HTMLElement>(
-    id: string,
-    selector: string,
-    callback: ComponentCallback<T>,
-    options: ComponentMountOptions = {},
-): ComponentConfig<T> {
-    if (!id || typeof id !== 'string') {
-        throw new Error('Component id must be a non-empty string')
-    }
-
-    if (!selector || typeof selector !== 'string') {
+export function createComponent<
+    T extends HTMLElement = HTMLElement,
+    TProps extends Record<string, unknown> = Record<string, unknown>,
+>(selector: string, callback: ComponentCallback<T, TProps>): ComponentConfig<T, TProps> {
+    if (isEmpty(selector)) {
         throw new Error('Component selector must be a non-empty string')
     }
 
@@ -384,53 +236,34 @@ export function createComponent<T extends HTMLElement = HTMLElement>(
 
     return {
         callback,
-        id,
-        reactive: options.reactive ?? false,
         selector,
     }
 }
 
-// ============================================================================
-// MOUNTING SYSTEM
-// ============================================================================
-
-const mountedComponents = new Set<string>()
-
 /**
  * Mount a component with automatic DOM ready and Turbo support
  */
-export function mount<T extends HTMLElement = HTMLElement>(component: ComponentConfig<T>): Promise<CleanupFunction[]> {
-    const { id, selector, callback, reactive } = component
-    const attrName = `${MOUNTED_ATTR_PREFIX}${id}`
+export function mount<
+    T extends HTMLElement = HTMLElement,
+    TProps extends Record<string, unknown> = Record<string, unknown>,
+>(component: ComponentConfig<T, TProps>): Promise<CleanupFunction[]> {
+    const { selector, callback } = component
     let cleanupFunctions: CleanupFunction[] = []
 
     return new Promise(resolve => {
         const initialize = (): void => {
-            if (document.body.hasAttribute(attrName)) {
-                resolve(cleanupFunctions)
-                return
-            }
-
-            document.body.setAttribute(attrName, 'true')
-            mountedComponents.add(id)
-            cleanupFunctions = initializeComponents(selector, callback, reactive, id)
+            cleanupFunctions = initializeComponents<T, TProps>(selector, callback)
             resolve(cleanupFunctions)
         }
 
         const cleanup = (): void => {
-            if (!document.body.hasAttribute(attrName)) {
-                return
-            }
-
             cleanupFunctions.forEach(fn => {
                 try {
                     fn()
                 } catch (err) {
-                    console.warn(`Cleanup error for ${id}:`, err)
+                    console.warn('Cleanup error:', err)
                 }
             })
-            document.body.removeAttribute(attrName)
-            mountedComponents.delete(id)
             cleanupFunctions = []
         }
 
@@ -450,13 +283,11 @@ export function mount<T extends HTMLElement = HTMLElement>(component: ComponentC
 /**
  * Create and mount a component in one step
  */
-export function createComponentAndMount<T extends HTMLElement = HTMLElement>(
-    id: string,
-    selector: string,
-    callback: ComponentCallback<T>,
-    options: ComponentMountOptions = {},
-): Promise<CleanupFunction[]> {
-    const component = createComponent(id, selector, callback, options)
+export function createComponentAndMount<
+    T extends HTMLElement = HTMLElement,
+    TProps extends Record<string, unknown> = Record<string, unknown>,
+>(selector: string, callback: ComponentCallback<T, TProps>): Promise<CleanupFunction[]> {
+    const component = createComponent<T, TProps>(selector, callback)
     return mount(component)
 }
 
@@ -466,7 +297,7 @@ export function createComponentAndMount<T extends HTMLElement = HTMLElement>(
 export function createSingleComponent<T extends HTMLElement = HTMLElement>(
     selector: string,
     callback: ComponentCallback<T>,
-): CleanupFunction | undefined {
+): CleanupFunction | void {
     const element = document.querySelector<T>(selector)
 
     if (!element) {
@@ -474,6 +305,6 @@ export function createSingleComponent<T extends HTMLElement = HTMLElement>(
         return
     }
 
-    const componentInstance = createComponentInstance(element, false, 'single-component')
+    const componentInstance = createComponentInstance(element)
     return callback(componentInstance)
 }

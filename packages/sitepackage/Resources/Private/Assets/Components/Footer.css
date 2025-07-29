@@ -1,7 +1,7 @@
 .o-footer {
-    background-color: var(--color--secondary);
-    color: #fff;
     padding: 1rem;
+    color: #fff;
+    background-color: var(--color--secondary);
 }
 
 @media (width >= 768px) {
@@ -17,8 +17,8 @@
 }
 
 .o-footer__container {
-    margin: 0 auto;
     max-inline-size: 1280px;
+    margin: 0 auto;
     text-align: center;
 }
 
@@ -27,13 +27,13 @@
 }
 
 .o-footer__nav {
-    align-items: center;
-    color: #fff;
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
+    align-items: center;
     justify-content: center;
     margin-block-end: 1.5rem;
+    color: #fff;
     text-transform: uppercase;
 }
 

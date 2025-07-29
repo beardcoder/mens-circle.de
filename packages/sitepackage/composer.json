@@ -1,25 +1,25 @@
 {
-  "name": "mens-circle/sitepackage",
-  "description": "",
-  "license": [
-    "GPL-2.0-or-later"
-  ],
-  "type": "typo3-cms-extension",
-  "keywords": [
-    "TYPO3 CMS"
-  ],
-  "homepage": "https://mens-circle.de",
-  "require": {
-    "typo3/cms-core": "^13.2"
-  },
   "autoload": {
     "psr-4": {
       "MensCircle\\Sitepackage\\": "Classes/"
     }
   },
+  "description": "",
   "extra": {
     "typo3/cms": {
       "extension-key": "sitepackage"
     }
-  }
+  },
+  "homepage": "https://mens-circle.de",
+  "keywords": [
+    "TYPO3 CMS"
+  ],
+  "license": [
+    "GPL-2.0-or-later"
+  ],
+  "name": "mens-circle/sitepackage",
+  "require": {
+    "typo3/cms-core": "^13.2"
+  },
+  "type": "typo3-cms-extension"
 }
