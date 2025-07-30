@@ -1,9 +1,9 @@
 import { createComponentAndMount } from './utils/createComponent.ts'
-import { useLocalStorageSignal } from './utils/useLocalStorage.ts'
+import { useLocalStorage } from './utils/useLocalStorage.ts'
 
 void createComponentAndMount<HTMLDialogElement>('[data-component="newsletter-dialog"]', component => {
     const { element } = component
-    const lastPopupTime = useLocalStorageSignal('lastPopupTime')
+    const lastPopupTime = useLocalStorage('lastPopupTime')
     const now = Date.now()
     const twoHours = 2 * 60 * 60 * 1000
     const closeButton = component.querySelector<HTMLButtonElement>('[data-component="newsletter-dialog__close"]')

@@ -1,10 +1,10 @@
 import { type Signal, useSignal } from './createComponent'
 
-export interface LocalStorageSignal<T> extends Signal<T> {
+export interface LocalStorage<T> extends Signal<T> {
     reset: () => void
 }
 
-export function useLocalStorageSignal<T>(key: string, initial: T): LocalStorageSignal<T> {
+export function useLocalStorage<T>(key: string, initial: T): LocalStorage<T> {
     let storedValue: T
     try {
         const item = localStorage.getItem(key)
