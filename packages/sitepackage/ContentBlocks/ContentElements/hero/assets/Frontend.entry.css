@@ -13,7 +13,7 @@
     display: flex;
     align-items: end;
     inline-size: 100%;
-    max-inline-size: var(--container-width--wide);
+    max-inline-size: var(--container-width);
     padding-block: 10rem 6rem;
     padding-inline: 1.5rem;
     margin-inline: auto;
@@ -53,22 +53,20 @@
 
 .c-hero__header {
     margin-block-end: 0;
-    font-size: clamp(3.75rem, 10.118vi + 1.132rem, 11.25rem);
-    font-weight: 600;
-    line-height: clamp(4.5rem, 9.106vi + 2.144rem, 11.25rem);
+    font-size: clamp(2.5rem, 5.059vw + 1.191rem, 6.25rem);
+    line-height: clamp(3.75rem, 5.902vw + 2.223rem, 8.125rem);
+    font-weight: 800;
     color: #fff;
-
-    span {
-        font-family: var(--font-accent), serif;
-        font-style: italic;
-        font-weight: 400;
-    }
+    text-align: center;
+    hyphens: auto;
 }
 
 .c-hero__body {
+    margin-inline: auto;
     max-inline-size: 48rem;
     margin-block: 2rem 3rem;
     font-size: clamp(1.125rem, 0.506vi + 0.994rem, 1.5rem);
     line-height: clamp(1.575rem, 0.506vi + 1.444rem, 1.95rem);
     color: #fff;
+    text-align: center;
 }

@@ -29,10 +29,9 @@ cmds = [
 cmds = [
     "mkdir -p /var/log/nginx && mkdir -p /var/cache/nginx",
     "composer install --no-dev --optimize-autoloader --no-scripts --ignore-platform-reqs",
-    "npm install -g corepack",
-    "corepack enable",
-    "pnpm install",
-    "pnpm build",
+    "curl -fsSL https://bun.sh/install | bash",
+    "bun install",
+    "bun run build",
 ]
 
 
