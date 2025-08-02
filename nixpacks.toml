@@ -14,7 +14,7 @@ LOCALE_ARCHIVE = "/usr/lib/locale/locale-archive"
 [phases.setup]
 nixPkgs = ["...", "(lib.hiPrio phpPackages.composer)", "glibcLocales"]
 
-aptPkgs = ["...", "locales", "imagemagick", "graphicsmagick", "ghostscript"]
+aptPkgs = ["...", "locales", "imagemagick", "graphicsmagick", "ghostscript", "unzip"]
 
 cmds = [
     "sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen",
