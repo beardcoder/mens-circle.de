@@ -25,10 +25,10 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         ucfirst($extensionKey),
         'EventDetail',
         [
-            EventController::class => ['detail', 'registration', 'iCal', 'upcoming'],
+            EventController::class => ['detail', 'registration', 'upcoming'],
         ],
         [
-            EventController::class => ['registration', 'iCal', 'upcoming'],
+            EventController::class => ['registration', 'upcoming'],
         ],
         ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
