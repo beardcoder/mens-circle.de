@@ -16,6 +16,8 @@ use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -29,36 +31,43 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 #[AsController]
 class NewsletterController extends ActionController
 {
-    private ModuleTemplate $moduleTemplate;
-
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
         private readonly PageRenderer $pageRenderer,
         private readonly MailerInterface $mailer,
         private readonly SubscriptionRepository $subscriptionRepository,
         private readonly NewsletterRepository $newsletterRepository,
+        private readonly LanguageServiceFactory $languageServiceFactory,
     ) {}
 
-    public function prepareTemplate(ServerRequestInterface $serverRequest): void
-    {
-        $this->moduleTemplate = $this->moduleTemplateFactory->create($serverRequest);
+    /**
+     * Generates the action menu
+     */
+    protected function initializeModuleTemplate(
+        ServerRequestInterface $request,
+    ): ModuleTemplate {
+        $view = $this->moduleTemplateFactory->create($request);
+
+        $view->setFlashMessageQueue($this->getFlashMessageQueue());
+
+        return $view;
     }
 
     public function newAction(?Newsletter $newsletter = null): ResponseInterface
     {
-        $this->prepareTemplate($this->request);
+        $view = $this->initializeModuleTemplate($this->request);
         $this->pageRenderer->loadJavaScriptModule('@mens-circle/sitepackage/bootstrap.js');
         $this->pageRenderer->addCssFile('EXT:sitepackage/Resources/Public/Backend/Styles/bootstrap.css');
-        $this->moduleTemplate->setTitle('Newsletter');
+        $view->setTitle('Newsletter');
 
         $subscriptions = $this->subscriptionRepository->findBy([
             'status' => SubscriptionStatusEnum::Active,
         ]);
         $newsletter ??= GeneralUtility::makeInstance(Newsletter::class);
 
-        $this->moduleTemplate->assign('newsletter', $newsletter);
-        $this->moduleTemplate->assign('subscriptions', $subscriptions);
-        return $this->htmlResponse($this->moduleTemplate->render('Backend/Newsletter/New'));
+        $view->assign('newsletter', $newsletter);
+        $view->assign('subscriptions', $subscriptions);
+        return $view->renderResponse('Newsletter/New');
     }
 
     public function sendAction(Newsletter $newsletter): ResponseInterface
@@ -95,8 +104,8 @@ class NewsletterController extends ActionController
                 ->assign(
                     'unsubscribeLink',
                     $this->generateFrontendLinkInBackendContext($universalSecureTokenService->encrypt([
-                    'email' => $emailAddress->getAddress(),
-                ])),
+                        'email' => $emailAddress->getAddress(),
+                    ])),
                 )
                 ->assign('message', $newsletter->message);
             $this->mailer->send($fluidEmail);
@@ -117,11 +126,6 @@ class NewsletterController extends ActionController
         return $this->redirect('new');
     }
 
-    protected function initializeModuleTemplate(ServerRequestInterface $serverRequest): ModuleTemplate
-    {
-        return $this->moduleTemplateFactory->create($serverRequest);
-    }
-
     protected function generateFrontendLinkInBackendContext($token): string
     {
         //create url
@@ -134,7 +138,12 @@ class NewsletterController extends ActionController
                 'token' => $token,
             ],
         ];
-        return (string) $site->getRouter()
+        return (string)$site->getRouter()
             ->generateUri(13, $parameters);
+    }
+
+    protected function getLanguageService(): LanguageService
+    {
+        return $this->languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
     }
 }

@@ -62,6 +62,14 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
           }
         }
 
+        module.tx_sitepackage_newsletter {
+          view {
+            templateRootPaths.100 = EXT:sitepackage/Resources/Private/Components/Templates/Backend/Newsletter/
+            partialRootPaths.100 = EXT:sitepackage/Resources/Private/Components/Partials/Backend/Newsletter/
+            layoutRootPaths.100 = EXT:sitepackage/Resources/Private/Components/Layouts/Backend/Newsletter/
+          }
+        }
+
         module.tx_form {
           settings {
             yamlConfigurations {

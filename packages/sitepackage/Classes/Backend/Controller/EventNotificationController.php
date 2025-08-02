@@ -50,7 +50,7 @@ class EventNotificationController extends ActionController
 
         $this->moduleTemplate->setTitle('Select Event');
         $this->moduleTemplate->assign('events', $this->eventRepository->findAll());
-        return $this->htmlResponse($this->moduleTemplate->render('Backend/EventNotification/List'));
+        return $this->htmlResponse($this->moduleTemplate->render('EventNotification/List'));
     }
 
     public function newAction(Event $event, ?EventNotification $eventNotification = null): ResponseInterface
@@ -68,7 +68,7 @@ class EventNotificationController extends ActionController
         $this->moduleTemplate->assign('eventNotification', $eventNotification);
         $this->moduleTemplate->setTitle('Notification');
 
-        return $this->htmlResponse($this->moduleTemplate->render('Backend/EventNotification/New'));
+        return $this->htmlResponse($this->moduleTemplate->render('EventNotification/New'));
     }
 
     public function sendAction(EventNotification $eventNotification): ResponseInterface
@@ -144,7 +144,7 @@ class EventNotificationController extends ActionController
             $menu->addMenuItem(
                 $menu->makeMenuItem()
                     ->setTitle($event->getLongTitle())
-                    ->setActive(isset($params['event']) && $event->getUid() === (int) $params['event'])
+                    ->setActive(isset($params['event']) && $event->getUid() === (int)$params['event'])
                     ->setHref(
                         $this->backendUriBuilder->buildUriFromRoute(
                             'events_notification.EventNotification_new',
