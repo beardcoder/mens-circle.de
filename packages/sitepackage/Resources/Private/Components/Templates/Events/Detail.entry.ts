@@ -1,6 +1,6 @@
 import { icon, type LatLngExpression, map, marker, tileLayer } from 'leaflet'
 import './Map.css'
-import { createComponentAndMount } from '../../../Assets/utils/createComponent.ts'
+import { createComponentAndMount, useSignal } from '../../../Assets/utils/createComponent.ts'
 
 void createComponentAndMount('[data-component="event-location"]', ({ element }) => {
     const latLong: LatLngExpression = [parseFloat(element.dataset.lat!), parseFloat(element.dataset.long!)]
@@ -35,4 +35,8 @@ void createComponentAndMount('[data-component="event-location"]', ({ element }) 
     tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.svg', {
         attribution: '©OpenStreetMap, ©CartoDB',
     }).addTo(locationMap)
+
+  return () => {
+    locationMap.remove()
+  }
 })
