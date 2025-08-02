@@ -68,8 +68,8 @@ class SubscriptionController extends ActionController
         );
 
         return $this->redirect('form', null, null, [
-                'subscriptionComplete' => true,
-            ]);
+            'subscriptionComplete' => true,
+        ]);
     }
 
     public function doubleOptInAction(string $token): ResponseInterface

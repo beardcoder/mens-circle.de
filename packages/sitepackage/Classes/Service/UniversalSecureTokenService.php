@@ -8,7 +8,7 @@ readonly class UniversalSecureTokenService
 
     public function __construct()
     {
-        $systemKey = (string) $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'];
+        $systemKey = (string)$GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'];
         $this->encryptionKey = hash('sha256', $systemKey, true);
     }
 

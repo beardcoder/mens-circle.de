@@ -34,7 +34,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
             $currentPath,
             $matches,
         )) {
-            $eventId = (int) $matches[1];
+            $eventId = (int)$matches[1];
             // You can now use $eventId as needed
             return $this->generateICalForEvent($request, $response, $eventId);
         }

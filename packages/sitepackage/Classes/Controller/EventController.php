@@ -49,7 +49,7 @@ class EventController extends ActionController
     {
         $upcomingEvent = $event ?? $this->eventRepository->findNextUpcomingEvent();
 
-        if (! $upcomingEvent instanceof Event) {
+        if (!$upcomingEvent instanceof Event) {
             return $this->handleEventNotFoundError();
         }
 
@@ -65,7 +65,7 @@ class EventController extends ActionController
     ): ResponseInterface {
         $participantToAssign = $participant ?? GeneralUtility::makeInstance(Participant::class);
 
-        if (! $event instanceof Event) {
+        if (!$event instanceof Event) {
             return $this->handleEventNotFoundError();
         }
 
@@ -106,26 +106,26 @@ class EventController extends ActionController
             $this->logger->error($exception->getMessage());
         }
 
-        return $this->redirect(
+        $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setNoCache(true);
+        $uri = $this->uriBuilder->uriFor(
             'detail',
-            null,
-            null,
             [
                 'event' => $participant->event->getUid(),
                 'registrationComplete' => true,
-            ],
+            ]
         );
+        return $this->redirectToUri($uri);
     }
 
     protected function setRegistrationFieldValuesToArguments(): void
     {
         $arguments = $this->request->getArguments();
-        if (! isset($arguments['event'])) {
+        if (!isset($arguments['event'])) {
             return;
         }
 
-        $event = $this->eventRepository->findByUid((int) $this->request->getArgument('event'));
-        if (! $event instanceof Event) {
+        $event = $this->eventRepository->findByUid((int)$this->request->getArgument('event'));
+        if (!$event instanceof Event) {
             return;
         }
 
@@ -136,7 +136,7 @@ class EventController extends ActionController
         $mvcPropertyMappingConfiguration->allowProperties('event');
         $mvcPropertyMappingConfiguration->allowCreationForSubProperty('event');
         $mvcPropertyMappingConfiguration->allowModificationForSubProperty('event');
-        $arguments['participant']['event'] = (int) $this->request->getArgument('event');
+        $arguments['participant']['event'] = (int)$this->request->getArgument('event');
 
         $this->request = $this->request->withArguments($arguments);
     }
@@ -182,7 +182,7 @@ class EventController extends ActionController
     private function handleEventNotFoundError(): ResponseInterface
     {
         $upcomingEvent = $this->eventRepository->findNextUpcomingEvent();
-        if (! $upcomingEvent instanceof Event) {
+        if (!$upcomingEvent instanceof Event) {
             $site = $this->request->getAttribute('site');
             \assert($site instanceof Site);
 
@@ -195,8 +195,8 @@ class EventController extends ActionController
             ->setTargetPageUid(3)
             ->setNoCache(true)
             ->uriFor('detail', [
-                    'event' => $upcomingEvent,
-                ]);
+                'event' => $upcomingEvent,
+            ]);
 
         return $this->redirectToUri($redirectUrl);
     }
