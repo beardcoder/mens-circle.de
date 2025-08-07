@@ -37,5 +37,8 @@
     "format": "bunx biome format --write",
     "stylelint": "stylelint \"packages/**/*.css\" --fix"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@beardcoder/simple-components": "^0.3.0"
+  }
 }
