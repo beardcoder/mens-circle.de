@@ -36,7 +36,7 @@ void createComponentAndMount('[data-component="event-location"]', ({ element }) 
         attribution: '©OpenStreetMap, ©CartoDB',
     }).addTo(locationMap)
 
-  return () => {
-    locationMap.remove()
-  }
+    return () => {
+        locationMap.remove()
+    }
 })
