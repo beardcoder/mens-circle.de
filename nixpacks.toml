@@ -1,3 +1,67 @@
+providers = ["php"]
+
+[variables]
+NIXPACKS_PHP_ROOT_DIR = "/app/public"
+NIXPACKS_PHP_FALLBACK_PATH = "/index.php"
+
+# System-wide locale settings within Container
+# These variables are stored in /etc/environment later
+LANG = "en_US.UTF-8"
+LANGUAGE = "en_US:de_DE"
+LC_ALL = "en_US.UTF-8"
+LOCALE_ARCHIVE = "/usr/lib/locale/locale-archive"
+
+[phases.setup]
+nixPkgs = ["...", "(lib.hiPrio phpPackages.composer)", "glibcLocales"]
+
+aptPkgs = ["...", "locales", "imagemagick", "graphicsmagick", "ghostscript", "unzip"]
+
+cmds = [
+    "sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen",
+    "sed -i 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen",
+    # Generate locales in Build-Stage
+    "locale-gen",
+    "localedef -i de_DE -f UTF-8 de_DE.UTF-8 || true",
+    "localedef -i en_US -f UTF-8 en_US.UTF-8 || true",
+]
+
+[phases.install]
+cmds = [
+    "mkdir -p /var/log/nginx && mkdir -p /var/cache/nginx",
+    "composer install --no-dev --optimize-autoloader --no-scripts --ignore-platform-reqs",
+    "curl -fsSL https://bun.sh/install | bash",
+    "bun install",
+    "bun run build",
+]
+
+
+[phases.build]
+cmds = []
+
+[staticAssets]
+"php-fpm.conf" = '''
+[www]
+listen = 127.0.0.1:9000
+user = www-data
+group = www-data
+listen.owner = www-data
+listen.group = www-data
+pm = dynamic
+pm.max_children = 50
+pm.min_spare_servers = 4
+pm.max_spare_servers = 32
+pm.start_servers = 18
+clear_env = no
+
+php_admin_value[memory_limit] = 512M
+php_admin_value[max_execution_time] = 240
+php_admin_value[max_input_time] = 240
+php_admin_value[max_input_vars] = 1500
+php_admin_value[post_max_size] = 256M
+php_admin_value[upload_max_filesize] = 256M
+php_admin_value[pcre.jit] = 1
+'''
+
 "nginx.template.conf" = '''
 user www-data www-data;
 worker_processes 5;
@@ -21,7 +85,7 @@ http {
     error_log /var/log/nginx-error.log;
     sendfile     on;
     tcp_nopush   on;
-    server_names_hash_bucket_size 128;
+    server_names_hash_bucket_size 128; # this seems to be required for some vhosts
 
     server {
         listen ${PORT};
@@ -37,14 +101,11 @@ http {
         add_header X-Content-Type-Options "nosniff";
 
         client_max_body_size 35M;
+
         index index.php;
+
         charset utf-8;
 
-        location ~* \.(?:ico|css|js|gif|jpe?g|png|webp|svg|woff2?|ttf|eot|otf|mp4|webm|ogg|pdf)$ {
-            expires 30d;
-            add_header Cache-Control "public, max-age=2592000, immutable";
-            access_log off;
-        }
 
         $if(NIXPACKS_PHP_FALLBACK_PATH) (
             location / {
