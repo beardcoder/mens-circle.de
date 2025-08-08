@@ -231,7 +231,7 @@ tt_content.sitepackage_hero {
   }
 }
 
-tt_content.sitepackage_newsletter =< lib.contentElement
-tt_content.sitepackage_newsletter {
-  templateName = ContentElements/Newsletter
+tt_content.sitepackage_text =< lib.contentElement
+tt_content.sitepackage_text {
+  templateName = ContentElements/Text
 }

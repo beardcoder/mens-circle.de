@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-08-08T13:47:50+02:00">
+    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-08-08T14:04:05+02:00">
         <body>
             <trans-unit id="backend_layout.column.normal">
                 <source>Normal</source>
@@ -41,6 +41,14 @@
             <trans-unit id="content.newsletter.description">
                 <source>Registration Form</source>
                 <target>Registration Form</target>
+            </trans-unit>
+            <trans-unit id="content.text">
+                <source>Text</source>
+                <target>Text</target>
+            </trans-unit>
+            <trans-unit id="content.text.description">
+                <source>Headline and Text element</source>
+                <target>Headline and Text element</target>
             </trans-unit>
             <trans-unit id="extension.title">
                 <source>Sitepackage</source>

@@ -5,13 +5,14 @@
     xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
-<vite:asset entry="EXT:sitepackage/Resources/Private/Components/Templates/ContentElements/Newsletter.entry.css" />
+<vite:asset entry="EXT:sitepackage/Resources/Private/Components/Templates/ContentElements/Text.entry.css" />
 
-<section class="c-newsletter">
-    <div class="c-newsletter__wrapper">
-        <div class="c-newsletter__inner">
-            <f:render arguments="{layout: 2, header: data.header, center: 1}" partial="ContentElements/Header"></f:render>
+<section class="c-text">
+    <div class="c-text__wrapper">
+        <f:render arguments="{layout: 2, header: data.header}" partial="ContentElements/Header" />
+        <div class="c-text__inner">
             <div data-animate="fadeUp">
+                {data.bodytext -> f:format.html()}
             </div>
         </div>
     </div>
