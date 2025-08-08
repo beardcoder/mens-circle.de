@@ -13,8 +13,7 @@ mutations:
     directive: 'img-src'
     sources:
       - 'data:'
-      - 'self'
-      - 'https://mens-circle.de/'
+      - "'self'"
       - 'https://*.basemaps.cartocdn.com'
       - 'https://a.basemaps.cartocdn.com'
       - 'https://b.basemaps.cartocdn.com'
