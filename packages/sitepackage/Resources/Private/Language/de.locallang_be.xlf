@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-08-08T10:12:33+02:00">
+    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-08-08T12:32:46+02:00">
         <body>
             <trans-unit id="backend_layout.column.normal">
                 <source>Normal</source>
@@ -17,6 +17,22 @@
             <trans-unit id="backend_layout.home">
                 <source>Home</source>
                 <target>Startseite</target>
+            </trans-unit>
+            <trans-unit id="content.about">
+                <source>About Text</source>
+                <target>Über Mich Text</target>
+            </trans-unit>
+            <trans-unit id="content.about.description">
+                <source>A text element with an image.</source>
+                <target>Ein Text Element mit einem Bild</target>
+            </trans-unit>
+            <trans-unit id="content.hero">
+                <source>Hero</source>
+                <target>Hero</target>
+            </trans-unit>
+            <trans-unit id="content.hero.description">
+                <source>Header Hero element</source>
+                <target>Header Hero element</target>
             </trans-unit>
             <trans-unit id="extension.title">
                 <source>Sitepackage</source>
@@ -97,14 +113,6 @@
             <trans-unit id="tx_sitepackage_feature.title">
                 <source>Feature</source>
                 <target>Vorteil</target>
-            </trans-unit>
-            <trans-unit id="content.about">
-                <source>About Text</source>
-                <target>Über Mich Text</target>
-            </trans-unit>
-            <trans-unit id="content.about.description">
-                <source>A text element with an image.</source>
-                <target>Ein Text Element mit einem Bild</target>
             </trans-unit>
         </body>
     </file>

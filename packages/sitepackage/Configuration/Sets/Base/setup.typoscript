@@ -219,3 +219,14 @@ tt_content.sitepackage_about {
     }
   }
 }
+
+tt_content.sitepackage_hero =< lib.contentElement
+tt_content.sitepackage_hero {
+  templateName = ContentElements/Hero
+  dataProcessing {
+    10 = files
+    10 {
+      references.fieldName = assets
+    }
+  }
+}
