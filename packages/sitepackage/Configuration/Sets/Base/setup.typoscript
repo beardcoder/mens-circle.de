@@ -220,3 +220,6 @@ tt_content.sitepackage_text.templateName = ContentElements/Text
 
 tt_content.sitepackage_faq =< lib.contentElement
 tt_content.sitepackage_faq.templateName = ContentElements/Faq
+
+tt_content.sitepackage_header =< lib.contentElement
+tt_content.sitepackage_header.templateName = ContentElements/Header
