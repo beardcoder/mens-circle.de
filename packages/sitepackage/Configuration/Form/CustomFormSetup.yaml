@@ -4,16 +4,16 @@ prototypes:
       Confirmation:
         options:
           templateRootPaths:
-            200: 'EXT:sitepackage/Resources/Private/Components/Templates/Form/Frontend/Finishers/Confirmation/'
+            200: 'EXT:sitepackage/Resources/Private/Templates/Form/Frontend/Finishers/Confirmation/'
     formElementsDefinition:
       Form:
         renderingOptions:
           templateRootPaths:
-            20: 'EXT:sitepackage/Resources/Private/Components/Templates/Form/Frontend/'
+            20: 'EXT:sitepackage/Resources/Private/Templates/Form/Frontend/'
           partialRootPaths:
-            20: 'EXT:sitepackage/Resources/Private/Components/Partials/Form/Frontend/'
+            20: 'EXT:sitepackage/Resources/Private/Partials/Form/Frontend/'
           layoutRootPaths:
-            20: 'EXT:sitepackage/Resources/Private/Components/Layouts/Form/Frontend/'
+            20: 'EXT:sitepackage/Resources/Private/Layouts/Form/Frontend/'
 persistenceManager:
   allowedExtensionPaths:
     100: EXT:sitepackage/Resources/Private/Forms/

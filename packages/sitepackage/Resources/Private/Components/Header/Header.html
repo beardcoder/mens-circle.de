@@ -1,0 +1,64 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mce="http://typo3.org/ns/MensCircle/Sitepackage/ComponentCollection"
+    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
+>
+
+<vite:asset entry="EXT:sitepackage/Resources/Private/Components/Header/Header.entry.css"/>
+
+<f:variable name="header" value="{f:slot()}"/>
+<f:argument default="2" name="layout" optional="{true}" type="string"/>
+<f:argument default="c-header--center" name="headerCenterClass" optional="{true}" type="string"/>
+<f:argument default="{false}" name="center" optional="{true}" type="bool"/>
+
+<f:if condition="{header}">
+    <f:switch expression="{layout}">
+        <f:case value="1">
+            <h1
+                class="c-header c-header--h1 {f:if(condition: center, then: headerCenterClass)}"
+                data-animate="fadeDown"
+            >{header -> f:sanitize.html()}</h1>
+        </f:case>
+        <f:case value="2">
+            <h2
+                class="c-header c-header--h2 {f:if(condition: center, then: headerCenterClass)}"
+                data-animate="fadeDown"
+            >{header -> f:sanitize.html()}</h2>
+        </f:case>
+        <f:case value="3">
+            <h3
+                class="c-header c-header--h3 {f:if(condition: center, then: headerCenterClass)}"
+                data-animate="fadeDown"
+            >{header -> f:sanitize.html()}</h3>
+        </f:case>
+        <f:case value="4">
+            <h4
+                class="c-header c-header--h4 {f:if(condition: center, then: headerCenterClass)}"
+                data-animate="fadeDown"
+            >{header -> f:sanitize.html()}</h4>
+        </f:case>
+        <f:case value="5">
+            <h5
+                class="c-header c-header--h5 {f:if(condition: center, then: headerCenterClass)}"
+                data-animate="fadeDown"
+            >{header -> f:sanitize.html()}</h5>
+        </f:case>
+        <f:case value="6">
+            <h6
+                class="c-header c-header--h6 {f:if(condition: center, then: headerCenterClass)}"
+                data-animate="fadeDown"
+            >{header -> f:sanitize.html()}</h6>
+        </f:case>
+        <f:case value="100">
+            <f:comment><!-- do not show header --></f:comment>
+        </f:case>
+        <f:defaultCase>
+            <f:if condition="{default}">
+                <mce:header layout="{layout}">{header}</mce:header>
+            </f:if>
+        </f:defaultCase>
+    </f:switch>
+</f:if>
+
+</html>

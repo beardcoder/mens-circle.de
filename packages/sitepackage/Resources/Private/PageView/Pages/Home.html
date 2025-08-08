@@ -8,7 +8,7 @@
     <f:for each="{content.main.records}" as="record">
         <f:cObject
             typoscriptObjectPath="{record.mainType}"
-            data="{record.rawRecord}"
+            data="{record as array}"
             table="{record.mainType}"
         />
     </f:for>

@@ -4,7 +4,7 @@ plugin.tx_sitepackage_newsletter {
 
     partialRootPaths {
       10 = {$newsletter.partialRootPath}
-      100 = EXT:sitepackage/Resources/Private/Components/Partials/
+      100 = EXT:sitepackage/Resources/Private/Partials/
     }
 
     layoutRootPaths.10 = {$newsletter.layoutRootPath}

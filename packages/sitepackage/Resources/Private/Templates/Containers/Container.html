@@ -1,0 +1,20 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:i="http://typo3.org/ns/B13/Picture/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
+    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
+>
+<f:layout name="ContentElements/Dark" />
+
+<f:section name="Main">
+    <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Containers/Container.entry.css" />
+    <div class="c-container c-container--main">
+        <div class="c-container__content">
+            <f:for as="item" each="{items}">
+                {item.renderedContent -> f:format.raw()}
+            </f:for>
+        </div>
+    </div>
+</f:section>
+</html>

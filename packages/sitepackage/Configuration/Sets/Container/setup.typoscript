@@ -2,7 +2,7 @@ tt_content.container < lib.contentElement
 tt_content.container {
   templateName = Container
   templateRootPaths {
-    10 = EXT:sitepackage/Resources/Private/Components/Templates/Containers
+    10 = EXT:sitepackage/Resources/Private/Templates/Containers
   }
 
   dataProcessing {
@@ -18,7 +18,7 @@ tt_content.features < lib.contentElement
 tt_content.features {
   templateName = Features
   templateRootPaths {
-    10 = EXT:sitepackage/Resources/Private/Components/Templates/Containers
+    10 = EXT:sitepackage/Resources/Private/Templates/Containers
   }
 
   dataProcessing {

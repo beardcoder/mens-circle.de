@@ -1,0 +1,25 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:i="http://typo3.org/ns/B13/Picture/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
+    xmlns:mce="http://typo3.org/ns/MensCircle/Sitepackage/ComponentCollection"
+    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
+>
+
+<f:layout name="Default" />
+
+<f:section name="Main">
+<f:if condition="{events}">
+    <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Events/List.entry.css" />
+    <div class="o-event-list">
+        <mce:header>Nächste Veranstaltungen</mce:header>
+        <div class="o-event-list__items">
+            <f:for as="event" each="{events}">
+                <f:render arguments="{ event: event }" partial="Item" />
+            </f:for>
+        </div>
+    </div>
+</f:if>
+</f:section>
+</html>

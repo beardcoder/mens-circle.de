@@ -2,15 +2,15 @@ lib.contentElement = FLUIDTEMPLATE
 lib.contentElement {
   templateName = Default
   templateRootPaths {
-    100 = EXT:sitepackage/Resources/Private/Components/Templates/
+    100 = EXT:sitepackage/Resources/Private/Templates/
   }
 
   partialRootPaths {
-    100 = EXT:sitepackage/Resources/Private/Components/Partials/
+    100 = EXT:sitepackage/Resources/Private/Partials/
   }
 
   layoutRootPaths {
-    100 = EXT:sitepackage/Resources/Private/Components/Layouts/
+    100 = EXT:sitepackage/Resources/Private/Layouts/
   }
 }
 

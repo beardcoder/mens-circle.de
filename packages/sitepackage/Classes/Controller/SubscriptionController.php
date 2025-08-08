@@ -22,22 +22,19 @@ class SubscriptionController extends ActionController
         private readonly EmailService $emailService,
         private readonly DoubleOptInService $doubleOptInService,
         private readonly FrontendUserService $frontendUserService,
-    ) {}
+    )
+    {
+    }
 
-    public function formAction(
-        ?Subscription $subscription = null,
-        ?bool $subscriptionComplete = false,
-    ): ResponseInterface {
+    public function formAction(?Subscription $subscription = null): ResponseInterface
+    {
         $subscription ??= GeneralUtility::makeInstance(Subscription::class);
         $this->view->assign('subscription', $subscription);
-        $this->view->assign('subscriptionComplete', $subscriptionComplete);
-
         return $this->htmlResponse();
     }
 
     public function subscribeAction(Subscription $subscription): ResponseInterface
     {
-
         $existingSubscription = $this->subscriptionRepository->findOneBy([
             'email' => $subscription->email,
         ]);
@@ -56,7 +53,6 @@ class SubscriptionController extends ActionController
         $subscription->doubleOptInToken = $this->tokenService->generateToken();
         $subscription->optInDate = new \DateTime();
         $this->subscriptionRepository->add($subscription);
-
         $this->emailService->sendMail(
             $subscription->email,
             'doubleOptIn',
@@ -67,9 +63,7 @@ class SubscriptionController extends ActionController
             $this->request,
         );
 
-        return $this->redirect('form', null, null, [
-            'subscriptionComplete' => true,
-        ]);
+        return $this->htmlResponse();
     }
 
     public function doubleOptInAction(string $token): ResponseInterface
@@ -92,15 +86,5 @@ class SubscriptionController extends ActionController
             $this->subscriptionRepository->update($subscription);
         }
         return $this->htmlResponse();
-    }
-
-    private function handleExistingSubscription(Subscription $existingSubscription): ?string
-    {
-        if ($existingSubscription->status->is(SubscriptionStatusEnum::Active)) {
-            return 'Die Email-Adresse ist bereits eingetragen.';
-        }
-
-        $this->subscriptionRepository->remove($existingSubscription);
-        return null;
     }
 }

@@ -64,7 +64,7 @@ final class ContentBlocksNewsletterUpgradeWizard implements UpgradeWizardInterfa
                 ->executeQuery()
                 ->fetchOne();
         } catch (Exception $e) {
-
+            return false;
         }
     }
 

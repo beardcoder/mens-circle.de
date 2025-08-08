@@ -1,0 +1,71 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
+>
+<f:layout name="Form"/>
+<f:section name="Main">
+    <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Newsletter/Form.entry.css"/>
+    <h2 class="c-header c-header--h4 c-header--center animate-on-scroll visible" data-animate="fadeUp">
+        Bleibe auf dem Laufenden mit unserem <span>Newsletter</span>
+    </h2>
+
+    <turbo-frame id="turbo__newsletter-subscription">
+        <f:form
+            action="subscribe"
+            class="c-newsletter-form"
+            name="subscription"
+            object="{subscription}"
+        >
+            <div class="c-newsletter-form__grid">
+                <div data-fade="left">
+                    <label class="c-newsletter-form__label c-newsletter-form__label--dark" for="firstName">
+                        Vorname
+                    </label>
+                    <f:form.textfield
+                        autocomplete="given-name"
+                        class="c-newsletter-form__input c-newsletter-form__input--dark"
+                        id="firstName"
+                        property="firstName"
+                        required="1"
+                        type="text"
+                    />
+                </div>
+                <div data-fade="left">
+                    <label class="c-newsletter-form__label c-newsletter-form__label--dark" for="lastName">
+                        Nachname
+                    </label>
+                    <f:form.textfield
+                        autocomplete="family-name"
+                        class="c-newsletter-form__input c-newsletter-form__input--dark"
+                        id="lastName"
+                        property="lastName"
+                        required="1"
+                        type="text"
+                    />
+                </div>
+            </div>
+
+            <div data-fade="left">
+                <label class="c-newsletter-form__label c-newsletter-form__label--dark" for="email">
+                    E-Mail
+                </label>
+                <f:form.textfield
+                    autocomplete="email"
+                    class="c-newsletter-form__input c-newsletter-form__input--dark"
+                    id="email"
+                    property="email"
+                    required="1"
+                    type="email"
+                />
+            </div>
+            <div data-fade="left">
+                <f:form.submit
+                    class="c-button"
+                    value="Jetzt anmelden"
+                />
+            </div>
+        </f:form>
+    </turbo-frame>
+</f:section>
+</html>

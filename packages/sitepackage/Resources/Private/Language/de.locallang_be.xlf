@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-08-08T14:04:05+02:00">
+    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-08-08T21:59:44+02:00">
         <body>
             <trans-unit id="backend_layout.column.normal">
                 <source>Normal</source>
@@ -25,6 +25,14 @@
             <trans-unit id="content.about.description">
                 <source>A text element with an image.</source>
                 <target>Ein Text Element mit einem Bild</target>
+            </trans-unit>
+            <trans-unit id="content.faq">
+                <source>FAQ</source>
+                <target>FAQ</target>
+            </trans-unit>
+            <trans-unit id="content.faq.description">
+                <source>Element with bullet points</source>
+                <target>Element mit liste</target>
             </trans-unit>
             <trans-unit id="content.hero">
                 <source>Hero</source>

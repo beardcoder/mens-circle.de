@@ -9,12 +9,12 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
-#[UpgradeWizard('sitepackage_ContentBlocksHeroUpgradeWizard')]
-final class ContentBlocksHeroUpgradeWizard implements UpgradeWizardInterface
+#[UpgradeWizard('sitepackage_ContentBlocksFaqUpgradeWizard')]
+final class ContentBlocksFaqUpgradeWizard implements UpgradeWizardInterface
 {
     private const TABLE = 'tt_content';
-    private const OLD_TYPE = 'menscircle_hero';
-    private const NEW_TYPE = 'sitepackage_hero';
+    private const OLD_TYPE = 'menscircle_faq';
+    private const NEW_TYPE = 'sitepackage_faq';
 
     public function __construct(
         private readonly ConnectionPool $connectionPool,
@@ -24,7 +24,7 @@ final class ContentBlocksHeroUpgradeWizard implements UpgradeWizardInterface
      */
     public function getTitle(): string
     {
-        return 'Migrate from Content Blocks Hero to traditional';
+        return 'Migrate from Content Blocks Faq to traditional';
     }
 
     /**
@@ -32,12 +32,12 @@ final class ContentBlocksHeroUpgradeWizard implements UpgradeWizardInterface
      */
     public function getDescription(): string
     {
-        return 'This change the tca type';
+        return 'this change the tca type';
     }
 
     public function executeUpdate(): bool
     {
-        $this->connectionPool->getConnectionForTable('tt_content')
+        $this->connectionPool->getConnectionForTable(self::TABLE)
             ->update(
                 self::TABLE,
                 [ // set
@@ -45,16 +45,6 @@ final class ContentBlocksHeroUpgradeWizard implements UpgradeWizardInterface
                 ],
                 [ // where
                     'CType' => self::OLD_TYPE,
-                ],
-            );
-        $this->connectionPool->getConnectionForTable('sys_file_reference')
-            ->update(
-                'sys_file_reference',
-                [ // set
-                    'fieldname' => 'assets',
-                ],
-                [ // where
-                    'fieldname' => 'menscircle_hero_image',
                 ],
             );
         return true;

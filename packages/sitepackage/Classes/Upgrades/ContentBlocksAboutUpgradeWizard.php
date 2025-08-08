@@ -64,7 +64,7 @@ final class ContentBlocksAboutUpgradeWizard implements UpgradeWizardInterface
                 ->executeQuery()
                 ->fetchOne();
         } catch (Exception $e) {
-
+            return false;
         }
     }
 

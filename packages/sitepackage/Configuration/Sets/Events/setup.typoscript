@@ -4,7 +4,7 @@ plugin.tx_sitepackage_eventlist {
 
     partialRootPaths {
       10 = {$events.partialRootPath}
-      100 = EXT:sitepackage/Resources/Private/Components/Partials/
+      100 = EXT:sitepackage/Resources/Private/Partials/
     }
 
     layoutRootPaths.10 = {$events.layoutRootPath}
@@ -21,7 +21,7 @@ plugin.tx_sitepackage_eventdetail {
 
     partialRootPaths {
       10 = {$events.partialRootPath}
-      100 = EXT:sitepackage/Resources/Private/Components/Partials/
+      100 = EXT:sitepackage/Resources/Private/Partials/
     }
 
     layoutRootPaths.10 = {$events.layoutRootPath}
