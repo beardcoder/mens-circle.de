@@ -1,0 +1,31 @@
+<?php
+
+declare(strict_types=1);
+
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+call_user_func(static function (): void {
+    $extensionKey = 'sitepackage';
+    $signature = static fn(string $plugin): string => strtolower(
+        sprintf('%s_%s', str_replace('_', '', $extensionKey), $plugin),
+    );
+
+    $key = $signature('Newsletter');
+
+    ExtensionManagementUtility::addRecordType(
+        [
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:content.newsletter',
+            'description' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:content.newsletter.description',
+            'value' => $key,
+            'icon' => 'tx-sitepackage-content-newsletter',
+            'group' => $extensionKey,
+        ],
+        '
+        header;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_formlabel,
+    --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:appearance,
+        --palette--;;frames,
+        --palette--;;appearanceLinks,
+    --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:categories,
+        categories',
+    );
+});
