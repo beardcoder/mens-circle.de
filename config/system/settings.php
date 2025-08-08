@@ -3,6 +3,7 @@ return [
     'BE' => [
         'compressionLevel' => 9,
         'debug' => false,
+        'entryPoint' => '/admin',
         'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$SG1DcUpaRmlUNWhQSk9hbw$80/3AsTzsp0+iK/uuXY739fJWzCvCetYZKw375Jd00Y',
         'passwordHashing' => [
             'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
