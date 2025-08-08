@@ -185,6 +185,12 @@ http {
         location ~ /\.(?!well-known).* {
             deny all;
         }
+
+        location ~* \.(css|js|ico|gif|jpeg|jpg|webp|png|svg|eot|otf|woff|woff2|ttf|ogg)$ {
+            expires 180d;
+            add_header Pragma "public";
+            add_header Cache-Control "public";
+        }
     }
 }
 '''
