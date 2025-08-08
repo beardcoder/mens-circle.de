@@ -3,14 +3,14 @@
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:i="http://typo3.org/ns/B13/Picture/ViewHelpers"
     xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
-    xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
-<vite:asset entry="{cb:assetPath()}/Frontend.entry.css" />
+
+<vite:asset entry="EXT:sitepackage/Resources/Private/Components/Templates/ContentElements/About.entry.css" />
 <div class="c-about">
     <div class="c-about__content about__content--half">
         <div class="c-about__text-container">
-            <f:render arguments="{layout: 2}" contentAs="header" partial="Header">
+            <f:render arguments="{layout: 2}" contentAs="header" partial="ContentElements/Header">
                 {data.header}
                 <span class="c-about__subheader">{data.subheader}</span>
             </f:render>
@@ -31,10 +31,10 @@
     </div>
     <div class="c-about__content c-about__content--half">
         <i:image
-            alt="{data.image.0.alternative}"
+            alt="{files.0.alternative}"
             class="c-about__image"
             data-animate="fadeUp"
-            image="{data.image.0}"
+            image="{files.0}"
             loading="lazy"
             maxHeight="1280"
             maxWidth="1280"
@@ -42,4 +42,5 @@
         />
     </div>
 </div>
+
 </html>

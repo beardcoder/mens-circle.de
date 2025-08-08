@@ -1,9 +1,13 @@
-inheritDefault: true
+inheritDefault: false
 mutations:
   - mode: set
     directive: 'default-src'
     sources:
       - "'self'"
+      - https://*.ddev.site:5173/
+      - https://*.ddev.site:5273/
+      - wss://*.ddev.site:5173/
+      - wss://*.ddev.site:5273/
 
   - mode: extend
     directive: 'img-src'
@@ -37,14 +41,12 @@ mutations:
       - 'https://tracking.letsbenow.de'
       - 'https://bug.letsbenow.de'
 
-  - mode: set
+  - mode: extend
     directive: 'style-src'
     sources:
-      - "'self'"
       - "'unsafe-inline'"
 
   - mode: set
     directive: 'worker-src'
     sources:
-      - "'self'"
-      - "blob:"
+      - 'blob:'

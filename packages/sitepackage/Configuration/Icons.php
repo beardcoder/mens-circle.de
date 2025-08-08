@@ -51,4 +51,8 @@ return [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:sitepackage/Resources/Public/Icons/tx_sitepackage_domain_model_newsletter.svg',
     ],
+    'tx-sitepackage-content-about' => [
+        'provider' => SvgIconProvider::class,
+        'source' => 'EXT:sitepackage/Resources/Public/Icons/tx-sitepackage-content-about.svg',
+    ],
 ];

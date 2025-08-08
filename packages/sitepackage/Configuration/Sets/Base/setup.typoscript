@@ -208,3 +208,14 @@ config.recordLinks.event {
     additionalParams.wrap = &tx_sitepackage_eventdetail[controller]=Event&tx_sitepackage_eventdetail[action]=detail&tx_sitepackage_eventdetail[event]=|
   }
 }
+
+tt_content.sitepackage_about =< lib.contentElement
+tt_content.sitepackage_about {
+  templateName = ContentElements/About
+  dataProcessing {
+    10 = files
+    10 {
+      references.fieldName = assets
+    }
+  }
+}
