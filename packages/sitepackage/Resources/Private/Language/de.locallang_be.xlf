@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-08-09T23:09:52+02:00">
+    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-08-09T23:42:07+02:00">
         <body>
             <trans-unit id="backend_layout.column.normal">
                 <source>Normal</source>
@@ -77,6 +77,18 @@
             <trans-unit id="extension.title">
                 <source>Sitepackage</source>
                 <target>Sitepackage</target>
+            </trans-unit>
+            <trans-unit id="page.default">
+                <source>Default</source>
+                <target>Standart</target>
+            </trans-unit>
+            <trans-unit id="page.event">
+                <source>Event</source>
+                <target>Veranstaltung</target>
+            </trans-unit>
+            <trans-unit id="page.home">
+                <source>Home</source>
+                <target>Startseite</target>
             </trans-unit>
             <trans-unit id="plugin.event_detail">
                 <source>Event Detail</source>

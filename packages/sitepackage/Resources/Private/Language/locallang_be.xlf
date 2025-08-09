@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" original="messages" datatype="plaintext" date="2025-08-09T23:09:52+02:00">
+    <file source-language="en" original="messages" datatype="plaintext" date="2025-08-09T23:42:07+02:00">
         <header>
             <authorName>Markus Sommer</authorName>
             <authorEmail>markus@letsbenow.de</authorEmail>
@@ -62,6 +62,15 @@
             </trans-unit>
             <trans-unit id="extension.title">
                 <source>Sitepackage</source>
+            </trans-unit>
+            <trans-unit id="page.default">
+                <source>Default</source>
+            </trans-unit>
+            <trans-unit id="page.event">
+                <source>Event</source>
+            </trans-unit>
+            <trans-unit id="page.home">
+                <source>Home</source>
             </trans-unit>
             <trans-unit id="plugin.event_detail">
                 <source>Event Detail</source>
