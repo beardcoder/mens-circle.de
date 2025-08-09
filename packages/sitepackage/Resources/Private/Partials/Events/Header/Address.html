@@ -1,4 +1,8 @@
-<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+>
+
 <ul class="c-event-address">
     <li class="c-event-address__item">
         <svg
@@ -61,7 +65,8 @@
                 stroke-width="2"
             />
         </svg>
-        <f:format.currency decimalSeparator="," decimals="2" separateCurrency="true" thousandsSeparator=".">0</f:format.currency>
+        <f:format.currency decimalSeparator="," decimals="2" separateCurrency="true" thousandsSeparator=".">0
+        </f:format.currency>
     </li>
     <li class="c-event-address__item">
         <svg
@@ -79,9 +84,10 @@
                 stroke-width="2"
             />
         </svg>
-        <a href="/api/event/{event.uid}/ical" download>
+        <a download href="/api/event/{event.uid}/ical">
             Kalender Download
         </a>
     </li>
 </ul>
+
 </html>

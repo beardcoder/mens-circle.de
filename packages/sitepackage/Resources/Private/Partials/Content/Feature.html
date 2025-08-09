@@ -6,13 +6,16 @@
     xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
-<vite:asset entry="{cb:assetPath()}/Frontend.entry.css" />
+
+<vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Feature.entry.css" />
+
 <div class="c-feature" data-animate="fadeUp">
     <h3 class="c-feature__header">
-        {data.header}
+        {record.header}
     </h3>
     <p class="c-feature__content">
-        {data.bodytext}
+        {record.bodytext}
     </p>
 </div>
+
 </html>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" original="messages" datatype="plaintext" date="2025-08-08T21:59:44+02:00">
+    <file source-language="en" original="messages" datatype="plaintext" date="2025-08-09T23:09:52+02:00">
         <header>
             <authorName>Markus Sommer</authorName>
             <authorEmail>markus@letsbenow.de</authorEmail>
@@ -29,6 +29,18 @@
             </trans-unit>
             <trans-unit id="content.faq.description">
                 <source>Element with bullet points</source>
+            </trans-unit>
+            <trans-unit id="content.feature">
+                <source>Feature</source>
+            </trans-unit>
+            <trans-unit id="content.feature.description">
+                <source>Headline and text</source>
+            </trans-unit>
+            <trans-unit id="content.header">
+                <source>Header</source>
+            </trans-unit>
+            <trans-unit id="content.header.description">
+                <source>Big text</source>
             </trans-unit>
             <trans-unit id="content.hero">
                 <source>Hero</source>
