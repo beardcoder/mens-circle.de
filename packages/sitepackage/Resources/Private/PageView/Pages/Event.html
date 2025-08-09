@@ -5,12 +5,6 @@
 <f:layout name="Event" />
 
 <f:section name="Main">
-    <f:for each="{content.main.records}" as="record">
-        <f:cObject
-            typoscriptObjectPath="{record.mainType}"
-            data="{record.rawRecord}"
-            table="{record.mainType}"
-        />
-    </f:for>
+    <f:render partial="Content" arguments="{records: content.main.records}"/>
 </f:section>
 </html>

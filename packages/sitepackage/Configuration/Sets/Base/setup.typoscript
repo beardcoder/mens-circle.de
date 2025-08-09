@@ -5,7 +5,6 @@ page {
   typeNum = 0
   shortcutIcon = favicon.ico
   headerData {
-
     1736851139 = FLUIDTEMPLATE
     1736851139 {
       file = EXT:sitepackage/Resources/Private/Templates/FavIcons.html
