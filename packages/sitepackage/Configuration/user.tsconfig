@@ -2,8 +2,13 @@ setup.fields.colorScheme.disabled = 0
 
 options {
   pageTree {
+    doktypesToShowInNewPageDragArea := removeFromList(1)
     doktypesToShowInNewPageDragArea := removeFromList(7)
     doktypesToShowInNewPageDragArea := removeFromList(6)
     doktypesToShowInNewPageDragArea := removeFromList(199)
+    doktypesToShowInNewPageDragArea := addToList(1724352888)
+    doktypesToShowInNewPageDragArea := addToList(1724352571)
+    doktypesToShowInNewPageDragArea := addToList(1724352539)
   }
 }
+

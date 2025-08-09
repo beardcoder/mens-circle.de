@@ -22,4 +22,8 @@ call_user_func(static function (): void {
     );
 
     $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][$customPageDoktype] = $customIconClass;
+
+    foreach (['hideinmenu', 'root'] as $suffix) {
+        $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][$customPageDoktype . '-' . $suffix] = $customIconClass . '-' . $suffix;
+    }
 });
