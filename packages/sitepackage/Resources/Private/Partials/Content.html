@@ -1,0 +1,20 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
+    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
+>
+
+<f:render
+    arguments="{record: record}"
+    optional="{true}"
+    partial="Content/{mc:contentPartialName(value: record.CType)}"
+>
+    <f:cObject
+        data="{record}"
+        table="{record.mainType}"
+        typoscriptObjectPath="{record.mainType}"
+    />
+</f:render>
+
+</html>

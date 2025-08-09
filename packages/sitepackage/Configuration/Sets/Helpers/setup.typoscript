@@ -1,17 +1,9 @@
 lib.contentElement = FLUIDTEMPLATE
 lib.contentElement {
   templateName = Default
-  templateRootPaths {
-    100 = EXT:sitepackage/Resources/Private/Templates/
-  }
-
-  partialRootPaths {
-    100 = EXT:sitepackage/Resources/Private/Partials/
-  }
-
-  layoutRootPaths {
-    100 = EXT:sitepackage/Resources/Private/Layouts/
-  }
+  templateRootPaths.100 = EXT:sitepackage/Resources/Private/Templates/
+  partialRootPaths.100 = EXT:sitepackage/Resources/Private/Partials/
+  layoutRootPaths.100 = EXT:sitepackage/Resources/Private/Layouts/
 }
 
 lib.renderContent = RECORDS

@@ -11,6 +11,7 @@ final class ComponentCollection extends AbstractComponentCollection
     {
         $templatePaths = new TemplatePaths();
         $templatePaths->setTemplateRootPaths([ExtensionManagementUtility::extPath('sitepackage', 'Resources/Private/Components')]);
+        $templatePaths->setPartialRootPaths([ExtensionManagementUtility::extPath('sitepackage', 'Resources/Private/Partials')]);
         return $templatePaths;
     }
 }

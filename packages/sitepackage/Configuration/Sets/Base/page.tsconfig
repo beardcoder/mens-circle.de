@@ -1,4 +1,4 @@
-@import "EXT:sitepackage/Configuration/TsConfig/Page/All.tsconfig"
+@import "EXT:sitepackage/Configuration/Sets/Base/TsConfig/Page/All.tsconfig"
 
 TCEMAIN.linkHandler.event {
   handler = TYPO3\CMS\Backend\LinkHandler\RecordLinkHandler
@@ -8,5 +8,21 @@ TCEMAIN.linkHandler.event {
     storagePid = 2
     hidePageTree = 0
   }
+
   scanAfter = page
+}
+
+TCEFORM {
+  tt_content {
+    layout {
+      types {
+        container {
+          removeItems = 1,2,3
+          addItems {
+            100 = Small
+          }
+        }
+      }
+    }
+  }
 }

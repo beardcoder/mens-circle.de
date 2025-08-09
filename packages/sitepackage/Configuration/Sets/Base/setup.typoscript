@@ -16,6 +16,7 @@ page {
   10 {
     paths {
       100 = EXT:sitepackage/Resources/Private/PageView/
+      200 = EXT:sitepackage/Resources/Private/
     }
 
     dataProcessing {
@@ -207,18 +208,3 @@ config.recordLinks.event {
     additionalParams.wrap = &tx_sitepackage_eventdetail[controller]=Event&tx_sitepackage_eventdetail[action]=detail&tx_sitepackage_eventdetail[event]=|
   }
 }
-
-tt_content.sitepackage_about =< lib.contentElement
-tt_content.sitepackage_about.templateName = ContentElements/About
-
-tt_content.sitepackage_hero =< lib.contentElement
-tt_content.sitepackage_hero.templateName = ContentElements/Hero
-
-tt_content.sitepackage_text =< lib.contentElement
-tt_content.sitepackage_text.templateName = ContentElements/Text
-
-tt_content.sitepackage_faq =< lib.contentElement
-tt_content.sitepackage_faq.templateName = ContentElements/Faq
-
-tt_content.sitepackage_header =< lib.contentElement
-tt_content.sitepackage_header.templateName = ContentElements/Header

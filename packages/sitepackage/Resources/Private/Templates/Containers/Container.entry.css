@@ -1,5 +1,5 @@
 .c-container__content {
-    max-inline-size: 1440px;
+    max-inline-size: var(--container-width);
     padding-block: 2rem;
     padding-inline: 1.5rem;
     margin-inline: auto;
@@ -11,6 +11,10 @@
     @media (width >= 1024px) {
         padding-inline: 1.5rem;
     }
+}
+
+.c-container--small .c-container__content {
+    max-inline-size: var(--container-width--small);
 }
 
 .c-container__content--space-y-8 > * + * {

@@ -1,20 +1,13 @@
 <html
     data-namespace-typo3-fluid="true"
+    xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:i="http://typo3.org/ns/B13/Picture/ViewHelpers"
     xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
     xmlns:mce="http://typo3.org/ns/MensCircle/Sitepackage/ComponentCollection"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
-<vite:asset entry="EXT:sitepackage/Resources/Private/Templates/ContentElements/Newsletter.entry.css" />
 
-<section class="c-newsletter">
-    <div class="c-newsletter__wrapper">
-        <div class="c-newsletter__inner">
-            <mce:header center="{true}">{data.header -> f:format.raw()}</mce:header>
-            <div data-animate="fadeUp">
-            </div>
-        </div>
-    </div>
-</section>
+<mce:header layout="{record.header_layout}">{record.header -> f:format.raw()}</mce:header>
+
 </html>

@@ -7,24 +7,25 @@
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
 
-<vite:asset entry="EXT:sitepackage/Resources/Private/Templates/ContentElements/About.entry.css" />
+<vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/About.entry.css" />
+
 <div class="c-about">
     <div class="c-about__content about__content--half">
         <div class="c-about__text-container">
-            <mce:header center="{true}">
-                {data.header}
-                <span class="c-about__subheader">{data.subheader}</span>
+            <mce:header>
+                {record.header}
+                <span class="c-about__subheader">{record.subheader}</span>
             </mce:header>
             <div data-animate="fadeUp">
-                {data.bodytext -> f:format.html()}
+                {record.bodytext -> f:format.html()}
             </div>
-            <f:if condition="{data.link}">
+            <f:if condition="{record.link}">
                 <div data-animate="fadeUp">
                     <f:link.typolink
                         class="button"
-                        parameter="{data.link}"
+                        parameter="{record.link}"
                     >
-                        {data.link_title}
+                        {record.link_title}
                     </f:link.typolink>
                 </div>
             </f:if>
@@ -32,10 +33,10 @@
     </div>
     <div class="c-about__content c-about__content--half">
         <i:image
-            alt="{data.assets.0.alternative}"
+            alt="{record.assets.0.alternative}"
             class="c-about__image"
             data-animate="fadeUp"
-            image="{data.assets.0}"
+            image="{record.assets.0}"
             onlyWebp="{true}"
             loading="lazy"
             maxHeight="1280"

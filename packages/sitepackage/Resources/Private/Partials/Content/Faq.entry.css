@@ -1,5 +1,4 @@
 .c-faq {
-    max-inline-size: 100vi;
     overflow: hidden;
     color: var(--font-color);
     background-color: var(--bg-color--light);

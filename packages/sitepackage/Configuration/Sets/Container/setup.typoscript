@@ -10,6 +10,7 @@ tt_content.container {
     200 {
       colPos = 200
       as = items
+      dataProcessing.10 = record-transformation
     }
   }
 }
@@ -26,12 +27,14 @@ tt_content.features {
     210 {
       colPos = 210
       as = header
+      dataProcessing.10 = record-transformation
     }
 
     200 = B13\Container\DataProcessing\ContainerProcessor
     200 {
       colPos = 200
       as = features
+      dataProcessing.10 = record-transformation
     }
   }
 }

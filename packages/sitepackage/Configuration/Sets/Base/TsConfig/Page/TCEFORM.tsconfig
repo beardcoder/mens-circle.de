@@ -1,0 +1,62 @@
+#
+# TCEFORM
+#
+
+TCEFORM {
+  tt_content {
+    CType {
+      removeItems := removeFromList(fh_2cols_container)
+    }
+
+    layout {
+      types {
+        fh_2cols_container < lib.fullhaus/content-elements.container.items.containerWidth
+      }
+    }
+
+    pi_flexform {
+      fh_2cols_container < lib.fullhaus/content-elements.container.mutation.pi_flexform.types.multi-column
+    }
+  }
+}
+
+TCEFORM {
+  pages {
+
+  }
+
+
+  tt_content {
+    layout {
+      types {
+        small = Small
+      }
+    }
+
+    CType {
+      removeItems := addToList(header)
+      removeItems := addToList(bullets)
+      removeItems := addToList(table)
+      removeItems := addToList(uploads)
+      removeItems := addToList(search)
+      removeItems := addToList(menu_abstract)
+      removeItems := addToList(menu_categorized_content)
+      removeItems := addToList(menu_categorized_pages)
+      removeItems := addToList(menu_pages)
+      removeItems := addToList(menu_subpages)
+      removeItems := addToList(menu_recently_updated)
+      removeItems := addToList(menu_related_pages)
+      removeItems := addToList(menu_section)
+      removeItems := addToList(menu_section_pages)
+      removeItems := addToList(menu_sitemap)
+      removeItems := addToList(menu_sitemap_pages)
+      removeItems := addToList(shortcut)
+      removeItems := addToList(login)
+      removeItems := addToList(text)
+      removeItems := addToList(textpic)
+      removeItems := addToList(image)
+      removeItems := addToList(div)
+      removeItems := addToList(html)
+    }
+  }
+}
