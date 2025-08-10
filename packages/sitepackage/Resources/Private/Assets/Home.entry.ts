@@ -11,9 +11,7 @@ void createComponentAndMount<HTMLDialogElement>('[data-component="newsletter-dia
 
     const shouldShowDialog = !lastPopupTime.value || now - lastPopupTime.value > twoHours
 
-    const showDialog = (e: MouseEvent) => {
-        e.preventDefault()
-
+    const showDialog = () => {
         if (element) {
             element.showModal()
             lastPopupTime.value = Date.now()

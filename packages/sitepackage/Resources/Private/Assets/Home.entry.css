@@ -2,7 +2,6 @@
     max-inline-size: min(90vi, 420px);
     max-block-size: min(80vb, 100%);
     padding: 2rem;
-    overflow: hidden;
 }
 
 .newsletter-dialog__close {
