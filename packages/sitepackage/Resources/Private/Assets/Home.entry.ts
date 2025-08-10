@@ -1,4 +1,4 @@
-import { createComponentAndMount, useLocalStorage } from "@beardcoder/simple-components";
+import { createComponentAndMount, useLocalStorage } from '@beardcoder/simple-components'
 
 void createComponentAndMount<HTMLDialogElement>('[data-component="newsletter-dialog"]', component => {
     const { element } = component
@@ -12,7 +12,7 @@ void createComponentAndMount<HTMLDialogElement>('[data-component="newsletter-dia
     const shouldShowDialog = !lastPopupTime.value || now - lastPopupTime.value > twoHours
 
     const showDialog = (e: MouseEvent) => {
-      e.preventDefault()
+        e.preventDefault()
 
         if (element) {
             element.showModal()

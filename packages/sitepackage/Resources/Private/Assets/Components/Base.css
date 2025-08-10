@@ -1,6 +1,8 @@
 :host,
 html {
-    font-family: 'Jost Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-family:
+        'Jost Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
     font-variation-settings: normal;
     font-feature-settings: normal;
     line-height: 1.5;
@@ -51,7 +53,10 @@ p:last-child {
 
 dialog::backdrop {
     backdrop-filter: blur(10px);
-    transition: display 0.3s allow-discrete, overlay 0.3s allow-discrete, background-color 0.3s;
+    transition:
+        display 0.3s allow-discrete,
+        overlay 0.3s allow-discrete,
+        background-color 0.3s;
 }
 
 dialog {

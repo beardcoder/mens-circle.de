@@ -1,4 +1,5 @@
 <?php
+
 namespace MensCircle\Sitepackage;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;

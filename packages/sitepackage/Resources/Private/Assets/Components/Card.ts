@@ -1,4 +1,4 @@
-import { createComponentAndMount } from "@beardcoder/simple-components";
+import { createComponentAndMount } from '@beardcoder/simple-components'
 
 void createComponentAndMount<HTMLDivElement>("[data-component='card']", component => {
     const { element } = component

@@ -22,9 +22,7 @@ class SubscriptionController extends ActionController
         private readonly EmailService $emailService,
         private readonly DoubleOptInService $doubleOptInService,
         private readonly FrontendUserService $frontendUserService,
-    )
-    {
-    }
+    ) {}
 
     public function formAction(?Subscription $subscription = null): ResponseInterface
     {

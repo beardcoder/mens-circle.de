@@ -1,6 +1,6 @@
 import { icon, type LatLngExpression, map, marker, tileLayer } from 'leaflet'
 import './Map.css'
-import { createComponentAndMount } from "@beardcoder/simple-components";
+import { createComponentAndMount } from '@beardcoder/simple-components'
 
 void createComponentAndMount('[data-component="event-location"]', ({ element }) => {
     const latLong: LatLngExpression = [parseFloat(element.dataset.lat!), parseFloat(element.dataset.long!)]
