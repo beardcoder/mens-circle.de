@@ -12,6 +12,7 @@ use MensCircle\Sitepackage\Enum\SubscriptionStatusEnum;
 use MensCircle\Sitepackage\Service\UniversalSecureTokenService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
@@ -27,6 +28,7 @@ use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 
 #[AsController]
 class NewsletterController extends ActionController
@@ -37,15 +39,13 @@ class NewsletterController extends ActionController
         private readonly MailerInterface $mailer,
         private readonly SubscriptionRepository $subscriptionRepository,
         private readonly NewsletterRepository $newsletterRepository,
-        private readonly LanguageServiceFactory $languageServiceFactory,
     ) {}
 
     /**
      * Generates the action menu
      */
-    protected function initializeModuleTemplate(
-        ServerRequestInterface $request,
-    ): ModuleTemplate {
+    protected function initializeModuleTemplate(ServerRequestInterface $request): ModuleTemplate
+    {
         $view = $this->moduleTemplateFactory->create($request);
 
         $view->setFlashMessageQueue($this->getFlashMessageQueue());
@@ -70,6 +70,10 @@ class NewsletterController extends ActionController
         return $view->renderResponse('Newsletter/New');
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     * @throws IllegalObjectTypeException
+     */
     public function sendAction(Newsletter $newsletter): ResponseInterface
     {
         $subscriptions = $this->subscriptionRepository->findBy([
@@ -91,6 +95,7 @@ class NewsletterController extends ActionController
         $this->newsletterRepository->add($newsletter);
 
         $universalSecureTokenService = GeneralUtility::makeInstance(UniversalSecureTokenService::class);
+
         foreach ($emailAddresses as $emailAddress) {
             $fluidEmail = new FluidEmail();
             $fluidEmail
@@ -140,10 +145,5 @@ class NewsletterController extends ActionController
         ];
         return (string)$site->getRouter()
             ->generateUri(13, $parameters);
-    }
-
-    protected function getLanguageService(): LanguageService
-    {
-        return $this->languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
     }
 }

@@ -1,4 +1,4 @@
-import { icon, type LatLngExpression, map, marker, tileLayer } from 'leaflet'
+import { type LatLngExpression, icon, map, marker, tileLayer } from 'leaflet'
 import './Map.css'
 import { createComponentAndMount } from '@beardcoder/simple-components'
 

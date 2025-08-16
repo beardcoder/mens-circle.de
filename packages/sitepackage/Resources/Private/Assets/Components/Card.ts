@@ -1,6 +1,6 @@
 import { createComponentAndMount } from '@beardcoder/simple-components'
 
-void createComponentAndMount<HTMLDivElement>("[data-component='card']", component => {
+void createComponentAndMount<HTMLDivElement>('[data-component=\'card\']', component => {
     const { element } = component
 
     const mainLink = component.querySelector<HTMLAnchorElement>('a')

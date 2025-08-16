@@ -62,9 +62,8 @@ class EventNotificationController extends ActionController
 
         $this->moduleTemplate->assign('event', $event);
         $eventNotification ??= GeneralUtility::makeInstance(EventNotification::class);
-        \assert($eventNotification instanceof EventNotification);
-
         $eventNotification->event = $event;
+
         $this->moduleTemplate->assign('eventNotification', $eventNotification);
         $this->moduleTemplate->setTitle('Notification');
 

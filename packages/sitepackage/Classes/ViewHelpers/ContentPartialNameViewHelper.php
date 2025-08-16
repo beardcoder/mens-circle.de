@@ -18,6 +18,7 @@ final class ContentPartialNameViewHelper extends AbstractViewHelper
      */
     protected $escapeOutput = false;
 
+    #[\Override]
     public function initializeArguments()
     {
         $this->registerArgument('value', 'string', 'Name of the content type like sitepackage_text or sitepackage_image', true);

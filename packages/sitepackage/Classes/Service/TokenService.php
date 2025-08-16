@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace MensCircle\Sitepackage\Service;
 
@@ -9,9 +10,9 @@ use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 
-class TokenService
+readonly class TokenService
 {
-    private readonly Configuration $configuration;
+    private Configuration $configuration;
 
     public function __construct()
     {
@@ -21,6 +22,9 @@ class TokenService
         );
     }
 
+    /**
+     * @throws \DateMalformedStringException
+     */
     public function generateToken(?array $claims = [], int $validForSeconds = 86400): string
     {
         $now = new \DateTimeImmutable();
@@ -33,15 +37,14 @@ class TokenService
             $builder->withClaim($key, $value);
         }
 
-        return $builder->getToken($this->configuration->signer(), $this->configuration->signingKey())
-            ->toString();
+        return $builder->getToken($this->configuration->signer(), $this->configuration->signingKey())->toString();
     }
 
     public function validateToken(string $token): bool
     {
         try {
-            $parsedToken = $this->configuration->parser()
-                ->parse($token);
+            $parsedToken = $this->configuration->parser()->parse($token);
+
             $constraints = [
                 new SignedWith($this->configuration->signer(), $this->configuration->signingKey()),
                 new LooseValidAt(SystemClock::fromUTC()),
@@ -57,14 +60,13 @@ class TokenService
     public function parseToken(string $token): ?array
     {
         try {
-            $parsedToken = $this->configuration->parser()
-                ->parse($token);
+            $parsedToken = $this->configuration->parser()->parse($token);
 
             if (! $this->validateToken($token)) {
                 return null;
             }
 
-            return array_map(static fn($value) => $value, $parsedToken->claims()->all());
+            return array_map(static fn($value) => $value, $parsedToken->headers()->all());
         } catch (\Throwable) {
             return null;
         }
