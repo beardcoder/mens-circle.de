@@ -1,6 +1,6 @@
 import { createComponentAndMount, useLocalStorage } from '@beardcoder/simple-components'
 
-void createComponentAndMount<HTMLDialogElement>('[data-component="newsletter-dialog"]', component => {
+void createComponentAndMount<HTMLDialogElement>('[data-component="newsletter-dialog"]', (component) => {
     const { element } = component
     const now = Date.now()
     const lastPopupTime = useLocalStorage('lastPopupTime', now)

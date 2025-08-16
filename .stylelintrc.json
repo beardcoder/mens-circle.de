@@ -1,44 +1,36 @@
 {
-  "extends": [
-    "stylelint-config-standard"
-  ],
-  "plugins": [
-    "stylelint-selector-bem-pattern",
-    "stylelint-order",
-    "stylelint-plugin-logical-css"
-  ],
-  "rules": {
-    "at-rule-no-unknown": [
-      true,
-      {
-        "ignoreAtRules": [
-          "tailwind"
-        ]
-      }
-    ],
-    "custom-property-pattern": null,
-    "import-notation": null,
-    "order/properties-alphabetical-order": true,
-    "plugin/selector-bem-pattern": {
-      "componentName": "[A-Z]+",
-      "componentSelectors": {
-        "combined": "^\\.combined-{componentName}-[a-z]+$",
-        "initial": "^\\.{componentName}(?:-[a-z]+)?$"
-      },
-      "utilitySelectors": "^\\.util-[a-z]+$"
-    },
-    "plugin/use-logical-properties-and-values": [
-      true,
-      {
-        "severity": "warning"
-      }
-    ],
-    "plugin/use-logical-units": [
-      true,
-      {
-        "severity": "warning"
-      }
-    ],
-    "selector-class-pattern": null
-  }
+	"extends": ["stylelint-config-standard"],
+	"plugins": ["stylelint-selector-bem-pattern", "stylelint-order", "stylelint-plugin-logical-css"],
+	"rules": {
+		"at-rule-no-unknown": [
+			true,
+			{
+				"ignoreAtRules": ["tailwind"]
+			}
+		],
+		"custom-property-pattern": null,
+		"import-notation": null,
+		"order/properties-alphabetical-order": true,
+		"plugin/selector-bem-pattern": {
+			"componentName": "[A-Z]+",
+			"componentSelectors": {
+				"combined": "^\\.combined-{componentName}-[a-z]+$",
+				"initial": "^\\.{componentName}(?:-[a-z]+)?$"
+			},
+			"utilitySelectors": "^\\.util-[a-z]+$"
+		},
+		"plugin/use-logical-properties-and-values": [
+			true,
+			{
+				"severity": "warning"
+			}
+		],
+		"plugin/use-logical-units": [
+			true,
+			{
+				"severity": "warning"
+			}
+		],
+		"selector-class-pattern": null
+	}
 }

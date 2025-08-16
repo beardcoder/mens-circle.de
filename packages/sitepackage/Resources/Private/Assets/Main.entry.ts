@@ -13,7 +13,7 @@ const init = () => {
         tracesSampleRate: 1.0,
     })
 
-    inView('[data-animate="fadeUp"]', element => {
+    inView('[data-animate="fadeUp"]', (element) => {
         const delay = (element as HTMLElement).dataset?.delay ?? 0
         const duration = (element as HTMLElement).dataset?.duration ?? 0.5
         animate(
@@ -29,7 +29,7 @@ const init = () => {
         )
     })
 
-    inView('[data-animate="fadeDown"]', element => {
+    inView('[data-animate="fadeDown"]', (element) => {
         const delay = (element as HTMLElement).dataset?.delay ?? 0
         const duration = (element as HTMLElement).dataset?.duration ?? 0.5
         animate(

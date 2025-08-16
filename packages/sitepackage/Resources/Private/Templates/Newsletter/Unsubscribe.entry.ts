@@ -3,7 +3,7 @@ import { animate } from 'motion'
 requestAnimationFrame(() => {
     const checkPaths = document.querySelectorAll<SVGPathElement>('.check-path')
     if (checkPaths.length > 0) {
-        checkPaths.forEach(checkPath => {
+        checkPaths.forEach((checkPath) => {
             animate(
                 checkPath,
                 {
@@ -20,7 +20,7 @@ requestAnimationFrame(() => {
 
     const checkCircles = document.querySelectorAll<SVGPathElement>('.check-circle')
     if (checkCircles.length > 0) {
-        checkCircles.forEach(checkCircle => {
+        checkCircles.forEach((checkCircle) => {
             animate(
                 checkCircle,
                 {
