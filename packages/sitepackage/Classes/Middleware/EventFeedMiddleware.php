@@ -28,15 +28,14 @@ class EventFeedMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $path = $request->getUri()
-            ->getPath();
+        $path = $request->getUri()->getPath();
 
-        if (! str_starts_with($path, self::ROUTE_BASE)) {
+        if (!str_starts_with($path, self::ROUTE_BASE)) {
             return $handler->handle($request);
         }
 
         $format = $this->extractFormat($path, $request->getHeaderLine('Accept'));
-        if (! $format) {
+        if (!$format) {
             return $handler->handle($request);
         }
 
@@ -72,12 +71,8 @@ class EventFeedMiddleware implements MiddlewareInterface
         };
     }
 
-    private function createResponse(
-        string $content,
-        int $status,
-        string $etag,
-        ?string $contentType = null,
-    ): ResponseInterface {
+    private function createResponse(string $content, int $status, string $etag, ?string $contentType = null): ResponseInterface
+    {
         $headers = [
             'ETag' => '"' . $etag . '"',
             'Cache-Control' => 'public, max-age=3600',

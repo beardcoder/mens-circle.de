@@ -22,7 +22,7 @@ use MensCircle\Sitepackage\Domain\Model\Event;
 use MensCircle\Sitepackage\Domain\Repository\EventRepository;
 use TYPO3\CMS\Core\SingletonInterface;
 
-class EventCalendarService implements SingletonInterface
+final class EventCalendarService implements SingletonInterface
 {
     private const string FORMAT_JSON = 'json';
 
@@ -49,12 +49,21 @@ class EventCalendarService implements SingletonInterface
     // Timezone constants
     private const string DEFAULT_TIMEZONE = 'Europe/Berlin';
 
+    // Centralized alarm configuration
+    private const string PRIMARY_ALARM_TEXT = 'Event reminder';
+    private const string SECONDARY_ALARM_TEXT = 'Event starting in 1 hour';
+    private const string PRIMARY_ALARM_OFFSET = '-15 minutes';
+    private const string SECONDARY_ALARM_OFFSET = '-1 hour';
+
     private ?array $cachedEvents = null;
 
     public function __construct(
         private readonly EventRepository $eventRepository,
     ) {}
 
+    /**
+     * @return string Rendered feed content based on requested format
+     */
     public function getFeed(string $format): string
     {
         $events = $this->getUpcomingEvents();
@@ -78,6 +87,9 @@ class EventCalendarService implements SingletonInterface
         return md5($hashSource);
     }
 
+    /**
+     * @return array<int, Event>
+     */
     private function getUpcomingEvents(): array
     {
         if ($this->cachedEvents === null) {
@@ -88,19 +100,34 @@ class EventCalendarService implements SingletonInterface
         return $this->cachedEvents;
     }
 
+    /**
+     * Build a sorted, minimal representation of events to stabilize ETag generation.
+     *
+     * @param array<int, Event> $events
+     * @return array<int, array<string, mixed>>
+     */
     private function extractEventDataForHashing(array $events): array
     {
-        return array_map(fn(Event $event) => [
+        $data = array_map(fn(Event $event) => [
             'uid' => $event->getUid(),
             'title' => trim($event->title),
-            'startDate' => $event->startDate?->format('c'),
-            'endDate' => $event->endDate?->format('c'),
+            'startDate' => $event->startDate?->format('c') ?? '',
+            'endDate' => $event->endDate?->format('c') ?? '',
             'description' => trim($event->description),
             'location' => $this->sanitizeLocationForHash($event),
             'cancelled' => $event->isCancelled(),
             'attendanceMode' => $event->getRealAttendanceMode()
                 ->value,
         ], $events);
+
+        usort($data, static function (array $a, array $b): int {
+            // Sort by startDate then uid for stable ordering
+            $left = [$a['startDate'], $a['uid']];
+            $right = [$b['startDate'], $b['uid']];
+            return $left <=> $right;
+        });
+
+        return $data;
     }
 
     private function sanitizeLocationForHash(Event $event): string
@@ -130,6 +157,9 @@ class EventCalendarService implements SingletonInterface
         return json_encode($feedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function transformEventToJson(Event $event): array
     {
         return [
@@ -151,6 +181,9 @@ class EventCalendarService implements SingletonInterface
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function transformLocationToJson(Event $event): array
     {
         return [
@@ -200,11 +233,16 @@ class EventCalendarService implements SingletonInterface
 
     private function createOptimizedTimeZone(): TimeZone
     {
-        // Create timezone with wider range for better mobile device support
+        // Create timezone with dynamic range for better mobile device support
+        $tz = new \DateTimeZone(self::DEFAULT_TIMEZONE);
+        $now = new \DateTimeImmutable('now', $tz);
+        $start = $now->setDate((int)$now->format('Y') - 1, 1, 1)->setTime(0, 0);
+        $end = $now->setDate((int)$now->format('Y') + 3, 12, 31)->setTime(23, 59, 59);
+
         return TimeZone::createFromPhpDateTimeZone(
-            new \DateTimeZone(self::DEFAULT_TIMEZONE),
-            new \DateTime('2024-01-01'),
-            new \DateTime('2027-12-31'), // Extended range for better mobile support
+            $tz,
+            $start,
+            $end,
         );
     }
 
@@ -242,15 +280,15 @@ class EventCalendarService implements SingletonInterface
     {
         // Primary alarm: 15 minutes before (iOS/Android standard)
         $primaryAlarm = new Alarm(
-            new DisplayAction($this->sanitizeText('Event reminder')),
-            new RelativeTrigger(\DateInterval::createFromDateString('-15 minutes')),
+            new DisplayAction($this->sanitizeText(self::PRIMARY_ALARM_TEXT)),
+            new RelativeTrigger(\DateInterval::createFromDateString(self::PRIMARY_ALARM_OFFSET)),
         );
         $event->addAlarm($primaryAlarm);
 
         // Secondary alarm: 1 hour before (for important events)
         $secondaryAlarm = new Alarm(
-            new DisplayAction($this->sanitizeText('Event starting in 1 hour')),
-            new RelativeTrigger(\DateInterval::createFromDateString('-1 hour')),
+            new DisplayAction($this->sanitizeText(self::SECONDARY_ALARM_TEXT)),
+            new RelativeTrigger(\DateInterval::createFromDateString(self::SECONDARY_ALARM_OFFSET)),
         );
         $event->addAlarm($secondaryAlarm);
     }
@@ -272,14 +310,21 @@ class EventCalendarService implements SingletonInterface
 
         $headerString = implode("\r\n", $headers) . "\r\n";
 
-        // Add METHOD and CALSCALE after VERSION but before custom headers
-        $icsContent = str_replace(
-            "VERSION:2.0\r\n",
-            "VERSION:2.0\r\nMETHOD:PUBLISH\r\nCALSCALE:GREGORIAN\r\n",
-            $icsContent,
-        );
+        // Ensure METHOD and CALSCALE exist only once, after VERSION
+        if (str_contains($icsContent, "VERSION:2.0\r\n") && ! str_contains($icsContent, 'METHOD:PUBLISH')) {
+            $icsContent = str_replace(
+                "VERSION:2.0\r\n",
+                "VERSION:2.0\r\nMETHOD:PUBLISH\r\nCALSCALE:GREGORIAN\r\n",
+                $icsContent,
+            );
+        }
 
-        return str_replace('END:VCALENDAR', $headerString . 'END:VCALENDAR', $icsContent);
+        // Append custom headers once before END:VCALENDAR
+        if (! str_contains($icsContent, 'X-WR-CALNAME:')) {
+            $icsContent = str_replace('END:VCALENDAR', $headerString . 'END:VCALENDAR', $icsContent);
+        }
+
+        return $icsContent;
     }
 
     private function generateJcalFeed(array $events): string
@@ -307,11 +352,13 @@ class EventCalendarService implements SingletonInterface
 
     private function transformEventToJcal(Event $event): array
     {
+        $dtStampUtc = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->format('Ymd\THis\Z');
+
         return [
             'vevent',
             [
                 'uid' => ['text', $this->generateStableEventUid($event)],
-                'dtstamp' => ['date-time', new \DateTime()->format('Ymd\THis\Z')],
+                'dtstamp' => ['date-time', $dtStampUtc],
                 'dtstart' => ['date-time', $event->startDate?->format('Ymd\THis')],
                 'dtend' => ['date-time', $event->endDate?->format('Ymd\THis')],
                 'summary' => ['text', $this->sanitizeText($event->title)],
@@ -327,7 +374,7 @@ class EventCalendarService implements SingletonInterface
                     'valarm',
                     [
                         'action' => ['text', 'DISPLAY'],
-                        'description' => ['text', $this->sanitizeText('Event reminder')],
+                        'description' => ['text', $this->sanitizeText(self::PRIMARY_ALARM_TEXT)],
                         'trigger' => ['duration', '-PT15M'],
                     ],
                     [],
@@ -336,7 +383,7 @@ class EventCalendarService implements SingletonInterface
                     'valarm',
                     [
                         'action' => ['text', 'DISPLAY'],
-                        'description' => ['text', $this->sanitizeText('Event starting in 1 hour')],
+                        'description' => ['text', $this->sanitizeText(self::SECONDARY_ALARM_TEXT)],
                         'trigger' => ['duration', '-PT1H'],
                     ],
                     [],
