@@ -8,26 +8,20 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 final class ContentPartialNameViewHelper extends AbstractViewHelper
 {
-    /**
-     * @var bool
-     */
-    protected $escapeChildren = false;
+    protected bool $escapeChildren = false;
 
-    /**
-     * @var bool
-     */
-    protected $escapeOutput = false;
+    protected bool $escapeOutput = false;
 
     #[\Override]
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('value', 'string', 'Name of the content type like sitepackage_text or sitepackage_image', true);
     }
 
     #[\Override]
-    public function render()
+    public function render(): string
     {
-        $value = $this->arguments['value'];
+        $value = (string)$this->arguments['value'];
         if (str_starts_with($value, 'sitepackage')) {
             return ucfirst(substr(strrchr($value, '_'), 1));
         }

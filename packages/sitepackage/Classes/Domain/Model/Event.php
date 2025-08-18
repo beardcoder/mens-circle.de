@@ -41,7 +41,7 @@ class Event extends AbstractEntity
     public Location $location;
 
     #[Extbase\ORM\Lazy()]
-    protected FileReference|LazyLoadingProxy $image;
+    protected FileReference|LazyLoadingProxy|null $image = null;
 
     /**
      * @var ObjectStorage<Participant>
@@ -94,7 +94,8 @@ class Event extends AbstractEntity
 
     public function getLongTitle(): string
     {
-        return $this->title . ' am ' . $this->startDate->format('d.m.Y');
+        $date = $this->startDate?->format('d.m.Y') ?? '';
+        return $date !== '' ? ($this->title . ' am ' . $date) : $this->title;
     }
 
     public function buildSchema(UriBuilder $uriBuilder): EventSchema
@@ -108,14 +109,14 @@ class Event extends AbstractEntity
 
         $imageService = GeneralUtility::makeInstance(ImageService::class);
 
-        $processedFile = $imageService->applyProcessingInstructions(
-            $this->getImage()
-                ->getOriginalResource(),
+        $imageRef = $this->getImage();
+        $processedFile = $imageRef ? $imageService->applyProcessingInstructions(
+            $imageRef->getOriginalResource(),
             [
                 'width' => '600c',
                 'height' => '600c',
             ],
-        );
+        ) : null;
 
         $place = $this->isOffline() ? Schema::place()
             ->name($this->location->place)
@@ -127,13 +128,13 @@ class Event extends AbstractEntity
                     ->addressCountry('DE'),
             ) : Schema::place()->url($this->callUrl);
 
-        $imageUri = $imageService->getImageUri($processedFile, true);
+    $imageUri = $processedFile ? $imageService->getImageUri($processedFile, true) : null;
         $baseUrl = $uriBuilder->reset()
             ->setCreateAbsoluteUri(true)
             ->setTargetPageUid(1)
             ->buildFrontendUri();
 
-        return Schema::event()
+        $eventSchema = Schema::event()
             ->name(\sprintf('%s am %s', $this->title, $this->startDate->format('d.m.Y')))
             ->description($this->description)
             ->image($imageUri)
@@ -152,6 +153,8 @@ class Event extends AbstractEntity
             )
             ->organizer(Schema::person()->name('Markus Sommer')->url($baseUrl))
             ->performer(Schema::person()->name('Markus Sommer')->url($baseUrl));
+
+        return $eventSchema;
     }
 
     public function getImage(): ?FileReference

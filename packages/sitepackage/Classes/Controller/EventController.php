@@ -9,6 +9,7 @@ use MensCircle\Sitepackage\Domain\Model\Participant;
 use MensCircle\Sitepackage\Domain\Repository\EventRepository;
 use MensCircle\Sitepackage\Domain\Repository\ParticipantRepository;
 use MensCircle\Sitepackage\Enum\ExtensionEnum;
+use MensCircle\Sitepackage\Middleware\EventApiMiddleware;
 use MensCircle\Sitepackage\PageTitle\EventPageTitleProvider;
 use MensCircle\Sitepackage\Service\EmailService;
 use MensCircle\Sitepackage\Service\FrontendUserService;
@@ -71,7 +72,7 @@ class EventController extends ActionController
 
         $this->prepareSeoForEvent($event);
 
-        $this->pageRenderer->addHeaderData($event->buildSchema($this->uriBuilder));
+    $this->pageRenderer->addHeaderData($event->buildSchema($this->uriBuilder));
 
         $this->view->assign('event', $event);
         $this->view->assign('registrationComplete', $registrationComplete);
@@ -117,6 +118,17 @@ class EventController extends ActionController
         return $this->redirectToUri($uri);
     }
 
+    public function iCalAction(?Event $event = null): ResponseInterface
+    {
+        if (!$event instanceof Event) {
+            return $this->handleEventNotFoundError();
+        }
+
+        $path = rtrim(EventApiMiddleware::BASE_PATH, '/') . '/' . $event->getUid() . rtrim(EventApiMiddleware::PATH_ICAL, '/') . '/';
+        $uri = $this->request->getUri()->withPath($path)->withQuery('')->withFragment('');
+        return $this->redirectToUri((string)$uri);
+    }
+
     protected function setRegistrationFieldValuesToArguments(): void
     {
         $arguments = $this->request->getArguments();
@@ -154,22 +166,26 @@ class EventController extends ActionController
     private function prepareSeoForEvent(Event $event): void
     {
         $this->eventPageTitleProvider->setTitle($event->getLongTitle());
-
-        $processedFile = $this->imageService->applyProcessingInstructions($event->getImage()->getOriginalResource(), [
-            'width' => '600c',
-            'height' => '600c',
-        ]);
-        $imageUri = $this->imageService->getImageUri($processedFile, true);
+        $imageRef = $event->getImage();
+        if ($imageRef !== null) {
+            $processedFile = $this->imageService->applyProcessingInstructions($imageRef->getOriginalResource(), [
+                'width' => '600c',
+                'height' => '600c',
+            ]);
+            $imageUri = $this->imageService->getImageUri($processedFile, true);
+        } else {
+            $imageUri = '';
+        }
 
         $this->setPageMetaProperty('og:title', $event->getLongTitle());
         $this->setPageMetaProperty('og:description', $event->description);
-        $this->setPageMetaProperty('og:image', $imageUri, [
+        if ($imageUri !== '') {
+            $this->setPageMetaProperty('og:image', $imageUri, [
             'width' => 600,
             'height' => 600,
-            'alt' => $event->getImage()
-                ->getOriginalResource()
-                ->getAlternative(),
+            'alt' => $imageRef?->getOriginalResource()->getAlternative() ?? $event->title,
         ]);
+        }
         $this->setPageMetaProperty('og:url', $this->getUrlForEvent($event));
     }
 

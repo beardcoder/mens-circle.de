@@ -16,14 +16,15 @@ class EventRepository extends Repository
 {
     use StoragePageAgnosticTrait;
 
-    protected $defaultOrderings = [
+    /** @var array<string,int> */
+    protected array $defaultOrderings = [
         'startDate' => QueryInterface::ORDER_ASCENDING,
     ];
 
     public function findNextEvents(): QueryResultInterface
     {
-        $query = $this->createQuery();
-        return $query
+    $query = $this->createQuery();
+    return $query
             ->matching($query->logicalAnd($query->greaterThanOrEqual('startDate', now())))
             ->execute();
     }
