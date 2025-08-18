@@ -7,6 +7,7 @@
 >
 
 <vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Hero.entry.css" />
+<f:variable name="nextEvent" value="{mc:nextEvent()}" />
 
 <section class="c-hero">
     <div class="c-hero__content">
@@ -16,15 +17,22 @@
             </h1>
             <div class="c-hero__body">
                 {record.bodytext -> f:format.raw()}
+                <f:if condition="{nextEvent}">
+                    <f:alias map="{event: '{f:first(value: nextEvent)}'}">
+                    <f:link.action
+                        pageUid="3"
+                        class="c-button"
+                        controller="Event"
+                        extensionName="Sitepackage"
+                        pluginName="EventDetail"
+                        action="detail"
+                        arguments="{event: event.uid}"
+                    >
+                        Melde dich zum nächsten Event an
+                    </f:link.action>
+                    </f:alias>
+                </f:if>
             </div>
-            <f:if condition="{record.link}">
-                <f:link.typolink
-                    class="c-button"
-                    parameter="{record.link}"
-                >
-                    {record.link_title}
-                </f:link.typolink>
-            </f:if>
         </div>
     </div>
     <div class="c-hero__image">

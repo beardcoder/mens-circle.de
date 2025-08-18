@@ -9,9 +9,8 @@
     outline: none;
     background-color: var(--color--primary);
     border: none;
-    transition:
-        background-color 0.3s,
-        ring 0.3s;
+    text-decoration: none;
+    transition: background-color 0.3s, ring 0.3s;
 }
 
 .c-button--large {

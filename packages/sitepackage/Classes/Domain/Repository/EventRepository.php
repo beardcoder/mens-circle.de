@@ -21,29 +21,31 @@ class EventRepository extends Repository
         'startDate' => QueryInterface::ORDER_ASCENDING,
     ];
 
+    protected $objectType = Event::class;
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws InvalidQueryException
+     */
     public function findNextEvents(): QueryResultInterface
     {
         $query = $this->createQuery();
         return $query
-                ->matching($query->logicalAnd($query->greaterThanOrEqual('startDate', now())))
-                ->execute();
+            ->matching($query->logicalAnd($query->greaterThanOrEqual('startDate', now())))
+            ->execute();
     }
 
     /**
      * @throws \DateMalformedStringException
      * @throws InvalidQueryException
      */
-    public function findNextUpcomingEvent(): ?Event
+    public function findNextUpcomingEvent(): QueryResultInterface
     {
         $query = $this->createQuery();
 
-        $event = $query
+        return $query
             ->matching($query->greaterThanOrEqual('startDate', now()))
             ->setLimit(1)
-            ->execute()
-            ->getFirst();
-
-        assert($event instanceof Event);
-        return $event;
+            ->execute();
     }
 }
