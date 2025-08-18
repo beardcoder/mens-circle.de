@@ -3,6 +3,12 @@ services:
     autowire: true
     autoconfigure: true
     public: false
-
   MensCircle\Sitepackage\:
     resource: '../Classes/*'
+  MensCircle\Sitepackage\Command\SyncNewsletterSubscriptionCommand:
+    tags:
+      -
+        name: console.command
+        command: 'sitepackage:sync-newsletter-subscription'
+        description: 'Sync all fe users with newsletter subscription'
+        schedulable: true

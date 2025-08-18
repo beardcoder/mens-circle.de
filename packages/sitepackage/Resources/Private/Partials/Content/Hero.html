@@ -19,18 +19,18 @@
                 {record.bodytext -> f:format.raw()}
                 <f:if condition="{nextEvent}">
                     <f:alias map="{event: '{f:first(value: nextEvent)}'}">
-                    <f:link.action
-                        pageUid="3"
-                        class="c-button"
-                        controller="Event"
-                        extensionName="Sitepackage"
-                        pluginName="EventDetail"
-                        action="detail"
-                        arguments="{event: event.uid}"
-                    >
-                        Melde dich zum nächsten Event an
-                    </f:link.action>
-                    </f:alias>
+                        <f:link.action
+                            pageUid="3"
+                            class="c-button"
+                            controller="Event"
+                            extensionName="Sitepackage"
+                            pluginName="EventDetail"
+                            action="detail"
+                            arguments="{event: event.uid}"
+                        >
+                            Melde dich zum nächsten Event an
+                        </f:link.action>
+                        </f:alias>
                 </f:if>
             </div>
         </div>
