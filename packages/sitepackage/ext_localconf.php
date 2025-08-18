@@ -53,7 +53,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         'loginFootnote' => '© 2023-2024 Build with ❤️ and mindfulness in Bavaria',
     ];
 
-    ExtensionManagementUtility::addTypoScriptSetup('
+  ExtensionManagementUtility::addTypoScriptSetup('
         plugin.tx_form {
           settings {
             yamlConfigurations {
@@ -70,12 +70,5 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
           }
         }
 
-        module.tx_form {
-          settings {
-            yamlConfigurations {
-              1737049457 = EXT:sitepackage/Configuration/Form/CustomFormSetup.yaml
-            }
-          }
-        }
     ');
 })();
