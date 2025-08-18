@@ -51,7 +51,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
     private function generateICalForEvent(ServerRequestInterface $request, int $eventId): ResponseInterface
     {
         $event = $this->eventRepository->findByUid($eventId);
-    if (! $event instanceof Event) {
+        if (! $event instanceof Event) {
             return new Response('php://temp', 404, [
                 'Content-Type' => 'text/plain; charset=utf-8',
                 'Cache-Control' => 'no-store',
@@ -110,8 +110,8 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         }
 
         // Optional image if present
-    $original = $event->getImage()?->getOriginalResource();
-    if ($original !== null) {
+        $original = $event->getImage()?->getOriginalResource();
+        if ($original !== null) {
             $processedFile = $this->imageService->applyProcessingInstructions(
                 $original,
                 [
@@ -177,9 +177,9 @@ readonly class EventApiMiddleware implements MiddlewareInterface
             'additionalParams' => '&tx_sitepackage_eventdetail[action]=detail&tx_sitepackage_eventdetail[controller]=Event&tx_sitepackage_eventdetail[event]=' . $event->getUid(),
         ];
 
-    try {
+        try {
             return $this->linkFactory->create('event', $linkConfiguration, $cObj)->getUrl();
-    } catch (UnableToLinkException) {
+        } catch (UnableToLinkException) {
             $uri = $request->getUri()->withQuery('')->withFragment('')->withPath('/');
             return (string)$uri;
         }
@@ -187,7 +187,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
 
     private function buildEventEtag(Event $event): string
     {
-    $parts = [
+        $parts = [
             'id' => $event->getUid(),
             'title' => trim($event->title),
             'start' => $event->startDate?->format('c') ?? '',
@@ -202,9 +202,9 @@ readonly class EventApiMiddleware implements MiddlewareInterface
 
     private function sanitizeFilename(string $name): string
     {
-    $name = trim($name);
-    $name = preg_replace('/[\x00-\x1F\x7F"\\\\\/<>|:?*]+/', '-', $name) ?? '';
-    $name = preg_replace('/\s+/', ' ', $name) ?? '';
+        $name = trim($name);
+        $name = preg_replace('/[\x00-\x1F\x7F"\\\\\/<>|:?*]+/', '-', $name) ?? '';
+        $name = preg_replace('/\s+/', ' ', $name) ?? '';
         $name = trim($name, ' -.');
 
         if ($name === '') {
@@ -212,7 +212,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         }
 
         // Optionally cap length to avoid extreme headers; keep multibyte safety when available
-    if (function_exists('mb_strlen') && mb_strlen($name) > 120) {
+        if (function_exists('mb_strlen') && mb_strlen($name) > 120) {
             $name = rtrim(mb_substr($name, 0, 120), ' -.');
         } elseif (strlen($name) > 180) { // byte-based fallback
             $name = rtrim(substr($name, 0, 180), ' -.');

@@ -23,10 +23,10 @@ class EventRepository extends Repository
 
     public function findNextEvents(): QueryResultInterface
     {
-    $query = $this->createQuery();
-    return $query
-            ->matching($query->logicalAnd($query->greaterThanOrEqual('startDate', now())))
-            ->execute();
+        $query = $this->createQuery();
+        return $query
+                ->matching($query->logicalAnd($query->greaterThanOrEqual('startDate', now())))
+                ->execute();
     }
 
     public function findNextUpcomingEvent(): ?Event

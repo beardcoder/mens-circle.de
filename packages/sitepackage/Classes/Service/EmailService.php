@@ -21,18 +21,18 @@ readonly class EmailService
     public function sendMail(
         string $toEmail,
         string $template,
-    array $variables,
+        array $variables,
         string $subject,
         ServerRequestInterface $serverRequest,
     ): void {
-    $fluidEmail = new FluidEmail()
-            ->to($toEmail)
-            ->from(new Address('hallo@mens-circle.de', 'Men\'s Circle Website'))
-            ->subject($subject)
-            ->setRequest($serverRequest)
-            ->format(FluidEmail::FORMAT_BOTH)
-            ->setTemplate($template)
-            ->assignMultiple($variables);
+        $fluidEmail = new FluidEmail()
+                ->to($toEmail)
+                ->from(new Address('hallo@mens-circle.de', 'Men\'s Circle Website'))
+                ->subject($subject)
+                ->setRequest($serverRequest)
+                ->format(FluidEmail::FORMAT_BOTH)
+                ->setTemplate($template)
+                ->assignMultiple($variables);
 
         try {
             $this->mailer->send($fluidEmail);

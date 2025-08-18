@@ -18,7 +18,7 @@ readonly class FrontendUserService
     public function __construct(
         private FrontendUserRepository $frontendUserRepository,
         private PersistenceManager $persistenceManager,
-    private PasswordHashFactory $passwordHashFactory,
+        private PasswordHashFactory $passwordHashFactory,
     ) {}
 
     public function mapToFrontendUser(Subscription|Participant $model): FrontendUser
@@ -43,9 +43,9 @@ readonly class FrontendUserService
         $frontendUser->setFirstName($data->firstName);
         $frontendUser->setLastName($data->lastName);
         $frontendUser->setUsername($data->email);
-    $randomPassword = Uuid::v4()->toRfc4122();
-    $hasher = $this->passwordHashFactory->getDefaultHashInstance('FE');
-    $frontendUser->setPassword($hasher->getHashedPassword($randomPassword));
+        $randomPassword = Uuid::v4()->toRfc4122();
+        $hasher = $this->passwordHashFactory->getDefaultHashInstance('FE');
+        $frontendUser->setPassword($hasher->getHashedPassword($randomPassword));
 
         $this->frontendUserRepository->add($frontendUser);
         $this->persistenceManager->persistAll();

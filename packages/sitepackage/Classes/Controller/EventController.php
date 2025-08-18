@@ -72,7 +72,7 @@ class EventController extends ActionController
 
         $this->prepareSeoForEvent($event);
 
-    $this->pageRenderer->addHeaderData($event->buildSchema($this->uriBuilder));
+        $this->pageRenderer->addHeaderData($event->buildSchema($this->uriBuilder));
 
         $this->view->assign('event', $event);
         $this->view->assign('registrationComplete', $registrationComplete);
@@ -181,10 +181,10 @@ class EventController extends ActionController
         $this->setPageMetaProperty('og:description', $event->description);
         if ($imageUri !== '') {
             $this->setPageMetaProperty('og:image', $imageUri, [
-            'width' => 600,
-            'height' => 600,
-            'alt' => $imageRef?->getOriginalResource()->getAlternative() ?? $event->title,
-        ]);
+                'width' => 600,
+                'height' => 600,
+                'alt' => $imageRef?->getOriginalResource()->getAlternative() ?? $event->title,
+            ]);
         }
         $this->setPageMetaProperty('og:url', $this->getUrlForEvent($event));
     }

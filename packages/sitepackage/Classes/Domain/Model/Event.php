@@ -128,7 +128,7 @@ class Event extends AbstractEntity
                     ->addressCountry('DE'),
             ) : Schema::place()->url($this->callUrl);
 
-    $imageUri = $processedFile ? $imageService->getImageUri($processedFile, true) : null;
+        $imageUri = $processedFile ? $imageService->getImageUri($processedFile, true) : null;
         $baseUrl = $uriBuilder->reset()
             ->setCreateAbsoluteUri(true)
             ->setTargetPageUid(1)

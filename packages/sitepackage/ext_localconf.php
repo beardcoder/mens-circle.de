@@ -53,7 +53,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         'loginFootnote' => '© 2023-2024 Build with ❤️ and mindfulness in Bavaria',
     ];
 
-  ExtensionManagementUtility::addTypoScriptSetup('
+    ExtensionManagementUtility::addTypoScriptSetup('
         plugin.tx_form {
           settings {
             yamlConfigurations {
