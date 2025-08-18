@@ -9,6 +9,7 @@ use MensCircle\Sitepackage\Domain\Model\Newsletter\Subscription;
 use MensCircle\Sitepackage\Domain\Model\Participant;
 use MensCircle\Sitepackage\Domain\Repository\FrontendUserRepository;
 use Symfony\Component\Uid\Uuid;
+use TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -17,6 +18,7 @@ readonly class FrontendUserService
     public function __construct(
         private FrontendUserRepository $frontendUserRepository,
         private PersistenceManager $persistenceManager,
+    private PasswordHashFactory $passwordHashFactory,
     ) {}
 
     public function mapToFrontendUser(Subscription|Participant $model): FrontendUser
@@ -41,7 +43,9 @@ readonly class FrontendUserService
         $frontendUser->setFirstName($data->firstName);
         $frontendUser->setLastName($data->lastName);
         $frontendUser->setUsername($data->email);
-        $frontendUser->setPassword(Uuid::v4()->toHex());
+    $randomPassword = Uuid::v4()->toRfc4122();
+    $hasher = $this->passwordHashFactory->getDefaultHashInstance('FE');
+    $frontendUser->setPassword($hasher->getHashedPassword($randomPassword));
 
         $this->frontendUserRepository->add($frontendUser);
         $this->persistenceManager->persistAll();

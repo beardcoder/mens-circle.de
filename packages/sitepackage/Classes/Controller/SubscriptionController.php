@@ -76,7 +76,11 @@ class SubscriptionController extends ActionController
     public function unsubscribeAction(string $token): ResponseInterface
     {
         $universalSecureTokenService = GeneralUtility::makeInstance(UniversalSecureTokenService::class);
-        $email = $universalSecureTokenService->decrypt($token)['email'];
+        $data = $universalSecureTokenService->decrypt($token);
+        $email = (string)($data['email'] ?? '');
+        if ($email === '') {
+            return $this->htmlResponse();
+        }
         $subscription = $this->subscriptionRepository->findOneBy([
             'email' => $email,
         ]);

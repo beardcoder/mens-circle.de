@@ -20,7 +20,7 @@ readonly class UniversalSecureTokenService
         $nonce = random_bytes($nonceLength);
 
         $ciphertext = sodium_crypto_aead_xchacha20poly1305_ietf_encrypt(
-            json_encode($data),
+            json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
             $additionalData,
             $nonce,
             $this->encryptionKey,
@@ -52,7 +52,10 @@ readonly class UniversalSecureTokenService
                 3859513393,
             );
         }
-
-        return json_decode($plaintext, true);
+        $result = json_decode($plaintext, true, 512, JSON_THROW_ON_ERROR);
+        if (!\is_array($result)) {
+            throw new \RuntimeException('Entschlüsseltes Token hat ein unerwartetes Format.');
+        }
+        return $result;
     }
 }
