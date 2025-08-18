@@ -22,6 +22,11 @@ class Newsletter extends AbstractEntity
 
     public function __construct()
     {
+        $this->initializeObject();
+    }
+
+    public function initializeObject(): void
+    {
         $this->subscriptions = new ObjectStorage();
     }
 
