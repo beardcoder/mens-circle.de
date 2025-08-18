@@ -8,9 +8,9 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 final class ContentPartialNameViewHelper extends AbstractViewHelper
 {
-    protected bool $escapeChildren = false;
+    protected $escapeChildren = false;
 
-    protected bool $escapeOutput = false;
+    protected $escapeOutput = false;
 
     #[\Override]
     public function initializeArguments(): void

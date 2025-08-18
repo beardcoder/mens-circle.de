@@ -50,31 +50,16 @@ class Event extends AbstractEntity
     #[Extbase\ORM\Cascade([
         'value' => 'remove',
     ])]
-    protected ObjectStorage $registration;
-
-    /**
-     * @var ObjectStorage<Participant>
-     */
-    #[Extbase\ORM\Lazy()]
-    #[Extbase\ORM\Cascade([
-        'value' => 'remove',
-    ])]
     protected ObjectStorage $participants;
 
     public function __construct()
     {
-        $this->registration = new ObjectStorage();
+        $this->initializeObject();
+    }
+
+    public function initializeObject(): void
+    {
         $this->participants = new ObjectStorage();
-    }
-
-    public function getRegistration(): ObjectStorage
-    {
-        return $this->registration;
-    }
-
-    public function setRegistration(ObjectStorage $objectStorage): void
-    {
-        $this->registration = $objectStorage;
     }
 
     public function isOnline(): bool
@@ -185,18 +170,16 @@ class Event extends AbstractEntity
 
     public function getParticipants(): ObjectStorage
     {
-        return $this->participants ?? $this->registration;
+        return $this->participants;
     }
 
     public function addParticipant(Participant $participant): void
     {
         $this->participants->attach($participant);
-        $this->registration->attach($participant);
     }
 
     public function removeParticipant(Participant $participant): void
     {
         $this->participants->detach($participant);
-        $this->registration->detach($participant);
     }
 }

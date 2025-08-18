@@ -11,14 +11,14 @@ class Participant extends AbstractEntity
 {
     public ?Event $event = null;
 
-    #[Validate(validator: 'NotEmpty')]
+    #[Validate(['validator' => 'NotEmpty'])]
     public string $firstName;
 
-    #[Validate(validator: 'NotEmpty')]
+    #[Validate(['validator' => 'NotEmpty'])]
     public string $lastName;
 
-    #[Validate(validator: 'NotEmpty')]
-    #[Validate(validator: 'EmailAddress')]
+    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate(['validator' => 'EmailAddress'])]
     public string $email;
 
     public ?FrontendUser $feUser = null;
