@@ -36,23 +36,24 @@ final class SyncNewsletterSubscriptionCommand extends Command
             $feusers = $this->getAllFeUsers();
             $subscriptions = $this->getAllSubscriptions();
         } catch (Exception $e) {
-            $io->error('Failed to read from database: ' . $e->getMessage());
+            $io->error('Failed to read from database: '.$e->getMessage());
+
             return Command::FAILURE;
         }
 
         // Build a lowercase set of existing subscription emails for case-insensitive comparison
         $subscriptionEmails = array_column($subscriptions, 'email');
-        $subscriptionEmailsLower = array_map(static fn($e) => is_string($e) ? strtolower($e) : '', $subscriptionEmails);
+        $subscriptionEmailsLower = array_map(static fn ($e) => \is_string($e) ? strtolower($e) : '', $subscriptionEmails);
 
         // Determine users that need a subscription; skip empty/invalid emails and deduplicate by email
         $toSyncByEmail = [];
         foreach ($feusers as $user) {
-            $email = (string)($user['email'] ?? '');
+            $email = (string) ($user['email'] ?? '');
             $emailLower = strtolower($email);
-            if ($emailLower === '' || filter_var($emailLower, FILTER_VALIDATE_EMAIL) === false) {
+            if ($emailLower === '' || filter_var($emailLower, \FILTER_VALIDATE_EMAIL) === false) {
                 continue;
             }
-            if (in_array($emailLower, $subscriptionEmailsLower, true)) {
+            if (\in_array($emailLower, $subscriptionEmailsLower, true)) {
                 continue; // already subscribed
             }
             if (!isset($toSyncByEmail[$emailLower])) {
@@ -62,39 +63,40 @@ final class SyncNewsletterSubscriptionCommand extends Command
 
         if ($toSyncByEmail === []) {
             $io->success('No users to sync. All fe_users already have subscriptions.');
+
             return Command::SUCCESS;
         }
 
         $connection = $this->connectionPool->getConnectionForTable(self::TARGET_TABLE);
         $synced = [];
 
-        $io->section(sprintf('Creating %d missing subscription(s)...', count($toSyncByEmail)));
-        $io->progressStart(count($toSyncByEmail));
+        $io->section(\sprintf('Creating %d missing subscription(s)...', \count($toSyncByEmail)));
+        $io->progressStart(\count($toSyncByEmail));
 
         try {
             $connection->beginTransaction();
             foreach ($toSyncByEmail as $emailLower => $user) {
-                $firstName = (string)($user['first_name'] ?? '');
-                $lastName = (string)($user['last_name'] ?? '');
+                $firstName = (string) ($user['first_name'] ?? '');
+                $lastName = (string) ($user['last_name'] ?? '');
                 $now = time();
 
                 $connection->insert(
                     self::TARGET_TABLE,
                     [
-                        'email' => (string)$user['email'],
+                        'email' => (string) $user['email'],
                         'first_name' => $firstName,
                         'last_name' => $lastName, // fixed: use last_name, not first_name
                         'status' => SubscriptionStatusEnum::Active->value,
-                        'fe_user' => (int)$user['uid'],
-                        'pid' => (int)($user['pid'] ?? 0),
+                        'fe_user' => (int) $user['uid'],
+                        'pid' => (int) ($user['pid'] ?? 0),
                         'crdate' => $now,
                         'tstamp' => $now,
                     ]
                 );
 
                 $synced[] = [
-                    'uid' => (int)$user['uid'],
-                    'email' => (string)$user['email'],
+                    'uid' => (int) $user['uid'],
+                    'email' => (string) $user['email'],
                     'first_name' => $firstName,
                     'last_name' => $lastName,
                 ];
@@ -105,7 +107,8 @@ final class SyncNewsletterSubscriptionCommand extends Command
         } catch (Exception $e) {
             $connection->rollBack();
             $io->progressFinish();
-            $io->error('Failed to sync subscriptions: ' . $e->getMessage());
+            $io->error('Failed to sync subscriptions: '.$e->getMessage());
+
             return Command::FAILURE;
         }
 
@@ -114,46 +117,53 @@ final class SyncNewsletterSubscriptionCommand extends Command
         // Output which users were synced (email and name for clarity)
         $io->section('Synced users');
         $io->listing(array_map(
-            static fn(array $u): string => sprintf(
+            static fn (array $u): string => \sprintf(
                 '%s <%s> (uid: %d)',
-                trim(($u['first_name'] ?? '') . ' ' . ($u['last_name'] ?? '')) ?: '(no name)',
+                trim(($u['first_name'] ?? '').' '.($u['last_name'] ?? '')) ?: '(no name)',
                 $u['email'] ?? '',
                 $u['uid'] ?? 0
             ),
             $synced
         ));
 
-        $io->success(sprintf('Done. Synced %d subscription(s).', count($synced)));
+        $io->success(\sprintf('Done. Synced %d subscription(s).', \count($synced)));
+
         return Command::SUCCESS;
     }
 
     /**
      * @return array<int, array<string, mixed>>
+     *
      * @throws Exception
      */
     public function getAllFeUsers(): array
     {
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::SOURCE_TABLE);
         $queryBuilder->getRestrictions()->removeAll();
+
         return $queryBuilder
             ->from(self::SOURCE_TABLE)
             ->select('uid', 'email', 'first_name', 'last_name', 'pid')
             ->executeQuery()
-            ->fetchAllAssociative();
+            ->fetchAllAssociative()
+        ;
     }
 
     /**
      * @return array<int, array<string, mixed>>
+     *
      * @throws Exception
      */
     public function getAllSubscriptions(): array
     {
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TARGET_TABLE);
         $queryBuilder->getRestrictions()->removeAll();
+
         return $queryBuilder
             ->from(self::TARGET_TABLE)
             ->select('email')
             ->executeQuery()
-            ->fetchAllAssociative();
+            ->fetchAllAssociative()
+        ;
     }
 }

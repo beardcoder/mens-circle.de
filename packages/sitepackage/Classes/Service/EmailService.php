@@ -16,7 +16,8 @@ readonly class EmailService
     public function __construct(
         private MailerInterface $mailer,
         private LoggerInterface $logger,
-    ) {}
+    ) {
+    }
 
     public function sendMail(
         string $toEmail,
@@ -26,18 +27,19 @@ readonly class EmailService
         ServerRequestInterface $serverRequest,
     ): void {
         $fluidEmail = new FluidEmail()
-                ->to($toEmail)
-                ->from(new Address('hallo@mens-circle.de', 'Men\'s Circle Website'))
-                ->subject($subject)
-                ->setRequest($serverRequest)
-                ->format(FluidEmail::FORMAT_BOTH)
-                ->setTemplate($template)
-                ->assignMultiple($variables);
+            ->to($toEmail)
+            ->from(new Address('hallo@mens-circle.de', 'Men\'s Circle Website'))
+            ->subject($subject)
+            ->setRequest($serverRequest)
+            ->format(FluidEmail::FORMAT_BOTH)
+            ->setTemplate($template)
+            ->assignMultiple($variables)
+        ;
 
         try {
             $this->mailer->send($fluidEmail);
         } catch (TransportExceptionInterface $e) {
-            $this->logger->error('Failed to send Double Opt-In email: ' . $e->getMessage());
+            $this->logger->error('Failed to send Double Opt-In email: '.$e->getMessage());
         }
     }
 }

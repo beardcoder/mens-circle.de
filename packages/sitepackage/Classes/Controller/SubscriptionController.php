@@ -24,12 +24,14 @@ class SubscriptionController extends ActionController
         private readonly EmailService $emailService,
         private readonly DoubleOptInService $doubleOptInService,
         private readonly FrontendUserService $frontendUserService,
-    ) {}
+    ) {
+    }
 
     public function formAction(?Subscription $subscription = null): ResponseInterface
     {
         $subscription ??= GeneralUtility::makeInstance(Subscription::class);
         $this->view->assign('subscription', $subscription);
+
         return $this->htmlResponse();
     }
 
@@ -70,6 +72,7 @@ class SubscriptionController extends ActionController
     {
         $subscription = $this->doubleOptInService->processDoubleOptIn($token);
         $this->view->assign('subscription', $subscription);
+
         return $this->htmlResponse();
     }
 
@@ -77,7 +80,7 @@ class SubscriptionController extends ActionController
     {
         $universalSecureTokenService = GeneralUtility::makeInstance(UniversalSecureTokenService::class);
         $data = $universalSecureTokenService->decrypt($token);
-        $email = (string)($data['email'] ?? '');
+        $email = (string) ($data['email'] ?? '');
         if ($email === '') {
             return $this->htmlResponse();
         }
@@ -89,6 +92,7 @@ class SubscriptionController extends ActionController
             $subscription->status = SubscriptionStatusEnum::Unsubscribed;
             $this->subscriptionRepository->update($subscription);
         }
+
         return $this->htmlResponse();
     }
 }

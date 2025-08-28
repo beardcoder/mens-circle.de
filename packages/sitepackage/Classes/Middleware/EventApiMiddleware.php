@@ -34,14 +34,16 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         private EventRepository $eventRepository,
         private ImageService $imageService,
         private LinkFactory $linkFactory,
-    ) {}
+    ) {
+    }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $path = $request->getUri()->getPath();
 
-        if (preg_match('#^' . preg_quote(self::BASE_PATH, '#') . '([0-9]+)' . preg_quote(self::PATH_ICAL, '#') . '/?$#', $path, $m)) {
-            $eventId = (int)$m[1];
+        if (preg_match('#^'.preg_quote(self::BASE_PATH, '#').'([0-9]+)'.preg_quote(self::PATH_ICAL, '#').'/?$#', $path, $m)) {
+            $eventId = (int) $m[1];
+
             return $this->generateICalForEvent($request, $eventId);
         }
 
@@ -51,7 +53,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
     private function generateICalForEvent(ServerRequestInterface $request, int $eventId): ResponseInterface
     {
         $event = $this->eventRepository->findByUid($eventId);
-        if (! $event instanceof Event) {
+        if (!$event instanceof Event) {
             return new Response('php://temp', 404, [
                 'Content-Type' => 'text/plain; charset=utf-8',
                 'Cache-Control' => 'no-store',
@@ -59,7 +61,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         }
 
         // Validate required data
-        if (! $event->startDate instanceof \DateTimeInterface) {
+        if (!$event->startDate instanceof \DateTimeInterface) {
             return new Response('php://temp', 422, [
                 'Content-Type' => 'text/plain; charset=utf-8',
                 'Cache-Control' => 'no-store',
@@ -68,9 +70,9 @@ readonly class EventApiMiddleware implements MiddlewareInterface
 
         // Conditional GET via ETag
         $etag = $this->buildEventEtag($event);
-        if ($request->getHeaderLine('If-None-Match') === '"' . $etag . '"') {
+        if ($request->getHeaderLine('If-None-Match') === '"'.$etag.'"') {
             return new Response('php://temp', 304, [
-                'ETag' => '"' . $etag . '"',
+                'ETag' => '"'.$etag.'"',
                 'Cache-Control' => 'public, max-age=3600',
             ]);
         }
@@ -82,7 +84,8 @@ readonly class EventApiMiddleware implements MiddlewareInterface
             ->startsAt($event->startDate)
             ->organizer(self::ORGANIZER_EMAIL, self::ORGANIZER_NAME)
             ->uniqueIdentifier($this->buildEventUid($event))
-            ->status($event->isCancelled() ? IcsEventStatus::Cancelled : IcsEventStatus::Confirmed);
+            ->status($event->isCancelled() ? IcsEventStatus::Cancelled : IcsEventStatus::Confirmed)
+        ;
 
         // Set URL: prefer online call URL for online events, else detail URL
         $detailUrl = $this->getUrlForEvent($request, $event);
@@ -124,8 +127,8 @@ readonly class EventApiMiddleware implements MiddlewareInterface
 
         if ($event->isOffline()) {
             $calendarEvent->address($event->getFullAddress(), $event->location->place);
-            $lat = (float)$event->location->latitude;
-            $lng = (float)$event->location->longitude;
+            $lat = (float) $event->location->latitude;
+            $lng = (float) $event->location->longitude;
             if ($lat !== 0.0 && $lng !== 0.0) {
                 $calendarEvent->coordinates($lat, $lng);
                 // Add Apple structured location for iOS/macOS Maps integration
@@ -149,15 +152,15 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         $ics = $calendar->get();
 
         // Prepare response
-        $filename = $this->sanitizeFilename($event->getLongTitle()) . '.ics';
-        $disposition = 'attachment; filename="' . $filename . '"; filename*=' . "UTF-8''" . rawurlencode($filename);
+        $filename = $this->sanitizeFilename($event->getLongTitle()).'.ics';
+        $disposition = 'attachment; filename="'.$filename.'"; filename*='."UTF-8''".rawurlencode($filename);
         $headers = [
             'Cache-Control' => 'public, max-age=3600',
             'Content-Type' => 'text/calendar; charset=utf-8',
             'Content-Disposition' => $disposition,
-            'ETag' => '"' . $etag . '"',
+            'ETag' => '"'.$etag.'"',
             'X-Content-Type-Options' => 'nosniff',
-            'Content-Length' => (string)strlen($ics),
+            'Content-Length' => (string) \strlen($ics),
         ];
 
         $stream = new Stream('php://temp', 'rw');
@@ -174,14 +177,15 @@ readonly class EventApiMiddleware implements MiddlewareInterface
 
         $linkConfiguration = [
             'parameter' => 3,
-            'additionalParams' => '&tx_sitepackage_eventdetail[action]=detail&tx_sitepackage_eventdetail[controller]=Event&tx_sitepackage_eventdetail[event]=' . $event->getUid(),
+            'additionalParams' => '&tx_sitepackage_eventdetail[action]=detail&tx_sitepackage_eventdetail[controller]=Event&tx_sitepackage_eventdetail[event]='.$event->getUid(),
         ];
 
         try {
             return $this->linkFactory->create('event', $linkConfiguration, $cObj)->getUrl();
         } catch (UnableToLinkException) {
             $uri = $request->getUri()->withQuery('')->withFragment('')->withPath('/');
-            return (string)$uri;
+
+            return (string) $uri;
         }
     }
 
@@ -193,11 +197,11 @@ readonly class EventApiMiddleware implements MiddlewareInterface
             'start' => $event->startDate?->format('c') ?? '',
             'end' => $event->endDate?->format('c') ?? '',
             'cancelled' => $event->isCancelled() ? '1' : '0',
-            'attendance' => (string)$event->getRealAttendanceMode()->value,
+            'attendance' => (string) $event->getRealAttendanceMode()->value,
             'crdate' => $event->crdate?->format('c') ?? '',
         ];
 
-        return md5(json_encode($parts, JSON_UNESCAPED_UNICODE));
+        return md5(json_encode($parts, \JSON_UNESCAPED_UNICODE));
     }
 
     private function sanitizeFilename(string $name): string
@@ -212,9 +216,9 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         }
 
         // Optionally cap length to avoid extreme headers; keep multibyte safety when available
-        if (function_exists('mb_strlen') && mb_strlen($name) > 120) {
+        if (\function_exists('mb_strlen') && mb_strlen($name) > 120) {
             $name = rtrim(mb_substr($name, 0, 120), ' -.');
-        } elseif (strlen($name) > 180) { // byte-based fallback
+        } elseif (\strlen($name) > 180) { // byte-based fallback
             $name = rtrim(substr($name, 0, 180), ' -.');
         }
 
@@ -224,6 +228,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
     private function buildEventUid(Event $event): string
     {
         $start = $event->startDate instanceof \DateTimeInterface ? $event->startDate->format('c') : '';
-        return sprintf('event-%d-%s@mens-circle.de', $event->getUid(), md5($start));
+
+        return \sprintf('event-%d-%s@mens-circle.de', $event->getUid(), md5($start));
     }
 }

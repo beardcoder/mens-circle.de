@@ -80,7 +80,8 @@ class Event extends AbstractEntity
     public function getLongTitle(): string
     {
         $date = $this->startDate?->format('d.m.Y') ?? '';
-        return $date !== '' ? ($this->title . ' am ' . $date) : $this->title;
+
+        return $date !== '' ? ($this->title.' am '.$date) : $this->title;
     }
 
     public function buildSchema(UriBuilder $uriBuilder): EventSchema
@@ -90,7 +91,8 @@ class Event extends AbstractEntity
             ->setTargetPageUid(3)
             ->uriFor('detail', [
                 'event' => $this->uid,
-            ]);
+            ])
+        ;
 
         $imageService = GeneralUtility::makeInstance(ImageService::class);
 
@@ -117,9 +119,10 @@ class Event extends AbstractEntity
         $baseUrl = $uriBuilder->reset()
             ->setCreateAbsoluteUri(true)
             ->setTargetPageUid(1)
-            ->buildFrontendUri();
+            ->buildFrontendUri()
+        ;
 
-        $eventSchema = Schema::event()
+        return Schema::event()
             ->name(\sprintf('%s am %s', $this->title, $this->startDate->format('d.m.Y')))
             ->description($this->description)
             ->image($imageUri)
@@ -137,9 +140,8 @@ class Event extends AbstractEntity
                     ->priceCurrency('EUR'),
             )
             ->organizer(Schema::person()->name('Markus Sommer')->url($baseUrl))
-            ->performer(Schema::person()->name('Markus Sommer')->url($baseUrl));
-
-        return $eventSchema;
+            ->performer(Schema::person()->name('Markus Sommer')->url($baseUrl))
+        ;
     }
 
     public function getImage(): ?FileReference

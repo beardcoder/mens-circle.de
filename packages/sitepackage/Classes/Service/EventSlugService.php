@@ -10,11 +10,12 @@ class EventSlugService
 {
     public function modifySlug(array $params): string
     {
-        $raw = (string)($params['record']['start_date'] ?? '');
+        $raw = (string) ($params['record']['start_date'] ?? '');
         $timestamp = $raw !== '' ? strtotime($raw) : false;
         if ($timestamp === false) {
             return '';
         }
+
         return date('d-m-Y', $timestamp);
     }
 

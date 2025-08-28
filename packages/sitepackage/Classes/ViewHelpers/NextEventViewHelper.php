@@ -11,7 +11,9 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class NextEventViewHelper extends AbstractViewHelper
 {
-    public function __construct(protected EventRepository $eventRepository) {}
+    public function __construct(protected EventRepository $eventRepository)
+    {
+    }
 
     /**
      * @throws \DateMalformedStringException

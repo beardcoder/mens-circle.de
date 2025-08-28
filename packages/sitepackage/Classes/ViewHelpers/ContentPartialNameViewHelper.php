@@ -21,11 +21,11 @@ final class ContentPartialNameViewHelper extends AbstractViewHelper
     #[\Override]
     public function render(): string
     {
-        $value = (string)$this->arguments['value'];
+        $value = (string) $this->arguments['value'];
         if (str_starts_with($value, 'sitepackage')) {
             return ucfirst(substr(strrchr($value, '_'), 1));
         }
+
         return 'Generic';
     }
-
 }

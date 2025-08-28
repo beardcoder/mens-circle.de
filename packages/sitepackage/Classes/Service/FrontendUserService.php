@@ -19,7 +19,8 @@ readonly class FrontendUserService
         private FrontendUserRepository $frontendUserRepository,
         private PersistenceManager $persistenceManager,
         private PasswordHashFactory $passwordHashFactory,
-    ) {}
+    ) {
+    }
 
     public function mapToFrontendUser(Subscription|Participant $model): FrontendUser
     {
@@ -27,7 +28,7 @@ readonly class FrontendUserService
             'email' => $model->email,
         ]);
 
-        if (! $frontendUser instanceof FrontendUser) {
+        if (!$frontendUser instanceof FrontendUser) {
             return $this->mapDataToFrontendUser($model);
         }
 

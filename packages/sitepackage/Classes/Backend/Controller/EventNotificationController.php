@@ -37,7 +37,8 @@ class EventNotificationController extends ActionController
         private readonly MailerInterface $mailer,
         private readonly UriBuilder $backendUriBuilder,
         private readonly EventRepository $eventRepository,
-    ) {}
+    ) {
+    }
 
     public function prepareTemplate(ServerRequestInterface $serverRequest): void
     {
@@ -50,6 +51,7 @@ class EventNotificationController extends ActionController
 
         $this->moduleTemplate->setTitle('Select Event');
         $this->moduleTemplate->assign('events', $this->eventRepository->findAll());
+
         return $this->htmlResponse($this->moduleTemplate->render('EventNotification/List'));
     }
 
@@ -78,7 +80,7 @@ class EventNotificationController extends ActionController
         $objectStorage = $event->getParticipants();
 
         $emailAddresses = array_map(
-            static fn(Participant $participant): Address => new Address(
+            static fn (Participant $participant): Address => new Address(
                 $participant->getEmail(),
                 $participant->getName(),
             ),
@@ -94,7 +96,8 @@ class EventNotificationController extends ActionController
             ->to(new Address('hallo@mens-circle.de', 'Men\'s Circle Website'))
             ->setTemplate('EventNotification')
             ->assign('subject', $eventNotification->subject)
-            ->assign('message', $eventNotification->message);
+            ->assign('message', $eventNotification->message)
+        ;
 
         $this->mailer->send($fluidEmail);
 
@@ -122,7 +125,8 @@ class EventNotificationController extends ActionController
     {
         $params = $serverRequest->getQueryParams();
         $menuRegistry = $this->moduleTemplate->getDocHeaderComponent()
-            ->getMenuRegistry();
+            ->getMenuRegistry()
+        ;
 
         // Create a menu and set its identifier
         $menu = $menuRegistry->makeMenu();
@@ -136,14 +140,14 @@ class EventNotificationController extends ActionController
 
         // Build menu items for each event
         foreach ($events as $event) {
-            if (! $event instanceof Event) {
+            if (!$event instanceof Event) {
                 continue; // Skip invalid items if necessary
             }
 
             $menu->addMenuItem(
                 $menu->makeMenuItem()
                     ->setTitle($event->getLongTitle())
-                    ->setActive(isset($params['event']) && $event->getUid() === (int)$params['event'])
+                    ->setActive(isset($params['event']) && $event->getUid() === (int) $params['event'])
                     ->setHref(
                         $this->backendUriBuilder->buildUriFromRoute(
                             'events_notification.EventNotification_new',

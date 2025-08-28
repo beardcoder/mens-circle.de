@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use MensCircle\Sitepackage\Enum\EventAttendanceModeEnum;
 use MensCircle\Sitepackage\Service\EventSlugService;
 
@@ -31,7 +33,6 @@ return [
                 'registration',
                 '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access',
                 '--palette--;;hidden',
-
             ]),
         ],
     ],
@@ -83,14 +84,14 @@ return [
                 'eval' => 'unique',
                 'size' => 50,
                 'appearance' => [
-                    'prefix' => EventSlugService::class . '->getPrefix',
+                    'prefix' => EventSlugService::class.'->getPrefix',
                 ],
                 'generatorOptions' => [
                     'fields' => ['title', 'start_date'],
                     'replacements' => [
                         '/' => '-',
                     ],
-                    'postModifiers' => [EventSlugService::class . '->modifySlug'],
+                    'postModifiers' => [EventSlugService::class.'->modifySlug'],
                 ],
                 'fallbackCharacter' => '-',
                 'default' => '',

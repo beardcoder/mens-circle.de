@@ -16,7 +16,7 @@ call_user_func(static function (): void {
         [
             'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:page.default',
             'value' => $customPageDoktype,
-            'icon'  => $customIconClass,
+            'icon' => $customIconClass,
             'group' => $extensionKey,
         ],
     );
@@ -24,6 +24,6 @@ call_user_func(static function (): void {
     $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][$customPageDoktype] = $customIconClass;
 
     foreach (['contentFromPid', 'hideinmenu', 'root'] as $suffix) {
-        $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][$customPageDoktype . '-' . $suffix] = $customIconClass . '-' . $suffix;
+        $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][$customPageDoktype.'-'.$suffix] = $customIconClass.'-'.$suffix;
     }
 });

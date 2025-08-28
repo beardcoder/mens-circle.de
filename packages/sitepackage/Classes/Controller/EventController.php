@@ -37,7 +37,8 @@ class EventController extends ActionController
         private readonly FrontendUserService $frontendUserService,
         private readonly PersistenceManager $persistenceManager,
         private readonly LoggerInterface $logger,
-    ) {}
+    ) {
+    }
 
     public function listAction(): ResponseInterface
     {
@@ -54,9 +55,10 @@ class EventController extends ActionController
             return $this->handleEventNotFoundError();
         }
 
-        return $this->redirect(actionName: 'detail', arguments: [
-            'event' => $upcomingEvent,
-        ]);
+        return $this->redirect(
+            actionName: 'detail',
+            arguments: ['event' => $upcomingEvent]
+        );
     }
 
     public function detailAction(
@@ -100,7 +102,7 @@ class EventController extends ActionController
                 [
                     'participant' => $participant,
                 ],
-                'Neue Anmeldung von ' . $participant->getName(),
+                'Neue Anmeldung von '.$participant->getName(),
                 $this->request,
             );
         } catch (\Exception $exception) {
@@ -115,6 +117,7 @@ class EventController extends ActionController
                 'registrationComplete' => true,
             ]
         );
+
         return $this->redirectToUri($uri);
     }
 
@@ -124,9 +127,10 @@ class EventController extends ActionController
             return $this->handleEventNotFoundError();
         }
 
-        $path = rtrim(EventApiMiddleware::BASE_PATH, '/') . '/' . $event->getUid() . rtrim(EventApiMiddleware::PATH_ICAL, '/') . '/';
+        $path = rtrim(EventApiMiddleware::BASE_PATH, '/').'/'.$event->getUid().rtrim(EventApiMiddleware::PATH_ICAL, '/').'/';
         $uri = $this->request->getUri()->withPath($path)->withQuery('')->withFragment('');
-        return $this->redirectToUri((string)$uri);
+
+        return $this->redirectToUri((string) $uri);
     }
 
     protected function setRegistrationFieldValuesToArguments(): void
@@ -136,7 +140,7 @@ class EventController extends ActionController
             return;
         }
 
-        $event = $this->eventRepository->findByUid((int)$this->request->getArgument('event'));
+        $event = $this->eventRepository->findByUid((int) $this->request->getArgument('event'));
         if (!$event instanceof Event) {
             return;
         }
@@ -148,7 +152,7 @@ class EventController extends ActionController
         $mvcPropertyMappingConfiguration->allowProperties('event');
         $mvcPropertyMappingConfiguration->allowCreationForSubProperty('event');
         $mvcPropertyMappingConfiguration->allowModificationForSubProperty('event');
-        $arguments['participant']['event'] = (int)$this->request->getArgument('event');
+        $arguments['participant']['event'] = (int) $this->request->getArgument('event');
 
         $this->request = $this->request->withArguments($arguments);
     }
@@ -160,44 +164,52 @@ class EventController extends ActionController
             ->setTargetPageUid(3)
             ->uriFor('detail', [
                 'event' => $event->getUid(),
-            ]);
+            ])
+        ;
     }
 
     private function prepareSeoForEvent(Event $event): void
     {
         $this->eventPageTitleProvider->setTitle($event->getLongTitle());
-        $imageRef = $event->getImage();
-        if ($imageRef !== null) {
-            $processedFile = $this->imageService->applyProcessingInstructions($imageRef->getOriginalResource(), [
-                'width' => '600c',
-                'height' => '600c',
-            ]);
-            $imageUri = $this->imageService->getImageUri($processedFile, true);
-        } else {
-            $imageUri = '';
-        }
 
         $this->setPageMetaProperty('og:title', $event->getLongTitle());
         $this->setPageMetaProperty('og:description', $event->description);
+
+        $imageUri = '';
+        $imageRef = $event->getImage();
+
+        if ($imageRef !== null) {
+            $processedFile = $this->imageService->applyProcessingInstructions(
+                $imageRef->getOriginalResource(),
+                [
+                    'width' => '600c',
+                    'height' => '600c',
+                ]
+            );
+            $imageUri = $this->imageService->getImageUri($processedFile, true);
+        }
+
         if ($imageUri !== '') {
+            $altText = $imageRef?->getOriginalResource()->getAlternative() ?? $event->title;
             $this->setPageMetaProperty('og:image', $imageUri, [
                 'width' => 600,
                 'height' => 600,
-                'alt' => $imageRef?->getOriginalResource()->getAlternative() ?? $event->title,
+                'alt' => $altText,
             ]);
         }
+
         $this->setPageMetaProperty('og:url', $this->getUrlForEvent($event));
     }
 
     private function setPageMetaProperty(string $property, string $value, array $additionalData = []): void
     {
-        $this->metaTagManagerRegistry->getManagerForProperty($property)
-            ->addProperty($property, $value, $additionalData);
+        $this->metaTagManagerRegistry->getManagerForProperty($property)->addProperty($property, $value, $additionalData);
     }
 
     private function handleEventNotFoundError(): ResponseInterface
     {
         $upcomingEvent = $this->eventRepository->findNextUpcomingEvent();
+
         if (!$upcomingEvent instanceof Event) {
             $site = $this->request->getAttribute('site');
             \assert($site instanceof Site);
@@ -210,9 +222,8 @@ class EventController extends ActionController
         $redirectUrl = $this->uriBuilder->reset()
             ->setTargetPageUid(3)
             ->setNoCache(true)
-            ->uriFor('detail', [
-                'event' => $upcomingEvent,
-            ]);
+            ->uriFor('detail', ['event' => $upcomingEvent])
+        ;
 
         return $this->redirectToUri($redirectUrl);
     }

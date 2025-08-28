@@ -22,20 +22,20 @@ class Subscription extends AbstractEntity
 
     public ?FrontendUser $feUser = null;
 
-    public \DateTime|null $optInDate = null;
+    public ?\DateTime $optInDate = null;
 
-    public \DateTime|null $optOutDate = null;
+    public ?\DateTime $optOutDate = null;
 
     public ?string $doubleOptInToken = null;
 
-    public \DateTime|null $doubleOptInDate = null;
+    public ?\DateTime $doubleOptInDate = null;
 
-    public \DateTime|null $privacyPolicyAcceptedDate = null;
+    public ?\DateTime $privacyPolicyAcceptedDate = null;
 
     public SubscriptionStatusEnum $status = SubscriptionStatusEnum::Pending;
 
     public function getName(): string
     {
-        return $this->firstName . ' ' . $this->lastName;
+        return $this->firstName.' '.$this->lastName;
     }
 }

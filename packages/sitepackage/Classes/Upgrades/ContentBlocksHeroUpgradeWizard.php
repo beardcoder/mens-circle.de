@@ -18,9 +18,11 @@ final class ContentBlocksHeroUpgradeWizard implements UpgradeWizardInterface
 
     public function __construct(
         private readonly ConnectionPool $connectionPool,
-    ) {}
+    ) {
+    }
+
     /**
-     * Return the speaking name of this wizard
+     * Return the speaking name of this wizard.
      */
     public function getTitle(): string
     {
@@ -28,7 +30,7 @@ final class ContentBlocksHeroUpgradeWizard implements UpgradeWizardInterface
     }
 
     /**
-     * Return the description for this wizard
+     * Return the description for this wizard.
      */
     public function getDescription(): string
     {
@@ -46,7 +48,8 @@ final class ContentBlocksHeroUpgradeWizard implements UpgradeWizardInterface
                 [ // where
                     'CType' => self::OLD_TYPE,
                 ],
-            );
+            )
+        ;
         $this->connectionPool->getConnectionForTable('sys_file_reference')
             ->update(
                 'sys_file_reference',
@@ -56,7 +59,9 @@ final class ContentBlocksHeroUpgradeWizard implements UpgradeWizardInterface
                 [ // where
                     'fieldname' => 'menscircle_hero_image',
                 ],
-            );
+            )
+        ;
+
         return true;
     }
 
@@ -65,14 +70,15 @@ final class ContentBlocksHeroUpgradeWizard implements UpgradeWizardInterface
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TABLE);
         $queryBuilder->getRestrictions()->removeAll();
         try {
-            return (bool)$queryBuilder
+            return (bool) $queryBuilder
                 ->count('uid')
                 ->from(self::TABLE)
                 ->where(
                     $queryBuilder->expr()->eq('CType', $queryBuilder->createNamedParameter(self::OLD_TYPE)),
                 )
                 ->executeQuery()
-                ->fetchOne();
+                ->fetchOne()
+            ;
         } catch (Exception $e) {
             return false;
         }

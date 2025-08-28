@@ -40,7 +40,7 @@ class Participant extends AbstractEntity
 
     public function getName(): string
     {
-        return $this->firstName . ' ' . $this->lastName;
+        return $this->firstName.' '.$this->lastName;
     }
 
     public function setLastName(string $lastName): void

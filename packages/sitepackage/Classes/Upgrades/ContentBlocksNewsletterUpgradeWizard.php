@@ -18,9 +18,11 @@ final class ContentBlocksNewsletterUpgradeWizard implements UpgradeWizardInterfa
 
     public function __construct(
         private readonly ConnectionPool $connectionPool,
-    ) {}
+    ) {
+    }
+
     /**
-     * Return the speaking name of this wizard
+     * Return the speaking name of this wizard.
      */
     public function getTitle(): string
     {
@@ -28,7 +30,7 @@ final class ContentBlocksNewsletterUpgradeWizard implements UpgradeWizardInterfa
     }
 
     /**
-     * Return the description for this wizard
+     * Return the description for this wizard.
      */
     public function getDescription(): string
     {
@@ -46,7 +48,9 @@ final class ContentBlocksNewsletterUpgradeWizard implements UpgradeWizardInterfa
                 [ // where
                     'CType' => self::OLD_TYPE,
                 ],
-            );
+            )
+        ;
+
         return true;
     }
 
@@ -55,14 +59,15 @@ final class ContentBlocksNewsletterUpgradeWizard implements UpgradeWizardInterfa
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TABLE);
         $queryBuilder->getRestrictions()->removeAll();
         try {
-            return (bool)$queryBuilder
+            return (bool) $queryBuilder
                 ->count('uid')
                 ->from(self::TABLE)
                 ->where(
                     $queryBuilder->expr()->eq('CType', $queryBuilder->createNamedParameter(self::OLD_TYPE)),
                 )
                 ->executeQuery()
-                ->fetchOne();
+                ->fetchOne()
+            ;
         } catch (Exception $e) {
             return false;
         }

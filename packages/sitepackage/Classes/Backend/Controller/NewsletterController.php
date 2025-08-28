@@ -37,10 +37,11 @@ class NewsletterController extends ActionController
         private readonly MailerInterface $mailer,
         private readonly SubscriptionRepository $subscriptionRepository,
         private readonly NewsletterRepository $newsletterRepository,
-    ) {}
+    ) {
+    }
 
     /**
-     * Generates the action menu
+     * Generates the action menu.
      */
     protected function initializeModuleTemplate(ServerRequestInterface $request): ModuleTemplate
     {
@@ -65,6 +66,7 @@ class NewsletterController extends ActionController
 
         $view->assign('newsletter', $newsletter);
         $view->assign('subscriptions', $subscriptions);
+
         return $view->renderResponse('Newsletter/New');
     }
 
@@ -80,11 +82,11 @@ class NewsletterController extends ActionController
 
         array_walk(
             $subscriptions,
-            static fn(Subscription $subscription) => $newsletter->addSubscription($subscription),
+            static fn (Subscription $subscription) => $newsletter->addSubscription($subscription),
         );
 
         $emailAddresses = array_map(
-            static fn(Subscription $subscription): Address => new Address(
+            static fn (Subscription $subscription): Address => new Address(
                 $subscription->email,
                 $subscription->getName(),
             ),
@@ -110,7 +112,8 @@ class NewsletterController extends ActionController
                         'email' => $emailAddress->getAddress(),
                     ])),
                 )
-                ->assign('message', $newsletter->message);
+                ->assign('message', $newsletter->message)
+            ;
             $this->mailer->send($fluidEmail);
         }
 
@@ -131,7 +134,7 @@ class NewsletterController extends ActionController
 
     protected function generateFrontendLinkInBackendContext($token): string
     {
-        //create url
+        // create url
         $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId(13);
 
         $parameters = [
@@ -141,7 +144,9 @@ class NewsletterController extends ActionController
                 'token' => $token,
             ],
         ];
-        return (string)$site->getRouter()
-            ->generateUri(13, $parameters);
+
+        return (string) $site->getRouter()
+            ->generateUri(13, $parameters)
+        ;
     }
 }

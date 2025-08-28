@@ -33,7 +33,8 @@ readonly class TokenService
 
         $builder = $this->configuration->builder()
             ->issuedAt($now)
-            ->expiresAt($now->modify("+{$validForSeconds} seconds"));
+            ->expiresAt($now->modify("+{$validForSeconds} seconds"))
+        ;
 
         foreach ($claims as $key => $value) {
             $builder->withClaim($key, $value);
@@ -53,7 +54,8 @@ readonly class TokenService
             ];
 
             return $this->configuration->validator()
-                ->validate($parsedToken, ...$constraints);
+                ->validate($parsedToken, ...$constraints)
+            ;
         } catch (\Throwable) {
             return false;
         }
@@ -67,7 +69,7 @@ readonly class TokenService
                 return null;
             }
 
-            if (! $this->validateToken($token)) {
+            if (!$this->validateToken($token)) {
                 return null;
             }
 

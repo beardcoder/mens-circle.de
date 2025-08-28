@@ -14,7 +14,7 @@ $svgFiles = new Finder()->files()->in($iconDirectory)->name('*.svg')->sortByName
 
 foreach ($svgFiles as $svgFile) {
     $iconIdentifier = $svgFile->getBasename('.svg');
-    $iconSource = 'EXT:sitepackage/Resources/Public/Icons/' . $svgFile->getFilename();
+    $iconSource = 'EXT:sitepackage/Resources/Public/Icons/'.$svgFile->getFilename();
 
     $registeredIcons[$iconIdentifier] = [
         'provider' => SvgIconProvider::class,

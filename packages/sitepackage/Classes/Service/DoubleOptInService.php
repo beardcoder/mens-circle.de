@@ -15,7 +15,8 @@ readonly class DoubleOptInService
     public function __construct(
         private TokenService $tokenService,
         private SubscriptionRepository $subscriptionRepository,
-    ) {}
+    ) {
+    }
 
     /**
      * @throws UnknownObjectException
@@ -23,7 +24,7 @@ readonly class DoubleOptInService
      */
     public function processDoubleOptIn(string $token): ?Subscription
     {
-        if (! $this->tokenService->validateToken($token)) {
+        if (!$this->tokenService->validateToken($token)) {
             return null;
         }
 

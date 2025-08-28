@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use MensCircle\Sitepackage\Enum\SubscriptionStatusEnum;
 
 return [
@@ -122,7 +124,7 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'items' => array_map(static fn(SubscriptionStatusEnum $subscriptionStatusEnum): array => [
+                'items' => array_map(static fn (SubscriptionStatusEnum $subscriptionStatusEnum): array => [
                     'label' => $subscriptionStatusEnum->name,
                     'value' => $subscriptionStatusEnum->value,
                 ], SubscriptionStatusEnum::cases()),

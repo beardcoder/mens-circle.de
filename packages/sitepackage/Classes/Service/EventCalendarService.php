@@ -59,7 +59,8 @@ final class EventCalendarService implements SingletonInterface
 
     public function __construct(
         private readonly EventRepository $eventRepository,
-    ) {}
+    ) {
+    }
 
     /**
      * @return string Rendered feed content based on requested format
@@ -82,7 +83,7 @@ final class EventCalendarService implements SingletonInterface
 
         // Create deterministic hash based on event data and format
         $eventData = $this->extractEventDataForHashing($events);
-        $hashSource = $format . serialize($eventData) . self::TTL_DURATION;
+        $hashSource = $format.serialize($eventData).self::TTL_DURATION;
 
         return md5($hashSource);
     }
@@ -93,8 +94,7 @@ final class EventCalendarService implements SingletonInterface
     private function getUpcomingEvents(): array
     {
         if ($this->cachedEvents === null) {
-            $this->cachedEvents = $this->eventRepository->findNextEvents()
-                ->toArray();
+            $this->cachedEvents = $this->eventRepository->findNextEvents()->toArray();
         }
 
         return $this->cachedEvents;
@@ -104,11 +104,12 @@ final class EventCalendarService implements SingletonInterface
      * Build a sorted, minimal representation of events to stabilize ETag generation.
      *
      * @param array<int, Event> $events
+     *
      * @return array<int, array<string, mixed>>
      */
     private function extractEventDataForHashing(array $events): array
     {
-        $data = array_map(fn(Event $event) => [
+        $data = array_map(fn (Event $event) => [
             'uid' => $event->getUid(),
             'title' => trim($event->title),
             'startDate' => $event->startDate?->format('c') ?? '',
@@ -124,6 +125,7 @@ final class EventCalendarService implements SingletonInterface
             // Sort by startDate then uid for stable ordering
             $left = [$a['startDate'], $a['uid']];
             $right = [$b['startDate'], $b['uid']];
+
             return $left <=> $right;
         });
 
@@ -133,7 +135,7 @@ final class EventCalendarService implements SingletonInterface
     private function sanitizeLocationForHash(Event $event): string
     {
         if ($event->isOnline()) {
-            return 'online:' . trim($event->callUrl);
+            return 'online:'.trim($event->callUrl);
         }
 
         return trim($event->getFullAddress());
@@ -147,14 +149,14 @@ final class EventCalendarService implements SingletonInterface
             'events' => $jsonEvents,
             'meta' => [
                 'count' => \count($jsonEvents),
-                'generated' => (new \DateTime())->format('c'),
+                'generated' => new \DateTime()->format('c'),
                 'ttl' => self::CACHE_MAX_AGE,
                 'timezone' => self::DEFAULT_TIMEZONE,
                 'version' => '2.0',
             ],
         ];
 
-        return json_encode($feedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        return json_encode($feedData, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -213,9 +215,7 @@ final class EventCalendarService implements SingletonInterface
         $calendarComponent = $calendarFactory->createCalendar($calendar);
 
         // Add mobile-optimized headers for iOS/Android compatibility
-        $icsContent = $this->addMobileOptimizedHeaders($calendarComponent->__toString());
-
-        return $icsContent;
+        return $this->addMobileOptimizedHeaders($calendarComponent->__toString());
     }
 
     private function createOptimizedCalendar(): Calendar
@@ -236,8 +236,8 @@ final class EventCalendarService implements SingletonInterface
         // Create timezone with dynamic range for better mobile device support
         $tz = new \DateTimeZone(self::DEFAULT_TIMEZONE);
         $now = new \DateTimeImmutable('now', $tz);
-        $start = $now->setDate((int)$now->format('Y') - 1, 1, 1)->setTime(0, 0);
-        $end = $now->setDate((int)$now->format('Y') + 3, 12, 31)->setTime(23, 59, 59);
+        $start = $now->setDate((int) $now->format('Y') - 1, 1, 1)->setTime(0, 0);
+        $end = $now->setDate((int) $now->format('Y') + 3, 12, 31)->setTime(23, 59, 59);
 
         return TimeZone::createFromPhpDateTimeZone(
             $tz,
@@ -297,21 +297,21 @@ final class EventCalendarService implements SingletonInterface
     {
         $headers = [
             // Essential for iOS/Android auto-refresh
-            'X-PUBLISHED-TTL:' . self::TTL_DURATION,
+            'X-PUBLISHED-TTL:'.self::TTL_DURATION,
             // Apple Calendar specific refresh interval
-            'REFRESH-INTERVAL;VALUE=DURATION:' . self::TTL_DURATION,
+            'REFRESH-INTERVAL;VALUE=DURATION:'.self::TTL_DURATION,
             // Calendar name for mobile display
-            'X-WR-CALNAME:' . self::CALENDAR_NAME,
+            'X-WR-CALNAME:'.self::CALENDAR_NAME,
             // Calendar description for mobile display
-            'X-WR-CALDESC:' . self::CALENDAR_DESCRIPTION,
+            'X-WR-CALDESC:'.self::CALENDAR_DESCRIPTION,
             // Timezone for mobile compatibility
-            'X-WR-TIMEZONE:' . self::DEFAULT_TIMEZONE,
+            'X-WR-TIMEZONE:'.self::DEFAULT_TIMEZONE,
         ];
 
-        $headerString = implode("\r\n", $headers) . "\r\n";
+        $headerString = implode("\r\n", $headers)."\r\n";
 
         // Ensure METHOD and CALSCALE exist only once, after VERSION
-        if (str_contains($icsContent, "VERSION:2.0\r\n") && ! str_contains($icsContent, 'METHOD:PUBLISH')) {
+        if (str_contains($icsContent, "VERSION:2.0\r\n") && !str_contains($icsContent, 'METHOD:PUBLISH')) {
             $icsContent = str_replace(
                 "VERSION:2.0\r\n",
                 "VERSION:2.0\r\nMETHOD:PUBLISH\r\nCALSCALE:GREGORIAN\r\n",
@@ -320,8 +320,8 @@ final class EventCalendarService implements SingletonInterface
         }
 
         // Append custom headers once before END:VCALENDAR
-        if (! str_contains($icsContent, 'X-WR-CALNAME:')) {
-            $icsContent = str_replace('END:VCALENDAR', $headerString . 'END:VCALENDAR', $icsContent);
+        if (!str_contains($icsContent, 'X-WR-CALNAME:')) {
+            $icsContent = str_replace('END:VCALENDAR', $headerString.'END:VCALENDAR', $icsContent);
         }
 
         return $icsContent;
@@ -347,12 +347,12 @@ final class EventCalendarService implements SingletonInterface
             $jcalEvents,
         ];
 
-        return json_encode($jcal, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        return json_encode($jcal, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE);
     }
 
     private function transformEventToJcal(Event $event): array
     {
-        $dtStampUtc = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->format('Ymd\THis\Z');
+        $dtStampUtc = new \DateTimeImmutable('now', new \DateTimeZone('UTC'))->format('Ymd\THis\Z');
 
         return [
             'vevent',
@@ -364,7 +364,7 @@ final class EventCalendarService implements SingletonInterface
                 'summary' => ['text', $this->sanitizeText($event->title)],
                 'description' => ['text', $this->sanitizeText($event->description)],
                 'location' => ['text', $this->formatLocationForIcs($event)],
-                'organizer' => ['cal-address', 'mailto:' . self::ORGANIZER_EMAIL],
+                'organizer' => ['cal-address', 'mailto:'.self::ORGANIZER_EMAIL],
                 'status' => ['text', $event->isCancelled() ? 'CANCELLED' : 'CONFIRMED'],
                 'class' => ['text', 'PUBLIC'],
             ],
@@ -402,6 +402,7 @@ final class EventCalendarService implements SingletonInterface
     {
         if ($event->isOnline()) {
             $url = trim($event->callUrl);
+
             return $url ? "Online Event\\n{$url}" : 'Online Event';
         }
 
@@ -413,15 +414,14 @@ final class EventCalendarService implements SingletonInterface
         // Remove potential problematic characters for mobile calendar apps
         $text = trim($text);
         $text = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $text); // Remove control characters
-        $text = str_replace(["\r\n", "\r", "\n"], '\\n', $text); // Escape line breaks for iCal
 
-        return $text;
+        return str_replace(["\r\n", "\r", "\n"], '\n', $text); // Escape line breaks for iCal
     }
 
     private function isValidEvent(Event $event): bool
     {
         // Validate event has required fields for mobile compatibility
-        return ! empty($event->title)
+        return !empty($event->title)
             && $event->startDate instanceof \DateTime
             && $event->endDate instanceof \DateTime
             && $event->startDate < $event->endDate;
