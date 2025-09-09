@@ -11,6 +11,8 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
     $extensionKey = 'sitepackage';
     $GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets'][$extensionKey] = 'EXT:sitepackage/Configuration/RTE/Default.yaml';
 
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['app'] = ['MensCircle\Sitepackage\ViewHelpers'];
+
     ExtensionUtility::configurePlugin(
         ucfirst($extensionKey),
         'EventList',

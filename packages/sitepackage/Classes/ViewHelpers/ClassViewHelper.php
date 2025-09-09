@@ -12,14 +12,14 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  * Examples:
  *
  * Inline usage:
- * <div class="{f:class(value: 'base-class active')}">
- * <div class="{f:class(value: {base: 'card', active: isActive})}">
+ * <div class="{bc:class(value: 'base-class active')}">
+ * <div class="{bc:class(value: {base: 'card', active: isActive})}">
  *
  * Tag-based usage:
- * <f:class value="card card-bordered" />
+ * <bc:class value="card card-bordered" />
  *
  * Store in variable:
- * <f:class value="my-class another-class" name="myClasses" />
+ * <bc:class value="my-class another-class" name="myClasses" />
  */
 final class ClassViewHelper extends AbstractViewHelper
 {
@@ -32,22 +32,13 @@ final class ClassViewHelper extends AbstractViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument(
-            'value',
-            'mixed',
-            'The classes to process. Can be a string, array, or object',
-        );
-
-        $this->registerArgument(
-            'name',
-            'string',
-            'Optional variable name to store the result instead of returning it',
-        );
+        $this->registerArgument('value', 'mixed', 'The classes to process. Can be a string, array, or object');
+        $this->registerArgument('name', 'string', 'Optional variable name to store the result instead of returning it');
     }
 
     public function render(): string
     {
-        $value = $this->arguments['value'] ?? $this->renderChildren() ?? '';
+        $value = $this->arguments['value'] ?? '';
         $name = $this->arguments['name'] ?? null;
 
         // Process classes and build result
@@ -81,7 +72,7 @@ final class ClassViewHelper extends AbstractViewHelper
     private static function processValue(mixed $value, array &$classes): void
     {
         if ($value === null || $value === false || $value === '') {
-            return; // ignore empty-ish values
+            return;
         }
 
         match (true) {
@@ -140,5 +131,10 @@ final class ClassViewHelper extends AbstractViewHelper
     private static function addScalar(mixed $value, array &$classes): void
     {
         $classes[(string) $value] = true;
+    }
+
+    public function getContentArgumentName(): ?string
+    {
+        return 'value';
     }
 }
