@@ -27,3 +27,18 @@ TCEFORM {
   }
 }
 
+TCEFORM {
+  tt_content {
+    layout {
+      types {
+        sitepackage_feature {
+          removeItems = 0,1,2,3
+          addItems {
+            100 = Small
+            200 = Large
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <sheetTitle>
+                    Sheet Title
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <list>
+                        <title>Liste</title>
+                        <type>array</type>
+                        <section>1</section>
+                        <el>
+                            <item>
+                                <type>array</type>
+                                <title>Eintrag</title>
+                                <el>
+                                    <title>
+                                        <label>Titel</label>
+                                        <config>
+                                            <type>input</type>
+                                            <default/>
+                                        </config>
+                                    </title>
+                                    <text>
+                                        <label>Text</label>
+                                        <config>
+                                            <type>input</type>
+                                            <default/>
+                                        </config>
+                                    </text>
+                                </el>
+                            </item>
+                        </el>
+                    </list>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

@@ -1,0 +1,142 @@
+/* ============================================
+   Scroll Animations (2025: Scroll-driven)
+   ============================================ */
+
+@supports (animation-timeline: scroll()) {
+  .animate-on-scroll {
+    animation: fadeInUp linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Fallback animations */
+.animate-in {
+  animation: fadeInUp 0.8s ease-out backwards;
+}
+
+.animate-in:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.animate-in:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.animate-in:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.animate-in:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.reveal-text {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s var(--transition-smooth);
+}
+
+.reveal-text.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s var(--transition-smooth);
+}
+
+.reveal-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   Notification Animations
+   ============================================ */
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.notification {
+  position: fixed;
+  top: 6rem;
+  right: 2rem;
+  max-width: 400px;
+  padding: 1rem 1.5rem;
+  color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  animation: slideIn 0.3s ease-out;
+}
+
+.notification--success {
+  background: var(--color-success);
+}
+
+.notification--error {
+  background: var(--color-error);
+}
+
+.notification--info {
+  background: var(--color-info);
+}
+
+.notification--warning {
+  background: var(--color-warning);
+}
+
+.notification--out {
+  animation: slideOut 0.3s ease-out;
+}
+
+/* ============================================
+   Button Hover Effects
+   ============================================ */
+
+.hero__cta,
+.event-card__cta,
+.form__submit {
+  background-size: 200% auto;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero__cta:hover,
+.event-card__cta:hover,
+.form__submit:hover {
+  background-position: right center;
+}
+
+.is-loaded {
+  animation: fadeIn 0.3s ease-in;
+}

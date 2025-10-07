@@ -10,6 +10,7 @@ call_user_func(static function (): void {
      */
     $extensionKey = 'sitepackage';
 
+
     // Default PageTS for Sitepackage
     ExtensionManagementUtility::registerPageTSConfigFile(
         $extensionKey,

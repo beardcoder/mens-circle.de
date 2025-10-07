@@ -4,26 +4,15 @@
     xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
-<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Main.entry.ts" />
-<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Main.entry.css" />
-<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Home.entry.css" />
-<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Home.entry.ts" />
-<div class="page">
-    <f:render arguments="{ mainnavigation: mainnavigation, dark: 1, absolute: 1 }" partial="Header" />
-    <main>
-        <f:render section="Main" />
-    </main>
-    <f:render arguments="{_all}" partial="Footer" />
-</div>
-<dialog class="newsletter-dialog" data-component="newsletter-dialog">
-    <button class="newsletter-dialog__close" data-component="newsletter-dialog__close">
-        <svg height="100%" viewBox="0 0 24 24" width="100%" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"
-                fill="currentColor"
-            />
-        </svg>
-    </button>
-    <f:cObject typoscriptObjectPath="lib.newsletterForm" />
-</dialog>
+<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Scripts/main.entry.ts" />
+<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Styles/main.entry.css" />
+
+<f:render arguments="{ mainnavigation: mainnavigation }" partial="Header" />
+
+<main id="app" class="page">
+    <f:render section="Main" />
+</main>
+
+<f:render arguments="{_all}" partial="Footer" />
+
 </html>

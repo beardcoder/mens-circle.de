@@ -5,23 +5,18 @@
     xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
-<f:layout name="ContentElements/Dark" />
 
-<f:section name="Main">
-    <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Containers/Features.entry.css" />
-    <div class="c-features__container">
-        <div class="c-features__header">
-            <f:for as="record" each="{header}">
-                <f:render partial="Content" arguments="{record: record.record}" />
-            </f:for>
-        </div>
-        <div class="c-features__content">
-            <f:for as="record" each="{features}" iteration="iteration">
-                <div data-animate="fadeUp" data-delay="0.{iteration.index}">
-                    <f:render partial="Content" arguments="{record: record.record}" />
-                </div>
-            </f:for>
-        </div>
+<vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Containers/Features.entry.css" />
+<section class="features" id="c{data.uid}">
+    <div class="features__intro">
+        <h2 class="section__title reveal-text">Was ist ein Männerkreis?</h2>
     </div>
-</f:section>
+
+    <div class="features__grid">
+        <f:for as="record" each="{features}" iteration="iteration">
+            <f:render partial="Content" arguments="{record: record.record}" />
+        </f:for>
+    </div>
+</section>
+
 </html>

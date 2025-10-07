@@ -9,38 +9,26 @@
 <vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Hero.entry.css" />
 <f:variable name="nextEvent" value="{app:nextEvent()}" />
 
-<section class="c-hero">
-    <div class="c-hero__content">
-        <div class="c-hero__text">
-            <h1 class="c-hero__header">
-                {record.header -> f:format.raw()}
+<section class="hero" id="c{record.uid}">
+    <div class="hero__content">
+        <div class="hero__text">
+            <span class="hero__label animate-in">AUTHENTISCH</span>
+            <h1 class="hero__title animate-in">
+                DIE KRAFT DER
+                <span class="hero__title--highlight">MÄNNER&shy;GEMEINSCHAFT</span>
             </h1>
-            <div class="c-hero__body">
+            <div class="hero__description animate-in">
                 {record.bodytext -> f:format.raw()}
-                <f:if condition="{nextEvent}">
-                    <f:alias map="{event: '{f:first(value: nextEvent)}'}">
-                        <f:link.action
-                            pageUid="3"
-                            class="c-button"
-                            controller="Event"
-                            extensionName="Sitepackage"
-                            pluginName="EventDetail"
-                            action="detail"
-                            arguments="{event: event.uid}"
-                        >
-                            Melde dich zum nächsten Event an
-                        </f:link.action>
-                        </f:alias>
-                </f:if>
             </div>
+            <a href="#events" class="hero__cta animate-in"> Nächstes Treffen → </a>
         </div>
     </div>
-    <div class="c-hero__image">
-        <div class="c-hero__image-inner">
+    <div class="hero__image animate-in">
+        <div class="hero__image-wrapper">
             <i:image
                 alt="{record.assets.0.alternative}"
                 onlyWebp="{true}"
-                class="c-hero__image-element"
+                class="hero__img"
                 image="{record.assets.0}"
                 maxHeight="1600"
                 maxWidth="2560"
@@ -49,4 +37,6 @@
         </div>
     </div>
 </section>
+
+
 </html>

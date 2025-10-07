@@ -2,54 +2,104 @@
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 >
-<f:variable
-    name="logo"
-    value="{f:if(condition: dark, then: 'EXT:sitepackage/Resources/Public/Images/logo-white.svg',else:'EXT:sitepackage/Resources/Public/Images/logo-black.svg')}"
-/>
-<f:variable
-    name="textClass"
-    value="{f:if(condition: dark, then: 'o-header__container--dark',else:'o-header__container--light')}"
-/>
 
-<f:variable
-    name="headerModifyer"
-    value="{f:if(condition: absolute, then: 'o-header--absolute')}"
-/>
-
-
-<header class="o-header {headerModifyer}">
-    <div class="o-header__container {textClass}">
-        <a class="o-header__logo-link" href="/">
-            <f:image
-                alt="logo"
-                class="o-header__logo o-header__logo--dark-hidden"
-                height="500"
-                src="{logo}"
-                width="500"
-            />
-            <f:image
-                alt="logo"
-                class="o-header__logo o-header__logo--dark-visible"
-                height="500"
-                loading="lazy"
-                src="EXT:sitepackage/Resources/Public/Images/logo-white.svg"
-                width="500"
-            />
-            <span class="o-header__title">Männerkreis Niederbayern</span>
+<nav class="nav" id="nav" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav__container">
+        <a href="/" class="nav__logo" aria-label="Männerkreis Startseite">
+            <span class="nav__logo-text">MÄNNERKREIS</span>
         </a>
-        <nav class="o-header__nav">
-            <a href="/">Home</a>
 
+        <ul class="nav__menu" id="navMenu" role="list">
             <f:for as="mainnavigationItem" each="{mainnavigation}">
-                <a
-                    href="{mainnavigationItem.link}"
-                    target="{mainnavigationItem.target}"
-                    title="{mainnavigationItem.title}"
-                >
-                    {mainnavigationItem.title}
-                </a>
+            <li>
+                <f:if condition="{mainnavigationItem.data.content_link}">
+                    <f:then>
+                        <f:link.typolink parameter="{mainnavigationItem.data.content_link}" class="nav__link">
+                            {mainnavigationItem.title}
+                        </f:link.typolink>
+                    </f:then>
+                    <f:else>
+                        <a
+                            href="{mainnavigationItem.link}"
+                            target="{mainnavigationItem.target}"
+                            title="{mainnavigationItem.title}"
+                            class="nav__link"
+                            data-nav-link
+                        >
+                            {mainnavigationItem.title}
+                        </a>
+                    </f:else>
+                </f:if>
+
+            </li>
             </f:for>
-        </nav>
+            <li>
+                <a
+                    href="/#events"
+                    class="nav__link nav__link--cta"
+                >Mitmachen</a>
+            </li>
+        </ul>
+
+        <div class="nav__controls">
+            <button
+                class="nav__theme-toggle"
+                id="themeToggle"
+                aria-label="Theme wechseln"
+                title="Dark/Light Mode"
+                type="button"
+            >
+                <svg
+                    class="nav__theme-icon nav__theme-icon--sun"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg
+                    class="nav__theme-icon nav__theme-icon--moon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+
+            <button
+                class="nav__toggle"
+                id="navToggle"
+                aria-label="Navigation öffnen"
+                aria-expanded="false"
+                type="button"
+            >
+                <span class="nav__toggle-line"></span>
+                <span class="nav__toggle-line"></span>
+                <span class="nav__toggle-line"></span>
+            </button>
+        </div>
     </div>
-</header>
+</nav>
+
 </html>

@@ -5,16 +5,14 @@
     xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
-<f:layout name="ContentElements/Dark" />
 
-<f:section name="Main">
-    <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Containers/Container.entry.css" />
-    <div class="c-container c-container--main c-container--{f:if(condition: '{data.layout} === 100', then: 'small', else: 'large')}">
-        <div class="c-container__content">
-            <f:for as="item" each="{items}">
-                <f:render partial="Content" arguments="{record: item.record}" />
-            </f:for>
-        </div>
+<vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Containers/Container.entry.css" />
+<div class="c-container c-container--main c-container--{f:if(condition: '{data.layout} === 100', then: 'small', else: 'large')}">
+    <div class="c-container__content">
+        <f:for as="item" each="{items}">
+            <f:render partial="Content" arguments="{record: item.record}" />
+        </f:for>
     </div>
-</f:section>
+</div>
+
 </html>

@@ -1,73 +1,52 @@
-.c-faq {
-    overflow: hidden;
-    color: var(--font-color);
-    background-color: var(--bg-color--light);
-}
+/* ============================================
+   FAQ Section
+   ============================================ */
 
-.c-faq__container {
-    max-inline-size: var(--container-width);
-    padding: 2rem 1.5rem;
+.faq {
+    padding: var(--space-3xl) var(--container-padding);
+    max-width: var(--container-max);
     margin: 0 auto;
-
-    @media (width >= 640px) {
-        padding-block: clamp(6rem, 5.396vi + 4.604rem, 10rem);
-    }
 }
 
-.c-faq__title {
-    margin-block-end: 1rem;
-    font-size: 2.25rem;
-    font-weight: bold;
-    color: var(--font-color);
+.faq .section__title {
     text-align: center;
+    margin-bottom: var(--space-2xl);
 }
 
-.c-faq__grid {
+.faq__grid {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 4rem;
-    padding-block-start: 2rem;
-    text-align: start;
-    border-block-start: 1px solid #e5e7eb;
-
-    @media (width >= 768px) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    @media (prefers-color-scheme: dark) {
-        border-color: #374151;
-    }
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-xl);
 }
 
-.c-faq__question-title {
-    display: flex;
-    align-items: center;
-    margin-block-end: 1rem;
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--font-color);
+.faq__item {
+    padding: var(--space-xl);
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--color-primary);
+    box-shadow: var(--shadow-sm);
 }
 
-.c-faq__icon {
-    flex-shrink: 0;
-    inline-size: 1.25rem;
-    block-size: 1.25rem;
-    margin-inline-end: 0.5rem;
-    color: #6b7280;
-
-    @media (prefers-color-scheme: dark) {
-        color: #9ca3af;
-    }
+.faq__question {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+    line-height: 1.4;
 }
 
-.c-faq__answer {
-    display: block;
+.faq__answer {
+    color: var(--color-text-light);
+    line-height: 1.8;
+    font-size: 1.0625rem;
 }
 
-.c-faq__text {
-    color: #6b7280;
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
 
-    @media (prefers-color-scheme: dark) {
-        color: #9ca3af;
+@media (max-width: 768px) {
+    .faq__grid {
+        grid-template-columns: 1fr;
     }
 }

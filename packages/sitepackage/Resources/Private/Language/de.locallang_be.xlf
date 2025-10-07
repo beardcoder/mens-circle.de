@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-08-09T23:42:07+02:00">
+    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-10-07T10:55:45+02:00">
         <body>
             <trans-unit id="backend_layout.column.normal">
                 <source>Normal</source>
@@ -58,6 +58,14 @@
                 <source>Header Hero element</source>
                 <target>Header Hero element</target>
             </trans-unit>
+            <trans-unit id="content.journey">
+                <source>Journey</source>
+                <target>Reise</target>
+            </trans-unit>
+            <trans-unit id="content.journey.description">
+                <source>Element with a list and an image</source>
+                <target>Element mit einer Liste und einem Bild</target>
+            </trans-unit>
             <trans-unit id="content.newsletter">
                 <source>Newsletter</source>
                 <target>Newsletter</target>
@@ -65,6 +73,10 @@
             <trans-unit id="content.newsletter.description">
                 <source>Registration Form</source>
                 <target>Registration Form</target>
+            </trans-unit>
+            <trans-unit id="content.quote">
+                <source>Quote</source>
+                <target>Zitat</target>
             </trans-unit>
             <trans-unit id="content.text">
                 <source>Text</source>
@@ -81,6 +93,10 @@
             <trans-unit id="page.default">
                 <source>Default</source>
                 <target>Standart</target>
+            </trans-unit>
+            <trans-unit id="page.link">
+                <source>Internal Link</source>
+                <target>Interner Link</target>
             </trans-unit>
             <trans-unit id="page.event">
                 <source>Event</source>

@@ -21,21 +21,10 @@ call_user_func(static function (): void {
             'group' => $extensionKey,
         ],
         '
+        layout;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:layout_formlabel,
+        subheader;Label,
         header;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_formlabel,
         bodytext;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext_formlabel,
-    --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:appearance,
-        --palette--;;frames,
-        --palette--;;appearanceLinks,
-    --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:categories,
-        categories',
-        [
-            'columnsOverrides' => [
-                'bodytext' => [
-                    'config' => [
-                        'enableRichtext' => true,
-                    ],
-                ],
-            ],
-        ]
+        assets',
     );
 });

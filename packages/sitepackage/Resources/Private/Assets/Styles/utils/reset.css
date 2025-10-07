@@ -1,0 +1,89 @@
+/* ============================================
+   FONT IMPORT
+   ============================================ */
+
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource-variable/inter/wght-italic.css";
+
+/* ============================================
+   CSS RESET & BASE STYLES
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ============================================
+   HTML & BODY BASE STYLES
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(193, 123, 93, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(212, 165, 116, 0.03) 0%, transparent 50%),
+    var(--texture-noise);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* ============================================
+   GLOBAL THEME TRANSITIONS
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  transition-property:
+    background-color, background, border-color, color, fill, stroke, opacity,
+    box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: var(--transition-smooth);
+}
+
+/* Exclude transitions for elements that have their own */
+* {
+  transition-property: background-color, border-color, color, box-shadow;
+}
+
+/* Preserve specific transitions */
+a,
+button,
+.nav__link,
+.feature-card,
+.event-card,
+.hero__image img,
+input,
+textarea,
+select {
+  transition-property: all;
+}
+
+/* ============================================
+   VIEW TRANSITIONS API (2025)
+   ============================================ */
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+}

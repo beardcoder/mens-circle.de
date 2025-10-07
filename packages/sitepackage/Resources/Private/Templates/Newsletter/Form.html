@@ -6,66 +6,47 @@
 <f:layout name="Form"/>
 <f:section name="Main">
     <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Newsletter/Form.entry.css"/>
-    <h2 class="c-header c-header--h4 c-header--center animate-on-scroll visible" data-animate="fadeUp">
-        Bleibe auf dem Laufenden mit unserem <span>Newsletter</span>
-    </h2>
 
-    <turbo-frame id="turbo__newsletter-subscription">
-        <f:form
-            action="subscribe"
-            class="c-newsletter-form"
-            name="subscription"
-            object="{subscription}"
-        >
-            <div class="c-newsletter-form__grid">
-                <div data-fade="left">
-                    <label class="c-newsletter-form__label c-newsletter-form__label--dark" for="firstName">
-                        Vorname
-                    </label>
-                    <f:form.textfield
-                        autocomplete="given-name"
-                        class="c-newsletter-form__input c-newsletter-form__input--dark"
-                        id="firstName"
-                        property="firstName"
-                        required="1"
-                        type="text"
-                    />
-                </div>
-                <div data-fade="left">
-                    <label class="c-newsletter-form__label c-newsletter-form__label--dark" for="lastName">
-                        Nachname
-                    </label>
-                    <f:form.textfield
-                        autocomplete="family-name"
-                        class="c-newsletter-form__input c-newsletter-form__input--dark"
-                        id="lastName"
-                        property="lastName"
-                        required="1"
-                        type="text"
-                    />
-                </div>
+    <section class="newsletter" id="newsletter">
+        <div class="newsletter__content">
+            <div class="newsletter__text reveal-text is-visible">
+                <span class="newsletter__label">NEWSLETTER</span>
+                <h2 class="section__title">Bleib in Verbindung</h2>
+                <p class="newsletter__description">Erhalte Inspirationen, Termine und Neuigkeiten direkt in dein Postfach. Kein Spam, nur wertvolle Inhalte für deinen Weg.</p>
             </div>
+                <f:form
+                    action="subscribe"
+                    class="newsletter__form reveal-card is-visible" id="newsletterForm"
+                    name="subscription"
+                    object="{subscription}"
+                >
+                <input type="hidden" name="_token" value="bABj5hGEvnbCZD6Es2Wq0pJ2EeoYNAUhScMuAqYO" autocomplete="off">      <div class="newsletter__form-group">
 
-            <div data-fade="left">
-                <label class="c-newsletter-form__label c-newsletter-form__label--dark" for="email">
-                    E-Mail
-                </label>
                 <f:form.textfield
                     autocomplete="email"
-                    class="c-newsletter-form__input c-newsletter-form__input--dark"
+                    class="newsletter__input"
+                    placeholder="deine@email.de"
                     id="email"
                     property="email"
                     required="1"
                     type="email"
                 />
+
+                <f:form.button type="submit" class="newsletter__submit">
+                    Anmelden
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                </f:form.button>
             </div>
-            <div data-fade="left">
-                <f:form.submit
-                    class="c-button"
-                    value="Jetzt anmelden"
-                />
-            </div>
-        </f:form>
+                <p class="newsletter__privacy">
+                    Mit der Anmeldung akzeptierst du unsere
+                    <a href="/datenschutz">Datenschutzbestimmungen</a>
+                </p>
+            </f:form>
+        </div>
+    </section>
     </turbo-frame>
+
 </f:section>
 </html>

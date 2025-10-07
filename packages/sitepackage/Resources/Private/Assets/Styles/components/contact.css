@@ -1,0 +1,181 @@
+/* ============================================
+   Contact Section - Asymmetric Layout
+   ============================================ */
+
+.contact {
+  padding: var(--space-3xl) 0;
+  background: var(--color-bg-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact__content {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+.contact__label {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.contact .section__title {
+  margin-bottom: var(--space-md);
+}
+
+.contact__description {
+  font-size: 1.125rem;
+  color: var(--color-text-light);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+}
+
+.contact__details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.contact__detail {
+  display: flex;
+  gap: var(--space-md);
+  align-items: start;
+}
+
+.contact__detail-icon {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+.contact__detail strong {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.contact__detail a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s var(--transition-smooth);
+}
+
+.contact__detail a:hover {
+  color: var(--color-primary-dark);
+}
+
+.contact__form {
+  padding: var(--space-xl);
+  background: var(--card-bg);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.form__group {
+  margin-bottom: var(--space-md);
+}
+
+.form__label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.form__input,
+.form__textarea {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--input-text);
+  background: var(--input-bg);
+  border: 2px solid var(--input-border);
+  border-radius: var(--radius-md);
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.form__input:focus,
+.form__textarea:focus {
+  outline: none;
+  border-color: var(--input-focus-border);
+  background: var(--input-bg);
+  box-shadow:
+    0 0 0 4px rgba(193, 123, 93, 0.12),
+    var(--shadow-inset);
+  transform: translateY(-2px);
+}
+
+.form__input:hover,
+.form__textarea:hover {
+  border-color: var(--color-primary);
+}
+
+.form__textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form__submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.125rem 2.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-white);
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s var(--transition-smooth);
+  box-shadow: var(--shadow-colored);
+}
+
+.form__submit svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 0.4s var(--transition-elastic);
+  position: relative;
+  z-index: 1;
+}
+
+.form__submit:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-colored-lg);
+}
+
+.form__submit:hover svg {
+  transform: translateX(6px);
+}
+
+.form__submit:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .contact__content {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+}

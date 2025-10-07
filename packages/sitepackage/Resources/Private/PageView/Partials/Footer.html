@@ -2,24 +2,68 @@
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 >
-<footer class="o-footer">
-    <div class="o-footer__container">
-        <p class="o-footer__text"></p>
-        <nav class="o-footer__nav">
-            <f:for as="item" each="{footernavigation}">
-                <a
-                    class="o-footer__nav-item"
-                    href="{item.link}"
-                    target="{item.target}"
-                    title="{item.title}"
-                >
-                    {item.title}
-                </a>
-            </f:for>
-        </nav>
-        <div class="o-footer__copyright">
-            © 2023-2024 Build with ❤️ and mindfulness in Bavaria
+
+<footer class="footer">
+    <div class="footer__content">
+        <div class="footer__main">
+            <div class="footer__brand">
+                <h3 class="footer__logo">MÄNNERKREIS</h3>
+                <p class="footer__tagline">Ein Raum für echte Begegnungen, persönliches Wachstum und tiefe Verbindungen
+                    unter Männern.</p>
+                <f:comment>
+                    <!--<div class="footer__social">
+                        <a aria-label="Instagram" class="footer__social-link" href="https://instagram.com">
+                            <span>Instagram</span>
+                        </a>
+                        <a aria-label="Facebook" class="footer__social-link" href="https://facebook.com">
+                            <span>Facebook</span>
+                        </a>
+                    </div>-->
+                </f:comment>
+            </div>
+
+            <nav class="footer__nav">
+                <div class="footer__nav-group">
+                    <h4 class="footer__nav-title">Navigation</h4>
+                    <ul class="footer__nav-list">
+                        <li>
+                            <a href="/#home">Home</a>
+                        </li>
+                        <li>
+                            <a href="/#about">Über uns</a>
+                        </li>
+                        <li>
+                            <a href="/#events">Veranstaltungen</a>
+                        </li>
+                        <li>
+                            <a href="/#contact">Kontakt</a>
+                        </li>
+                        <li>
+                            <a href="/events">Mitmachen</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="footer__nav-group">
+                    <h4 class="footer__nav-title">Rechtliches</h4>
+                    <ul class="footer__nav-list">
+                        <f:for as="item" each="{footernavigation}">
+                            <li><a
+                                href="{item.link}"
+                                target="{item.target}"
+                                title="{item.title}"
+                            >{item.title}</a></li>
+                        </f:for>
+
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div class="footer__bottom">
+            <p>© 2025 Männerkreis</p>
         </div>
     </div>
 </footer>
+
 </html>

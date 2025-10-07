@@ -4,18 +4,30 @@
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:i="http://typo3.org/ns/B13/Picture/ViewHelpers"
     xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
-    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
 
-<vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Feature.entry.css" />
+<f:variable name="isText" value="{f:if(condition: record.assets.0)}" />
+<f:variable name="isLarge" value="{f:if(condition: '{record.layout} == \'200\'')}" />
 
-<div class="c-feature" data-animate="fadeUp">
-    <h3 class="c-feature__header">
-        {record.header}
-    </h3>
-    <p class="c-feature__content">
-        {record.bodytext}
-    </p>
-</div>
+<article class="feature-card reveal-card {f:if(condition: isText, else: 'feature-card--text')} {f:if(condition: isLarge, then: 'feature-card--large')}" id="c{record.uid}">
+    <f:if condition="{isText}">
+        <div class="feature-card__image">
+            <i:image
+                alt="{record.assets.0.alternative}"
+                onlyWebp="{true}"
+                image="{record.assets.0}"
+                width="{f:if(condition: isLarge, then: '800', else: '600')}"
+                height="600c"
+            />
+        </div>
+    </f:if>
+    <div class="feature-card__content">
+        <f:if condition="{record.subheader}">
+            <span class="feature-card__label">{record.subheader}</span>
+        </f:if>
+        <h3 class="feature-card__title">{record.header}</h3>
+        <p>{record.bodytext}</p>
+    </div>
+</article>
 
 </html>

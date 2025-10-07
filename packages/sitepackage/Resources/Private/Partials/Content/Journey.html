@@ -1,0 +1,46 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:i="http://typo3.org/ns/B13/Picture/ViewHelpers"
+    xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
+    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
+>
+
+<vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Journey.entry.css" />
+
+<section class="journey" id="c{record.uid}">
+    <div class="journey__content">
+        <div class="journey__text reveal-text">
+            <span class="journey__label">{record.subheader}</span>
+            <h2 class="journey__title">{record.header}</h2>
+            <p class="journey__description">
+                {record.bodytext}
+            </p>
+
+            <ul class="journey__list">
+                <f:for each="{record.pi_flexform.list}" as="item" iteration="itemKey">
+                    <li class="journey__item">
+                        <span class="journey__icon">{f:format.padding(padLength: '2', padString: '0', padType: 'left', value: itemKey.cycle)}</span>
+                        <div>
+                            <h4>{item.item.title}</h4>
+                            <p>{item.item.text}</p>
+                        </div>
+                    </li>
+                </f:for>
+            </ul>
+        </div>
+        <div class="journey__image reveal-card">
+            <i:image
+                alt="{record.assets.0.alternative}"
+                onlyWebp="{true}"
+                image="{record.assets.0}"
+                width="800c"
+                height="1000c"
+            />
+            <div class="journey__image-accent"></div>
+        </div>
+    </div>
+</section>
+
+</html>
