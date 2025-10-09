@@ -14,31 +14,65 @@
                 <h2 class="section__title">Bleib in Verbindung</h2>
                 <p class="newsletter__description">Erhalte Inspirationen, Termine und Neuigkeiten direkt in dein Postfach. Kein Spam, nur wertvolle Inhalte für deinen Weg.</p>
             </div>
-                <f:form
-                    action="subscribe"
-                    class="newsletter__form reveal-card is-visible" id="newsletterForm"
-                    name="subscription"
-                    object="{subscription}"
-                >
-                <input type="hidden" name="_token" value="bABj5hGEvnbCZD6Es2Wq0pJ2EeoYNAUhScMuAqYO" autocomplete="off">      <div class="newsletter__form-group">
 
-                <f:form.textfield
-                    autocomplete="email"
-                    class="newsletter__input"
-                    placeholder="deine@email.de"
-                    id="email"
-                    property="email"
-                    required="1"
-                    type="email"
-                />
+            <f:form
+                action="subscribe"
+                class="newsletter__form reveal-card is-visible"
+                id="newsletterForm"
+                name="subscription"
+                object="{subscription}"
+            >
+                <div class="newsletter__fields">
+                    <div class="newsletter__row">
+                        <div class="newsletter__field">
+                            <f:form.textfield
+                                autocomplete="given-name"
+                                class="newsletter__input"
+                                placeholder="Vorname"
+                                id="firstName"
+                                property="firstName"
+                                required="1"
+                                type="text"
+                            />
+                            <f:render partial="Newsletter/ValidationResult" arguments="{property: 'firstName'}" />
+                        </div>
 
-                <f:form.button type="submit" class="newsletter__submit">
-                    Anmelden
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round"></path>
-                    </svg>
-                </f:form.button>
-            </div>
+                        <div class="newsletter__field">
+                            <f:form.textfield
+                                autocomplete="family-name"
+                                class="newsletter__input"
+                                placeholder="Nachname"
+                                id="lastName"
+                                property="lastName"
+                                required="1"
+                                type="text"
+                            />
+                            <f:render partial="Newsletter/ValidationResult" arguments="{property: 'lastName'}" />
+                        </div>
+                    </div>
+
+                    <div class="newsletter__row">
+                        <div class="newsletter__field newsletter__field--email">
+                            <f:form.textfield
+                                autocomplete="email"
+                                class="newsletter__input newsletter__input--email"
+                                placeholder="deine@email.de"
+                                id="email"
+                                property="email"
+                                required="1"
+                                type="email"
+                            />
+                            <f:render partial="Newsletter/ValidationResult" arguments="{property: 'email'}" />
+                        </div>
+
+                        <f:form.button type="submit" class="newsletter__submit" aria-label="Newsletter abonnieren">
+                            <svg class="newsletter__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </f:form.button>
+                    </div>
+                </div>
+
                 <p class="newsletter__privacy">
                     Mit der Anmeldung akzeptierst du unsere
                     <a href="/datenschutz">Datenschutzbestimmungen</a>
@@ -46,7 +80,6 @@
             </f:form>
         </div>
     </section>
-    </turbo-frame>
 
 </f:section>
 </html>

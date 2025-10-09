@@ -83,6 +83,17 @@ class EventController extends ActionController
         return $this->htmlResponse();
     }
 
+    public function registrationSuccessAction(Event $event): ResponseInterface
+    {
+        if (!$event instanceof Event) {
+            return $this->handleEventNotFoundError();
+        }
+
+        $this->view->assign('event', $event);
+
+        return $this->htmlResponse();
+    }
+
     public function initializeRegistrationAction(): void
     {
         $this->setRegistrationFieldValuesToArguments();
@@ -109,16 +120,7 @@ class EventController extends ActionController
             $this->logger->error($exception->getMessage());
         }
 
-        $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setNoCache(true);
-        $uri = $this->uriBuilder->uriFor(
-            'detail',
-            [
-                'event' => $participant->event->getUid(),
-                'registrationComplete' => true,
-            ]
-        );
-
-        return $this->redirectToUri($uri);
+        return $this->redirect('registrationSuccess', null, null, ['event' => $participant->event]);
     }
 
     public function iCalAction(?Event $event = null): ResponseInterface

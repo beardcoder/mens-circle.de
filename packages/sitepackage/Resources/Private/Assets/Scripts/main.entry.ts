@@ -58,35 +58,6 @@ const bootstrap = async (): Promise<void> => {
     registerFactory(createFAQAccordion());
   }
 
-  const formsModulePromise = (async () => {
-    if (
-      document.getElementById("contactForm") ||
-      document.getElementById("newsletterForm") ||
-      document.getElementById("registrationForm")
-    ) {
-      return import("./components/Forms");
-    }
-
-    return null;
-  })();
-
-  const formsModule = await formsModulePromise;
-
-  if (formsModule) {
-    const notifications = getNotifications();
-
-    if (document.getElementById("contactForm")) {
-      registerFactory(formsModule.createContactForm(notifications));
-    }
-
-    if (document.getElementById("newsletterForm")) {
-      registerFactory(formsModule.createNewsletterForm(notifications));
-    }
-
-    if (document.getElementById("registrationForm")) {
-      registerFactory(formsModule.createRegistrationForm(notifications));
-    }
-  }
 
   if (CONFIG.development) {
     const { createPerformanceMonitor } = await loadUtilities();

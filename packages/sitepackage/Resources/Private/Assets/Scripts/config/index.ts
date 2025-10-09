@@ -9,8 +9,7 @@ export const CONFIG: AppConfig = {
     hideOnScroll: true,
   },
   animations: {
-    reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches,
+    reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   },
-  development: ["localhost", "127.0.0.1"].includes(window.location.hostname),
+  development: ["localhost", "127.0.0.1", 'mens-circle.ddev.site'].includes(window.location.hostname),
 };

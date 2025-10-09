@@ -1,0 +1,88 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
+>
+<vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Events/Detail.entry.css"/>
+<vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Events/RegistrationSuccess.entry.ts"/>
+
+<section class="registration-hero-form" id="registrationForm">
+    <div class="registration-hero-form__background">
+        <div class="registration-hero-form__pattern"></div>
+    </div>
+
+    <div class="registration-hero-form__content">
+        <div class="registration-success reveal-card is-visible">
+            <div class="registration-success__icon">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="30" stroke="var(--color-primary)" stroke-width="3" fill="var(--color-primary-50)"/>
+                    <path d="M20 32l8 8 16-16" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            
+            <h2 class="registration-success__title">Anmeldung erfolgreich!</h2>
+            
+            <p class="registration-success__message">
+                Vielen Dank für deine Anmeldung zum Event am <strong><f:format.date format="d.m.Y">{event.startDate}</f:format.date></strong>.
+                Wir freuen uns auf dich!
+            </p>
+            
+            <div class="registration-success__event-info">
+                <div class="registration-success__event-detail">
+                    <span class="registration-success__event-label">Event:</span>
+                    <span class="registration-success__event-value">{event.title}</span>
+                </div>
+                <div class="registration-success__event-detail">
+                    <span class="registration-success__event-label">Datum:</span>
+                    <span class="registration-success__event-value">
+                        <f:format.date format="d.m.Y">{event.startDate}</f:format.date> um <f:format.date format="H:i">{event.startDate}</f:format.date> Uhr
+                    </span>
+                </div>
+                <f:if condition="{event.location}">
+                    <div class="registration-success__event-detail">
+                        <span class="registration-success__event-label">Ort:</span>
+                        <span class="registration-success__event-value">{event.location}</span>
+                    </div>
+                </f:if>
+            </div>
+            
+            <div class="registration-success__steps">
+                <div class="registration-success__step">
+                    <span class="registration-success__step-number">1</span>
+                    <p>Du erhältst in Kürze eine Bestätigungs-E-Mail</p>
+                </div>
+                <div class="registration-success__step">
+                    <span class="registration-success__step-number">2</span>
+                    <p>Trage dir den Termin in deinen Kalender ein</p>
+                </div>
+                <div class="registration-success__step">
+                    <span class="registration-success__step-number">3</span>
+                    <p>Wir sehen uns beim Event!</p>
+                </div>
+            </div>
+            
+            <p class="registration-success__note">
+                <strong>Hinweis:</strong> Falls du Fragen hast, schreib uns gerne eine E-Mail an <a href="mailto:hallo@mens-circle.de">hallo@mens-circle.de</a>
+            </p>
+            
+            <div class="registration-success__actions">
+                <f:link.action action="detail" arguments="{event: event}" class="registration-success__button registration-success__button--secondary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Zurück zum Event
+                </f:link.action>
+                
+                <f:link.action action="iCal" arguments="{event: event}" class="registration-success__button registration-success__button--primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Zum Kalender hinzufügen
+                </f:link.action>
+            </div>
+        </div>
+    </div>
+</section>
+
+</html>
+

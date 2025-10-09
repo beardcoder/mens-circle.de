@@ -6,18 +6,17 @@ namespace MensCircle\Sitepackage\Domain\Model\Newsletter;
 
 use MensCircle\Sitepackage\Domain\Model\FrontendUser;
 use MensCircle\Sitepackage\Enum\SubscriptionStatusEnum;
+use MensCircle\Sitepackage\Validation\Validator\NewsletterSubscriptionValidator;
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
+#[Validate(['validator' => NewsletterSubscriptionValidator::class])]
 class Subscription extends AbstractEntity
 {
-    #[Validate(['validator' => 'EmailAddress'])]
     public string $email;
 
-    #[Validate(['validator' => 'NotEmpty'])]
     public string $firstName;
 
-    #[Validate(['validator' => 'NotEmpty'])]
     public string $lastName;
 
     public ?FrontendUser $feUser = null;

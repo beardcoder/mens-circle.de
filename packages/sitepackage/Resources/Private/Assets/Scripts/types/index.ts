@@ -80,6 +80,9 @@ export interface SmoothScrollFactory extends FactoryWithDestroy {
   scrollTo: (target: string | Element) => void;
 }
 
+
+// NotificationManager Factory
+
 // Parallax Factory
 export interface ParallaxFactory extends FactoryWithDestroy {
   update: () => void;

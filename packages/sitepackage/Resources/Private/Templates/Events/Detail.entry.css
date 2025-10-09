@@ -220,6 +220,260 @@
 }
 
 /* ============================================
+   Registration Success Message
+   ============================================ */
+
+.registration-success {
+    background: rgba(255, 255, 255, 0.95);
+    padding: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+[data-theme="dark"] .registration-success {
+    background: rgba(26, 20, 16, 0.9);
+    border: 1px solid rgba(193, 123, 93, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.registration-success__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-lg);
+    animation: successPulse 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes successPulse {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.registration-success__icon svg {
+    width: 80px;
+    height: 80px;
+}
+
+.registration-success__title {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--space-md);
+    line-height: var(--leading-tight);
+}
+
+[data-theme="dark"] .registration-success__title {
+    color: var(--color-primary-light);
+}
+
+.registration-success__message {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text);
+    margin-bottom: var(--space-xl);
+}
+
+[data-theme="dark"] .registration-success__message {
+    color: rgba(255, 253, 249, 0.9);
+}
+
+.registration-success__event-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--color-primary-50);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--color-primary);
+}
+
+[data-theme="dark"] .registration-success__event-info {
+    background: rgba(193, 123, 93, 0.1);
+    border-left-color: var(--color-primary-light);
+}
+
+.registration-success__event-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.registration-success__event-label {
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+[data-theme="dark"] .registration-success__event-label {
+    color: var(--color-primary-light);
+}
+
+.registration-success__event-value {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    text-align: right;
+}
+
+[data-theme="dark"] .registration-success__event-value {
+    color: rgba(255, 253, 249, 0.85);
+}
+
+.registration-success__steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.registration-success__step {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    text-align: left;
+}
+
+.registration-success__step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 1.125rem;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(193, 123, 93, 0.3);
+}
+
+[data-theme="dark"] .registration-success__step-number {
+    background: var(--color-primary-light);
+    color: var(--color-earth);
+}
+
+.registration-success__step p {
+    flex: 1;
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-text);
+    margin: 0;
+}
+
+[data-theme="dark"] .registration-success__step p {
+    color: rgba(255, 253, 249, 0.85);
+}
+
+.registration-success__note {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-light);
+    padding: var(--space-md);
+    background: rgba(193, 123, 93, 0.05);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-lg);
+}
+
+[data-theme="dark"] .registration-success__note {
+    color: rgba(255, 253, 249, 0.7);
+    background: rgba(193, 123, 93, 0.08);
+}
+
+.registration-success__note strong {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+[data-theme="dark"] .registration-success__note strong {
+    color: var(--color-primary-light);
+}
+
+.registration-success__note a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+[data-theme="dark"] .registration-success__note a {
+    color: var(--color-primary-light);
+}
+
+.registration-success__actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.registration-success__button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--text-base);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius-full);
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.registration-success__button--secondary {
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    background: transparent;
+}
+
+.registration-success__button--secondary:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(193, 123, 93, 0.3);
+}
+
+.registration-success__button--primary {
+    color: var(--color-white);
+    background: var(--gradient-primary);
+    border: 2px solid transparent;
+    box-shadow: var(--shadow-colored);
+}
+
+.registration-success__button--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-colored-lg);
+}
+
+.registration-success__button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.3s var(--transition-smooth);
+}
+
+.registration-success__button--secondary:hover svg {
+    transform: translateX(-3px);
+}
+
+.registration-success__button--primary:hover svg {
+    transform: scale(1.1);
+}
+
+/* ============================================
    RESPONSIVE DESIGN
    ============================================ */
 
@@ -241,5 +495,59 @@
 
     .registration-hero-form__form-wrapper {
         padding: var(--space-xl);
+    }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - Success
+   ============================================ */
+
+@media (max-width: 768px) {
+    .registration-success {
+        padding: var(--space-xl);
+    }
+
+    .registration-success__icon svg {
+        width: 64px;
+        height: 64px;
+    }
+
+    .registration-success__event-detail {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+    }
+
+    .registration-success__event-value {
+        text-align: left;
+    }
+
+    .registration-success__step {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-sm);
+    }
+
+    .registration-success__actions {
+        flex-direction: column;
+    }
+
+    .registration-success__button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .registration-success__icon {
+        animation: none;
+    }
+
+    .registration-success__button:hover {
+        transform: none;
     }
 }

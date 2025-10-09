@@ -27,7 +27,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         ucfirst($extensionKey),
         'EventDetail',
         [
-            EventController::class => ['detail', 'registration', 'upcoming'],
+            EventController::class => ['detail', 'registration', 'registrationSuccess', 'upcoming'],
         ],
         [
             EventController::class => ['registration', 'upcoming'],
@@ -39,7 +39,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         ucfirst($extensionKey),
         'Newsletter',
         [
-            SubscriptionController::class => ['form', 'subscribe', 'doubleOptIn', 'unsubscribe'],
+            SubscriptionController::class => ['form', 'subscribe', 'success', 'doubleOptIn', 'unsubscribe'],
         ],
         [
             SubscriptionController::class => ['subscribe', 'doubleOptIn', 'unsubscribe'],

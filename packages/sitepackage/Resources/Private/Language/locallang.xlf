@@ -11,6 +11,45 @@
             <trans-unit id="event.not_found">
                 <source>The event you requested does not exist. You have been redirected to the next available event.</source>
             </trans-unit>
+            <trans-unit id="validator.newsletter.firstName.notEmpty">
+                <source>Pflichtfeld</source>
+            </trans-unit>
+            <trans-unit id="validator.newsletter.lastName.notEmpty">
+                <source>Pflichtfeld</source>
+            </trans-unit>
+            <trans-unit id="validator.newsletter.email.notEmpty">
+                <source>Pflichtfeld</source>
+            </trans-unit>
+            <trans-unit id="validator.newsletter.email.invalid">
+                <source>Ungültige E-Mail</source>
+            </trans-unit>
+            <trans-unit id="subscription.success.pleaseConfirm">
+                <source>Thank you! Please check your email and confirm your subscription.</source>
+            </trans-unit>
+            <trans-unit id="subscription.error.alreadySubscribed">
+                <source>You are already subscribed to our newsletter.</source>
+            </trans-unit>
+            <trans-unit id="subscription.error.general">
+                <source>An error occurred. Please try again later.</source>
+            </trans-unit>
+            <trans-unit id="subscription.error.validation">
+                <source>Please check your input.</source>
+            </trans-unit>
+            <trans-unit id="subscription.form.emailHelp">
+                <source>We'll send you a confirmation email.</source>
+            </trans-unit>
+            <trans-unit id="subscription.form.privacyAcceptance">
+                <source>I accept the privacy policy</source>
+            </trans-unit>
+            <trans-unit id="subscription.form.privacyHelp">
+                <source>Your data will be processed according to our privacy policy.</source>
+            </trans-unit>
+            <trans-unit id="subscription.form.submit">
+                <source>Subscribe</source>
+            </trans-unit>
+            <trans-unit id="subscription.form.loading">
+                <source>Sending...</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

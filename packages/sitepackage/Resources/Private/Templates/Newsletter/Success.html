@@ -1,0 +1,60 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
+>
+<f:layout name="Form"/>
+<f:section name="Main">
+    <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Newsletter/Form.entry.css"/>
+    <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Newsletter/Success.entry.ts"/>
+
+    <section class="newsletter" id="newsletter">
+        <div class="newsletter__content newsletter__content--success">
+            <div class="newsletter__success reveal-card is-visible">
+                <div class="newsletter__success-icon">
+                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="30" stroke="var(--color-primary)" stroke-width="3" fill="var(--color-primary-50)"/>
+                        <path d="M20 32l8 8 16-16" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+
+                <h2 class="newsletter__success-title">Fast geschafft!</h2>
+
+                <p class="newsletter__success-message">
+                    Vielen Dank für deine Anmeldung zu unserem Newsletter.
+                    Wir haben dir eine E-Mail mit einem Bestätigungslink gesendet.
+                </p>
+
+                <div class="newsletter__success-steps">
+                    <div class="newsletter__success-step">
+                        <span class="newsletter__success-step-number">1</span>
+                        <p>Öffne dein E-Mail-Postfach</p>
+                    </div>
+                    <div class="newsletter__success-step">
+                        <span class="newsletter__success-step-number">2</span>
+                        <p>Klicke auf den Bestätigungslink</p>
+                    </div>
+                    <div class="newsletter__success-step">
+                        <span class="newsletter__success-step-number">3</span>
+                        <p>Fertig! Du erhältst nun regelmäßig Inspirationen</p>
+                    </div>
+                </div>
+
+                <p class="newsletter__success-note">
+                    <strong>Hinweis:</strong> Schau auch in deinem Spam-Ordner nach, falls die E-Mail nicht im Posteingang erscheint.
+                </p>
+
+                <a href="/#newsletter" onclick="location.reload()" class="newsletter__success-back">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Zurück zum Formular
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+</f:section>
+</html>
+

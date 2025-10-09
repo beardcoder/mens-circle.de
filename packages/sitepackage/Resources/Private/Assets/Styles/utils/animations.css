@@ -61,64 +61,6 @@
   transform: translateY(0);
 }
 
-/* ============================================
-   Notification Animations
-   ============================================ */
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOut {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-}
-
-.notification {
-  position: fixed;
-  top: 6rem;
-  right: 2rem;
-  max-width: 400px;
-  padding: 1rem 1.5rem;
-  color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  z-index: 10000;
-  animation: slideIn 0.3s ease-out;
-}
-
-.notification--success {
-  background: var(--color-success);
-}
-
-.notification--error {
-  background: var(--color-error);
-}
-
-.notification--info {
-  background: var(--color-info);
-}
-
-.notification--warning {
-  background: var(--color-warning);
-}
-
-.notification--out {
-  animation: slideOut 0.3s ease-out;
-}
 
 /* ============================================
    Button Hover Effects

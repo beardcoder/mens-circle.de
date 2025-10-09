@@ -35,6 +35,11 @@ class SubscriptionController extends ActionController
         return $this->htmlResponse();
     }
 
+    public function successAction(): ResponseInterface
+    {
+        return $this->htmlResponse();
+    }
+
     public function subscribeAction(Subscription $subscription): ResponseInterface
     {
         $existingSubscription = $this->subscriptionRepository->findOneBy([
@@ -43,7 +48,12 @@ class SubscriptionController extends ActionController
 
         if ($existingSubscription instanceof Subscription) {
             if ($existingSubscription->status->is(SubscriptionStatusEnum::Active)) {
-                return $this->htmlResponse();
+                $this->addFlashMessage(
+                    'Du hast unseren Newsletter bereits abonniert.',
+                    '',
+                    \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::WARNING
+                );
+                return $this->redirect('form');
             }
 
             $this->subscriptionRepository->remove($existingSubscription);
@@ -55,6 +65,7 @@ class SubscriptionController extends ActionController
         $subscription->doubleOptInToken = $this->tokenService->generateToken();
         $subscription->optInDate = new \DateTime();
         $this->subscriptionRepository->add($subscription);
+
         $this->emailService->sendMail(
             $subscription->email,
             'doubleOptIn',
@@ -65,7 +76,7 @@ class SubscriptionController extends ActionController
             $this->request,
         );
 
-        return $this->htmlResponse();
+        return $this->redirect('success');
     }
 
     public function doubleOptInAction(string $token): ResponseInterface
