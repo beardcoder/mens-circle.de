@@ -12,14 +12,14 @@
 }
 
 .card-glow-effect::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
   background: var(--gradient-radial);
+  border-radius: inherit;
+  content: "";
+  inset: 0;
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   pointer-events: none;
+  position: absolute;
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   z-index: 0;
 }
 
@@ -36,20 +36,20 @@
 }
 
 .card-gradient-border::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
   background: var(--gradient-primary);
-  -webkit-mask:
+  border-radius: inherit;
+  content: "";
+  inset: -1px;
+  mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
+  mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  padding: 1px;
   pointer-events: none;
+  position: absolute;
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   z-index: 0;
 }
 
@@ -62,7 +62,7 @@
    ============================================ */
 
 .card-shadow-enhance:hover {
-  box-shadow: 0 20px 60px rgba(193, 123, 93, 0.2);
+  box-shadow: 0 20px 60px rgb(193 123 93 / 20%);
 }
 
 /* ============================================
@@ -77,38 +77,38 @@
 }
 
 .card-effects::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
   background: var(--gradient-radial);
+  border-radius: inherit;
+  content: "";
+  inset: 0;
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   pointer-events: none;
+  position: absolute;
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   z-index: 0;
 }
 
 .card-effects::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
   background: var(--gradient-primary);
-  -webkit-mask:
+  border-radius: inherit;
+  content: "";
+  inset: -1px;
+  mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
+  mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  padding: 1px;
   pointer-events: none;
+  position: absolute;
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   z-index: 0;
 }
 
 .card-effects:hover {
+  box-shadow: 0 20px 60px rgb(193 123 93 / 20%);
   transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(193, 123, 93, 0.2);
 }
 
 .card-effects:hover::before {

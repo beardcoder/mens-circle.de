@@ -8,40 +8,40 @@
    ============================================ */
 
 .btn {
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: inline-flex;
   font-size: var(--text-base);
   font-weight: 600;
-  text-decoration: none;
-  border-radius: var(--radius-full);
-  border: none;
-  cursor: pointer;
-  position: relative;
+  gap: 0.75rem;
+  justify-content: center;
   overflow: hidden;
+  padding: 1rem 2rem;
+  position: relative;
+  text-decoration: none;
   transition: all 0.3s var(--transition-smooth);
   white-space: nowrap;
 }
 
 /* Shared ripple effect pseudo-element */
 .btn::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
+  content: "";
+  block-size: 0;
+  inset-inline-start: 50%;
   pointer-events: none;
+  position: absolute;
+  inset-block-start: 50%;
+  transform: translate(-50%, -50%);
+  transition: inline-size 0.6s, block-size 0.6s;
+  inline-size: 0;
 }
 
 .btn:hover::before {
-  width: 300px;
-  height: 300px;
+  block-size: 300px;
+  inline-size: 300px;
 }
 
 /* ============================================
@@ -49,18 +49,18 @@
    ============================================ */
 
 .btn--primary {
-  color: var(--color-white);
   background: var(--gradient-primary);
   box-shadow: var(--shadow-colored);
+  color: var(--color-white);
 }
 
 .btn--primary::before {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgb(255 255 255 / 15%);
 }
 
 .btn--primary:hover {
-  transform: translateY(-4px) scale(1.02);
   box-shadow: var(--shadow-colored-lg);
+  transform: translateY(-4px) scale(1.02);
 }
 
 .btn--primary:active {
@@ -68,35 +68,35 @@
 }
 
 .btn--secondary {
-  color: var(--color-primary);
   background: transparent;
   border: 2px solid var(--color-primary);
   box-shadow: var(--shadow-sm);
+  color: var(--color-primary);
 }
 
 .btn--secondary::before {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
   background: var(--gradient-primary);
+  border-radius: 0;
+  block-size: 100%;
+  inset-inline-start: 0;
   opacity: 0;
+  inset-block-start: 0;
   transform: none;
   transition: opacity 0.3s var(--transition-smooth);
+  inline-size: 100%;
   z-index: -1;
 }
 
 .btn--secondary:hover {
+  box-shadow: var(--shadow-colored);
   color: var(--color-white);
   transform: translateY(-4px);
-  box-shadow: var(--shadow-colored);
 }
 
 .btn--secondary:hover::before {
+  block-size: 100%;
   opacity: 1;
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
 }
 
 .btn--secondary:active {
@@ -104,8 +104,8 @@
 }
 
 .btn--tertiary {
-  color: var(--color-primary);
   background: var(--color-primary-50);
+  color: var(--color-primary);
 }
 
 .btn--tertiary::before {
@@ -118,18 +118,18 @@
 }
 
 .btn--on-color {
-  color: var(--color-primary);
   background: var(--color-white);
   box-shadow: var(--shadow-md);
+  color: var(--color-primary);
 }
 
 .btn--on-color::before {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgb(0 0 0 / 5%);
 }
 
 .btn--on-color:hover {
-  transform: translateY(-4px) scale(1.02);
   box-shadow: var(--shadow-lg);
+  transform: translateY(-4px) scale(1.02);
 }
 
 .btn--on-color:active {
@@ -142,19 +142,19 @@
    ============================================ */
 
 .btn--sm {
-  padding: 0.625rem 1.25rem;
   font-size: var(--text-sm);
   gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
 }
 
 .btn--lg {
-  padding: 1.25rem 2.5rem;
   font-size: var(--text-lg);
+  padding: 1.25rem 2.5rem;
 }
 
 .btn--xl {
-  padding: 1.5rem 3rem;
   font-size: var(--text-xl);
+  padding: 1.5rem 3rem;
 }
 
 /* ============================================
@@ -162,8 +162,8 @@
    ============================================ */
 
 .btn__icon {
-  display: inline-flex;
   align-items: center;
+  display: inline-flex;
   justify-content: center;
   transition: transform 0.3s var(--transition-smooth);
 }
@@ -183,8 +183,8 @@
 
 .btn-group {
   display: flex;
-  gap: var(--space-md);
   flex-wrap: wrap;
+  gap: var(--space-md);
 }
 
 /* ============================================
@@ -193,8 +193,8 @@
 
 .btn:disabled,
 .btn[disabled] {
-  opacity: 0.5;
   cursor: not-allowed;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -203,25 +203,25 @@
    ============================================ */
 
 .btn--loading {
-  position: relative;
   color: transparent !important;
   pointer-events: none;
+  position: relative;
 }
 
 .btn--loading::after {
-  content: "";
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  top: 50%;
-  left: 50%;
-  margin-left: -8px;
-  margin-top: -8px;
-  border: 2px solid currentColor;
-  border-top-color: transparent;
-  border-radius: 50%;
   animation: btnSpin 0.6s linear infinite;
+  border: 2px solid currentcolor;
+  border-radius: 50%;
+  border-block-start-color: transparent;
   color: var(--color-white);
+  content: "";
+  block-size: 16px;
+  inset-inline-start: 50%;
+  margin-inline-start: -8px;
+  margin-block-start: -8px;
+  position: absolute;
+  inset-block-start: 50%;
+  inline-size: 16px;
 }
 
 @keyframes btnSpin {
@@ -234,14 +234,14 @@
    Responsive
    ============================================ */
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .btn-group {
     flex-direction: column;
-    width: 100%;
+    inline-size: 100%;
   }
 
   .btn-group .btn {
-    width: 100%;
+    inline-size: 100%;
   }
 }
 
@@ -253,8 +253,8 @@
   .btn,
   .btn::before,
   .btn__icon {
-    transition: none !important;
     animation: none !important;
+    transition: none !important;
   }
 
   .btn:hover {

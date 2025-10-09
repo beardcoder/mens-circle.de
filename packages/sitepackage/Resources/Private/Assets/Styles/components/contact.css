@@ -3,43 +3,43 @@
    ============================================ */
 
 .contact {
-  padding: var(--space-3xl) 0;
   background: var(--color-bg-dark);
-  position: relative;
   overflow: hidden;
+  padding: var(--space-3xl) 0;
+  position: relative;
 }
 
 .contact__content {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--container-padding);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-2xl);
   align-items: start;
+  display: grid;
+  gap: var(--space-2xl);
+  grid-template-columns: 1fr 1fr;
+  margin: 0 auto;
+  max-inline-size: var(--container-max);
+  padding: 0 var(--container-padding);
   position: relative;
   z-index: 1;
 }
 
 .contact__label {
+  color: var(--color-primary);
   display: inline-block;
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.15em;
-  color: var(--color-primary);
+  margin-block-end: var(--space-sm);
   text-transform: uppercase;
-  margin-bottom: var(--space-sm);
 }
 
 .contact .section__title {
-  margin-bottom: var(--space-md);
+  margin-block-end: var(--space-md);
 }
 
 .contact__description {
-  font-size: 1.125rem;
   color: var(--color-text-light);
+  font-size: 1.125rem;
   line-height: 1.7;
-  margin-bottom: var(--space-lg);
+  margin-block-end: var(--space-lg);
 }
 
 .contact__details {
@@ -49,23 +49,23 @@
 }
 
 .contact__detail {
+  align-items: start;
   display: flex;
   gap: var(--space-md);
-  align-items: start;
 }
 
 .contact__detail-icon {
-  width: 2rem;
-  height: 2rem;
-  flex-shrink: 0;
   color: var(--color-primary);
+  flex-shrink: 0;
+  block-size: 2rem;
+  inline-size: 2rem;
 }
 
 .contact__detail strong {
+  color: var(--color-text);
   display: block;
   font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 0.25rem;
+  margin-block-end: 0.25rem;
 }
 
 .contact__detail a {
@@ -79,44 +79,44 @@
 }
 
 .contact__form {
-  padding: var(--space-xl);
   background: var(--card-bg);
   border-radius: 1rem;
   box-shadow: var(--shadow-lg);
+  padding: var(--space-xl);
 }
 
 .form__group {
-  margin-bottom: var(--space-md);
+  margin-block-end: var(--space-md);
 }
 
 .form__label {
+  color: var(--color-text);
   display: block;
   font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 0.5rem;
+  margin-block-end: 0.5rem;
 }
 
 .form__input,
 .form__textarea {
-  width: 100%;
-  padding: 1rem 1.25rem;
-  font-family: inherit;
-  font-size: 1rem;
-  color: var(--input-text);
   background: var(--input-bg);
   border: 2px solid var(--input-border);
   border-radius: var(--radius-md);
+  color: var(--input-text);
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 1rem 1.25rem;
   transition: all 0.3s var(--transition-smooth);
+  inline-size: 100%;
 }
 
 .form__input:focus,
 .form__textarea:focus {
-  outline: none;
-  border-color: var(--input-focus-border);
   background: var(--input-bg);
+  border-color: var(--input-focus-border);
   box-shadow:
-    0 0 0 4px rgba(193, 123, 93, 0.12),
+    0 0 0 4px rgb(193 123 93 / 12%),
     var(--shadow-inset);
+  outline: none;
   transform: translateY(-2px);
 }
 
@@ -126,39 +126,39 @@
 }
 
 .form__textarea {
-  resize: vertical;
-  min-height: 120px;
+  min-block-size: 120px;
+  resize: block;
 }
 
 .form__submit {
-  display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1.125rem 2.5rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--color-white);
   background: var(--gradient-primary);
   border: none;
   border-radius: var(--radius-full);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s var(--transition-smooth);
   box-shadow: var(--shadow-colored);
+  color: var(--color-white);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 1.125rem;
+  font-weight: 600;
+  gap: 0.75rem;
+  overflow: hidden;
+  padding: 1.125rem 2.5rem;
+  position: relative;
+  transition: all 0.4s var(--transition-smooth);
 }
 
 .form__submit svg {
-  width: 1.25rem;
-  height: 1.25rem;
-  transition: transform 0.4s var(--transition-elastic);
+  block-size: 1.25rem;
   position: relative;
+  transition: transform 0.4s var(--transition-elastic);
+  inline-size: 1.25rem;
   z-index: 1;
 }
 
 .form__submit:hover {
-  transform: translateY(-4px) scale(1.02);
   box-shadow: var(--shadow-colored-lg);
+  transform: translateY(-4px) scale(1.02);
 }
 
 .form__submit:hover svg {
@@ -173,9 +173,9 @@
    RESPONSIVE DESIGN
    ============================================ */
 
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
   .contact__content {
-    grid-template-columns: 1fr;
     gap: var(--space-xl);
+    grid-template-columns: 1fr;
   }
 }

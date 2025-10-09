@@ -12,31 +12,31 @@
 }
 
 .flex-center {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
 }
 
 .flex-between {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
 }
 
 .flex-around {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-around;
 }
 
 .flex-start {
-  display: flex;
   align-items: flex-start;
+  display: flex;
 }
 
 .flex-end {
-  display: flex;
   align-items: flex-end;
+  display: flex;
 }
 
 .flex-col {
@@ -45,9 +45,9 @@
 }
 
 .flex-col-center {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .flex-col-between {
@@ -134,20 +134,20 @@
    ============================================ */
 
 .container {
-  max-width: var(--container-max);
   margin: 0 auto;
+  max-inline-size: var(--container-max);
   padding: 0 var(--container-padding);
 }
 
 .container-narrow {
-  max-width: 900px;
   margin: 0 auto;
+  max-inline-size: 900px;
   padding: 0 var(--container-padding);
 }
 
 .container-wide {
-  max-width: 1600px;
   margin: 0 auto;
+  max-inline-size: 1600px;
   padding: 0 var(--container-padding);
 }
 
@@ -156,19 +156,19 @@
    ============================================ */
 
 .mt-auto {
-  margin-top: auto;
+  margin-block-start: auto;
 }
 
 .mb-auto {
-  margin-bottom: auto;
+  margin-block-end: auto;
 }
 
 .ml-auto {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .mr-auto {
-  margin-right: auto;
+  margin-inline-end: auto;
 }
 
 /* ============================================
@@ -180,18 +180,18 @@
 }
 
 .text-left {
-  text-align: left;
+  text-align: start;
 }
 
 .text-right {
-  text-align: right;
+  text-align: end;
 }
 
 /* ============================================
    Responsive Grid Breakpoints
    ============================================ */
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .grid-2,
   .grid-3,
   .grid-4 {
@@ -203,7 +203,7 @@
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (width >= 769px) and (width <= 1024px) {
   .grid-3,
   .grid-4 {
     grid-template-columns: repeat(2, 1fr);

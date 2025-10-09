@@ -16,7 +16,7 @@
   }
 
   .section {
-    page-break-inside: avoid;
+    break-inside: avoid;
   }
 }
 
@@ -41,8 +41,8 @@
 @media (prefers-contrast: high) {
   :root {
     --color-primary: #b8653d;
-    --color-text: #000000;
-    --color-bg: #ffffff;
+    --color-text: #000;
+    --color-bg: #fff;
   }
 
   .feature-card,

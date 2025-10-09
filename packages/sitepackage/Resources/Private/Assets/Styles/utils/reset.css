@@ -11,9 +11,9 @@
    ============================================ */
 
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 /* ============================================
@@ -22,25 +22,25 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-block-start: 5rem;
 }
 
 body {
-  font-family: var(--font-primary);
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  color: var(--color-text);
+  background-attachment: fixed;
   background-color: var(--color-bg);
   background-image:
-    radial-gradient(circle at 20% 50%, rgba(193, 123, 93, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(212, 165, 116, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 20% 50%, rgb(193 123 93 / 3%) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgb(212 165 116 / 3%) 0%, transparent 50%),
     var(--texture-noise);
-  background-attachment: fixed;
-  overflow-x: hidden;
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  font-feature-settings: "kern" 1, "liga" 1;
+  font-size: var(--text-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: "kern" 1, "liga" 1;
+  line-height: var(--leading-relaxed);
+  overflow-inline: hidden;
+  text-rendering: optimizelegibility;
 }
 
 /* ============================================
@@ -50,10 +50,10 @@ body {
 *,
 *::before,
 *::after {
+  transition-duration: 0.3s;
   transition-property:
     background-color, background, border-color, color, fill, stroke, opacity,
     box-shadow;
-  transition-duration: 0.3s;
   transition-timing-function: var(--transition-smooth);
 }
 

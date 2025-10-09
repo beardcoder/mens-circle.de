@@ -1,9 +1,9 @@
 .c-header {
-    margin-block-end: 1rem;
-    font-weight: 700;
-    line-height: 1;
     color: var(--font-color);
+    font-weight: 700;
     letter-spacing: -0.025em;
+    line-height: 1;
+    margin-block-end: 1rem;
 }
 
 .c-header--center {
@@ -13,31 +13,31 @@
 }
 
 .c-header--h1 {
-    font-size: clamp(2.5rem, 5.059vw + 1.191rem, 6.25rem);
-    line-height: clamp(3.75rem, 5.902vw + 2.223rem, 8.125rem);
+    font-size: clamp(2.5rem, 5.059vi + 1.191rem, 6.25rem);
+    line-height: clamp(3.75rem, 5.902vi + 2.223rem, 8.125rem);
 }
 
 .c-header--h2 {
-    font-size: clamp(1.875rem, 2.53vw + 1.22rem, 3.75rem);
-    line-height: clamp(2.813rem, 2.782vw + 2.093rem, 4.875rem);
+    font-size: clamp(1.875rem, 2.53vi + 1.22rem, 3.75rem);
+    line-height: clamp(2.813rem, 2.782vi + 2.093rem, 4.875rem);
 }
 
 .c-header--h3 {
-    font-size: clamp(1.563rem, 2.108vw + 1.017rem, 3.125rem);
-    line-height: clamp(2.344rem, 2.319vw + 1.744rem, 4.063rem);
+    font-size: clamp(1.563rem, 2.108vi + 1.017rem, 3.125rem);
+    line-height: clamp(2.344rem, 2.319vi + 1.744rem, 4.063rem);
 }
 
 .c-header--h4 {
-    font-size: clamp(1.25rem, 1.686vw + 0.814rem, 2.5rem);
-    line-height: clamp(1.875rem, 1.855vw + 1.395rem, 3.25rem);
+    font-size: clamp(1.25rem, 1.686vi + 0.814rem, 2.5rem);
+    line-height: clamp(1.875rem, 1.855vi + 1.395rem, 3.25rem);
 }
 
 .c-header--h5 {
-    font-size: clamp(1.125rem, 1.433vw + 0.754rem, 2.188rem);
-    line-height: clamp(1.688rem, 1.56vw + 1.284rem, 2.844rem);
+    font-size: clamp(1.125rem, 1.433vi + 0.754rem, 2.188rem);
+    line-height: clamp(1.688rem, 1.56vi + 1.284rem, 2.844rem);
 }
 
 .c-header--h6 {
-    font-size: clamp(1rem, 1.18vw + 0.695rem, 1.875rem);
-    line-height: clamp(1.5rem, 1.265vw + 1.173rem, 2.438rem);
+    font-size: clamp(1rem, 1.18vi + 0.695rem, 1.875rem);
+    line-height: clamp(1.5rem, 1.265vi + 1.173rem, 2.438rem);
 }

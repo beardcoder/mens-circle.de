@@ -12,16 +12,16 @@
     --color-primary: #c17b5d; /* Terrakotta */
     --color-primary-dark: #a05d3f;
     --color-primary-light: #d89678;
-    --color-primary-50: rgba(193, 123, 93, 0.05);
-    --color-primary-100: rgba(193, 123, 93, 0.1);
-    --color-primary-200: rgba(193, 123, 93, 0.2);
+    --color-primary-50: rgb(193 123 93 / 5%);
+    --color-primary-100: rgb(193 123 93 / 10%);
+    --color-primary-200: rgb(193 123 93 / 20%);
 
     /* Secondary Colors */
     --color-secondary: #8b7355; /* Warmes Braun */
     --color-accent: #d4a574; /* Ocker/Sand */
     --color-accent-bright: #e8c89a;
-    --color-accent-50: rgba(212, 165, 116, 0.05);
-    --color-accent-100: rgba(212, 165, 116, 0.1);
+    --color-accent-50: rgb(212 165 116 / 5%);
+    --color-accent-100: rgb(212 165 116 / 10%);
 
     /* Earth Tones */
     --color-earth: #4a4238; /* Dunkles Erdbraun */
@@ -50,21 +50,21 @@
        TYPOGRAPHY
        ============================================ */
 
-    --font-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    --font-heading: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-display: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-primary: "Inter", -apple-system, blinkmacsystemfont, "Segoe UI", system-ui, sans-serif;
+    --font-heading: "Inter", "SF Pro Display", -apple-system, blinkmacsystemfont, sans-serif;
+    --font-display: "Inter", "SF Pro Display", -apple-system, blinkmacsystemfont, sans-serif;
 
     /* Typography Scale (Major Third - 1.25) */
-    --text-xs: clamp(0.75rem, 1.5vw, 0.875rem);
-    --text-sm: clamp(0.875rem, 1.75vw, 1rem);
-    --text-base: clamp(1rem, 2vw, 1.125rem);
-    --text-lg: clamp(1.125rem, 2.25vw, 1.25rem);
-    --text-xl: clamp(1.25rem, 2.5vw, 1.5rem);
-    --text-2xl: clamp(1.5rem, 3vw, 2rem);
-    --text-3xl: clamp(2rem, 4vw, 2.5rem);
-    --text-4xl: clamp(2.5rem, 5vw, 3.5rem);
-    --text-5xl: clamp(3rem, 6vw, 4.5rem);
-    --text-6xl: clamp(3.5rem, 7vw, 6rem);
+    --text-xs: clamp(0.75rem, 1.5vi, 0.875rem);
+    --text-sm: clamp(0.875rem, 1.75vi, 1rem);
+    --text-base: clamp(1rem, 2vi, 1.125rem);
+    --text-lg: clamp(1.125rem, 2.25vi, 1.25rem);
+    --text-xl: clamp(1.25rem, 2.5vi, 1.5rem);
+    --text-2xl: clamp(1.5rem, 3vi, 2rem);
+    --text-3xl: clamp(2rem, 4vi, 2.5rem);
+    --text-4xl: clamp(2.5rem, 5vi, 3.5rem);
+    --text-5xl: clamp(3rem, 6vi, 4.5rem);
+    --text-6xl: clamp(3.5rem, 7vi, 6rem);
 
     /* Line Heights */
     --leading-tight: 1.1;
@@ -85,17 +85,17 @@
        SPACING SYSTEM
        ============================================ */
 
-    --space-xs: clamp(0.5rem, 2vw, 0.75rem);
-    --space-sm: clamp(0.75rem, 3vw, 1rem);
-    --space-md: clamp(1rem, 4vw, 1.5rem);
-    --space-lg: clamp(1.5rem, 6vw, 3rem);
-    --space-xl: clamp(2rem, 8vw, 4rem);
-    --space-2xl: clamp(3rem, 10vw, 6rem);
-    --space-3xl: clamp(4rem, 12vw, 8rem);
+    --space-xs: clamp(0.5rem, 2vi, 0.75rem);
+    --space-sm: clamp(0.75rem, 3vi, 1rem);
+    --space-md: clamp(1rem, 4vi, 1.5rem);
+    --space-lg: clamp(1.5rem, 6vi, 3rem);
+    --space-xl: clamp(2rem, 8vi, 4rem);
+    --space-2xl: clamp(3rem, 10vi, 6rem);
+    --space-3xl: clamp(4rem, 12vi, 8rem);
 
     /* Container */
     --container-max: 1400px;
-    --container-padding: clamp(1.5rem, 5vw, 3rem);
+    --container-padding: clamp(1.5rem, 5vi, 3rem);
 
     /* ============================================
        TRANSITIONS & ANIMATIONS
@@ -110,13 +110,13 @@
        SHADOWS
        ============================================ */
 
-    --shadow-sm: 0 2px 8px rgba(45, 37, 32, 0.06);
-    --shadow-md: 0 4px 16px rgba(45, 37, 32, 0.08);
-    --shadow-lg: 0 8px 32px rgba(45, 37, 32, 0.12);
-    --shadow-xl: 0 16px 48px rgba(45, 37, 32, 0.16);
-    --shadow-colored: 0 8px 24px rgba(193, 123, 93, 0.15);
-    --shadow-colored-lg: 0 16px 48px rgba(193, 123, 93, 0.2);
-    --shadow-inset: inset 0 2px 4px rgba(45, 37, 32, 0.06);
+    --shadow-sm: 0 2px 8px rgb(45 37 32 / 6%);
+    --shadow-md: 0 4px 16px rgb(45 37 32 / 8%);
+    --shadow-lg: 0 8px 32px rgb(45 37 32 / 12%);
+    --shadow-xl: 0 16px 48px rgb(45 37 32 / 16%);
+    --shadow-colored: 0 8px 24px rgb(193 123 93 / 15%);
+    --shadow-colored-lg: 0 16px 48px rgb(193 123 93 / 20%);
+    --shadow-inset: inset 0 2px 4px rgb(45 37 32 / 6%);
 
     /* ============================================
        GRADIENTS
@@ -132,7 +132,7 @@
     --gradient-earth: linear-gradient(135deg, #4a4238 0%, #3d4a3e 100%);
     --gradient-radial: radial-gradient(
         circle,
-        rgba(193, 123, 93, 0.12) 0%,
+        rgb(193 123 93 / 12%) 0%,
         transparent 70%
     );
 
@@ -157,33 +157,33 @@
        ============================================ */
 
     /* Navigation */
-    --nav-bg: rgba(255, 253, 249, 0.92);
-    --nav-bg-scrolled: rgba(255, 253, 249, 0.98);
-    --nav-border: rgba(193, 123, 93, 0.08);
-    --nav-border-scrolled: rgba(193, 123, 93, 0.15);
+    --nav-bg: rgb(255 253 249 / 92%);
+    --nav-bg-scrolled: rgb(255 253 249 / 98%);
+    --nav-border: rgb(193 123 93 / 8%);
+    --nav-border-scrolled: rgb(193 123 93 / 15%);
     --nav-logo-color: var(--color-earth);
     --nav-link-color: var(--color-text);
     --nav-cta-bg: var(--color-primary);
     --nav-cta-bg-hover: var(--color-primary-dark);
     --nav-cta-color: var(--color-white);
-    --nav-theme-toggle-bg: rgba(193, 123, 93, 0.08);
-    --nav-theme-toggle-bg-hover: rgba(193, 123, 93, 0.15);
-    --nav-theme-toggle-border: rgba(193, 123, 93, 0.2);
+    --nav-theme-toggle-bg: rgb(193 123 93 / 8%);
+    --nav-theme-toggle-bg-hover: rgb(193 123 93 / 15%);
+    --nav-theme-toggle-border: rgb(193 123 93 / 20%);
     --nav-theme-icon-color: var(--color-earth);
     --nav-toggle-color: var(--color-earth);
-    --nav-mobile-bg: rgba(255, 253, 249, 0.98);
+    --nav-mobile-bg: rgb(255 253 249 / 98%);
     --nav-height: 64px;
 
     /* Cards & Sections */
-    --card-bg: #ffffff;
-    --card-border: rgba(193, 123, 93, 0.1);
+    --card-bg: #fff;
+    --card-border: rgb(193 123 93 / 10%);
     --card-shadow: var(--shadow-md);
     --section-bg-alt: #f9f6f1;
-    --overlay-bg: rgba(45, 37, 32, 0.5);
+    --overlay-bg: rgb(45 37 32 / 50%);
 
     /* Forms & Inputs */
-    --input-bg: #ffffff;
-    --input-border: rgba(193, 123, 93, 0.2);
+    --input-bg: #fff;
+    --input-border: rgb(193 123 93 / 20%);
     --input-focus-border: var(--color-primary);
     --input-text: var(--color-text);
 
@@ -214,32 +214,32 @@
     --color-earth-light: #c7bfb4;
 
     /* Navigation - Dark Mode */
-    --nav-bg: rgba(26, 20, 16, 0.92);
-    --nav-bg-scrolled: rgba(26, 20, 16, 0.98);
-    --nav-border: rgba(193, 123, 93, 0.15);
-    --nav-border-scrolled: rgba(193, 123, 93, 0.25);
+    --nav-bg: rgb(26 20 16 / 92%);
+    --nav-bg-scrolled: rgb(26 20 16 / 98%);
+    --nav-border: rgb(193 123 93 / 15%);
+    --nav-border-scrolled: rgb(193 123 93 / 25%);
     --nav-logo-color: var(--color-white);
     --nav-link-color: var(--color-text);
     --nav-cta-bg: var(--color-primary);
     --nav-cta-bg-hover: var(--color-primary-light);
     --nav-cta-color: var(--color-white);
-    --nav-theme-toggle-bg: rgba(193, 123, 93, 0.15);
-    --nav-theme-toggle-bg-hover: rgba(193, 123, 93, 0.25);
-    --nav-theme-toggle-border: rgba(193, 123, 93, 0.3);
+    --nav-theme-toggle-bg: rgb(193 123 93 / 15%);
+    --nav-theme-toggle-bg-hover: rgb(193 123 93 / 25%);
+    --nav-theme-toggle-border: rgb(193 123 93 / 30%);
     --nav-theme-icon-color: var(--color-accent-bright);
     --nav-toggle-color: var(--color-white);
-    --nav-mobile-bg: rgba(26, 20, 16, 0.98);
+    --nav-mobile-bg: rgb(26 20 16 / 98%);
 
     /* Cards & Sections - Dark Mode */
     --card-bg: #241d18;
-    --card-border: rgba(193, 123, 93, 0.2);
-    --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --card-border: rgb(193 123 93 / 20%);
+    --card-shadow: 0 4px 16px rgb(0 0 0 / 50%);
     --section-bg-alt: #211913;
-    --overlay-bg: rgba(0, 0, 0, 0.7);
+    --overlay-bg: rgb(0 0 0 / 70%);
 
     /* Forms & Inputs - Dark Mode */
     --input-bg: #2d2520;
-    --input-border: rgba(193, 123, 93, 0.3);
+    --input-border: rgb(193 123 93 / 30%);
     --input-focus-border: var(--color-primary-light);
     --input-text: var(--color-text);
 
@@ -255,10 +255,10 @@
     --hero-gradient-end: var(--color-bg-dark);
 
     /* Shadows - Dark Mode */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
-    --shadow-colored: 0 8px 24px rgba(193, 123, 93, 0.3);
-    --shadow-colored-lg: 0 16px 48px rgba(193, 123, 93, 0.4);
+    --shadow-sm: 0 2px 8px rgb(0 0 0 / 30%);
+    --shadow-md: 0 4px 16px rgb(0 0 0 / 40%);
+    --shadow-lg: 0 8px 32px rgb(0 0 0 / 50%);
+    --shadow-xl: 0 16px 48px rgb(0 0 0 / 60%);
+    --shadow-colored: 0 8px 24px rgb(193 123 93 / 30%);
+    --shadow-colored-lg: 0 16px 48px rgb(193 123 93 / 40%);
 }
