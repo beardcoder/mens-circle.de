@@ -1,17 +1,18 @@
 <html
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
+<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Scripts/main.entry.ts" />
+<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Styles/main.entry.css" />
 
-<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Main.entry.ts" />
-<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Main.entry.css" />
-<div class="page">
-    <f:render arguments="{ mainnavigation: mainnavigation }" partial="Header" />
-    <main>
-        <f:render section="Main" />
-    </main>
-    <f:render arguments="{_all}" partial="Footer" />
-</div>
+<f:render arguments="{ mainnavigation: mainnavigation }" partial="Header" />
+
+<main id="app" class="page">
+    <f:render section="Main" />
+</main>
+
+<f:render arguments="{_all}" partial="Footer" />
 
 </html>

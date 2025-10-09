@@ -8,18 +8,15 @@
 <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Events/Detail.entry.ts"/>
 <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Events/Detail.entry.css"/>
 
-<f:render partial="Events/Header" arguments="{event: event, registrationComplete: registrationComplete}" />
+<section class="registration-hero-form">
+    <div class="registration-hero-form__background">
+        <div class="registration-hero-form__pattern"></div>
+    </div>
 
-<f:cObject data="{contentUid: 3}" typoscriptObjectPath="lib.renderContent"/>
-<f:if condition="{event.offline}">
-    <section class="c-event-detail__map">
-        <div
-            class="c-event-detail__map-inner"
-            data-component="event-location"
-            data-lat="{event.location.latitude}"
-            data-long="{event.location.longitude}"
-            data-popup="{event.location.place} - {event.location.address}, {event.location.plz} {event.location.city}"
-        ></div>
-    </section>
-</f:if>
+    <div class="registration-hero-form__content">
+        <f:render partial="Events/Detail/Hero" arguments="{ event:event }" />
+        <f:render partial="Events/Detail/Form" arguments="{_all}" />
+    </div>
+</section>
+
 </html>

@@ -199,6 +199,8 @@
   --hero-bg: var(--color-bg);
   --hero-gradient-start: var(--color-bg);
   --hero-gradient-end: var(--color-bg);
+
+  --nav-height: 64px;
 }
 
 /* ============================================

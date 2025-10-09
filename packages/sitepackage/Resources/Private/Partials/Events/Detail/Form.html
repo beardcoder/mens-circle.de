@@ -1,0 +1,73 @@
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+<div class="registration-hero-form__form-wrapper reveal-card">
+    <f:form
+        action="registration"
+        arguments="{event: event}"
+        class="registration-hero-form__form" id="registrationForm"
+        name="participant"
+        object="{participant}"
+    >
+        <h2 class="registration-hero-form__form-title">Sichere dir deinen Platz</h2>
+        <div class="registration-form__group">
+            <label class="registration-form__label" for="firstName">Vorname</label>
+            <f:form.textfield
+                autocomplete="given-name"
+                class="registration-form__input"
+                id="firstName"
+                placeholder="Max"
+                property="firstName"
+                required="required"
+                type="text"
+            />
+            <f:render arguments="{property: 'firstName'}" partial="Events/ValidationResult"/>
+        </div>
+        <div class="registration-form__group">
+            <label class="registration-form__label" for="lastName">Nachname</label>
+            <f:form.textfield
+                autocomplete="family-name"
+                class="registration-form__input"
+                id="lastName"
+                placeholder="Mustermann"
+                property="lastName"
+                required="required"
+                type="text"
+            />
+            <f:render arguments="{property: 'lastName'}" partial="Events/ValidationResult"/>
+        </div>
+
+        <div class="registration-form__group">
+            <label class="registration-form__label" for="email">E-Mail</label>
+            <f:form.textfield
+                autocomplete="email"
+                class="registration-form__input"
+                id="email"
+                placeholder="max@mens-circle.de"
+                property="email"
+                required="required"
+                type="email"
+            />
+            <f:render arguments="{property: 'email'}" partial="Events/ValidationResult"/>
+        </div>
+
+        <f:form.button
+            class="registration-form__submit registration-form__submit--large"
+            type="submit"
+        >
+            Platz reservieren
+            <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </f:form.button>
+        <p class="registration-form__note">
+            Nach dem Absenden erhältst du eine Bestätigungsmail mit allen Details.
+        </p>
+    </f:form>
+</div>
+
+</html>

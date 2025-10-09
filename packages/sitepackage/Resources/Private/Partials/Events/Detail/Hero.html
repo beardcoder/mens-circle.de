@@ -1,0 +1,64 @@
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+<div class="registration-hero-form__text reveal-text">
+    <span class="registration-hero-form__label">{event.title}</span>
+    <h1 class="registration-hero-form__title">Melde dich jetzt an</h1>
+    <p class="registration-hero-form__date">{event.startDate -> f:format.date(format: 'd')} - {event.endDate -> f:format.date(format: 'd F Y')}</p>
+    <p class="registration-hero-form__description">
+        {event.description -> f:format.nl2br()}
+    </p>
+
+    <div class="registration-hero-form__details">
+        <div class="registration-hero-form__detail">
+            <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>{event.location.place} - {event.location.address}</span>
+        </div>
+        <div class="registration-hero-form__detail">
+            <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span>{event.startDate -> f:format.date(format: 'H:i')} - {event.endDate -> f:format.date(format: 'H:i')}</span>
+        </div>
+        <div class="registration-hero-form__detail">
+            <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <span>Max. 12 Teilnehmer</span>
+        </div>
+        <div class="registration-hero-form__detail">
+            <svg
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <path d="M12 2v20M2 12h20"/>
+            </svg>
+            <span>Spendenbasis</span>
+        </div>
+    </div>
+</div>
+
+</html>
