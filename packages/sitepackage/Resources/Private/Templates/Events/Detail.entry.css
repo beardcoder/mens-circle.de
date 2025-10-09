@@ -2,7 +2,7 @@
    Registration Page Styles - Plakative Event-Anmeldung
    ============================================ */
 
-.registration-hero-form {
+.registration-hero {
     min-height: 100vh;
     padding: calc(var(--nav-height) + var(--space-2xl)) var(--container-padding)
     var(--space-3xl);
@@ -17,13 +17,13 @@
     align-items: center;
 }
 
-.registration-hero-form__background {
+.registration-hero__background {
     position: absolute;
     inset: 0;
     opacity: 0.1;
 }
 
-.registration-hero-form__pattern {
+.registration-hero__pattern {
     position: absolute;
     inset: 0;
     background-image:
@@ -40,7 +40,7 @@
     background-size: 50px 50px;
 }
 
-.registration-hero-form__content {
+.registration-hero__content {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
@@ -51,11 +51,15 @@
     z-index: 1;
 }
 
-.registration-hero-form__text {
+.registration-hero__content--success {
+    display: flex;
+}
+
+.registration-hero__text {
     color: var(--color-white);
 }
 
-.registration-hero-form__label {
+.registration-hero__label {
     display: inline-block;
     font-size: 0.875rem;
     font-weight: 700;
@@ -68,7 +72,7 @@
     border-radius: var(--radius-full);
 }
 
-.registration-hero-form__title {
+.registration-hero__title {
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 900;
@@ -78,7 +82,7 @@
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.registration-hero-form__date {
+.registration-hero__date {
     font-size: clamp(1.25rem, 3vw, 1.75rem);
     font-weight: 700;
     color: var(--color-white);
@@ -86,20 +90,20 @@
     opacity: 0.95;
 }
 
-.registration-hero-form__description {
+.registration-hero__description {
     font-size: 1.125rem;
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.9);
     margin-bottom: var(--space-xl);
 }
 
-.registration-hero-form__details {
+.registration-hero__details {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-md);
 }
 
-.registration-hero-form__detail {
+.registration-hero__detail {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -111,20 +115,20 @@
     backdrop-filter: blur(10px);
 }
 
-.registration-hero-form__detail svg {
+.registration-hero__detail svg {
     width: 1.25rem;
     height: 1.25rem;
     flex-shrink: 0;
 }
 
-.registration-hero-form__form-wrapper {
+.registration-hero__form-wrapper {
     background: var(--card-bg);
     padding: var(--space-2xl);
     border-radius: var(--radius-xl);
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
 }
 
-.registration-hero-form__form-title {
+.registration-hero__form-title {
     font-family: var(--font-display);
     font-size: 1.75rem;
     font-weight: 800;
@@ -133,7 +137,7 @@
     text-align: center;
 }
 
-.registration-hero-form__form {
+.registration-hero__form {
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
@@ -478,22 +482,22 @@
    ============================================ */
 
 @media (max-width: 1024px) {
-    .registration-hero-form {
+    .registration-hero {
         min-height: auto;
         padding: calc(var(--nav-height) + var(--space-xl)) var(--container-padding)
         var(--space-2xl);
     }
 
-    .registration-hero-form__content {
+    .registration-hero__content {
         grid-template-columns: 1fr;
         gap: var(--space-2xl);
     }
 
-    .registration-hero-form__details {
+    .registration-hero__details {
         grid-template-columns: 1fr;
     }
 
-    .registration-hero-form__form-wrapper {
+    .registration-hero__form-wrapper {
         padding: var(--space-xl);
     }
 }

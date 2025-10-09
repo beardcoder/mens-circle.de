@@ -1,15 +1,15 @@
 <html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-<div class="registration-hero-form__text reveal-text">
-    <span class="registration-hero-form__label">{event.title}</span>
-    <h1 class="registration-hero-form__title">Melde dich jetzt an</h1>
-    <p class="registration-hero-form__date">{event.startDate -> f:format.date(format: 'd')} - {event.endDate -> f:format.date(format: 'd F Y')}</p>
-    <p class="registration-hero-form__description">
+<div class="registration-hero__text reveal-text">
+    <span class="registration-hero__label">{event.title}</span>
+    <h1 class="registration-hero__title">Melde dich jetzt an</h1>
+    <p class="registration-hero__date">{event.startDate -> f:format.date(format: 'd')} - {event.endDate -> f:format.date(format: 'd F Y')}</p>
+    <p class="registration-hero__description">
         {event.description -> f:format.nl2br()}
     </p>
 
-    <div class="registration-hero-form__details">
-        <div class="registration-hero-form__detail">
+    <div class="registration-hero__details">
+        <div class="registration-hero__detail">
             <svg
                 fill="none"
                 stroke="currentColor"
@@ -21,7 +21,7 @@
             </svg>
             <span>{event.location.place} - {event.location.address}</span>
         </div>
-        <div class="registration-hero-form__detail">
+        <div class="registration-hero__detail">
             <svg
                 fill="none"
                 stroke="currentColor"
@@ -33,7 +33,7 @@
             </svg>
             <span>{event.startDate -> f:format.date(format: 'H:i')} - {event.endDate -> f:format.date(format: 'H:i')}</span>
         </div>
-        <div class="registration-hero-form__detail">
+        <div class="registration-hero__detail">
             <svg
                 fill="none"
                 stroke="currentColor"
@@ -47,7 +47,7 @@
             </svg>
             <span>Max. 12 Teilnehmer</span>
         </div>
-        <div class="registration-hero-form__detail">
+        <div class="registration-hero__detail">
             <svg
                 fill="none"
                 stroke="currentColor"
