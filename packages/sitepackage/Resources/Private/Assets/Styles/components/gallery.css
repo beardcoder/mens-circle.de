@@ -4,9 +4,9 @@
 
 .gallery {
   background: var(--card-bg);
+  inline-size: 100%;
   padding: var(--space-3xl) 0 0 0;
   text-align: center;
-  inline-size: 100%;
 }
 
 .gallery .section__title {
@@ -28,10 +28,10 @@
 }
 
 .gallery__item img {
-  display: block;
   block-size: 100%;
-  object-fit: cover;
+  display: block;
   inline-size: 100%;
+  object-fit: cover;
 }
 
 /* ============================================

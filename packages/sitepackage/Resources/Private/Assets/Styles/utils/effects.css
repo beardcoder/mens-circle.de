@@ -9,20 +9,17 @@
 
 .glass {
   backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
   background: rgb(255 255 255 / 5%);
   border: 1px solid rgb(255 255 255 / 10%);
 }
 
 .glass--light {
   backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
   background: rgb(255 255 255 / 70%);
   border: 1px solid rgb(255 255 255 / 20%);
 }
 
 .glass--dark {
-  backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
   background: rgb(0 0 0 / 20%);
   border: 1px solid rgb(255 255 255 / 5%);
@@ -35,13 +32,11 @@
 .text-gradient {
   background: var(--gradient-primary);
   background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient--warm {
   background: var(--gradient-warm);
-  background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -88,12 +83,12 @@
     rgb(255 255 255 / 20%) 50%,
     transparent 100%
   );
-  content: "";
   block-size: 100%;
+  content: "";
+  inline-size: 100%;
+  inset-block-start: 0;
   inset-inline-start: -100%;
   position: absolute;
-  inset-block-start: 0;
-  inline-size: 100%;
 }
 
 @keyframes shimmer {
@@ -125,10 +120,10 @@
 }
 
 .float--subtle {
-  animation: floatSubtle 4s ease-in-out infinite;
+  animation: float-subtle 4s ease-in-out infinite;
 }
 
-@keyframes floatSubtle {
+@keyframes float-subtle {
   0%, 100% {
     transform: translateY(0);
   }
@@ -165,12 +160,12 @@
   border-radius: inherit;
   content: "";
   inset: -2px;
+  /* stylelint-disable-next-line declaration-property-value-no-unknown */
   mask:
+    /* stylelint-disable-next-line declaration-property-value-no-unknown */
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
+  /* stylelint-disable-next-line declaration-property-value-no-unknown */
   mask-composite: xor;
   mask-composite: exclude;
   padding: 2px;
@@ -179,7 +174,7 @@
 }
 
 .gradient-border--animated::before {
-  animation: gradientRotate 3s linear infinite;
+  animation: gradient-rotate 3s linear infinite;
   background: linear-gradient(
     45deg,
     var(--color-primary) 0%,
@@ -189,7 +184,7 @@
   background-size: 200% 200%;
 }
 
-@keyframes gradientRotate {
+@keyframes gradient-rotate {
   0% {
     background-position: 0% 50%;
   }
@@ -218,15 +213,15 @@
     rgb(193 123 93 / 15%) 0%,
     transparent 70%
   );
-  content: "";
   block-size: 200%;
+  content: "";
+  inline-size: 200%;
+  inset-block-start: -50%;
   inset-inline-start: -50%;
   opacity: 0;
   pointer-events: none;
   position: absolute;
-  inset-block-start: -50%;
   transition: opacity 0.5s var(--transition-smooth);
-  inline-size: 200%;
 }
 
 .spotlight:hover::before {

@@ -55,9 +55,9 @@
 }
 
 .contact__detail-icon {
+  block-size: 2rem;
   color: var(--color-primary);
   flex-shrink: 0;
-  block-size: 2rem;
   inline-size: 2rem;
 }
 
@@ -104,9 +104,14 @@
   color: var(--input-text);
   font-family: inherit;
   font-size: 1rem;
+  inline-size: 100%;
   padding: 1rem 1.25rem;
   transition: all 0.3s var(--transition-smooth);
-  inline-size: 100%;
+}
+
+.form__textarea {
+  min-block-size: 120px;
+  resize: block;
 }
 
 .form__input:focus,
@@ -125,10 +130,6 @@
   border-color: var(--color-primary);
 }
 
-.form__textarea {
-  min-block-size: 120px;
-  resize: block;
-}
 
 .form__submit {
   align-items: center;
@@ -150,9 +151,9 @@
 
 .form__submit svg {
   block-size: 1.25rem;
+  inline-size: 1.25rem;
   position: relative;
   transition: transform 0.4s var(--transition-elastic);
-  inline-size: 1.25rem;
   z-index: 1;
 }
 

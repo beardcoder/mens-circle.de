@@ -52,12 +52,12 @@
   border-radius: var(--radius-xl);
   content: "";
   inset: -2px;
+  /* stylelint-disable-next-line declaration-property-value-no-unknown */
   mask:
+    /* stylelint-disable-next-line declaration-property-value-no-unknown */
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
+  /* stylelint-disable-next-line declaration-property-value-no-unknown */
   mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
@@ -122,11 +122,11 @@
     rgb(255 255 255 / 20%) 50%,
     transparent 100%
   );
-  inset-block: 0;
   content: "";
-  position: absolute;
-  inset-inline-end: 0;
   inline-size: 1px;
+  inset-block: 0;
+  inset-inline-end: 0;
+  position: absolute;
 }
 
 .event-card__date {

@@ -116,8 +116,8 @@
 }
 
 .registration-hero__detail svg {
-    flex-shrink: 0;
     block-size: 1.25rem;
+    flex-shrink: 0;
     inline-size: 1.25rem;
 }
 
@@ -207,8 +207,19 @@
 
 .registration-form__submit svg {
     block-size: 1.5rem;
-    transition: transform 0.3s var(--transition-smooth);
     inline-size: 1.5rem;
+    transition: transform 0.3s var(--transition-smooth);
+}
+
+.registration-success__icon svg {
+    block-size: 80px;
+    inline-size: 80px;
+}
+
+.registration-success__button svg {
+    block-size: 1.25rem;
+    inline-size: 1.25rem;
+    transition: transform 0.3s var(--transition-smooth);
 }
 
 .registration-form__submit:hover svg {
@@ -246,13 +257,13 @@
 
 .registration-success__icon {
     align-items: center;
-    animation: successPulse 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    animation: success-pulse 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     display: flex;
     justify-content: center;
     margin-block-end: var(--space-lg);
 }
 
-@keyframes successPulse {
+@keyframes success-pulse {
     0% {
         opacity: 0;
         transform: scale(0);
@@ -268,10 +279,6 @@
     }
 }
 
-.registration-success__icon svg {
-    block-size: 80px;
-    inline-size: 80px;
-}
 
 .registration-success__title {
     color: var(--color-primary);
@@ -358,6 +365,7 @@
 .registration-success__step-number {
     align-items: center;
     background: var(--color-primary);
+    block-size: 2.5rem;
     border-radius: 50%;
     box-shadow: 0 4px 12px rgb(193 123 93 / 30%);
     color: var(--color-white);
@@ -365,9 +373,8 @@
     flex-shrink: 0;
     font-size: 1.125rem;
     font-weight: 700;
-    block-size: 2.5rem;
-    justify-content: center;
     inline-size: 2.5rem;
+    justify-content: center;
 }
 
 [data-theme="dark"] .registration-success__step-number {
@@ -465,11 +472,6 @@
     transform: translateY(-2px);
 }
 
-.registration-success__button svg {
-    block-size: 1.25rem;
-    transition: transform 0.3s var(--transition-smooth);
-    inline-size: 1.25rem;
-}
 
 .registration-success__button--secondary:hover svg {
     transform: translateX(-3px);
@@ -539,8 +541,8 @@
     }
 
     .registration-success__button {
-        justify-content: center;
         inline-size: 100%;
+        justify-content: center;
     }
 }
 

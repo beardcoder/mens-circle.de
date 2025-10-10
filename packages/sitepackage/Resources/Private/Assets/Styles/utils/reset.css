@@ -10,10 +10,12 @@
    CSS RESET & BASE STYLES
    ============================================ */
 
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition-property: background-color, border-color, color, box-shadow;
 }
 
 /* ============================================
@@ -47,7 +49,6 @@ body {
    GLOBAL THEME TRANSITIONS
    ============================================ */
 
-*,
 *::before,
 *::after {
   transition-duration: 0.3s;
@@ -57,10 +58,6 @@ body {
   transition-timing-function: var(--transition-smooth);
 }
 
-/* Exclude transitions for elements that have their own */
-* {
-  transition-property: background-color, border-color, color, box-shadow;
-}
 
 /* Preserve specific transitions */
 a,

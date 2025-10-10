@@ -39,8 +39,8 @@
 
 .journey__image {
     block-size: 700px;
-    position: relative;
     inline-size: 100%;
+    position: relative;
 }
 
 .journey__label {
@@ -102,16 +102,16 @@
 .journey__icon {
     align-items: center;
     background: rgb(212 165 116 / 20%);
+    block-size: 3rem;
     border-radius: 50%;
     color: var(--color-accent);
     display: flex;
     flex-shrink: 0;
     font-size: 1.25rem;
     font-weight: 700;
-    block-size: 3rem;
+    inline-size: 3rem;
     justify-content: center;
     transition: all 0.3s var(--transition-smooth);
-    inline-size: 3rem;
 }
 
 [data-theme="dark"] .journey__icon {
@@ -131,13 +131,13 @@
 }
 
 .journey__image img {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
     block-size: 100%;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
+    inline-size: 100%;
     inset: 0;
     object-fit: cover;
     position: absolute;
     transition: opacity 0.3s var(--transition-smooth);
-    inline-size: 100%;
 }
 
 [data-theme="dark"] .journey__image img {

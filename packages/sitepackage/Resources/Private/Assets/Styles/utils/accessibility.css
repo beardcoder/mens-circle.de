@@ -38,6 +38,7 @@
    High Contrast Mode
    ============================================ */
 
+/* stylelint-disable-next-line media-feature-name-value-no-unknown */
 @media (prefers-contrast: high) {
   :root {
     --color-primary: #b8653d;

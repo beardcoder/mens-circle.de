@@ -24,11 +24,11 @@
 }
 
 .hero__image {
+    inline-size: 60%;
     inset-block: 0;
+    inset-inline-end: 0;
     opacity: 0.95;
     position: absolute;
-    inset-inline-end: 0;
-    inline-size: 60%;
     z-index: 1;
 }
 
@@ -51,9 +51,9 @@
 .hero__label::before {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     background: var(--color-primary);
+    block-size: 8px;
     border-radius: 50%;
     content: "";
-    block-size: 8px;
     inline-size: 8px;
 }
 
@@ -80,16 +80,15 @@
 }
 
 .hero__title--highlight {
-    animation: gradientShift 3s ease infinite;
+    animation: gradient-shift 3s ease infinite;
     background: var(--gradient-warm);
-    background-clip: text;
     background-clip: text;
     background-size: 200% auto;
     display: block;
     -webkit-text-fill-color: transparent;
 }
 
-@keyframes gradientShift {
+@keyframes gradient-shift {
     0%,
     100% {
         background-position: 0% center;
@@ -127,15 +126,15 @@
 
 .hero__cta::before {
     background: rgb(255 255 255 / 20%);
+    block-size: 0;
     border-radius: 50%;
     content: "";
-    block-size: 0;
+    inline-size: 0;
+    inset-block-start: 50%;
     inset-inline-start: 50%;
     position: absolute;
-    inset-block-start: 50%;
     transform: translate(-50%, -50%);
     transition: inline-size 0.6s, block-size 0.6s;
-    inline-size: 0;
 }
 
 .hero__cta:hover::before {
@@ -159,9 +158,9 @@
 
 .hero__image-wrapper {
     block-size: 100%;
+    inline-size: 100%;
     overflow: hidden;
     position: relative;
-    inline-size: 100%;
 }
 
 .hero__image-wrapper::before {
@@ -181,9 +180,9 @@
 
 .hero__img {
     block-size: 100%;
+    inline-size: 100%;
     object-fit: cover;
     object-position: center;
-    inline-size: 100%;
 }
 
 /* ============================================
@@ -202,18 +201,18 @@
     }
 
     .hero__text {
-        padding: var(--space-2xl) 0;
         inline-size: 100%;
+        padding: var(--space-2xl) 0;
         z-index: 3;
     }
 
     .hero__image {
         block-size: 50vb;
+        inline-size: 100vi;
         inset-inline-start: calc(-1 * var(--container-padding));
         margin-block-start: var(--space-xl);
         min-block-size: 400px;
         position: relative;
-        inline-size: 100vi;
     }
 
     .hero__image-wrapper::before {

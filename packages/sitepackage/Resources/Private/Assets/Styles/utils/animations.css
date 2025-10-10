@@ -4,12 +4,12 @@
 
 @supports (animation-timeline: scroll()) {
   .animate-on-scroll {
-    animation: fadeInUp linear both;
+    animation: fade-in-up linear both;
     animation-range: entry 0% cover 30%;
     animation-timeline: view();
   }
 
-  @keyframes fadeInUp {
+  @keyframes fade-in-up {
     from {
       opacity: 0;
       transform: translateY(30px);
@@ -24,7 +24,7 @@
 
 /* Fallback animations */
 .animate-in {
-  animation: fadeInUp 0.8s ease-out backwards;
+  animation: fade-in-up 0.8s ease-out backwards;
 }
 
 .animate-in:nth-child(1) {

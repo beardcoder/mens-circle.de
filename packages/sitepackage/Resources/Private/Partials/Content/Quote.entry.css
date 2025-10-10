@@ -23,10 +23,10 @@
 }
 
 .quote__icon {
-    color: rgb(255 253 249 / 30%);
     block-size: 4rem;
-    margin-block-end: var(--space-md);
+    color: rgb(255 253 249 / 30%);
     inline-size: 4rem;
+    margin-block-end: var(--space-md);
 }
 
 .quote__text {
