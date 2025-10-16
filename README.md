@@ -1,24 +1,53 @@
+![PHP Version](https://img.shields.io/badge/PHP-8.4-blue.svg)
+![TYPO3 Version](https://img.shields.io/badge/TYPO3-13-orange.svg)
+![License](https://img.shields.io/badge/License-GPL%202.0-green.svg)
+
 # Mens Circle Niederbayern Website
 
 TYPO3 CMS distribution that powers [mens-circle.de](https://mens-circle.de), the online home of the Mens Circle community in Niederbayern. The project focuses on providing a welcoming space for men to discover upcoming circles, register for events, and stay connected through a double opt-in newsletter.
 
-## What makes this project special
+## ✨ Key Features
 
-- **Event experience tuned for conversions** – detail pages include rich schema.org metadata, dynamic hero blocks, and per-event iCal downloads that work well on iOS and Android.
-- **Calendar feeds everywhere** – `/events/feed.json`, `/events/feed.ics`, and `/events/feed.jcal` provide cached machine-readable data, while `/api/event/{id}/ical` generates on-demand calendar files with intelligent reminders.
-- **Newsletter with double opt-in** – visitors subscribe through a custom form that creates TYPO3 frontend users, sends transactional emails, and supports secure unsubscribe tokens.
-- **Crafted frontend** – built with Vite, TypeScript, and Bun, using GSAP animations and logical CSS, the design mirrors the mindful tone of the physical circle.
-- **Operational tooling** – a DDEV setup for local development, Sentry integration hooks, and a FrankenPHP-based Docker image for production streamline operations.
+### Event Management
 
-## Tech stack
+- **Event Listings & Details**: Comprehensive event pages with rich metadata and schema.org structured data for better SEO
+- **Registration System**: Secure event registration with participant management and email notifications
+- **Calendar Integration**: Multiple feed formats (JSON, iCal, JCal) for seamless calendar integration
+- **Per-Event iCal Downloads**: On-demand calendar files with intelligent reminders for iOS and Android
+- **Dynamic Hero Blocks**: Engaging visual presentations for each event
 
-| Area | Tools |
-| --- | --- |
-| CMS | TYPO3 13, custom `mens-circle/sitepackage` extension |
-| PHP | PHP 8.4, Composer, TYPO3 Console |
-| Frontend | Vite 7, Bun, TypeScript, Lightning CSS, GSAP |
-| Storage | MariaDB (via DDEV) |
-| Delivery | FrankenPHP runtime, Docker, Caddy |
+### Newsletter System
+
+- **Double Opt-In Subscriptions**: Secure subscription process with email verification
+- **Frontend User Integration**: Automatic creation of TYPO3 frontend users upon subscription
+- **Transactional Emails**: Professional email templates for confirmations and notifications
+- **Secure Unsubscribe**: Token-based unsubscribe functionality for compliance
+
+### Frontend Experience
+
+- **Modern Tech Stack**: Built with Vite, TypeScript, and Bun for optimal performance
+- **Animations**: GSAP-powered animations that reflect the mindful tone of the community
+- **Responsive Design**: Logical CSS ensuring great experience across all devices
+- **Accessibility**: Focus on inclusive design and WCAG compliance
+
+### Operational Excellence
+
+- **DDEV Development Environment**: Streamlined local development setup
+- **Docker Deployment**: FrankenPHP-based production containerization
+- **Monitoring**: Sentry integration for error tracking and performance monitoring
+- **Caching**: Intelligent caching strategies for feeds and API responses
+
+## 🛠️ Tech Stack
+
+| Area            | Tools                                                   |
+| --------------- | ------------------------------------------------------- |
+| **CMS**         | TYPO3 13.3+, custom `mens-circle/sitepackage` extension |
+| **Backend**     | PHP 8.4, Composer, TYPO3 Console, Redis, Sodium         |
+| **Frontend**    | Vite 7, Bun, TypeScript, Lightning CSS, GSAP, Motion    |
+| **Database**    | MariaDB (via DDEV), Doctrine ORM                        |
+| **Deployment**  | FrankenPHP runtime, Docker, Caddy                       |
+| **Monitoring**  | Sentry for error tracking                               |
+| **Development** | DDEV, ESLint, Stylelint, Prettier, PHP-CS-Fixer         |
 
 ## Prerequisites
 
@@ -76,21 +105,72 @@ Once running, visit `https://vite.mens-circle.ddev.site` for instant feedback wh
 3. Copy `.env.example` (if provided) to `.env` and set `TYPO3_CONTEXT` and `JWT_SECRET`.
 4. Execute:
 
-   ```bash
-   composer install
-   bun install
-   bun run vite build   # or bun vite for development mode
-   ```
+    ```bash
+    composer install
+    bun install
+    bun run vite build   # or bun vite for development mode
+    ```
 
 5. Run TYPO3 setup via `vendor/bin/typo3 setup` or `composer exec typo3 setup` and provide database credentials.
 
-## Application architecture highlights
+## 🧑‍💻 Development
 
-- `packages/sitepackage/Classes/Controller/EventController.php` renders event listings, provides detail pages, and redirects to the next upcoming circle.
-- `packages/sitepackage/Classes/Middleware/EventFeedMiddleware.php` and `EventApiMiddleware.php` serve cached feeds and per-event calendar responses with smart ETag headers.
-- `packages/sitepackage/Classes/Service` contains reusable services such as `EmailService`, `EventCalendarService`, `FrontendUserService`, and `TokenService`.
-- `packages/sitepackage/Configuration/Sets/*` bundles TYPO3 site configuration (routes, TypoScript, newsletter settings) for reuse.
-- Frontend markup lives in `packages/sitepackage/Resources/Private/PageView`, with Vite entry points in the neighbouring `Templates` directory.
+### Code Quality
+
+This project maintains high code quality standards:
+
+```bash
+# Run PHP code style fixes
+ddev composer run fix:php
+
+# Run frontend linting and formatting
+ddev bun run format
+ddev bun run stylelint
+
+# Run full quality checks (via GrumPHP)
+ddev composer run grumphp
+```
+
+### Testing
+
+The project uses TYPO3's testing framework. Run tests with:
+
+```bash
+ddev composer run test
+```
+
+### Extension Structure
+
+The `sitepackage` extension follows TYPO3 best practices:
+
+- **Controllers**: Handle event listings, details, and newsletter subscriptions
+- **Services**: Reusable business logic for emails, tokens, and user management
+- **Middleware**: API endpoints for feeds and calendar downloads
+- **Models**: Domain objects for events, participants, and subscriptions
+- **ViewHelpers**: Custom Fluid view helpers for templates
+
+## 🏗️ Application Architecture Highlights
+
+### Backend Structure
+
+- **`EventController.php`**: Manages event listings, detail pages, registration, and redirects to upcoming events
+- **`SubscriptionController.php`**: Handles newsletter subscriptions with double opt-in flow
+- **Middleware**: `EventFeedMiddleware` and `EventApiMiddleware` serve cached feeds and calendar downloads with ETag headers
+- **Services**: Reusable components including `EmailService`, `EventCalendarService`, `FrontendUserService`, and `TokenService`
+- **Models**: Domain entities for Events, Participants, Newsletters, and Subscriptions
+
+### Configuration
+
+- **`Configuration/Sets/`**: Modular TYPO3 configuration bundles for different features (Events, Newsletter, Base setup)
+- **Routes**: Custom routing for events and API endpoints
+- **TCA**: Table configuration for custom database tables
+- **FlexForms**: Content element configurations for plugins
+
+### Frontend Integration
+
+- **Templates**: Fluid templates in `Resources/Private/Templates/`
+- **Assets**: Vite-managed frontend assets with TypeScript and modern CSS
+- **ViewHelpers**: Custom Fluid view helpers for enhanced templating
 
 ## Useful TYPO3 CLI commands
 
@@ -135,7 +215,31 @@ Customize `config/Caddyfile` and environment variables to match the target infra
 - Review Sentry logs (configured via environment DSN) for regressions.
 - Ensure cron or TYPO3 Scheduler jobs run regularly for newsletter and event notifications.
 
+## 🤝 Contributing
+
+We welcome contributions to improve the Mens Circle website! Please follow these guidelines:
+
+### Development Workflow
+
+1. Fork the repository and create a feature branch
+2. Follow the [TYPO3 coding standards](https://docs.typo3.org/m/typo3/guide-contributionworkflow/main/en-us/Appendix/TypescriptCodingStandards.html)
+3. Run code quality checks: `ddev composer run grumphp`
+4. Test your changes thoroughly
+5. Submit a pull request with a clear description
+
+### Code Style
+
+- PHP: PSR-12 compliant (enforced via PHP-CS-Fixer)
+- TypeScript/JavaScript: ESLint + Prettier configuration
+- CSS: Stylelint with logical CSS support
+- Commit messages: Follow [Conventional Commits](conventionalcommit.json)
+
+### Reporting Issues
+
+- Use GitHub Issues for bugs and feature requests
+- Include TYPO3 version, PHP version, and steps to reproduce
+- Check existing issues before creating new ones
+
 ## License
 
 GPL-2.0-or-later. See [LICENSE](LICENSE) for full details.
-
