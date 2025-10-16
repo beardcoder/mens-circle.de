@@ -1,68 +1,132 @@
 <html
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:i="http://typo3.org/ns/B13/Picture/ViewHelpers"
-    xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
-    xmlns:mce="http://typo3.org/ns/MensCircle/Sitepackage/ComponentCollection"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
-    xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
 >
 
-<vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Faq.entry.css" />
+<vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Faq.entry.css"/>
 
-<section class="faq" id="c{record.uid}">
+<section class="faq" id="c{record.uid}" itemscope itemtype="https://schema.org/FAQPage">
     <h2 class="section__title reveal-text">Häufige Fragen</h2>
     <div class="faq__grid">
-        <article class="faq__item reveal-card">
-            <h3 class="faq__question">Für wen ist der Männerkreis geeignet?</h3>
-            <p class="faq__answer">
-                Der Männerkreis ist offen für alle Männer ab 18 Jahren, unabhängig von Herkunft, Beruf oder Lebenssituation. Ob
-                du das erste Mal dabei bist oder schon länger auf deinem Weg - jeder ist willkommen.
-            </p>
+        <article class="faq__item reveal-card" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+            <h3 class="faq__question" itemprop="name">Für wen ist der Männerkreis geeignet?</h3>
+            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p class="faq__answer" itemprop="text">Der Kreis richtet sich an Männer ab 18 Jahren, unabhängig von
+                    Herkunft, Beruf oder Lebenssituation. Falls du jünger bist, schau gerne bei
+                    <a href="https://www.meridian-initiation.de" rel="noopener noreferrer" target="_blank">Meridian
+                        Initiation</a> vorbei - das Projekt ist genau für dich gemacht.</p>
+            </div>
         </article>
 
-        <article class="faq__item reveal-card">
-            <h3 class="faq__question">Muss ich vorher Erfahrung mit Männerarbeit haben?</h3>
-            <p class="faq__answer">
-                Nein, überhaupt nicht. Viele kommen zum ersten Mal und sind herzlich willkommen. Wir führen dich behutsam in die
-                Arbeit ein und schaffen einen sicheren Rahmen für alle.
-            </p>
+        <article class="faq__item reveal-card" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+            <h3 class="faq__question" itemprop="name">Wo und wie oft findet der Kreis statt?</h3>
+            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p class="faq__answer" itemprop="text">
+                    Der Kreis findet einmal im Monat in Straubing statt. Für genaue Termine und Ortsangaben melde dich
+                    über das Kontaktformular an - dann bekommst du alle Infos, sobald der nächste Kreis geplant ist.
+                </p>
+            </div>
         </article>
 
-        <article class="faq__item reveal-card">
-            <h3 class="faq__question">Was kostet die Teilnahme?</h3>
-            <p class="faq__answer">
-                Die Monatskreise arbeiten auf Spendenbasis (Richtwert 15-30€). Für Retreats und Workshops gelten separate
-                Preise, die kostendeckend kalkuliert sind. Geld soll kein Hindernis sein - sprich uns an.
-            </p>
+        <article class="faq__item reveal-card" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+            <h3 class="faq__question" itemprop="name">Wie läuft ein typisches Treffen ab?</h3>
+            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p class="faq__answer" itemprop="text">
+                    Wir beginnen mit einem Ankommen und Check-in im Kreis. Dann folgt die Hauptrunde mit einem Thema
+                    oder
+                    freiem Austausch. Wir arbeiten mit verschiedenen Methoden wie Gespräch, Bewegung, Ritual oder
+                    Meditation.
+                    Zum Schluss gibt es einen gemeinsamen Ausklang.
+                </p>
+            </div>
         </article>
 
-        <article class="faq__item reveal-card">
-            <h3 class="faq__question">Wie läuft ein typisches Treffen ab?</h3>
-            <p class="faq__answer">
-                Wir beginnen mit einem Ankommen und Check-in im Kreis. Dann folgt die Hauptrunde mit einem Thema oder freiem
-                Austausch. Wir arbeiten mit verschiedenen Methoden wie Gespräch, Bewegung, Ritual oder Meditation. Zum Schluss
-                gibt es einen gemeinsamen Ausklang.
-            </p>
+        <article class="faq__item reveal-card" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+            <h3 class="faq__question" itemprop="name">Was kostet die Teilnahme?</h3>
+            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p class="faq__answer" itemprop="text">
+                    Die Monatskreise arbeiten auf Spendenbasis (Richtwert 15-30€). Für Retreats und Workshops gelten
+                    separate Preise, die kostendeckend kalkuliert sind. Geld soll kein Hindernis sein - sprich uns an.
+                </p>
+            </div>
         </article>
 
-        <article class="faq__item reveal-card">
-            <h3 class="faq__question">Ist die Teilnahme vertraulich?</h3>
-            <p class="faq__answer">
-                Absolut. Was im Kreis gesprochen wird, bleibt im Kreis. Vertraulichkeit ist eine unserer Grundregeln und wird
-                von allen respektiert. Nur so entsteht der sichere Raum, den wir für echte Begegnungen brauchen.
-            </p>
+        <article class="faq__item reveal-card" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+            <h3 class="faq__question" itemprop="name">Ist die Teilnahme vertraulich?</h3>
+            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p class="faq__answer" itemprop="text">
+                    Absolut. Was im Kreis gesprochen wird, bleibt im Kreis. Vertraulichkeit ist eine unserer Grundregeln
+                    und wird von allen respektiert. Nur so entsteht der sichere Raum, den wir für echte Begegnungen
+                    brauchen.
+                </p>
+            </div>
         </article>
 
-        <article class="faq__item reveal-card">
-            <h3 class="faq__question">Wie melde ich mich an?</h3>
-            <p class="faq__answer">
-                Schreib uns einfach über das Kontaktformular oder per E-Mail. Wir melden uns zeitnah bei dir und beantworten
-                gerne alle deine Fragen. Für Schnupperabende ist keine Anmeldung nötig.
-            </p>
+        <article class="faq__item reveal-card" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+            <h3 class="faq__question" itemprop="name">Ist der Kreis eine Therapie oder ein Coaching?</h3>
+            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p class="faq__answer" itemprop="text">
+                    Nein, der Kreis ist kein Ersatz für professionelle Therapie und ich bin weder Coach noch Therapeut.
+                    Ich mache diese Arbeit aus meiner Erfahrung heraus und biete den Raum an, sich zu treffen und zu
+                    verbinden.
+                    Falls du therapeutische Unterstützung brauchst, wende dich bitte an deinen Hausarzt.
+                </p>
+            </div>
+        </article>
+
+        <article class="faq__item reveal-card" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+            <h3 class="faq__question" itemprop="name">Welche Ausbildung hast du gemacht?</h3>
+            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p class="faq__answer" itemprop="text">
+                    Mein Training habe ich bei Alex Wirthl absolviert. Wenn du tiefer in die Männerarbeit einsteigen
+                    möchtest,
+                    ist Alex der richtige Ansprechpartner: <a
+                    href="https://www.receive-tribe.com/grow"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >receive-tribe.com/grow</a>
+                </p>
+            </div>
+        </article>
+
+        <article class="faq__item reveal-card" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+            <h3 class="faq__question" itemprop="name">Kann ich Beziehungsprobleme im Kreis besprechen?</h3>
+            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p class="faq__answer" itemprop="text">
+                    Wir gehen im Kreis auch auf die Frau-Mann-Dynamik ein. Für spezifische Beziehungsthemen ist jedoch
+                    <a href="https://revolution-now.de/" rel="noopener noreferrer" target="_blank">Andres Renz</a>
+                    ein besserer Ansprechpartner.
+                </p>
+            </div>
+        </article>
+
+        <article class="faq__item reveal-card" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+            <h3 class="faq__question" itemprop="name">Wie melde ich mich an?</h3>
+            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p class="faq__answer" itemprop="text">
+                    Nutze das <a href="/#contact">Kontaktformular</a> auf der Webseite oder schreib mir direkt an
+                    <a href="mailto:markus@mens-circle.de">markus@mens-circle.de</a>. Du kannst auch meiner
+                    <a
+                        href="https://t.me/+J8e6gcycMLs2YTIy"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >Telegram-Gruppe</a>
+                    beitreten, um deine Fragen persönlich zu stellen. Für Schnupperabende ist keine Anmeldung nötig.
+                </p>
+            </div>
+        </article>
+
+        <article class="faq__item reveal-card" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+            <h3 class="faq__question" itemprop="name">Darf ich als Frau mitmachen?</h3>
+            <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+                <p class="faq__answer" itemprop="text">
+                    Dieser Kreis richtet sich ausschließlich an Männer. Das schafft den geschützten Raum, den es für
+                    diese spezielle Form der Männerarbeit braucht.
+                </p>
+            </div>
         </article>
     </div>
 </section>
-
 
 </html>
