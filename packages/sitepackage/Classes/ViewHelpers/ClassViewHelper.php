@@ -36,13 +36,14 @@ final class ClassViewHelper extends AbstractViewHelper
         $this->registerArgument('name', 'string', 'Optional variable name to store the result instead of returning it');
     }
 
+    #[\Override]
     public function render(): string
     {
         $value = $this->arguments['value'] ?? '';
         $name = $this->arguments['name'] ?? null;
 
         // Process classes and build result
-        $classes = self::extractClasses($value);
+        $classes = $this->extractClasses($value);
         $result = implode(' ', array_keys($classes));
 
         // If name is provided, store in variable and return empty string
@@ -58,7 +59,7 @@ final class ClassViewHelper extends AbstractViewHelper
     /**
      * Extract classes from various input types and deduplicate.
      */
-    private static function extractClasses(mixed $value): array
+    private function extractClasses(mixed $value): array
     {
         $classes = [];
         self::processValue($value, $classes);
@@ -71,13 +72,13 @@ final class ClassViewHelper extends AbstractViewHelper
      */
     private static function processValue(mixed $value, array &$classes): void
     {
-        if ($value === null || $value === false || $value === '') {
+        if (\in_array($value, [null, false, ''], true)) {
             return;
         }
 
         match (true) {
             \is_string($value) || $value instanceof \Stringable => self::addClassesFromString($value, $classes),
-            \is_array($value) || $value instanceof \Traversable => self::addClassesFromIterable($value, $classes),
+            is_iterable($value) => self::addClassesFromIterable($value, $classes),
             \is_object($value) => self::addClassesFromObject($value, $classes),
             default => self::addScalar($value, $classes),
         };

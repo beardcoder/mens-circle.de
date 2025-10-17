@@ -16,53 +16,44 @@ final class NewsletterSubscriptionValidator extends AbstractValidator
         }
 
         // Validate first name
-        if (empty(trim($value->firstName))) {
+        if (\in_array(trim($value->firstName), ['', '0'], true)) {
             $this->result->forProperty('firstName')->addError(
                 $this->translateErrorMessage(
                     'validator.newsletter.firstName.notEmpty',
                     'sitepackage',
-                    [],
-                    'Pflichtfeld'
-                ),
-                1234567890
+                    []
+                )
             );
         }
 
         // Validate last name
-        if (empty(trim($value->lastName))) {
+        if (\in_array(trim($value->lastName), ['', '0'], true)) {
             $this->result->forProperty('lastName')->addError(
                 $this->translateErrorMessage(
                     'validator.newsletter.lastName.notEmpty',
                     'sitepackage',
-                    [],
-                    'Pflichtfeld'
-                ),
-                1234567891
+                    []
+                )
             );
         }
 
         // Validate email
-        if (empty(trim($value->email))) {
+        if (\in_array(trim($value->email), ['', '0'], true)) {
             $this->result->forProperty('email')->addError(
                 $this->translateErrorMessage(
                     'validator.newsletter.email.notEmpty',
                     'sitepackage',
-                    [],
-                    'Pflichtfeld'
-                ),
-                1234567892
+                    []
+                )
             );
-        } elseif (!filter_var($value->email, FILTER_VALIDATE_EMAIL)) {
+        } elseif (!filter_var($value->email, \FILTER_VALIDATE_EMAIL)) {
             $this->result->forProperty('email')->addError(
                 $this->translateErrorMessage(
                     'validator.newsletter.email.invalid',
                     'sitepackage',
-                    [],
-                    'Ungültige E-Mail'
-                ),
-                1234567893
+                    []
+                )
             );
         }
     }
 }
-

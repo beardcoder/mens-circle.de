@@ -14,9 +14,9 @@ use TYPO3\CMS\Core\Http\Stream;
 
 class EventFeedMiddleware implements MiddlewareInterface
 {
-    private const ROUTE_BASE = '/events/feed';
+    private const string ROUTE_BASE = '/events/feed';
 
-    private const FORMATS = [
+    private const array FORMATS = [
         'json' => 'application/json',
         'ics' => 'text/calendar',
         'jcal' => 'application/calendar+json',
@@ -85,7 +85,7 @@ class EventFeedMiddleware implements MiddlewareInterface
             $headers['X-Content-Type-Options'] = 'nosniff';
         }
 
-        if ($content) {
+        if ($content !== '' && $content !== '0') {
             $stream = new Stream('php://temp', 'rw');
             $stream->write($content);
             $stream->rewind();

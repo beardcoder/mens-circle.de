@@ -22,11 +22,13 @@ return RectorConfig::configure()
     // ->withPhpSets()
     ->withPhpVersion(PhpVersion::PHP_84)
     ->withPhpSets(php84: true)
+    ->withCodeQualityLevel(75)
+    ->withAttributesSets(all: true)
+    ->withParallel()
     ->withSets([
         SetList::EARLY_RETURN,
         SetList::INSTANCEOF,
         SetList::TYPE_DECLARATION,
-        SetList::CODE_QUALITY,
         SetList::NAMING,
         SetList::PHP_84,
         Typo3SetList::CODE_QUALITY,

@@ -53,6 +53,7 @@ class SubscriptionController extends ActionController
                     '',
                     \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::WARNING
                 );
+
                 return $this->redirect('form');
             }
 

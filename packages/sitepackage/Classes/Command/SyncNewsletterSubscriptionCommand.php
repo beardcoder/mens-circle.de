@@ -29,14 +29,14 @@ final class SyncNewsletterSubscriptionCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
-        $io->title('Sync newsletter subscriptions from fe_users');
+        $symfonyStyle = new SymfonyStyle($input, $output);
+        $symfonyStyle->title('Sync newsletter subscriptions from fe_users');
 
         try {
             $feusers = $this->getAllFeUsers();
             $subscriptions = $this->getAllSubscriptions();
         } catch (Exception $e) {
-            $io->error('Failed to read from database: '.$e->getMessage());
+            $symfonyStyle->error('Failed to read from database: '.$e->getMessage());
 
             return Command::FAILURE;
         }
@@ -50,7 +50,10 @@ final class SyncNewsletterSubscriptionCommand extends Command
         foreach ($feusers as $user) {
             $email = (string) ($user['email'] ?? '');
             $emailLower = strtolower($email);
-            if ($emailLower === '' || filter_var($emailLower, \FILTER_VALIDATE_EMAIL) === false) {
+            if ($emailLower === '') {
+                continue;
+            }
+            if (filter_var($emailLower, \FILTER_VALIDATE_EMAIL) === false) {
                 continue;
             }
             if (\in_array($emailLower, $subscriptionEmailsLower, true)) {
@@ -62,7 +65,7 @@ final class SyncNewsletterSubscriptionCommand extends Command
         }
 
         if ($toSyncByEmail === []) {
-            $io->success('No users to sync. All fe_users already have subscriptions.');
+            $symfonyStyle->success('No users to sync. All fe_users already have subscriptions.');
 
             return Command::SUCCESS;
         }
@@ -70,8 +73,8 @@ final class SyncNewsletterSubscriptionCommand extends Command
         $connection = $this->connectionPool->getConnectionForTable(self::TARGET_TABLE);
         $synced = [];
 
-        $io->section(\sprintf('Creating %d missing subscription(s)...', \count($toSyncByEmail)));
-        $io->progressStart(\count($toSyncByEmail));
+        $symfonyStyle->section(\sprintf('Creating %d missing subscription(s)...', \count($toSyncByEmail)));
+        $symfonyStyle->progressStart(\count($toSyncByEmail));
 
         try {
             $connection->beginTransaction();
@@ -101,22 +104,22 @@ final class SyncNewsletterSubscriptionCommand extends Command
                     'last_name' => $lastName,
                 ];
 
-                $io->progressAdvance();
+                $symfonyStyle->progressAdvance();
             }
             $connection->commit();
         } catch (Exception $e) {
             $connection->rollBack();
-            $io->progressFinish();
-            $io->error('Failed to sync subscriptions: '.$e->getMessage());
+            $symfonyStyle->progressFinish();
+            $symfonyStyle->error('Failed to sync subscriptions: '.$e->getMessage());
 
             return Command::FAILURE;
         }
 
-        $io->progressFinish();
+        $symfonyStyle->progressFinish();
 
         // Output which users were synced (email and name for clarity)
-        $io->section('Synced users');
-        $io->listing(array_map(
+        $symfonyStyle->section('Synced users');
+        $symfonyStyle->listing(array_map(
             static fn (array $u): string => \sprintf(
                 '%s <%s> (uid: %d)',
                 trim(($u['first_name'] ?? '').' '.($u['last_name'] ?? '')) ?: '(no name)',
@@ -126,7 +129,7 @@ final class SyncNewsletterSubscriptionCommand extends Command
             $synced
         ));
 
-        $io->success(\sprintf('Done. Synced %d subscription(s).', \count($synced)));
+        $symfonyStyle->success(\sprintf('Done. Synced %d subscription(s).', \count($synced)));
 
         return Command::SUCCESS;
     }

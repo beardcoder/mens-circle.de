@@ -11,10 +11,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 (static function (): void {
     /** @var array<int> $customPageDoktypes $customPageDoktypes */
     $customPageDoktypes = [1724352539, 1724352571, 1724352888];
-    $dokTypeRegistry = GeneralUtility::makeInstance(PageDoktypeRegistry::class);
+    $pageDoktypeRegistry = GeneralUtility::makeInstance(PageDoktypeRegistry::class);
 
     array_walk(
         $customPageDoktypes,
-        static fn (int $doktype) => $dokTypeRegistry->add($doktype, ['allowedTables' => '*'])
+        static fn (int $doktype) => $pageDoktypeRegistry->add($doktype, ['allowedTables' => '*'])
     );
 })();

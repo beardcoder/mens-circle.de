@@ -51,7 +51,7 @@ readonly class UniversalSecureTokenService
         }
         $result = json_decode($plaintext, true, 512, \JSON_THROW_ON_ERROR);
         if (!\is_array($result)) {
-            throw new \RuntimeException('Entschlüsseltes Token hat ein unerwartetes Format.');
+            throw new \RuntimeException('Entschlüsseltes Token hat ein unerwartetes Format.', 9807070022);
         }
 
         return $result;
