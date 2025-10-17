@@ -65,6 +65,7 @@ class SubscriptionController extends ActionController
 
         $subscription->doubleOptInToken = $this->tokenService->generateToken();
         $subscription->optInDate = new \DateTime();
+
         $this->subscriptionRepository->add($subscription);
 
         $this->emailService->sendMail(
@@ -96,6 +97,7 @@ class SubscriptionController extends ActionController
         if ($email === '') {
             return $this->htmlResponse();
         }
+
         $subscription = $this->subscriptionRepository->findOneBy([
             'email' => $email,
         ]);

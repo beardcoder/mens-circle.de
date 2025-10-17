@@ -51,8 +51,11 @@ final class EventCalendarService implements SingletonInterface
 
     // Centralized alarm configuration
     private const string PRIMARY_ALARM_TEXT = 'Event reminder';
+
     private const string SECONDARY_ALARM_TEXT = 'Event starting in 1 hour';
+
     private const string PRIMARY_ALARM_OFFSET = '-15 minutes';
+
     private const string SECONDARY_ALARM_OFFSET = '-1 hour';
 
     private ?array $cachedEvents = null;
@@ -73,7 +76,7 @@ final class EventCalendarService implements SingletonInterface
             self::FORMAT_JSON => $this->generateJsonFeed($events),
             self::FORMAT_ICS => $this->generateIcsFeed($events),
             self::FORMAT_JCAL => $this->generateJcalFeed($events),
-            default => throw new \InvalidArgumentException("Unsupported format: {$format}", 1278997658),
+            default => throw new \InvalidArgumentException('Unsupported format: '.$format, 1278997658),
         };
     }
 
@@ -121,13 +124,7 @@ final class EventCalendarService implements SingletonInterface
                 ->value,
         ], $events);
 
-        usort($data, static function (array $a, array $b): int {
-            // Sort by startDate then uid for stable ordering
-            $left = [$a['startDate'], $a['uid']];
-            $right = [$b['startDate'], $b['uid']];
-
-            return $left <=> $right;
-        });
+        usort($data, static fn (array $a, array $b): int => [$a['startDate'], $a['uid']] <=> [$b['startDate'], $b['uid']]);
 
         return $data;
     }
@@ -403,7 +400,7 @@ final class EventCalendarService implements SingletonInterface
         if ($event->isOnline()) {
             $url = trim($event->callUrl);
 
-            return $url !== '' && $url !== '0' ? "Online Event\\n{$url}" : 'Online Event';
+            return $url !== '' && $url !== '0' ? 'Online Event\n'.$url : 'Online Event';
         }
 
         return $this->sanitizeText($event->getFullAddress());

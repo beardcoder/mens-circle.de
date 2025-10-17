@@ -13,7 +13,9 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 final readonly class ContentBlocksAboutUpgradeWizard implements UpgradeWizardInterface
 {
     private const string TABLE = 'tt_content';
+
     private const string OLD_TYPE = 'menscircle_about';
+
     private const string NEW_TYPE = 'sitepackage_about';
 
     public function __construct(

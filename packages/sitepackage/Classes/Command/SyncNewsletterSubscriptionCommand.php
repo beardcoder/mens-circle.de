@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 final class SyncNewsletterSubscriptionCommand extends Command
 {
     protected const string SOURCE_TABLE = 'fe_users';
+
     protected const string TARGET_TABLE = 'tx_sitepackage_domain_model_subscription';
 
     public function __construct(protected readonly ConnectionPool $connectionPool)
@@ -35,8 +36,8 @@ final class SyncNewsletterSubscriptionCommand extends Command
         try {
             $feusers = $this->getAllFeUsers();
             $subscriptions = $this->getAllSubscriptions();
-        } catch (Exception $e) {
-            $symfonyStyle->error('Failed to read from database: '.$e->getMessage());
+        } catch (Exception $exception) {
+            $symfonyStyle->error('Failed to read from database: '.$exception->getMessage());
 
             return Command::FAILURE;
         }
@@ -53,12 +54,15 @@ final class SyncNewsletterSubscriptionCommand extends Command
             if ($emailLower === '') {
                 continue;
             }
+
             if (filter_var($emailLower, \FILTER_VALIDATE_EMAIL) === false) {
                 continue;
             }
+
             if (\in_array($emailLower, $subscriptionEmailsLower, true)) {
                 continue; // already subscribed
             }
+
             if (!isset($toSyncByEmail[$emailLower])) {
                 $toSyncByEmail[$emailLower] = $user;
             }
@@ -106,11 +110,12 @@ final class SyncNewsletterSubscriptionCommand extends Command
 
                 $symfonyStyle->progressAdvance();
             }
+
             $connection->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $connection->rollBack();
             $symfonyStyle->progressFinish();
-            $symfonyStyle->error('Failed to sync subscriptions: '.$e->getMessage());
+            $symfonyStyle->error('Failed to sync subscriptions: '.$exception->getMessage());
 
             return Command::FAILURE;
         }
