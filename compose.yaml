@@ -1,0 +1,25 @@
+services:
+  php:
+    #image: dunglas/frankenphp
+    build: .
+    restart: always
+    volumes:
+      - ./:/app/
+      - caddy_data:/data
+      - media:/app/public/media
+      - fileadmin:/app/public/fileadmin
+      - typo3temp:/app/public/typo3temp
+      - caddy_config:/config
+    # comment the following line in production, it allows to have nice human-readable logs in dev
+    #tty: true
+    environment:
+      - SERVICE_FQDN_TYPO3_80
+      - JWT_SECRET=${SERVICE_BASE64_JWT_SECRET}
+
+# Volumes needed for Caddy certificates and configuration
+volumes:
+  caddy_data:
+  caddy_config:
+  media:
+  fileadmin:
+  typo3temp:

@@ -1,4 +1,4 @@
-ROM dunglas/frankenphp:1-php8.4 AS frankenphp_upstream
+FROM dunglas/frankenphp:1-php8.4 AS frankenphp_upstream
 
 FROM frankenphp_upstream AS frankenphp_base
 WORKDIR /app
@@ -7,37 +7,43 @@ VOLUME /app/var/
 # persistent / runtime deps
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends \
-	acl \
-	file \
-	gettext \
-	graphicsmagick \
+    acl \
+    file \
+    gettext \
+    graphicsmagick \
     imagemagick \
     ghostscript \
-	git \
-	&& rm -rf /var/lib/apt/lists/*
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
     install-php-extensions \
-        @composer \
-        apcu \
-        redis \
-        gd \
-        pdo_mysql \
-        intl \
-        opcache \
-        zip \
-    ;
+    @composer \
+    redis \
+    gd \
+    pdo_mysql \
+    fileinfo \
+    zip \
+    zlib \
+    intl \
+    opcache \
+    openssl
 
-ENV PHP_DATE_TIMEZONE="Europe/Berlin"
-ENV PHP_MEMORY_LIMIT="512M"
+RUN localedef -i de_DE -f UTF-8 de_DE.UTF-8
+RUN echo "LANG=\"de_DE.UTF-8\"" > /etc/locale.conf
+RUN ln -s -f /usr/share/zoneinfo/CET /etc/localtime
+ENV LANG=de_DE.UTF-8
+ENV LANGUAGE=de_DE.UTF-8
+ENV LC_ALL=de_DE.UTF-8
+ENV PHP_DATE_TIMEZONE=Europe/Berlin
+ENV PHP_MEMORY_LIMIT=512M
 ENV PHP_OPCACHE_ENABLE=1
 ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV APP_BASE_DIR="/app"
+ENV APP_BASE_DIR=/app
 ENV SERVER_NAME=:80
-ENV PHP_INI_SCAN_DIR=":$PHP_INI_DIR/app.conf.d"
 
 # Install Composer dependencies
-FROM base AS vendor
+FROM frankenphp_base AS vendor
 
 COPY . /app
 WORKDIR /app
@@ -53,7 +59,7 @@ COPY --from=vendor /app/vendor /app/vendor
 COPY --from=vendor /app/public /app/public
 RUN bun install
 
-FROM base
+FROM frankenphp_base AS app
 
 COPY . /app
 WORKDIR /app
@@ -66,12 +72,12 @@ RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
 RUN chown -R www-data:www-data /app
 
 # Configure PHP
-COPY config/php.ini /conf.d/php.ini
+COPY .docker/php.ini /conf.d/php.ini
 
 # Allow ImageMagick 6 to read/write pdf files
-COPY config/imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
+COPY .docker/imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
 
-COPY config/Caddyfile /etc/Caddyfile
+COPY .docker/Caddyfile /etc/Caddyfile
 
 WORKDIR /app
 
