@@ -41,6 +41,7 @@
     "b13/make": "dev-main",
     "ergebnis/composer-normalize": "^2.48.2",
     "phpro/grumphp-shim": "^2.15",
+    "rector/rector": "^2.2",
     "roave/security-advisories": "dev-latest",
     "ssch/typo3-rector": "dev-main",
     "symfony/var-dumper": "^7.3.3",

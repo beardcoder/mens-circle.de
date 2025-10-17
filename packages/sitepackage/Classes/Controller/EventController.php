@@ -85,10 +85,6 @@ class EventController extends ActionController
 
     public function registrationSuccessAction(Event $event): ResponseInterface
     {
-        if (!$event instanceof Event) {
-            return $this->handleEventNotFoundError();
-        }
-
         $this->view->assign('event', $event);
 
         return $this->htmlResponse();
@@ -180,7 +176,7 @@ class EventController extends ActionController
         $imageUri = '';
         $imageRef = $event->getImage();
 
-        if ($imageRef !== null) {
+        if ($imageRef instanceof \TYPO3\CMS\Extbase\Domain\Model\FileReference) {
             $processedFile = $this->imageService->applyProcessingInstructions(
                 $imageRef->getOriginalResource(),
                 [
@@ -210,9 +206,9 @@ class EventController extends ActionController
 
     private function handleEventNotFoundError(): ResponseInterface
     {
-        $upcomingEvent = $this->eventRepository->findNextUpcomingEvent();
+        $queryResult = $this->eventRepository->findNextUpcomingEvent();
 
-        if (!$upcomingEvent instanceof Event) {
+        if (!$queryResult instanceof Event) {
             $site = $this->request->getAttribute('site');
             \assert($site instanceof Site);
 
@@ -224,7 +220,7 @@ class EventController extends ActionController
         $redirectUrl = $this->uriBuilder->reset()
             ->setTargetPageUid(3)
             ->setNoCache(true)
-            ->uriFor('detail', ['event' => $upcomingEvent])
+            ->uriFor('detail', ['event' => $queryResult])
         ;
 
         return $this->redirectToUri($redirectUrl);

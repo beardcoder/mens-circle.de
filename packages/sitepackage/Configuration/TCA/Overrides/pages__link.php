@@ -9,8 +9,8 @@ call_user_func(static function (): void {
     $customPageDoktype = 1759827239;
     $customIconClass = 'tx-sitepackage-page-link';
 
-    $dokTypeRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\DataHandling\PageDoktypeRegistry::class);
-    $dokTypeRegistry->add(
+    $pageDoktypeRegistry = TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TYPO3\CMS\Core\DataHandling\PageDoktypeRegistry::class);
+    $pageDoktypeRegistry->add(
         $customPageDoktype,
         [
             'allowedTables' => '*',

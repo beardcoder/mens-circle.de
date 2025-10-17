@@ -43,31 +43,31 @@ class NewsletterController extends ActionController
     /**
      * Generates the action menu.
      */
-    protected function initializeModuleTemplate(ServerRequestInterface $request): ModuleTemplate
+    protected function initializeModuleTemplate(ServerRequestInterface $serverRequest): ModuleTemplate
     {
-        $view = $this->moduleTemplateFactory->create($request);
+        $moduleTemplate = $this->moduleTemplateFactory->create($serverRequest);
 
-        $view->setFlashMessageQueue($this->getFlashMessageQueue());
+        $moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
 
-        return $view;
+        return $moduleTemplate;
     }
 
     public function newAction(?Newsletter $newsletter = null): ResponseInterface
     {
-        $view = $this->initializeModuleTemplate($this->request);
+        $moduleTemplate = $this->initializeModuleTemplate($this->request);
         $this->pageRenderer->loadJavaScriptModule('@mens-circle/sitepackage/bootstrap.js');
         $this->pageRenderer->addCssFile('EXT:sitepackage/Resources/Public/Backend/Styles/bootstrap.css');
-        $view->setTitle('Newsletter');
+        $moduleTemplate->setTitle('Newsletter');
 
         $subscriptions = $this->subscriptionRepository->findBy([
             'status' => SubscriptionStatusEnum::Active,
         ]);
         $newsletter ??= GeneralUtility::makeInstance(Newsletter::class);
 
-        $view->assign('newsletter', $newsletter);
-        $view->assign('subscriptions', $subscriptions);
+        $moduleTemplate->assign('newsletter', $newsletter);
+        $moduleTemplate->assign('subscriptions', $subscriptions);
 
-        return $view->renderResponse('Newsletter/New');
+        return $moduleTemplate->renderResponse('Newsletter/New');
     }
 
     /**

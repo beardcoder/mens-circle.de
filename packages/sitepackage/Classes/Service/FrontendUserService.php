@@ -45,8 +45,8 @@ readonly class FrontendUserService
         $frontendUser->setLastName($data->lastName);
         $frontendUser->setUsername($data->email);
         $randomPassword = Uuid::v4()->toRfc4122();
-        $hasher = $this->passwordHashFactory->getDefaultHashInstance('FE');
-        $frontendUser->setPassword($hasher->getHashedPassword($randomPassword));
+        $passwordHash = $this->passwordHashFactory->getDefaultHashInstance('FE');
+        $frontendUser->setPassword($passwordHash->getHashedPassword($randomPassword));
 
         $this->frontendUserRepository->add($frontendUser);
         $this->persistenceManager->persistAll();

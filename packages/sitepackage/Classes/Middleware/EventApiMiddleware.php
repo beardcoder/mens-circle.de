@@ -41,7 +41,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
     {
         $path = $request->getUri()->getPath();
 
-        if (preg_match('#^'.preg_quote(self::BASE_PATH, '#').'([0-9]+)'.preg_quote(self::PATH_ICAL, '#').'/?$#', $path, $m)) {
+        if (preg_match('#^'.preg_quote(self::BASE_PATH, '#').'(\d+)'.preg_quote(self::PATH_ICAL, '#').'/?$#', $path, $m)) {
             $eventId = (int) $m[1];
 
             return $this->generateICalForEvent($request, $eventId);
@@ -50,7 +50,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         return $handler->handle($request);
     }
 
-    private function generateICalForEvent(ServerRequestInterface $request, int $eventId): ResponseInterface
+    private function generateICalForEvent(ServerRequestInterface $serverRequest, int $eventId): ResponseInterface
     {
         $event = $this->eventRepository->findByUid($eventId);
         if (!$event instanceof Event) {
@@ -70,7 +70,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
 
         // Conditional GET via ETag
         $etag = $this->buildEventEtag($event);
-        if ($request->getHeaderLine('If-None-Match') === '"'.$etag.'"') {
+        if ($serverRequest->getHeaderLine('If-None-Match') === '"'.$etag.'"') {
             return new Response('php://temp', 304, [
                 'ETag' => '"'.$etag.'"',
                 'Cache-Control' => 'public, max-age=3600',
@@ -88,7 +88,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         ;
 
         // Set URL: prefer online call URL for online events, else detail URL
-        $detailUrl = $this->getUrlForEvent($request, $event);
+        $detailUrl = $this->getUrlForEvent($serverRequest, $event);
         $callUrl = trim($event->callUrl ?? '');
         if ($event->isOnline() && $callUrl !== '') {
             $calendarEvent->url($callUrl);
@@ -114,7 +114,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
 
         // Optional image if present
         $original = $event->getImage()?->getOriginalResource();
-        if ($original !== null) {
+        if ($original instanceof \TYPO3\CMS\Core\Resource\FileReference) {
             $processedFile = $this->imageService->applyProcessingInstructions(
                 $original,
                 [
@@ -170,10 +170,10 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         return new Response($stream, 200, $headers);
     }
 
-    private function getUrlForEvent(ServerRequestInterface $request, Event $event): string
+    private function getUrlForEvent(ServerRequestInterface $serverRequest, Event $event): string
     {
-        $cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-        $cObj->setRequest($request);
+        $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+        $contentObjectRenderer->setRequest($serverRequest);
 
         $linkConfiguration = [
             'parameter' => 3,
@@ -181,9 +181,9 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         ];
 
         try {
-            return $this->linkFactory->create('event', $linkConfiguration, $cObj)->getUrl();
+            return $this->linkFactory->create('event', $linkConfiguration, $contentObjectRenderer)->getUrl();
         } catch (UnableToLinkException) {
-            $uri = $request->getUri()->withQuery('')->withFragment('')->withPath('/');
+            $uri = $serverRequest->getUri()->withQuery('')->withFragment('')->withPath('/');
 
             return (string) $uri;
         }

@@ -19,6 +19,7 @@ class NextEventViewHelper extends AbstractViewHelper
      * @throws \DateMalformedStringException
      * @throws InvalidQueryException
      */
+    #[\Override]
     public function render(): QueryResultInterface
     {
         return $this->eventRepository->findNextUpcomingEvent();

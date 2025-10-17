@@ -97,7 +97,7 @@ class Event extends AbstractEntity
         $imageService = GeneralUtility::makeInstance(ImageService::class);
 
         $imageRef = $this->getImage();
-        $processedFile = $imageRef ? $imageService->applyProcessingInstructions(
+        $processedFile = $imageRef instanceof FileReference ? $imageService->applyProcessingInstructions(
             $imageRef->getOriginalResource(),
             [
                 'width' => '600c',

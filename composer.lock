@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77543c47caed3e6c22ee7afcfa5a659f",
+    "content-hash": "78e860d449ec1a548e8964ca704cada6",
     "packages": [
         {
             "name": "b13/container",
@@ -1999,7 +1999,7 @@
         },
         {
             "name": "mens-circle/sitepackage",
-            "version": "dev-develop",
+            "version": "dev-feature/reactor",
             "dist": {
                 "type": "path",
                 "url": "./packages/sitepackage",

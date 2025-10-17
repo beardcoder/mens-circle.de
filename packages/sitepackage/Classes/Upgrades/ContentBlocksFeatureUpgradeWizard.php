@@ -10,14 +10,14 @@ use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 #[UpgradeWizard('sitepackage_ContentBlocksFeatureUpgradeWizard')]
-final class ContentBlocksFeatureUpgradeWizard implements UpgradeWizardInterface
+final readonly class ContentBlocksFeatureUpgradeWizard implements UpgradeWizardInterface
 {
-    private const TABLE = 'tt_content';
-    private const OLD_TYPE = 'menscircle_feature';
-    private const NEW_TYPE = 'sitepackage_feature';
+    private const string TABLE = 'tt_content';
+    private const string OLD_TYPE = 'menscircle_feature';
+    private const string NEW_TYPE = 'sitepackage_feature';
 
     public function __construct(
-        private readonly ConnectionPool $connectionPool,
+        private ConnectionPool $connectionPool,
     ) {
     }
 
@@ -68,7 +68,7 @@ final class ContentBlocksFeatureUpgradeWizard implements UpgradeWizardInterface
                 ->executeQuery()
                 ->fetchOne()
             ;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }
