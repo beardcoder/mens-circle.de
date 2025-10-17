@@ -3,8 +3,10 @@ services:
     #image: dunglas/frankenphp
     build: .
     restart: always
+    expose:
+      - 80
     volumes:
-      - ./:/app/
+      #- ./:/app/
       - caddy_data:/data
       - media:/app/public/media
       - fileadmin:/app/public/fileadmin
