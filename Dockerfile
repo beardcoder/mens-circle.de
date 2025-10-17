@@ -29,12 +29,6 @@ RUN set -eux; \
     opcache \
     openssl
 
-RUN localedef -i de_DE -f UTF-8 de_DE.UTF-8
-RUN echo "LANG=\"de_DE.UTF-8\"" > /etc/locale.conf
-RUN ln -s -f /usr/share/zoneinfo/CET /etc/localtime
-ENV LANG=de_DE.UTF-8
-ENV LANGUAGE=de_DE.UTF-8
-ENV LC_ALL=de_DE.UTF-8
 ENV PHP_DATE_TIMEZONE=Europe/Berlin
 ENV PHP_MEMORY_LIMIT=512M
 ENV PHP_OPCACHE_ENABLE=1
