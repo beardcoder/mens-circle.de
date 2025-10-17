@@ -13,7 +13,7 @@ services:
     # comment the following line in production, it allows to have nice human-readable logs in dev
     #tty: true
     environment:
-      - SERVICE_FQDN_TYPO3_80
+      - SERVICE_FQDN_TYPO_80
       - JWT_SECRET=${SERVICE_BASE64_JWT_SECRET}
 
 # Volumes needed for Caddy certificates and configuration
