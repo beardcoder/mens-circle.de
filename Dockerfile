@@ -75,4 +75,6 @@ COPY .docker/Caddyfile /etc/Caddyfile
 
 WORKDIR /app
 
+EXPOSE 80
+
 CMD ["frankenphp", "run", "--config", "/etc/Caddyfile" ]
