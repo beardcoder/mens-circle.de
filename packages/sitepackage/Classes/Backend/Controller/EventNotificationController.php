@@ -90,10 +90,10 @@ class EventNotificationController extends ActionController
         $fluidEmail = new FluidEmail();
         $fluidEmail
             ->bcc(...$emailAddresses)
-            ->from(new Address('hallo@mens-circle.de', 'Men\'s Circle Website'))
+            ->from(new Address('hallo@mens-circle.de', "Men's Circle Website"))
             ->subject($eventNotification->subject)
             ->format(FluidEmail::FORMAT_BOTH)
-            ->to(new Address('hallo@mens-circle.de', 'Men\'s Circle Website'))
+            ->to(new Address('hallo@mens-circle.de', "Men's Circle Website"))
             ->setTemplate('EventNotification')
             ->assign('subject', $eventNotification->subject)
             ->assign('message', $eventNotification->message)

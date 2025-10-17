@@ -162,7 +162,7 @@ class Event extends AbstractEntity
 
     public function getFullAddress(): string
     {
-        return "{$this->location->address}, {$this->location->zip} {$this->location->city}, Deutschland";
+        return \sprintf('%s, %s %s, Deutschland', $this->location->address, $this->location->zip, $this->location->city);
     }
 
     public function setParticipants(ObjectStorage $objectStorage): void

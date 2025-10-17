@@ -33,7 +33,7 @@ readonly class TokenService
 
         $builder = $this->configuration->builder()
             ->issuedAt($now)
-            ->expiresAt($now->modify("+{$validForSeconds} seconds"))
+            ->expiresAt($now->modify(\sprintf('+%d seconds', $validForSeconds)))
         ;
 
         foreach ($claims as $key => $value) {

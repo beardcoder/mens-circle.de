@@ -93,6 +93,7 @@ final class ClassViewHelper extends AbstractViewHelper
         if ($value === '' || $value === null) {
             return;
         }
+
         foreach (explode(' ', $value) as $class) {
             if ($class !== '') {
                 $classes[$class] = true;
@@ -111,8 +112,10 @@ final class ClassViewHelper extends AbstractViewHelper
                 if ($item) {
                     $classes[$key] = true;
                 }
+
                 continue;
             }
+
             // nested value, recurse
             self::processValue($item, $classes);
         }

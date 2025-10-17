@@ -25,9 +25,11 @@ use TYPO3\CMS\Frontend\Typolink\UnableToLinkException;
 readonly class EventApiMiddleware implements MiddlewareInterface
 {
     public const string BASE_PATH = '/api/event/';
+
     public const string PATH_ICAL = '/ical';
 
     private const string ORGANIZER_EMAIL = 'hallo@mens-circle.de';
+
     private const string ORGANIZER_NAME = 'Markus Sommer';
 
     public function __construct(
@@ -98,6 +100,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
             } elseif (str_contains($callUrl, 'teams.microsoft.com')) {
                 $calendarEvent->microsoftTeams($callUrl);
             }
+
             // Also add as attachment for broader client support
             $calendarEvent->attachment($callUrl, 'text/uri-list');
         } else {

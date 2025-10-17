@@ -57,6 +57,7 @@ class NewsletterController extends ActionController
         $moduleTemplate = $this->initializeModuleTemplate($this->request);
         $this->pageRenderer->loadJavaScriptModule('@mens-circle/sitepackage/bootstrap.js');
         $this->pageRenderer->addCssFile('EXT:sitepackage/Resources/Public/Backend/Styles/bootstrap.css');
+
         $moduleTemplate->setTitle('Newsletter');
 
         $subscriptions = $this->subscriptionRepository->findBy([
@@ -99,7 +100,7 @@ class NewsletterController extends ActionController
         foreach ($emailAddresses as $emailAddress) {
             $fluidEmail = new FluidEmail();
             $fluidEmail
-                ->from(new Address('hallo@mens-circle.de', 'Men\'s Circle Website'))
+                ->from(new Address('hallo@mens-circle.de', "Men's Circle Website"))
                 ->subject($newsletter->subject)
                 ->format(FluidEmail::FORMAT_BOTH)
                 ->to($emailAddress)

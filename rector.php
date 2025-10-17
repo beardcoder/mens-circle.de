@@ -24,6 +24,7 @@ return RectorConfig::configure()
     ->withPhpSets(php84: true)
     ->withCodeQualityLevel(75)
     ->withAttributesSets(all: true)
+    ->withCodingStyleLevel(100)
     ->withParallel()
     ->withSets([
         SetList::EARLY_RETURN,

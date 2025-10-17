@@ -28,7 +28,7 @@ readonly class EmailService
     ): void {
         $fluidEmail = new FluidEmail()
             ->to($toEmail)
-            ->from(new Address('hallo@mens-circle.de', 'Men\'s Circle Website'))
+            ->from(new Address('hallo@mens-circle.de', "Men's Circle Website"))
             ->subject($subject)
             ->setRequest($serverRequest)
             ->format(FluidEmail::FORMAT_BOTH)
@@ -38,8 +38,8 @@ readonly class EmailService
 
         try {
             $this->mailer->send($fluidEmail);
-        } catch (TransportExceptionInterface $e) {
-            $this->logger->error('Failed to send Double Opt-In email: '.$e->getMessage());
+        } catch (TransportExceptionInterface $transportException) {
+            $this->logger->error('Failed to send Double Opt-In email: '.$transportException->getMessage());
         }
     }
 }
