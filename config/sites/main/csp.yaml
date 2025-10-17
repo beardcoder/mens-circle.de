@@ -13,10 +13,12 @@ mutations:
     directive: 'img-src'
     sources:
       - 'data:'
+      - 'blob:'
       - "'self'"
       - 'https://*.basemaps.cartocdn.com'
       - 'https://a.basemaps.cartocdn.com'
       - 'https://b.basemaps.cartocdn.com'
+      - '*.mens-circle.de'
 
   - mode: extend
     directive: 'font-src'
@@ -41,6 +43,7 @@ mutations:
       - "'unsafe-eval'"
       - 'https://tracking.letsbenow.de'
       - 'https://bug.letsbenow.de'
+      - '*.o4508569353977856.ingest.de.sentry.io'
 
   - mode: extend
     directive: 'style-src'
