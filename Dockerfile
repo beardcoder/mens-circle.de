@@ -63,7 +63,7 @@ COPY --from=frontend-build /app/public /app/public
 
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
 
-RUN chown -R www-data:www-data /app
+#RUN chown -R www-data:www-data /app
 
 # Configure PHP
 COPY .docker/php.ini /conf.d/php.ini
