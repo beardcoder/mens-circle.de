@@ -85,7 +85,6 @@ RUN bun install --frozen-lockfile
 
 # Copy source files needed for build
 COPY vite.config.ts tsconfig.json ./
-COPY .browserslistrc ./
 
 # Copy vendor for Vite asset collector
 COPY --from=vendor /app/vendor ./vendor
