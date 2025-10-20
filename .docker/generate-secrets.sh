@@ -41,7 +41,7 @@ echo "TYPO3_ENCRYPTION_KEY=$TYPO3_ENCRYPTION_KEY"
 echo ""
 
 # ============================================
-# Install Tool Password
+# Install Tool Password (3 Methods)
 # ============================================
 
 echo "🛠️  Install Tool Password:"
@@ -49,16 +49,23 @@ echo "Enter a password for TYPO3 Install Tool:"
 read -s INSTALL_TOOL_PASS
 echo ""
 
-# Generate hash (requires PHP)
+# Method 1: Plain-text (simplest for Coolify)
+echo "INSTALL_TOOL_PASSWORD=$INSTALL_TOOL_PASS"
+echo ""
+
+# Method 2: Base64-encoded hash (if you have PHP)
 if command -v php &> /dev/null; then
     INSTALL_TOOL_HASH=$(php -r "echo password_hash('$INSTALL_TOOL_PASS', PASSWORD_ARGON2I);")
-    echo "INSTALL_TOOL_PASSWORD=$INSTALL_TOOL_HASH"
+    INSTALL_TOOL_BASE64=$(echo -n "$INSTALL_TOOL_HASH" | base64)
+
+    echo "Alternative (if plain-text doesn't work):"
+    echo "INSTALL_TOOL_PASSWORD_BASE64=$INSTALL_TOOL_BASE64"
     echo ""
-    echo "⚠️  Save this password: $INSTALL_TOOL_PASS"
 else
-    echo "⚠️  PHP not found. Generate hash manually:"
-    echo "php -r \"echo password_hash('$INSTALL_TOOL_PASS', PASSWORD_ARGON2I);\""
+    echo "⚠️  PHP not found. Using plain-text method only."
 fi
+
+echo "⚠️  IMPORTANT: Save this password: $INSTALL_TOOL_PASS"
 echo ""
 
 # ============================================
@@ -82,7 +89,12 @@ DB_PASSWORD=$DB_PASSWORD
 # Security
 JWT_SECRET=$JWT_SECRET
 TYPO3_ENCRYPTION_KEY=$TYPO3_ENCRYPTION_KEY
-INSTALL_TOOL_PASSWORD=$INSTALL_TOOL_HASH
+
+# Install Tool Password (Method 1: Plain-text - RECOMMENDED)
+INSTALL_TOOL_PASSWORD=$INSTALL_TOOL_PASS
+
+# Alternative: Base64-encoded hash (if plain-text doesn't work)
+# INSTALL_TOOL_PASSWORD_BASE64=$INSTALL_TOOL_BASE64
 
 # TYPO3
 TYPO3_CONTEXT=Production

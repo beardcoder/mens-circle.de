@@ -39,7 +39,11 @@ services:
       # Security (REQUIRED)
       - JWT_SECRET=${JWT_SECRET}
       - TYPO3_ENCRYPTION_KEY=${TYPO3_ENCRYPTION_KEY}
-      - INSTALL_TOOL_PASSWORD=${INSTALL_TOOL_PASSWORD}
+
+      # Install Tool Password (choose ONE method):
+      - INSTALL_TOOL_PASSWORD=${INSTALL_TOOL_PASSWORD}  # Method 1: Plain-text (recommended)
+      # - INSTALL_TOOL_PASSWORD_BASE64=${INSTALL_TOOL_PASSWORD_BASE64}  # Method 2: Base64
+      # - INSTALL_TOOL_PASSWORD_HASH=${INSTALL_TOOL_PASSWORD_HASH}  # Method 3: Pre-hashed
 
       # Mail Configuration (REQUIRED for production)
       - TYPO3_MAIL_TRANSPORT=${TYPO3_MAIL_TRANSPORT:-smtp}

@@ -78,9 +78,29 @@ if ($encryptionKey) {
 }
 
 // Install Tool Password
-$installToolPassword = getenv('INSTALL_TOOL_PASSWORD');
-if ($installToolPassword) {
-    $GLOBALS['TYPO3_CONF_VARS']['BE']['installToolPassword'] = $installToolPassword;
+// Supports 3 methods due to Docker $ escaping issues:
+// 1. Pre-hashed (INSTALL_TOOL_PASSWORD_HASH) - Already hashed
+// 2. Base64 encoded hash (INSTALL_TOOL_PASSWORD_BASE64) - Avoids $ issues
+// 3. Plain-text (INSTALL_TOOL_PASSWORD) - Will be hashed at runtime
+
+if ($installToolPasswordHash = getenv('INSTALL_TOOL_PASSWORD_HASH')) {
+    // Method 1: Already hashed (use for pre-hashed passwords)
+    $GLOBALS['TYPO3_CONF_VARS']['BE']['installToolPassword'] = $installToolPasswordHash;
+} elseif ($installToolPasswordBase64 = getenv('INSTALL_TOOL_PASSWORD_BASE64')) {
+    // Method 2: Base64 encoded to avoid $ character issues
+    $hash = base64_decode($installToolPasswordBase64);
+    if ($hash) {
+        $GLOBALS['TYPO3_CONF_VARS']['BE']['installToolPassword'] = $hash;
+    }
+} elseif ($installToolPassword = getenv('INSTALL_TOOL_PASSWORD')) {
+    // Method 3: Plain-text password - hash it at runtime
+    // Only use this if the password is not yet hashed
+    if (!str_starts_with($installToolPassword, '$argon') && !str_starts_with($installToolPassword, '$2')) {
+        $GLOBALS['TYPO3_CONF_VARS']['BE']['installToolPassword'] = password_hash($installToolPassword, PASSWORD_ARGON2I);
+    } else {
+        // It's already a hash, use it directly
+        $GLOBALS['TYPO3_CONF_VARS']['BE']['installToolPassword'] = $installToolPassword;
+    }
 }
 
 // ============================================
