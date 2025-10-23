@@ -86,3 +86,136 @@
 .is-loaded {
   animation: fadeIn 0.3s ease-in;
 }
+
+/* ============================================
+   VIEW TRANSITIONS API (2025)
+   ============================================ */
+
+/* Enhanced view transition animations */
+::view-transition-old(root) {
+  animation: fade-out 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+::view-transition-new(root) {
+  animation: fade-in 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide transitions for navigation */
+::view-transition-old(slide) {
+  animation: slide-out-left 0.4s cubic-bezier(0.4, 0, 1, 1);
+}
+
+::view-transition-new(slide) {
+  animation: slide-in-right 0.4s cubic-bezier(0, 0, 0.2, 1);
+}
+
+@keyframes slide-out-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-30%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(30%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   @STARTING-STYLE (2025)
+   Entry animations from display: none
+   ============================================ */
+
+/* Navigation menu initial state */
+.nav__menu {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s, transform 0.3s, display 0.3s allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  &:not(.is-active) {
+    display: none;
+  }
+}
+
+/* Modal/Dialog animations */
+dialog {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s, transform 0.3s, display 0.3s allow-discrete, overlay 0.3s allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  &:not([open]) {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+  }
+}
+
+/* Popover animations (2025) */
+[popover] {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.2s, transform 0.2s, display 0.2s allow-discrete, overlay 0.2s allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  &:not(:popover-open) {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Tooltip animations */
+.tooltip {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.2s, transform 0.2s, display 0.2s allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}

@@ -46,6 +46,26 @@ body {
 }
 
 /* ============================================
+   MODERN TYPOGRAPHY (2025)
+   ============================================ */
+
+/* Headings: Balanced text wrapping for better visual hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+  max-inline-size: 30ch; /* Optimal for balanced wrapping */
+}
+
+/* Paragraphs: Pretty wrapping prevents orphans (single words on last line) */
+p {
+  text-wrap: pretty;
+}
+
+/* Lists and other text content */
+li, blockquote {
+  text-wrap: pretty;
+}
+
+/* ============================================
    GLOBAL THEME TRANSITIONS
    ============================================ */
 

@@ -1,8 +1,9 @@
-import { CONFIG } from "./config/index";
+import { CONFIG } from "./config";
 import { createNavigation } from "./components/Navigation";
 import { createSmoothScroll } from "./components/SmoothScroll";
 import { createNotificationManager } from "./components/NotificationManager";
-import type { Factory } from "./types/index";
+import { createViewTransitions } from "./components/ViewTransitions";
+import type { Factory } from "./types";
 
 const factories: Factory[] = [];
 
@@ -35,6 +36,9 @@ const getNotifications = () => {
 };
 
 const bootstrap = async (): Promise<void> => {
+  // Initialize View Transitions API (2025)
+  registerFactory(createViewTransitions());
+
   registerFactory(createNavigation());
   registerFactory(createSmoothScroll());
 
@@ -46,11 +50,6 @@ const bootstrap = async (): Promise<void> => {
   if (document.querySelector(".reveal-card, .reveal-text")) {
     const { createScrollReveal } = await import("./components/ScrollReveal");
     registerFactory(createScrollReveal());
-  }
-
-  if (document.querySelector("[data-parallax]")) {
-    const { createParallaxEffect } = await import("./components/ParallaxEffect");
-    registerFactory(createParallaxEffect());
   }
 
   if (document.querySelector(".faq__item")) {

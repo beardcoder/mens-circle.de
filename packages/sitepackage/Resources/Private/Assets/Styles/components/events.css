@@ -36,6 +36,10 @@
   margin: 0 auto;
   max-inline-size: var(--container-max);
   padding: 0 var(--container-padding);
+
+  /* Enable Container Queries (2025) */
+  container-type: inline-size;
+  container-name: events;
 }
 
 .event-card {
@@ -276,27 +280,100 @@
 }
 
 /* ============================================
-   RESPONSIVE DESIGN
+   CSS :has() SELECTOR - INTELLIGENT STYLING (2025)
    ============================================ */
 
-@media (width <= 768px) {
+/* Event card WITHOUT image gets different layout */
+.event-card:not(:has(.event-card__image)) {
+  padding: var(--space-2xl);
+}
+
+/* Event card WITH image uses grid layout */
+.event-card:has(.event-card__image) {
+  display: grid;
+}
+
+/* Adjust featured card styling based on content presence */
+.event-card--featured:has(.event-card__date-section) {
+  grid-template-columns: 1fr 2fr;
+}
+
+/* Highlight cards with primary CTA */
+.event-card:has(.event-card__cta--primary:hover) {
+  box-shadow: var(--shadow-colored-lg);
+}
+
+/* ============================================
+   CONTAINER QUERIES - RESPONSIVE COMPONENTS (2025)
+   Replace media queries with container queries
+   ============================================ */
+
+/* Default: Mobile-first (single column) */
+.event-card--featured {
+  grid-template-columns: 1fr;
+}
+
+/* Container Query: When container is >= 500px */
+@container events (min-width: 500px) {
   .event-card--featured {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1.5fr;
   }
 
-  .event-card__date-section::after {
-    display: none;
+  .event-card__content {
+    padding: var(--space-xl);
+  }
+}
+
+/* Container Query: When container is >= 768px */
+@container events (min-width: 768px) {
+  .event-card--featured {
+    grid-template-columns: 1fr 2fr;
   }
 
   .event-card__meta {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .event-card__actions {
-    flex-direction: column;
+    flex-direction: row;
+  }
+}
+
+/* Container Query: When container is >= 1024px */
+@container events (min-width: 1024px) {
+  .event-card__content {
+    padding: var(--space-2xl);
   }
 
-  .event-card__cta {
-    inline-size: 100%;
+  .event-card__meta {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ============================================
+   FALLBACK: Media Queries for older browsers
+   ============================================ */
+
+@supports not (container-type: inline-size) {
+  @media (width <= 768px) {
+    .event-card--featured {
+      grid-template-columns: 1fr;
+    }
+
+    .event-card__date-section::after {
+      display: none;
+    }
+
+    .event-card__meta {
+      grid-template-columns: 1fr;
+    }
+
+    .event-card__actions {
+      flex-direction: column;
+    }
+
+    .event-card__cta {
+      inline-size: 100%;
+    }
   }
 }

@@ -1,4 +1,5 @@
 @import 'EXT:sitepackage/Configuration/Sets/Base/TypoScript/Extensions/typo3/cms-seo/setup.typoscript'
+@import 'EXT:sitepackage/Configuration/Sets/Base/TypoScript/image-processing.typoscript'
 
 page = PAGE
 page {
