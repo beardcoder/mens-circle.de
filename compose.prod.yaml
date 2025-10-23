@@ -73,6 +73,11 @@ services:
       - var_log:/app/var/log
       - var_cache:/app/var/cache
       - var_transient:/app/var/transient
+      -
+        type: bind
+        source: ./additional.php
+        target: /app/config/system/additional.php
+        content: "<?php\n// Additional TYPO3 Configuration\nreturn [\n    // Custom settings can be added here\n];\n"
 
     # Network
     depends_on:
