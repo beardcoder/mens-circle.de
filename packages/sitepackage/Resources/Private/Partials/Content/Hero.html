@@ -20,7 +20,9 @@
             <div class="hero__description animate-in">
                 {record.bodytext -> f:format.raw()}
             </div>
-            <a href="#events" class="hero__cta animate-in"> Nächstes Treffen → </a>
+            <f:if condition="{nextEvent}">
+                <a href="#events" class="hero__cta animate-in"> Nächstes Treffen → </a>
+            </f:if>
         </div>
     </div>
     <div class="hero__image animate-in">
