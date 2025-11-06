@@ -153,22 +153,6 @@
    Entry animations from display: none
    ============================================ */
 
-/* Navigation menu initial state */
-.nav__menu {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.3s, transform 0.3s, display 0.3s allow-discrete;
-
-  @starting-style {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  &:not(.is-active) {
-    display: none;
-  }
-}
-
 /* Modal/Dialog animations */
 dialog {
   opacity: 1;
