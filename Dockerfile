@@ -70,6 +70,7 @@ RUN apk add --no-cache \
     libwebp-dev \
     icu-dev \
     libsodium-dev \
+    graphicsmagick \
     imagemagick \
     imagemagick-dev \
     $PHPIZE_DEPS
@@ -87,6 +88,8 @@ RUN docker-php-ext-configure gd \
         sodium \
     && pecl install redis imagick \
     && docker-php-ext-enable redis imagick
+
+RUN install-php-extensions imagick/imagick@master
 
 # Clean up build dependencies
 RUN apk del --no-cache $PHPIZE_DEPS \
@@ -113,6 +116,9 @@ ENV FRANKENPHP_CONFIG=""
 ENV SERVER_NAME=":80"
 
 WORKDIR /var/www/html
+
+# Allow ImageMagick 6 to read/write pdf files
+COPY .docker/imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
 
 # Copy application files
 COPY --chown=www-data:www-data . .
