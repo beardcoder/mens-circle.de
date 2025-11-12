@@ -111,7 +111,7 @@ Du kannst das Docker-Setup lokal testen:
 # Docker Compose verwenden
 docker-compose up -d
 
-# Oder nur das Image bauen
+# Oder nur das Image bauen (nutzt Bun für Frontend-Build)
 docker build -t mens-circle .
 
 # Image starten
@@ -120,6 +120,8 @@ docker run -p 8080:80 \
   -e JWT_SECRET=test-secret \
   mens-circle
 ```
+
+**Hinweis:** Das Dockerfile nutzt Bun statt npm für deutlich schnellere Builds.
 
 Dann öffne: http://localhost:8080
 

@@ -1,23 +1,5 @@
 # ============================================
-# Stage 1: Frontend Build (Node/Vite)
-# ============================================
-FROM node:22-alpine AS frontend-builder
-
-WORKDIR /app
-
-# Copy package files
-COPY package*.json ./
-COPY packages ./packages
-
-# Install dependencies and build
-RUN npm ci --no-audit --prefer-offline
-COPY vite.config.js* ./
-COPY .vite* ./
-COPY packages ./packages
-RUN npm run build
-
-# ============================================
-# Stage 2: PHP Dependencies (Composer)
+# Stage 1: PHP Dependencies (Composer)
 # ============================================
 FROM composer:2 AS composer-builder
 
@@ -25,18 +7,54 @@ WORKDIR /app
 
 # Copy composer files
 COPY composer.json composer.lock ./
+COPY packages ./packages
 
 # Install production dependencies only (no dev)
+# Ignore platform requirements as composer:2 image doesn't have all PHP extensions
+# The final PHP 8.4 image will have all required extensions
 RUN composer install \
     --no-dev \
     --no-scripts \
     --no-interaction \
     --prefer-dist \
-    --optimize-autoloader
+    --optimize-autoloader \
+    --ignore-platform-reqs
 
 # Copy application code for post-install scripts
 COPY . .
 RUN composer dump-autoload --optimize --classmap-authoritative
+
+# ============================================
+# Stage 2: Frontend Build (Bun/Vite)
+# Requires Composer dependencies from Stage 1
+# ============================================
+FROM oven/bun:1-alpine AS frontend-builder
+
+WORKDIR /app
+
+# Copy composer dependencies (needed by frontend build)
+COPY --from=composer-builder /app/vendor ./vendor
+
+# Copy composer.json (required by vite-plugin-typo3)
+COPY --from=composer-builder /app/composer.json ./composer.json
+
+# Copy package files
+COPY package.json bun.lock ./
+COPY packages ./packages
+
+# Install dependencies and build
+RUN bun install --frozen-lockfile
+
+# Copy necessary files for Vite build
+COPY vite.config.ts ./
+COPY tsconfig.json* ./
+COPY .prettierrc* ./
+COPY .stylelintrc* ./
+COPY config ./config
+COPY public ./public
+
+# Run build
+RUN bun run build
 
 # ============================================
 # Stage 3: Final Production Image
@@ -44,7 +62,9 @@ RUN composer dump-autoload --optimize --classmap-authoritative
 FROM php:8.4-fpm-alpine
 
 # Install system dependencies and PHP extensions
+# Install build dependencies (will be removed later)
 RUN apk add --no-cache \
+    $PHPIZE_DEPS \
     nginx \
     supervisor \
     libzip-dev \
@@ -55,8 +75,10 @@ RUN apk add --no-cache \
     icu-dev \
     libsodium-dev \
     imagemagick \
-    imagemagick-dev \
-    && docker-php-ext-configure gd \
+    imagemagick-dev
+
+# Install PHP extensions
+RUN docker-php-ext-configure gd \
         --with-freetype \
         --with-jpeg \
         --with-webp \
@@ -68,8 +90,10 @@ RUN apk add --no-cache \
         opcache \
         sodium \
     && pecl install redis imagick \
-    && docker-php-ext-enable redis imagick \
-    && apk del --no-cache ${PHPIZE_DEPS} \
+    && docker-php-ext-enable redis imagick
+
+# Clean up build dependencies
+RUN apk del --no-cache $PHPIZE_DEPS \
     && rm -rf /tmp/* /var/cache/apk/*
 
 # Configure PHP for production

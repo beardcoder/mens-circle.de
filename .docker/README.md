@@ -2,6 +2,11 @@
 
 Diese Ordnerstruktur enthält alle Docker-Konfigurationsdateien für die TYPO3-Anwendung.
 
+Das Dockerfile nutzt ein **Multi-Stage Build** mit:
+1. **Stage 1:** Composer Dependencies (PHP/TYPO3)
+2. **Stage 2:** Frontend Build mit Bun (Vite/TypeScript)
+3. **Stage 3:** Production Image (nginx + PHP-FPM)
+
 ## Struktur
 
 ```
