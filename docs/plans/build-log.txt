@@ -1,0 +1,24 @@
+Build successful: Wed Nov 12 21:31:59 CET 2025
+
+Docker Image Build Results:
+- Image: typo3-frankenphp-test
+- Size: 928MB
+- Status: Build completed successfully
+
+Image Layer Breakdown:
+- Base FrankenPHP image: ~240MB
+- PHP extensions (imagemagick, gd, intl, etc.): ~352MB
+- Composer vendor dependencies: 170MB
+- Application code: 6.81MB
+- Runtime tools (git, unzip, wget): 9.05MB
+- Frontend assets: 733KB
+- Composer binary: 3.14MB
+
+Notes:
+- Fixed user issue: Changed from 'caddy' to 'www-data' user (FrankenPHP Alpine uses www-data)
+- Image size is larger than initially estimated (180-220MB) due to:
+  * ImageMagick and development libraries
+  * Full TYPO3 vendor dependencies
+  * This is expected for a production-ready TYPO3 installation
+
+Build completed with DOCKER_BUILDKIT=1

@@ -115,17 +115,17 @@ ENV SERVER_NAME=":80"
 WORKDIR /var/www/html
 
 # Copy application files
-COPY --chown=caddy:caddy . .
+COPY --chown=www-data:www-data . .
 
 # Copy composer dependencies
-COPY --from=composer-builder --chown=caddy:caddy /app/vendor ./vendor
+COPY --from=composer-builder --chown=www-data:www-data /app/vendor ./vendor
 
 # Copy frontend build artifacts
-COPY --from=frontend-builder --chown=caddy:caddy /app/public/_assets ./public/_assets
+COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./public/_assets
 
 # Create necessary directories and set permissions
 RUN mkdir -p var/log var/cache var/charset var/lock \
-    && chown -R caddy:caddy var/ public/ \
+    && chown -R www-data:www-data var/ public/ \
     && find . -type d -exec chmod 755 {} \; \
     && find . -type f -exec chmod 644 {} \; \
     && find vendor/bin -type f -exec chmod +x {} \;
