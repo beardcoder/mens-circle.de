@@ -9,9 +9,11 @@
 .env.*.local
 .git/
 .gitignore
+.gitattributes
 .github/
 .vscode/
 .idea/
+.ddev/
 *.md
 !README.md
 
@@ -50,6 +52,15 @@ compose*.yaml
 tests/
 .phpunit.result.cache
 coverage/
+phpunit.xml
+grumphp.yml
+
+# Code Quality
+.php-cs-fixer.php
+.php-cs-fixer.cache
+phpstan.neon
+rector.php
+ecs.php
 
 # CI/CD
 .gitlab-ci.yml

@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      TYPO3_CONTEXT: Production
+      JWT_SECRET: ${JWT_SECRET:-dev-secret-change-in-production}
+      # Database configuration
+      TYPO3_DB_DRIVER: mysqli
+      TYPO3_DB_HOST: db
+      TYPO3_DB_PORT: 3306
+      TYPO3_DB_NAME: typo3
+      TYPO3_DB_USERNAME: typo3
+      TYPO3_DB_PASSWORD: typo3
+      # Redis configuration
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    volumes:
+      # Persistent data
+      - typo3_var:/var/www/html/var
+      - typo3_fileadmin:/var/www/html/public/fileadmin
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: typo3
+      MYSQL_USER: typo3
+      MYSQL_PASSWORD: typo3
+    volumes:
+      - db_data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  typo3_var:
+  typo3_fileadmin:
+  db_data:
+  redis_data:
