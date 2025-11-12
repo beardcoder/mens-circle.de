@@ -4,34 +4,33 @@
 
 /* Selection styling */
 ::selection {
-  background: var(--color-primary);
-  color: var(--color-white);
+    background: var(--color-primary);
+    color: var(--color-white);
 }
-
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-  block-size: 12px;
-  inline-size: 12px;
+    block-size: 12px;
+    inline-size: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-dark);
+    background: var(--color-bg-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gradient-primary);
-  border: 2px solid var(--color-bg-dark);
-  border-radius: var(--radius-full);
+    background: var(--gradient-primary);
+    border: 2px solid var(--color-bg-dark);
+    border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-dark);
+    background: var(--color-primary-dark);
 }
 
 /* Focus visible styling */
 :focus-visible {
-  border-radius: var(--radius-sm);
-  outline: 3px solid var(--color-primary);
-  outline-offset: 3px;
+    border-radius: var(--radius-sm);
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
 }

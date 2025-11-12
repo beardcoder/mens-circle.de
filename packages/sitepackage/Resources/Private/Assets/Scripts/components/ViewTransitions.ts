@@ -1,5 +1,5 @@
-import { CONFIG } from "../config/index";
-import type { Factory } from "../types/index";
+import { CONFIG } from '../config/index'
+import type { Factory } from '../types/index'
 
 /**
  * View Transitions API (2025)
@@ -7,115 +7,98 @@ import type { Factory } from "../types/index";
  * Integrated with Hotwired Turbo for SPA-like navigation
  */
 export const createViewTransitions = (): Factory => {
-  // Check for View Transitions API support
-  const supportsViewTransitions = "startViewTransition" in document;
+    // Check for View Transitions API support
+    const supportsViewTransitions = 'startViewTransition' in document
 
-  /**
-   * Start a view transition
-   */
-  const startTransition = (callback: () => void): void => {
-    if (!supportsViewTransitions) {
-      callback();
-      return;
+    /**
+     * Start a view transition
+     */
+    const startTransition = (callback: () => void): void => {
+        if (!supportsViewTransitions) {
+            callback()
+            return
+        }
+
+        // @ts-expect-error - View Transitions API is not yet in TypeScript types
+        document.startViewTransition(() => {
+            callback()
+        })
     }
 
-    // @ts-expect-error - View Transitions API is not yet in TypeScript types
-    document.startViewTransition(() => {
-      callback();
-    });
-  };
+    /**
+     * Handle Turbo navigation with View Transitions
+     */
+    const handleTurboBeforeRender = (event: CustomEvent): void => {
+        if (!supportsViewTransitions) {
+            return
+        }
 
-  /**
-   * Handle Turbo navigation with View Transitions
-   */
-  const handleTurboBeforeRender = (event: CustomEvent): void => {
-    if (!supportsViewTransitions) {
-      return;
+        // Prevent default render
+        event.preventDefault()
+
+        // @ts-expect-error - View Transitions API is not yet in TypeScript types
+        document.startViewTransition(() => {
+            // Resume the Turbo render after transition setup
+            event.detail.resume()
+        })
     }
 
-    // Prevent default render
-    event.preventDefault();
+    /**
+     * Handle Turbo form submissions with View Transitions
+     */
+    const handleTurboSubmitEnd = (event: CustomEvent): void => {
+        if (!supportsViewTransitions || !event.detail.success) {
+            return
+        }
 
-    // @ts-expect-error - View Transitions API is not yet in TypeScript types
-    document.startViewTransition(() => {
-      // Resume the Turbo render after transition setup
-      event.detail.resume();
-    });
-  };
+        // Add a subtle transition for form submissions
+        document.body.classList.add('view-transition-form')
 
-  /**
-   * Handle Turbo form submissions with View Transitions
-   */
-  const handleTurboSubmitEnd = (event: CustomEvent): void => {
-    if (!supportsViewTransitions || !event.detail.success) {
-      return;
+        setTimeout(() => {
+            document.body.classList.remove('view-transition-form')
+        }, 500)
     }
 
-    // Add a subtle transition for form submissions
-    document.body.classList.add("view-transition-form");
+    /**
+     * Initialize View Transitions
+     */
+    const init = (): void => {
+        if (!supportsViewTransitions) {
+            if (CONFIG.development) {
+                console.info('⚠️ View Transitions API not supported in this browser. Using fallback navigation.')
+            }
+            return
+        }
 
-    setTimeout(() => {
-      document.body.classList.remove("view-transition-form");
-    }, 500);
-  };
+        // Integrate with Turbo
+        document.addEventListener('turbo:before-render', handleTurboBeforeRender)
 
-  /**
-   * Initialize View Transitions
-   */
-  const init = (): void => {
-    if (!supportsViewTransitions) {
-      if (CONFIG.development) {
-        // eslint-disable-next-line no-console
-        console.info(
-          "⚠️ View Transitions API not supported in this browser. Using fallback navigation."
-        );
-      }
-      return;
+        document.addEventListener('turbo:submit-end', handleTurboSubmitEnd)
+
+        if (CONFIG.development) {
+            console.info('✨ View Transitions API enabled with Turbo integration')
+        }
     }
 
-    // Integrate with Turbo
-    document.addEventListener(
-      "turbo:before-render",
-      handleTurboBeforeRender as EventListener
-    );
+    /**
+     * Cleanup
+     */
+    const destroy = (): void => {
+        document.removeEventListener('turbo:before-render', handleTurboBeforeRender)
 
-    document.addEventListener(
-      "turbo:submit-end",
-      handleTurboSubmitEnd as EventListener
-    );
+        document.removeEventListener('turbo:submit-end', handleTurboSubmitEnd)
 
-    if (CONFIG.development) {
-      // eslint-disable-next-line no-console
-      console.info("✨ View Transitions API enabled with Turbo integration");
+        if (CONFIG.development) {
+            console.info('🧹 View Transitions destroyed')
+        }
     }
-  };
 
-  /**
-   * Cleanup
-   */
-  const destroy = (): void => {
-    document.removeEventListener(
-      "turbo:before-render",
-      handleTurboBeforeRender as EventListener
-    );
+    // Initialize
+    init()
 
-    document.removeEventListener(
-      "turbo:submit-end",
-      handleTurboSubmitEnd as EventListener
-    );
-
-    if (CONFIG.development) {
-      // eslint-disable-next-line no-console
-      console.info("🧹 View Transitions destroyed");
+    return {
+        startTransition,
+        destroy,
+        [Symbol.dispose]: destroy,
     }
-  };
-
-  // Initialize
-  init();
-
-  return {
-    startTransition,
-    destroy,
-    [Symbol.dispose]: destroy,
-  };
-};
+}

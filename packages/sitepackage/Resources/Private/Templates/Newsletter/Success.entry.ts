@@ -4,19 +4,18 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const newsletterSection = document.getElementById('newsletter');
+    const newsletterSection = document.getElementById('newsletter')
 
-  if (newsletterSection) {
-    // Sanftes Scrollen zum Newsletter-Bereich
-    newsletterSection.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
+    if (newsletterSection) {
+        // Sanftes Scrollen zum Newsletter-Bereich
+        newsletterSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        })
 
-    // Fallback für ältere Browser
-    setTimeout(() => {
-      window.location.hash = 'newsletter';
-    }, 100);
-  }
-});
-
+        // Fallback für ältere Browser
+        setTimeout(() => {
+            window.location.hash = 'newsletter'
+        }, 100)
+    }
+})

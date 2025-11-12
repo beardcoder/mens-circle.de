@@ -12,16 +12,18 @@ const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url))
 
 export default defineConfig([
     includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
+    tseslint.configs.recommended,
     {
         files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
         plugins: { js },
         extends: ['js/recommended'],
         rules: {
             quotes: ['error', 'single'],
+            '@typescript-eslint/no-explicit-any': 'off',
+            'no-unused-vars': 'off',
         },
         languageOptions: { globals: { ...globals.browser, ...globals.node } },
     },
-    tseslint.configs.recommended,
     { files: ['**/*.json'], plugins: { json }, language: 'json/json', extends: ['json/recommended'] },
     {
         files: ['**/*.css'],
@@ -32,6 +34,7 @@ export default defineConfig([
             'css/no-invalid-at-rules': 'off',
             'css/no-important': 'off',
             'css/use-baseline': 'off',
+            'css/font-family-fallbacks': 'off',
             'css/no-invalid-properties': 'off',
         },
     },

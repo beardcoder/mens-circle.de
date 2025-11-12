@@ -2,50 +2,46 @@
  * Configuration types for the application
  */
 export interface AppConfig {
-  navigation: NavigationConfig;
-  animations: AnimationConfig;
-  development: boolean;
+    navigation: NavigationConfig
+    animations: AnimationConfig
+    development: boolean
 }
 
 export interface NavigationConfig {
-  scrollThreshold: number;
-  hideOnScroll: boolean;
+    scrollThreshold: number
+    hideOnScroll: boolean
 }
 
 export interface AnimationConfig {
-  reducedMotion: boolean;
+    reducedMotion: boolean
 }
 
 /**
  * Form notification types
  */
-export type NotificationType = "success" | "error" | "info";
+export type NotificationType = 'success' | 'error' | 'info'
 
 export interface NotificationOptions {
-  message: string;
-  type: NotificationType;
-  duration?: number;
+    message: string
+    type: NotificationType
+    duration?: number
 }
 
 /**
  * Intersection Observer options
  */
 export interface ObserverOptions {
-  root?: Element | null;
-  threshold?: number | number[];
-  rootMargin?: string;
+    root?: Element | null
+    threshold?: number | number[]
+    rootMargin?: string
 }
 
 /**
  * Utility function types
  */
-export type DebouncedFunction<T extends (...args: any[]) => any> = (
-  ...args: Parameters<T>
-) => void;
+export type DebouncedFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void
 
-export type ThrottledFunction<T extends (...args: any[]) => any> = (
-  ...args: Parameters<T>
-) => void;
+export type ThrottledFunction<T extends (...args: any[]) => any> = (...args: Parameters<T>) => void
 
 /**
  * Factory Pattern Types (ES2023+ with Explicit Resource Management)
@@ -54,72 +50,60 @@ export type ThrottledFunction<T extends (...args: any[]) => any> = (
 
 // Base factory interface with Symbol.dispose for automatic resource management
 export interface Factory extends Disposable {
-  [Symbol.dispose](): void;
+    [Symbol.dispose](): void
 }
 
 // Alias destroy to Symbol.dispose for backwards compatibility
 export interface FactoryWithDestroy extends Factory {
-  destroy: () => void;
+    destroy: () => void
 }
 
 // Navigation Factory
 export interface NavigationFactory extends FactoryWithDestroy {
-  show: () => void;
-  hide: () => void;
-  toggle: () => void;
-  getTheme: () => string;
+    show: () => void
+    hide: () => void
+    toggle: () => void
+    getTheme: () => string
 }
 
 // ScrollReveal Factory
 export interface ScrollRevealFactory extends FactoryWithDestroy {
-  reveal: (elements: NodeListOf<Element> | Element[]) => void;
+    reveal: (elements: Element[]) => void
 }
 
 // SmoothScroll Factory
 export interface SmoothScrollFactory extends FactoryWithDestroy {
-  scrollTo: (target: string | Element) => void;
+    scrollTo: (target: string | Element) => void
 }
-
 
 // NotificationManager Factory
 
 // Parallax Factory
 export interface ParallaxFactory extends FactoryWithDestroy {
-  update: () => void;
-}
-
-// ScrollProgress Factory
-export interface ScrollProgressFactory extends FactoryWithDestroy {
-  update: () => void;
+    update: () => void
 }
 
 // Notification Manager Factory
 export interface NotificationManagerFactory extends FactoryWithDestroy {
-  show: (options: NotificationOptions) => void;
-  success: (message: string) => void;
-  error: (message: string) => void;
-  info: (message: string) => void;
-}
-
-// Form Factory
-export interface FormFactory extends FactoryWithDestroy {
-  reset: () => void;
-  validate: () => boolean;
+    show: (options: NotificationOptions) => void
+    success: (message: string) => void
+    error: (message: string) => void
+    info: (message: string) => void
 }
 
 // LazyLoader Factory
 export interface LazyLoaderFactory extends FactoryWithDestroy {
-  loadImage: (img: HTMLImageElement) => void;
+    loadImage: (img: HTMLImageElement) => void
 }
 
 // FAQ Accordion Factory
 export interface FAQAccordionFactory extends FactoryWithDestroy {
-  openItem: (index: number) => void;
-  closeAll: () => void;
+    openItem: (index: number) => void
+    closeAll: () => void
 }
 
 // Number Counter Factory
 // Performance Monitor Factory
 export interface PerformanceMonitorFactory extends FactoryWithDestroy {
-  log: () => void;
+    log: () => void
 }

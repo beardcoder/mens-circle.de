@@ -3,35 +3,35 @@
    ============================================ */
 
 .gallery {
-  background: var(--card-bg);
-  inline-size: 100%;
-  padding: var(--space-3xl) 0 0 0;
-  text-align: center;
+    background: var(--card-bg);
+    inline-size: 100%;
+    padding: var(--space-3xl) 0 0 0;
+    text-align: center;
 }
 
 .gallery .section__title {
-  margin-block-end: var(--space-2xl);
-  padding: 0 var(--container-padding);
+    margin-block-end: var(--space-2xl);
+    padding: 0 var(--container-padding);
 }
 
 .gallery__grid {
-  display: grid;
-  gap: 0;
-  grid-template-columns: repeat(3, 1fr);
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .gallery__item {
-  aspect-ratio: 4/3;
-  border-radius: 0;
-  overflow: hidden;
-  position: relative;
+    aspect-ratio: 4/3;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
 }
 
 .gallery__item img {
-  block-size: 100%;
-  display: block;
-  inline-size: 100%;
-  object-fit: cover;
+    block-size: 100%;
+    display: block;
+    inline-size: 100%;
+    object-fit: cover;
 }
 
 /* ============================================
@@ -39,13 +39,13 @@
    ============================================ */
 
 @media (width <= 1024px) {
-  .gallery__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+    .gallery__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (width <= 768px) {
-  .gallery__grid {
-    grid-template-columns: 1fr;
-  }
+    .gallery__grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -2,20 +2,19 @@
    FONT IMPORT
    ============================================ */
 
-@import "@fontsource-variable/inter";
-@import "@fontsource-variable/inter/wght.css";
-@import "@fontsource-variable/inter/wght-italic.css";
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource-variable/inter/wght-italic.css';
 
 /* ============================================
    CSS RESET & BASE STYLES
    ============================================ */
 
-
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  transition-property: background-color, border-color, color, box-shadow;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition-property: background-color, border-color, color, box-shadow;
 }
 
 /* ============================================
@@ -23,26 +22,27 @@
    ============================================ */
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-block-start: 5rem;
+    scroll-behavior: smooth;
+    scroll-padding-block-start: 5rem;
 }
 
 body {
-  background-attachment: fixed;
-  background-color: var(--color-bg);
-  background-image:
-    radial-gradient(circle at 20% 50%, rgb(193 123 93 / 3%) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgb(212 165 116 / 3%) 0%, transparent 50%),
-    var(--texture-noise);
-  color: var(--color-text);
-  font-family: var(--font-primary);
-  font-feature-settings: "kern" 1, "liga" 1;
-  font-size: var(--text-base);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: var(--leading-relaxed);
-  overflow-inline: hidden;
-  text-rendering: optimizelegibility;
+    background-attachment: fixed;
+    background-color: var(--color-bg);
+    background-image:
+        radial-gradient(circle at 20% 50%, rgb(193 123 93 / 3%) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgb(212 165 116 / 3%) 0%, transparent 50%), var(--texture-noise);
+    color: var(--color-text);
+    font-family: var(--font-primary);
+    font-feature-settings:
+        'kern' 1,
+        'liga' 1;
+    font-size: var(--text-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: var(--leading-relaxed);
+    overflow-inline: hidden;
+    text-rendering: optimizelegibility;
 }
 
 /* ============================================
@@ -50,19 +50,25 @@ body {
    ============================================ */
 
 /* Headings: Balanced text wrapping for better visual hierarchy */
-h1, h2, h3, h4, h5, h6 {
-  text-wrap: balance;
-  max-inline-size: 30ch; /* Optimal for balanced wrapping */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+    max-inline-size: 30ch; /* Optimal for balanced wrapping */
 }
 
 /* Paragraphs: Pretty wrapping prevents orphans (single words on last line) */
 p {
-  text-wrap: pretty;
+    text-wrap: pretty;
 }
 
 /* Lists and other text content */
-li, blockquote {
-  text-wrap: pretty;
+li,
+blockquote {
+    text-wrap: pretty;
 }
 
 /* ============================================
@@ -71,13 +77,10 @@ li, blockquote {
 
 *::before,
 *::after {
-  transition-duration: 0.3s;
-  transition-property:
-    background-color, background, border-color, color, fill, stroke, opacity,
-    box-shadow;
-  transition-timing-function: var(--transition-smooth);
+    transition-duration: 0.3s;
+    transition-property: background-color, background, border-color, color, fill, stroke, opacity, box-shadow;
+    transition-timing-function: var(--transition-smooth);
 }
-
 
 /* Preserve specific transitions */
 a,
@@ -89,7 +92,7 @@ button,
 input,
 textarea,
 select {
-  transition-property: all;
+    transition-property: all;
 }
 
 /* ============================================
@@ -97,10 +100,10 @@ select {
    ============================================ */
 
 @view-transition {
-  navigation: auto;
+    navigation: auto;
 }
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.5s;
+    animation-duration: 0.5s;
 }

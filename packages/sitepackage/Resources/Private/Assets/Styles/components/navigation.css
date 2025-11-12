@@ -10,10 +10,11 @@
     inset-block-start: 0;
     inset-inline: 0;
     position: fixed;
-    transition: transform 0.4s var(--transition-smooth),
-    background 0.3s var(--transition-smooth),
-    box-shadow 0.3s var(--transition-smooth),
-    border-color 0.3s var(--transition-smooth);
+    transition:
+        transform 0.4s var(--transition-smooth),
+        background 0.3s var(--transition-smooth),
+        box-shadow 0.3s var(--transition-smooth),
+        border-color 0.3s var(--transition-smooth);
     z-index: 1000;
 }
 
@@ -60,11 +61,7 @@
 }
 
 .nav__logo-text {
-    background: linear-gradient(
-        135deg,
-        var(--nav-logo-color) 0%,
-        var(--color-primary) 100%
-    );
+    background: linear-gradient(135deg, var(--nav-logo-color) 0%, var(--color-primary) 100%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -95,7 +92,7 @@
     background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
     block-size: 2px;
     border-radius: 2px;
-    content: "";
+    content: '';
     inline-size: 0;
     inset-block-end: 0;
     inset-inline-start: 0;
@@ -195,12 +192,12 @@
 }
 
 /* Dark Mode Active */
-[data-theme="dark"] .nav__theme-icon--sun {
+[data-theme='dark'] .nav__theme-icon--sun {
     opacity: 0;
     transform: rotate(180deg) scale(0);
 }
 
-[data-theme="dark"] .nav__theme-icon--moon {
+[data-theme='dark'] .nav__theme-icon--moon {
     opacity: 1;
     transform: rotate(0deg) scale(1);
 }
@@ -326,12 +323,14 @@
 
 /* Mobile Overlay */
 @media (width <= 768px) {
-
     /* Navigation menu initial state */
     .nav__menu {
         opacity: 1;
         transform: translateY(0);
-        transition: opacity 0.3s, transform 0.3s, display 0.3s allow-discrete;
+        transition:
+            opacity 0.3s,
+            transform 0.3s,
+            display 0.3s allow-discrete;
         min-height: 100vb;
 
         @starting-style {
@@ -352,7 +351,7 @@
         animation: fade-in 0.3s ease-in-out;
         backdrop-filter: blur(4px);
         background: rgb(0 0 0 / 50%);
-        content: "";
+        content: '';
         inset: 0;
         position: fixed;
         z-index: 999;

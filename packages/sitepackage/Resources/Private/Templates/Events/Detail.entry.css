@@ -4,16 +4,11 @@
 
 .registration-hero {
     align-items: center;
-    background: linear-gradient(
-        135deg,
-        var(--color-primary) 0%,
-        var(--color-clay) 100%
-    );
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-clay) 100%);
     display: flex;
     min-block-size: 100vb;
     overflow: hidden;
-    padding: calc(var(--nav-height) + var(--space-2xl)) var(--container-padding)
-    var(--space-3xl);
+    padding: calc(var(--nav-height) + var(--space-2xl)) var(--container-padding) var(--space-3xl);
     position: relative;
 }
 
@@ -25,16 +20,8 @@
 
 .registration-hero__pattern {
     background-image:
-        radial-gradient(
-            circle at 25% 25%,
-            rgb(255 255 255 / 30%) 2px,
-            transparent 2px
-        ),
-        radial-gradient(
-            circle at 75% 75%,
-            rgb(255 255 255 / 30%) 2px,
-            transparent 2px
-        );
+        radial-gradient(circle at 25% 25%, rgb(255 255 255 / 30%) 2px, transparent 2px),
+        radial-gradient(circle at 75% 75%, rgb(255 255 255 / 30%) 2px, transparent 2px);
     background-size: 50px 50px;
     inset: 0;
     position: absolute;
@@ -249,7 +236,7 @@
     text-align: center;
 }
 
-[data-theme="dark"] .registration-success {
+[data-theme='dark'] .registration-success {
     background: rgb(26 20 16 / 90%);
     border: 1px solid rgb(193 123 93 / 30%);
     box-shadow: 0 20px 60px rgb(0 0 0 / 50%);
@@ -279,7 +266,6 @@
     }
 }
 
-
 .registration-success__title {
     color: var(--color-primary);
     font-size: var(--text-3xl);
@@ -288,7 +274,7 @@
     margin-block-end: var(--space-md);
 }
 
-[data-theme="dark"] .registration-success__title {
+[data-theme='dark'] .registration-success__title {
     color: var(--color-primary-light);
 }
 
@@ -299,7 +285,7 @@
     margin-block-end: var(--space-xl);
 }
 
-[data-theme="dark"] .registration-success__message {
+[data-theme='dark'] .registration-success__message {
     color: rgb(255 253 249 / 90%);
 }
 
@@ -314,7 +300,7 @@
     padding: var(--space-lg);
 }
 
-[data-theme="dark"] .registration-success__event-info {
+[data-theme='dark'] .registration-success__event-info {
     background: rgb(193 123 93 / 10%);
     border-inline-start-color: var(--color-primary-light);
 }
@@ -334,7 +320,7 @@
     text-transform: uppercase;
 }
 
-[data-theme="dark"] .registration-success__event-label {
+[data-theme='dark'] .registration-success__event-label {
     color: var(--color-primary-light);
 }
 
@@ -344,7 +330,7 @@
     text-align: end;
 }
 
-[data-theme="dark"] .registration-success__event-value {
+[data-theme='dark'] .registration-success__event-value {
     color: rgb(255 253 249 / 85%);
 }
 
@@ -377,7 +363,7 @@
     justify-content: center;
 }
 
-[data-theme="dark"] .registration-success__step-number {
+[data-theme='dark'] .registration-success__step-number {
     background: var(--color-primary-light);
     color: var(--color-earth);
 }
@@ -390,7 +376,7 @@
     margin: 0;
 }
 
-[data-theme="dark"] .registration-success__step p {
+[data-theme='dark'] .registration-success__step p {
     color: rgb(255 253 249 / 85%);
 }
 
@@ -404,7 +390,7 @@
     padding: var(--space-md);
 }
 
-[data-theme="dark"] .registration-success__note {
+[data-theme='dark'] .registration-success__note {
     background: rgb(193 123 93 / 8%);
     color: rgb(255 253 249 / 70%);
 }
@@ -414,7 +400,7 @@
     font-weight: 700;
 }
 
-[data-theme="dark"] .registration-success__note strong {
+[data-theme='dark'] .registration-success__note strong {
     color: var(--color-primary-light);
 }
 
@@ -424,7 +410,7 @@
     text-decoration: underline;
 }
 
-[data-theme="dark"] .registration-success__note a {
+[data-theme='dark'] .registration-success__note a {
     color: var(--color-primary-light);
 }
 
@@ -472,7 +458,6 @@
     transform: translateY(-2px);
 }
 
-
 .registration-success__button--secondary:hover svg {
     transform: translateX(-3px);
 }
@@ -488,8 +473,7 @@
 @media (width <= 1024px) {
     .registration-hero {
         min-block-size: auto;
-        padding: calc(var(--nav-height) + var(--space-xl)) var(--container-padding)
-        var(--space-2xl);
+        padding: calc(var(--nav-height) + var(--space-xl)) var(--container-padding) var(--space-2xl);
     }
 
     .registration-hero__content {

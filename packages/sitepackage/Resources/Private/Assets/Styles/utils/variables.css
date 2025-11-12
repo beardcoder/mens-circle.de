@@ -50,9 +50,9 @@
        TYPOGRAPHY
        ============================================ */
 
-    --font-primary: "Inter", -apple-system, blinkmacsystemfont, "Segoe UI", system-ui, sans-serif;
-    --font-heading: "Inter", "SF Pro Display", -apple-system, blinkmacsystemfont, sans-serif;
-    --font-display: "Inter", "SF Pro Display", -apple-system, blinkmacsystemfont, sans-serif;
+    --font-primary: 'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', system-ui, sans-serif;
+    --font-heading: 'Inter', 'SF Pro Display', -apple-system, blinkmacsystemfont, sans-serif;
+    --font-display: 'Inter', 'SF Pro Display', -apple-system, blinkmacsystemfont, sans-serif;
 
     /* Typography Scale (Major Third - 1.25) */
     --text-xs: clamp(0.75rem, 1.5vi, 0.875rem);
@@ -123,18 +123,9 @@
        ============================================ */
 
     --gradient-primary: linear-gradient(135deg, #c17b5d 0%, #a67c52 100%);
-    --gradient-warm: linear-gradient(
-        135deg,
-        #d4a574 0%,
-        #c17b5d 50%,
-        #8b7355 100%
-    );
+    --gradient-warm: linear-gradient(135deg, #d4a574 0%, #c17b5d 50%, #8b7355 100%);
     --gradient-earth: linear-gradient(135deg, #4a4238 0%, #3d4a3e 100%);
-    --gradient-radial: radial-gradient(
-        circle,
-        rgb(193 123 93 / 12%) 0%,
-        transparent 70%
-    );
+    --gradient-radial: radial-gradient(circle, rgb(193 123 93 / 12%) 0%, transparent 70%);
 
     /* ============================================
        BORDER RADIUS
@@ -203,7 +194,7 @@
    DARK MODE THEME
    ============================================ */
 
-[data-theme="dark"] {
+[data-theme='dark'] {
     /* Base Colors - Dark Mode */
     --color-bg: #1a1410;
     --color-bg-dark: #0f0b08;

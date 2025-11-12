@@ -3,11 +3,7 @@
    ============================================ */
 
 .journey {
-    background: linear-gradient(
-        135deg,
-        var(--color-earth) 0%,
-        var(--color-forest-dark) 100%
-    );
+    background: linear-gradient(135deg, var(--color-earth) 0%, var(--color-forest-dark) 100%);
     color: var(--color-white);
     overflow: hidden;
     padding: var(--space-3xl) 0;
@@ -15,7 +11,7 @@
 }
 
 /* Dark Mode Journey Adjustments */
-[data-theme="dark"] .journey {
+[data-theme='dark'] .journey {
     background: linear-gradient(135deg, var(--color-bg-dark) 0%, #0f1410 100%);
     border-block-end: 1px solid var(--card-border);
     border-block-start: 1px solid var(--card-border);
@@ -31,10 +27,7 @@
 
 .journey__text {
     padding: 0 var(--container-padding);
-    padding-inline-start: max(
-        var(--container-padding),
-        calc((100vi - var(--container-max)) / 2)
-    );
+    padding-inline-start: max(var(--container-padding), calc((100vi - var(--container-max)) / 2));
 }
 
 .journey__image {
@@ -85,7 +78,7 @@
     transition: all 0.3s var(--transition-smooth);
 }
 
-[data-theme="dark"] .journey__item {
+[data-theme='dark'] .journey__item {
     background: rgb(193 123 93 / 8%);
     border-inline-start-color: var(--color-primary-light);
 }
@@ -95,7 +88,7 @@
     transform: translateX(8px);
 }
 
-[data-theme="dark"] .journey__item:hover {
+[data-theme='dark'] .journey__item:hover {
     background: rgb(193 123 93 / 15%);
 }
 
@@ -114,7 +107,7 @@
     transition: all 0.3s var(--transition-smooth);
 }
 
-[data-theme="dark"] .journey__icon {
+[data-theme='dark'] .journey__icon {
     background: rgb(212 165 116 / 15%);
     color: var(--color-accent-bright);
 }
@@ -140,7 +133,7 @@
     transition: opacity 0.3s var(--transition-smooth);
 }
 
-[data-theme="dark"] .journey__image img {
+[data-theme='dark'] .journey__image img {
     filter: brightness(0.7) contrast(1.1);
     opacity: 0.6;
 }

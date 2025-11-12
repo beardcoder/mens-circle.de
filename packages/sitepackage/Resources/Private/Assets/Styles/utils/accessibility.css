@@ -3,21 +3,21 @@
    ============================================ */
 
 @media print {
-  .nav,
-  .hero__scroll,
-  .contact__form,
-  .footer__social {
-    display: none;
-  }
+    .nav,
+    .hero__scroll,
+    .contact__form,
+    .footer__social {
+        display: none;
+    }
 
-  body {
-    background: white;
-    color: black;
-  }
+    body {
+        background: white;
+        color: black;
+    }
 
-  .section {
-    break-inside: avoid;
-  }
+    .section {
+        break-inside: avoid;
+    }
 }
 
 /* ============================================
@@ -25,13 +25,13 @@
    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 /* ============================================
@@ -40,17 +40,17 @@
 
 /* stylelint-disable-next-line media-feature-name-value-no-unknown */
 @media (prefers-contrast: high) {
-  :root {
-    --color-primary: #b8653d;
-    --color-text: #000;
-    --color-bg: #fff;
-  }
+    :root {
+        --color-primary: #b8653d;
+        --color-text: #000;
+        --color-bg: #fff;
+    }
 
-  .feature-card,
-  .testimonial,
-  .event-card,
-  .faq__item,
-  .contact__form {
-    border: 2px solid var(--color-text);
-  }
+    .feature-card,
+    .testimonial,
+    .event-card,
+    .faq__item,
+    .contact__form {
+        border: 2px solid var(--color-text);
+    }
 }
