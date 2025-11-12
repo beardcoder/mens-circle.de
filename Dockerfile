@@ -96,6 +96,15 @@ RUN docker-php-ext-configure gd \
 RUN apk del --no-cache $PHPIZE_DEPS \
     && rm -rf /tmp/* /var/cache/apk/*
 
+# Install Composer from official image
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Install runtime dependencies for Composer
+RUN apk add --no-cache \
+    git \
+    unzip \
+    && rm -rf /var/cache/apk/*
+
 # Configure PHP for production
 COPY .docker/php/typo3.ini /usr/local/etc/php/conf.d/typo3.ini
 
@@ -124,7 +133,8 @@ COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./pub
 RUN mkdir -p var/log var/cache var/charset var/lock \
     && chown -R www-data:www-data var/ public/ \
     && find . -type d -exec chmod 755 {} \; \
-    && find . -type f -exec chmod 644 {} \;
+    && find . -type f -exec chmod 644 {} \; \
+    && find vendor/bin -type f -exec chmod +x {} \;
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \

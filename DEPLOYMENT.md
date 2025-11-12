@@ -76,7 +76,22 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3
 
 Coolify sollte diesen automatisch erkennen.
 
-### 7. Logging
+### 7. Post-Deployment Command (Optional)
+
+Das Docker Image enthält bereits Composer und alle Dependencies. Du kannst optional einen Post-Deployment Command hinzufügen:
+
+```bash
+composer install --no-dev --optimize-autoloader --ignore-platform-reqs && chown -R www-data:www-data ./ && vendor/bin/typo3 install:fixfolderstructure && php vendor/bin/typo3 cache:flush
+```
+
+**Wichtig:** Dieser Command ist optional, da:
+- Composer bereits im Image installiert ist
+- Alle Dependencies bereits im Build installiert wurden
+- Permissions bereits gesetzt sind
+
+Wenn du den Command nicht brauchst, lass das Feld leer!
+
+### 8. Logging
 
 Alle Logs werden automatisch an die Docker Console ausgegeben und sind in Coolify unter "Logs" sichtbar:
 
@@ -155,6 +170,23 @@ Alle PHP-Fehler werden automatisch nach **stderr** ausgegeben:
 - Öffne Coolify → Logs
 - Filtere nach "PHP" oder "Fatal error"
 - Fehler werden in Echtzeit angezeigt
+
+### "Directory index forbidden" Fehler
+
+Wenn du beim ersten Deployment einen **"directory index of /var/www/html/public/ is forbidden"** Fehler bekommst:
+
+**Ursache:** TYPO3 ist noch nicht vollständig initialisiert (Datenbank/Setup fehlt)
+
+**Lösungen:**
+1. **Datenbank konfigurieren**: Stelle sicher, dass alle `TYPO3_DB_*` Environment Variables gesetzt sind
+2. **TYPO3 Setup ausführen**: Führe den Post-Deployment Command aus (siehe oben)
+3. **Installation manuell abschließen**:
+   ```bash
+   docker exec <container-name> vendor/bin/typo3 install:fixfolderstructure
+   docker exec <container-name> vendor/bin/typo3 cache:flush
+   ```
+
+Nach erfolgreichem Setup sollte die Website korrekt laden.
 
 ### Langsame Performance
 
