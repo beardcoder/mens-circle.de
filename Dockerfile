@@ -80,6 +80,10 @@ RUN docker-php-ext-configure gd \
         --with-jpeg \
         --with-webp \
     && docker-php-ext-install -j$(nproc) \
+        gd \
+        intl \
+        pdo_mysql \
+        zip \
         sodium \
     && pecl install redis imagick \
     && docker-php-ext-enable redis imagick
@@ -105,7 +109,7 @@ COPY .docker/php/typo3.ini /usr/local/etc/php/conf.d/typo3.ini
 COPY .docker/frankenphp/Caddyfile /etc/caddy/Caddyfile
 
 # FrankenPHP Environment Variables
-ENV FRANKENPHP_CONFIG="worker ./public/index.php 0"
+ENV FRANKENPHP_CONFIG=""
 ENV SERVER_NAME=":80"
 
 WORKDIR /var/www/html
