@@ -1,0 +1,37 @@
+# Caddyfile configuration for FrankenPHP with TYPO3 support
+
+# Define the web server for the TYPO3 application
+
+# Import basic settings
+import ./includes/settings
+
+# Define the main site
+"{host}" {
+    root * /app/web
+
+    # Enable PHP support via FrankenPHP
+    php_fastcgi unix//run/php/php7.4-fpm.sock{
+        # Add any additional PHP configurations here
+    }
+
+    # Set index file
+    index index.php index.html
+
+    # Handle static files
+    try_files {path} /index.php?page={uri}
+
+    # Enable Caching
+    cache { 
+        # Cache settings here
+    }
+
+    # Define error handling
+    handle_errors {
+        # Custom error handling here
+    }
+
+    # Enable HTTPS
+    tls {
+        # TLS settings here
+    }
+}
