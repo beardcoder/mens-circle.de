@@ -123,13 +123,6 @@ COPY --from=composer-builder --chown=www-data:www-data /app/vendor ./vendor
 # Copy frontend build artifacts
 COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./public/_assets
 
-# Create necessary directories and set permissions
-RUN mkdir -p var/log var/cache var/charset var/lock \
-    && chown -R www-data:www-data var/ public/ \
-    && find . -type d -exec chmod 755 {} \; \
-    && find . -type f -exec chmod 644 {} \; \
-    && find vendor/bin -type f -exec chmod +x {} \;
-
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost/typo3/login || exit 1
