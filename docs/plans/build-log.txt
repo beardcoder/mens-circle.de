@@ -42,3 +42,8 @@ Warnings Found (non-critical):
 - Admin endpoint disabled (as configured)
 
 Container cleaned up successfully.
+Full stack test successful: Wed Nov 12 21:42:10 CET 2025
+- All services started healthy
+- Database connection working
+- Redis connection working
+- TYPO3 accessible via HTTP
