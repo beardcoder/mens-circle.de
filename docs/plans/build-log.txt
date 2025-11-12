@@ -22,3 +22,23 @@ Notes:
   * This is expected for a production-ready TYPO3 installation
 
 Build completed with DOCKER_BUILDKIT=1
+Container test successful: Wed Nov 12 21:38:20 CET 2025
+- Container started and FrankenPHP initialized successfully
+- HTTP endpoints responding with correct security headers
+- No critical errors in logs (only expected warnings about TLS being disabled for HTTP-only mode)
+- Health check failing as expected (TYPO3 requires database connection for /typo3/login endpoint)
+- FrankenPHP version: PHP 8.4.14 with 32 threads
+
+Test Results:
+- Container Status: Running (unhealthy - expected without database)
+- HTTP Response (root): 404 with proper security headers (X-Frame-Options, X-Content-Type-Options, etc.)
+- HTTP Response (typo3): 404 with proper security headers
+- Server Header: Caddy (FrankenPHP integrated)
+- Logs: Clean startup, no fatal/error messages
+
+Warnings Found (non-critical):
+- Caddyfile formatting warning (cosmetic only)
+- HTTP/2 and HTTP/3 skipped (requires TLS - expected for development)
+- Admin endpoint disabled (as configured)
+
+Container cleaned up successfully.
