@@ -21,7 +21,7 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       # FrankenPHP configuration
-      FRANKENPHP_CONFIG: "worker ./public/index.php 0"
+      FRANKENPHP_CONFIG: ""
       SERVER_NAME: ":80"
     volumes:
       # Persistent data
