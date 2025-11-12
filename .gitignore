@@ -17,3 +17,4 @@ node_modules
 config/system/additional.php
 .env
 .ddev
+.worktrees/
