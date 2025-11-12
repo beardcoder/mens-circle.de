@@ -2,16 +2,16 @@
     # Global Options
     auto_https off
     admin off
+
+    # Caddy directive ordering for FrankenPHP
+    order php_server before file_server
 }
 
 :80 {
     root * /var/www/html/public
 
-    # PHP Execution
-    php_server
-
     # Compression
-    encode gzip zstd
+    encode zstd gzip
 
     # Security Headers (X-Frame-Options managed by TYPO3)
     header /* {
@@ -27,25 +27,41 @@
     }
     respond @blocked 403
 
+    # Canonical path redirect (add trailing slash for directories)
+    @canonicalPath {
+        file {path}/index.php
+        not path */
+    }
+    redir @canonicalPath {path}/ 308
+
+    # TYPO3 Backend Routing
+    @backend {
+        path /typo3/*
+        not path /typo3/install.php
+        file {
+            try_files {path} {path}/index.php /typo3/index.php
+            split_path .php
+        }
+    }
+    rewrite @backend {http.matchers.file.relative}
+
+    # TYPO3 Frontend Routing
+    @frontend {
+        not path /typo3/*
+        file {
+            try_files {path} {path}/index.php /index.php
+            split_path .php
+        }
+    }
+    rewrite @frontend {http.matchers.file.relative}
+
     # Static Assets (direct serving)
     @static {
         path /fileadmin/* /_assets/* /favicon.ico /robots.txt
         file
     }
-    handle @static {
-        file_server
-    }
+    file_server @static
 
-    # TYPO3 Backend
-    handle /typo3/* {
-        php_server
-    }
-
-    # TYPO3 Frontend (all other requests to index.php)
-    handle {
-        try_files {path} /index.php?{query}
-    }
-
-    # File Server Fallback
-    file_server
+    # PHP Execution
+    php_server
 }
