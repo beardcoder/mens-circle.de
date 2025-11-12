@@ -13,10 +13,9 @@
     # Compression
     encode gzip zstd
 
-    # Security Headers
+    # Security Headers (X-Frame-Options managed by TYPO3)
     header /* {
         X-Content-Type-Options "nosniff"
-        X-Frame-Options "DENY"
         Referrer-Policy "strict-origin-when-cross-origin"
         X-XSS-Protection "1; mode=block"
     }
