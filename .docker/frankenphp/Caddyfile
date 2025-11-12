@@ -1,0 +1,52 @@
+{
+    # Global Options
+    auto_https off
+    admin off
+}
+
+:80 {
+    root * /var/www/html/public
+
+    # PHP Execution
+    php_server
+
+    # Compression
+    encode gzip zstd
+
+    # Security Headers
+    header /* {
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        X-XSS-Protection "1; mode=block"
+    }
+
+    # Block sensitive files
+    @blocked {
+        path /.git/* /.env* /composer.* /package.* /*.md
+        path /config/* /var/*
+    }
+    respond @blocked 403
+
+    # Static Assets (direct serving)
+    @static {
+        path /fileadmin/* /_assets/* /favicon.ico /robots.txt
+        file
+    }
+    handle @static {
+        file_server
+    }
+
+    # TYPO3 Backend
+    handle /typo3/* {
+        php_server
+    }
+
+    # TYPO3 Frontend (all other requests to index.php)
+    handle {
+        try_files {path} /index.php?{query}
+    }
+
+    # File Server Fallback
+    file_server
+}
