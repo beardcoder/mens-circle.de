@@ -70,7 +70,7 @@
         path /fileadmin/* /_assets/* *.ico *.css *.js *.gif *.webp *.avif *.jpg *.jpeg *.png *.svg *.woff *.woff2 *.txt
         file
     }
-    header @static Cache-Control max-age=5184000
+    header @static Cache-Control "public, max-age=31536000, immutable"
 
     file_server @static
 
