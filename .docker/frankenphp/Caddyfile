@@ -67,9 +67,11 @@
 
     # Static Assets (direct serving)
     @static {
-        path /fileadmin/* /_assets/* /favicon.ico /robots.txt
+        path /fileadmin/* /_assets/* *.ico *.css *.js *.gif *.webp *.avif *.jpg *.jpeg *.png *.svg *.woff *.woff2 *.txt
         file
     }
+    header @static Cache-Control max-age=5184000
+
     file_server @static
 
     # PHP Execution
