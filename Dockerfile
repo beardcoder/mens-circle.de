@@ -119,7 +119,7 @@ ENV SERVER_NAME=":80"
 WORKDIR /var/www/html
 
 # Allow ImageMagick 6 to read/write pdf files
-COPY .docker/imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
+COPY .docker/imagemagick-policy.xml /etc/ImageMagick-7/policy.xml
 
 # Copy application files
 COPY --chown=www-data:www-data . .
