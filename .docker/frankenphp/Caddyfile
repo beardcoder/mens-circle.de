@@ -5,7 +5,8 @@
 
     # Disable access logs
     log {
-        output discard
+        format console
+        level ERROR
     }
 
     # Caddy directive ordering for FrankenPHP
