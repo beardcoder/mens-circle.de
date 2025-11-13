@@ -3,6 +3,11 @@
     auto_https off
     admin off
 
+    # Disable access logs
+    log {
+        output discard
+    }
+
     # Caddy directive ordering for FrankenPHP
     order php_server before file_server
 }
