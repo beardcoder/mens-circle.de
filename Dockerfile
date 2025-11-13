@@ -73,6 +73,7 @@ RUN apk add --no-cache \
     graphicsmagick \
     imagemagick \
     imagemagick-dev \
+    ghostscript \
     $PHPIZE_DEPS
 
 # Install PHP extensions not included in FrankenPHP
