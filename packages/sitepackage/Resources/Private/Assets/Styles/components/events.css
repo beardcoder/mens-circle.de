@@ -284,11 +284,6 @@
     display: grid;
 }
 
-/* Adjust featured card styling based on content presence */
-.event-card--featured:has(.event-card__date-section) {
-    grid-template-columns: 1fr 2fr;
-}
-
 /* Highlight cards with primary CTA */
 .event-card:has(.event-card__cta--primary:hover) {
     box-shadow: var(--shadow-colored-lg);
