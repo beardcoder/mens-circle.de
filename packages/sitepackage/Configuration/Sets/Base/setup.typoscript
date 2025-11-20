@@ -113,7 +113,6 @@ page {
   }
 }
 
-
 ################
 #### CONFIG ####
 ################
@@ -145,6 +144,7 @@ config {
   concatenateJs = 0
   concatenateCss = 0
   spamProtectEmailAddresses = 2
+  additionalHeaders.90.header = t3versions: hide-major
 
   pageTitleProviders {
     events {
