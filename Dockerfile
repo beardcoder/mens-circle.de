@@ -63,6 +63,7 @@ FROM dunglas/frankenphp:1-php8.4-alpine
 
 # Install system dependencies
 RUN apk add --no-cache \
+    supervisor \
     libzip-dev \
     libpng-dev \
     libjpeg-turbo-dev \
@@ -130,6 +131,12 @@ COPY --from=composer-builder --chown=www-data:www-data /app/vendor ./vendor
 # Copy frontend build artifacts
 COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./public/_assets
 
+# Supervisor configuration (FrankenPHP + queue worker)
+COPY .docker/supervisor/supervisord.conf /etc/supervisord.conf
+
+# Ensure Supervisor log directory exists
+RUN mkdir -p /var/log/supervisor
+
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost/typo3/login || exit 1
@@ -137,5 +144,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
 # Expose ports
 EXPOSE 80 443
 
-# Start FrankenPHP
-CMD ["frankenphp", "run", "--config", "/etc/caddy/Caddyfile"]
+# Start FrankenPHP + queue worker via Supervisor
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
