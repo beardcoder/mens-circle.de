@@ -45,7 +45,7 @@ return [
         ],
         'extensionmanager' => [
             'automaticInstallation' => '1',
-            'offlineMode' => '0',
+            'offlineMode' => '1',
         ],
         'indexed_search' => [
             'catdoc' => '/usr/bin/',

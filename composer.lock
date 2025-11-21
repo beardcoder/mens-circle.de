@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1747da9e9b48b213d4d4230620d0c934",
+    "content-hash": "761e93fbcef9f2c99009aac47a1f9042",
     "packages": [
         {
             "name": "b13/container",
@@ -172,6 +172,37 @@
                 "source": "https://github.com/Bacon/BaconQrCode/tree/v3.0.1"
             },
             "time": "2024-10-01T13:55:55+00:00"
+        },
+        {
+            "name": "beardcoder/queue",
+            "version": "0.1.0",
+            "dist": {
+                "type": "path",
+                "url": "./packages/queue",
+                "reference": "50c0b395bd260ab9d1004da5ac178b2025bb271d"
+            },
+            "require": {
+                "php": "^8.3 || ^8.4",
+                "typo3/cms-core": "^13.2"
+            },
+            "type": "typo3-cms-extension",
+            "extra": {
+                "typo3/cms": {
+                    "extension-key": "mc_queue"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Beardcoder\\Queue\\": "Classes/"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "Database backed queue for TYPO3 v13 inspired by Laravel queues.",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "christian-riesen/base32",
@@ -12491,6 +12522,7 @@
         "b13/container": 20,
         "b13/make": 20,
         "b13/picture": 20,
+        "beardcoder/queue": 20,
         "mens-circle/sitepackage": 20,
         "roave/security-advisories": 20,
         "ssch/typo3-rector": 20
@@ -12506,5 +12538,5 @@
     "platform-overrides": {
         "php": "8.4"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

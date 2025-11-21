@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace MensCircle\Sitepackage\Backend\Controller;
 
+use Beardcoder\Queue\Queue\QueueDispatcher;
 use MensCircle\Sitepackage\Domain\Model\Newsletter\Newsletter;
 use MensCircle\Sitepackage\Domain\Model\Newsletter\Subscription;
 use MensCircle\Sitepackage\Domain\Repository\Newsletter\NewsletterRepository;
 use MensCircle\Sitepackage\Domain\Repository\Newsletter\SubscriptionRepository;
 use MensCircle\Sitepackage\Enum\SubscriptionStatusEnum;
+use MensCircle\Sitepackage\Job\SendNewsletterMailJob;
 use MensCircle\Sitepackage\Service\UniversalSecureTokenService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,7 +19,6 @@ use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
@@ -37,6 +38,7 @@ class NewsletterController extends ActionController
         private readonly MailerInterface $mailer,
         private readonly SubscriptionRepository $subscriptionRepository,
         private readonly NewsletterRepository $newsletterRepository,
+        private readonly QueueDispatcher $queueDispatcher,
     ) {
     }
 
@@ -98,24 +100,12 @@ class NewsletterController extends ActionController
         $universalSecureTokenService = GeneralUtility::makeInstance(UniversalSecureTokenService::class);
 
         foreach ($emailAddresses as $emailAddress) {
-            $fluidEmail = new FluidEmail();
-            $fluidEmail
-                ->from(new Address('hallo@mens-circle.de', "Men's Circle Website"))
-                ->subject($newsletter->subject)
-                ->format(FluidEmail::FORMAT_BOTH)
-                ->to($emailAddress)
-                ->setTemplate('Newsletter')
-                ->setRequest($this->request)
-                ->assign('subject', $newsletter->subject)
-                ->assign(
-                    'unsubscribeLink',
-                    $this->generateFrontendLinkInBackendContext($universalSecureTokenService->encrypt([
-                        'email' => $emailAddress->getAddress(),
-                    ])),
-                )
-                ->assign('message', $newsletter->message)
-            ;
-            $this->mailer->send($fluidEmail);
+            $this->queueDispatcher->dispatch(
+                job: new SendNewsletterMailJob($emailAddress, $newsletter, $this->generateFrontendLinkInBackendContext($universalSecureTokenService->encrypt([
+                    'email' => $emailAddress->getAddress(),
+                ]))),
+                queue: 'emails',
+            );
         }
 
         $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
@@ -124,7 +114,7 @@ class NewsletterController extends ActionController
         $flashMessage = GeneralUtility::makeInstance(
             FlashMessage::class,
             '',
-            'Email Versendet',
+            'Email gesendet',
             ContextualFeedbackSeverity::OK,
             true,
         );

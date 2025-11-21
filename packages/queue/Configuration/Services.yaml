@@ -1,0 +1,16 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Beardcoder\Queue\:
+    resource: '../Classes/*'
+
+  Beardcoder\Queue\Command\WorkQueueCommand:
+    tags:
+      -
+        name: console.command
+        command: 'queue:work'
+        description: 'Process queued jobs using a database backend'
+        schedulable: true
