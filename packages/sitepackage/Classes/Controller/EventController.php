@@ -49,7 +49,7 @@ class EventController extends ActionController
 
     public function upcomingAction(?Event $event = null): ResponseInterface
     {
-        $upcomingEvent = $event ?? $this->eventRepository->findNextUpcomingEvent();
+        $upcomingEvent = $event ?? $this->eventRepository->findNextUpcomingEvent()->getFirst();
 
         if (!$upcomingEvent instanceof Event) {
             return $this->handleEventNotFoundError();
