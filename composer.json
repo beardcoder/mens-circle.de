@@ -7,7 +7,7 @@
 		"php": "^8.5",
 		"ext-redis": "*",
 		"ext-sodium": "*",
-		"b13/container": "dev-master",
+		"b13/container": "^3.1",
 		"b13/picture": "dev-master",
 		"helhum/dotenv-connector": "^3.2.0",
 		"helhum/typo3-console": "^8.2.3",
@@ -44,7 +44,7 @@
 		"roave/security-advisories": "dev-latest",
 		"ssch/typo3-rector": "dev-main",
 		"symfony/var-dumper": "^7.3.5",
-		"symplify/easy-coding-standard": "^12.6.2",
+		"symplify/easy-coding-standard": "^13.0",
 		"typo3/cms-belog": ">=13.3",
 		"typo3/cms-lowlevel": ">=13.3",
 		"typo3/cms-styleguide": "^13.4.20",
@@ -84,6 +84,12 @@
 		"fix:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php",
 		"run-extension-setup": [
 			"typo3 extension:setup"
+		],
+		"post-install-cmd": [
+			"composer outdated --direct"
+		],
+		"post-update-cmd": [
+			"composer outdated --direct"
 		],
 		"run-upgrade": [
 			"typo3 language:update --skip-extension=sitepackage --skip-extension=vite_asset_collector",

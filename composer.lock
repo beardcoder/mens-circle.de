@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae5201284dd097b824055cb1b8cad8f0",
+    "content-hash": "2002d4e2a24e0761f7e2e671253b890d",
     "packages": [
         {
             "name": "b13/container",
-            "version": "dev-master",
+            "version": "3.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/b13/container.git",
-                "reference": "7c19af69607593e7072e26453617d829fe0ef8f6"
+                "reference": "11b902463ba41b637ba479100451ec2b005313cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/b13/container/zipball/7c19af69607593e7072e26453617d829fe0ef8f6",
-                "reference": "7c19af69607593e7072e26453617d829fe0ef8f6",
+                "url": "https://api.github.com/repos/b13/container/zipball/11b902463ba41b637ba479100451ec2b005313cc",
+                "reference": "11b902463ba41b637ba479100451ec2b005313cc",
                 "shasum": ""
             },
             "require": {
@@ -42,7 +42,6 @@
                 "typo3/coding-standards": "^0.5.5",
                 "typo3/testing-framework": "^7.1.1 || ^8.2.7 || ^9.1"
             },
-            "default-branch": true,
             "type": "typo3-cms-extension",
             "extra": {
                 "typo3/cms": {
@@ -65,9 +64,9 @@
             "homepage": "https://b13.com",
             "support": {
                 "issues": "https://github.com/b13/container/issues",
-                "source": "https://github.com/b13/container/tree/master"
+                "source": "https://github.com/b13/container/tree/3.1.10"
             },
-            "time": "2025-11-18T06:57:21+00:00"
+            "time": "2025-06-02T05:52:04+00:00"
         },
         {
             "name": "b13/picture",
@@ -11923,16 +11922,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "12.6.2",
+            "version": "13.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/easy-coding-standard/easy-coding-standard.git",
-                "reference": "7a6798aa424f0ecafb1542b6f5207c5a99704d3d"
+                "reference": "24708c6673871e342245c692e1bb304f119ffc58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/easy-coding-standard/easy-coding-standard/zipball/7a6798aa424f0ecafb1542b6f5207c5a99704d3d",
-                "reference": "7a6798aa424f0ecafb1542b6f5207c5a99704d3d",
+                "url": "https://api.github.com/repos/easy-coding-standard/easy-coding-standard/zipball/24708c6673871e342245c692e1bb304f119ffc58",
+                "reference": "24708c6673871e342245c692e1bb304f119ffc58",
                 "shasum": ""
             },
             "require": {
@@ -11968,7 +11967,7 @@
             ],
             "support": {
                 "issues": "https://github.com/easy-coding-standard/easy-coding-standard/issues",
-                "source": "https://github.com/easy-coding-standard/easy-coding-standard/tree/12.6.2"
+                "source": "https://github.com/easy-coding-standard/easy-coding-standard/tree/13.0.0"
             },
             "funding": [
                 {
@@ -11980,7 +11979,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-10-29T08:51:50+00:00"
+            "time": "2025-11-06T14:47:06+00:00"
         },
         {
             "name": "typo3/cms-belog",
@@ -12427,7 +12426,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "b13/container": 20,
         "b13/make": 20,
         "b13/picture": 20,
         "mens-circle/sitepackage": 20,
