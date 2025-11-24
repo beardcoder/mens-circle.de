@@ -88,8 +88,8 @@ RUN docker-php-ext-configure gd \
         pdo_mysql \
         zip \
         sodium \
-    && pecl install redis imagick \
-    && docker-php-ext-enable redis imagick
+    && pecl install redis \
+    && docker-php-ext-enable redis
 
 RUN install-php-extensions imagick/imagick@master
 
