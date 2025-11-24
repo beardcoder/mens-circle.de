@@ -9,12 +9,15 @@ use MensCircle\Sitepackage\Domain\Model\Participant;
 use MensCircle\Sitepackage\Domain\Repository\EventRepository;
 use MensCircle\Sitepackage\Domain\Repository\ParticipantRepository;
 use MensCircle\Sitepackage\Enum\ExtensionEnum;
+use MensCircle\Sitepackage\Message\SendMailMessage;
 use MensCircle\Sitepackage\Middleware\EventApiMiddleware;
 use MensCircle\Sitepackage\PageTitle\EventPageTitleProvider;
 use MensCircle\Sitepackage\Service\EmailService;
 use MensCircle\Sitepackage\Service\FrontendUserService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Messenger\Exception\ExceptionInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Site\Entity\Site;
@@ -37,6 +40,7 @@ class EventController extends ActionController
         private readonly FrontendUserService $frontendUserService,
         private readonly PersistenceManager $persistenceManager,
         private readonly LoggerInterface $logger,
+        private readonly MessageBusInterface $messageBus,
     ) {
     }
 
@@ -103,16 +107,16 @@ class EventController extends ActionController
             $this->participantRepository->add($participant);
             $this->persistenceManager->persistAll();
 
-            $this->emailService->sendMail(
-                'hallo@mens-circle.de',
-                'MailToAdminOnRegistration',
-                [
-                    'participant' => $participant,
-                ],
-                'Neue Anmeldung von '.$participant->getName(),
-                $this->request,
+            $this->messageBus->dispatch(
+                new SendMailMessage(
+                    'hallo@mens-circle.de',
+                    'MailToAdminOnRegistration',
+                    [
+                        'participant' => $participant,
+                    ],
+                    'Neue Anmeldung von '.$participant->getName())
             );
-        } catch (\Exception $exception) {
+        } catch (ExceptionInterface $exception) {
             $this->logger->error($exception->getMessage());
         }
 

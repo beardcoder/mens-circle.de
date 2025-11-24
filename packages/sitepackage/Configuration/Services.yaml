@@ -12,3 +12,8 @@ services:
         command: 'sitepackage:sync-newsletter-subscription'
         description: 'Sync all fe users with newsletter subscription'
         schedulable: true
+  messenger.transport.default:
+    factory: [ '@TYPO3\CMS\Core\Messenger\DoctrineTransportFactory', 'createTransport' ]
+    class: 'Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineTransport'
+    arguments:
+      $options: [ ]

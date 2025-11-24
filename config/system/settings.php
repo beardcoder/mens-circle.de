@@ -43,10 +43,6 @@ return [
             'loginLogo' => 'EXT:sitepackage/Resources/Public/Images/logo-small.png',
             'loginLogoAlt' => '',
         ],
-        'extensionmanager' => [
-            'automaticInstallation' => '1',
-            'offlineMode' => '1',
-        ],
         'indexed_search' => [
             'catdoc' => '/usr/bin/',
             'deleteFromIndexAfterEditing' => '1',
@@ -179,6 +175,7 @@ return [
         'transport_smtp_username' => '',
     ],
     'SYS' => [
+        'UTF8filesystem' => true,
         'caching' => [
             'cacheConfigurations' => [
                 'hash' => [
@@ -215,8 +212,15 @@ return [
             'security.backend.htmlSanitizeRte' => true,
             'security.frontend.enforceContentSecurityPolicy' => true,
         ],
+        'generateApacheHtaccess' => false,
+        'messenger' => [
+            'routing' => [
+                '*' => 'doctrine',
+            ],
+        ],
         'phpTimeZone' => 'Europe/Berlin',
         'sitename' => 'Men\'s Circle Niederbayern',
+        'systemLocale' => 'de_DE.utf8',
         'systemMaintainers' => [
             1,
         ],

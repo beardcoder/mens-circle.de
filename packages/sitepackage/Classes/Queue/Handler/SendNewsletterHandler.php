@@ -2,36 +2,33 @@
 
 declare(strict_types=1);
 
-namespace MensCircle\Sitepackage\Job;
+namespace MensCircle\Sitepackage\Queue\Handler;
 
-use Beardcoder\Queue\Queue\JobInterface;
-use MensCircle\Sitepackage\Domain\Model\Newsletter\Newsletter;
+use MensCircle\Sitepackage\Message\SendNewsletterMessage;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-final readonly class SendNewsletterMailJob implements JobInterface
+#[AsMessageHandler]
+final class SendNewsletterHandler
 {
-    public function __construct(private Address $emailAddress, private Newsletter $newsletter, private string $unsubscribeLink)
-    {
-    }
-
-    public function handle(): void
+    public function __invoke(SendNewsletterMessage $message): void
     {
         $fluidEmail = GeneralUtility::makeInstance(FluidEmail::class);
         $fluidEmail
             ->from(new Address('hallo@mens-circle.de', "Men's Circle Website"))
-            ->subject($this->newsletter->subject)
+            ->subject($message->newsletter->subject)
             ->format(FluidEmail::FORMAT_BOTH)
-            ->to($this->emailAddress)
+            ->to($message->emailAddress)
             ->setTemplate('Newsletter')
-            ->assign('subject', $this->newsletter->subject)
+            ->assign('subject', $message->newsletter->subject)
             ->assign(
                 'unsubscribeLink',
-                $this->unsubscribeLink,
+                $message->unsubscribeLink,
             )
-            ->assign('message', $this->newsletter->message)
+            ->assign('message', $message->newsletter->message)
         ;
 
         $mailer = GeneralUtility::makeInstance(Mailer::class);

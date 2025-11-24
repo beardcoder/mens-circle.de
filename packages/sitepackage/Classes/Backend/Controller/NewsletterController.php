@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace MensCircle\Sitepackage\Backend\Controller;
 
-use Beardcoder\Queue\Queue\QueueDispatcher;
 use MensCircle\Sitepackage\Domain\Model\Newsletter\Newsletter;
 use MensCircle\Sitepackage\Domain\Model\Newsletter\Subscription;
 use MensCircle\Sitepackage\Domain\Repository\Newsletter\NewsletterRepository;
 use MensCircle\Sitepackage\Domain\Repository\Newsletter\SubscriptionRepository;
 use MensCircle\Sitepackage\Enum\SubscriptionStatusEnum;
-use MensCircle\Sitepackage\Job\SendNewsletterMailJob;
+use MensCircle\Sitepackage\Message\SendNewsletterMessage;
 use MensCircle\Sitepackage\Service\UniversalSecureTokenService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Messenger\Exception\ExceptionInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
@@ -35,10 +35,9 @@ class NewsletterController extends ActionController
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
         private readonly PageRenderer $pageRenderer,
-        private readonly MailerInterface $mailer,
         private readonly SubscriptionRepository $subscriptionRepository,
         private readonly NewsletterRepository $newsletterRepository,
-        private readonly QueueDispatcher $queueDispatcher,
+        private readonly MessageBusInterface $messageBus,
     ) {
     }
 
@@ -76,6 +75,7 @@ class NewsletterController extends ActionController
     /**
      * @throws TransportExceptionInterface
      * @throws IllegalObjectTypeException
+     * @throws ExceptionInterface
      */
     public function sendAction(Newsletter $newsletter): ResponseInterface
     {
@@ -100,12 +100,11 @@ class NewsletterController extends ActionController
         $universalSecureTokenService = GeneralUtility::makeInstance(UniversalSecureTokenService::class);
 
         foreach ($emailAddresses as $emailAddress) {
-            $this->queueDispatcher->dispatch(
-                job: new SendNewsletterMailJob($emailAddress, $newsletter, $this->generateFrontendLinkInBackendContext($universalSecureTokenService->encrypt([
-                    'email' => $emailAddress->getAddress(),
-                ]))),
-                queue: 'emails',
+            $unsubscribeLink = $this->generateFrontendLinkInBackendContext(
+                $universalSecureTokenService->encrypt(['email' => $emailAddress->getAddress()])
             );
+
+            $this->messageBus->dispatch(new SendNewsletterMessage($emailAddress, $newsletter, $unsubscribeLink));
         }
 
         $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
@@ -136,8 +135,6 @@ class NewsletterController extends ActionController
             ],
         ];
 
-        return (string) $site->getRouter()
-            ->generateUri(13, $parameters)
-        ;
+        return (string) $site->getRouter()->generateUri(13, $parameters);
     }
 }
