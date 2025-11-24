@@ -14,21 +14,21 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 #[AsMessageHandler]
 final class SendNewsletterHandler
 {
-    public function __invoke(SendNewsletterMessage $message): void
+    public function __invoke(SendNewsletterMessage $sendNewsletterMessage): void
     {
         $fluidEmail = GeneralUtility::makeInstance(FluidEmail::class);
         $fluidEmail
             ->from(new Address('hallo@mens-circle.de', "Men's Circle Website"))
-            ->subject($message->newsletter->subject)
+            ->subject($sendNewsletterMessage->newsletter->subject)
             ->format(FluidEmail::FORMAT_BOTH)
-            ->to($message->emailAddress)
+            ->to($sendNewsletterMessage->emailAddress)
             ->setTemplate('Newsletter')
-            ->assign('subject', $message->newsletter->subject)
+            ->assign('subject', $sendNewsletterMessage->newsletter->subject)
             ->assign(
                 'unsubscribeLink',
-                $message->unsubscribeLink,
+                $sendNewsletterMessage->unsubscribeLink,
             )
-            ->assign('message', $message->newsletter->message)
+            ->assign('message', $sendNewsletterMessage->newsletter->message)
         ;
 
         $mailer = GeneralUtility::makeInstance(Mailer::class);

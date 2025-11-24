@@ -1,4 +1,4 @@
-![PHP Version](https://img.shields.io/badge/PHP-8.4-blue.svg)
+![PHP Version](https://img.shields.io/badge/PHP-8.5-blue.svg)
 ![TYPO3 Version](https://img.shields.io/badge/TYPO3-13-orange.svg)
 ![License](https://img.shields.io/badge/License-GPL%202.0-green.svg)
 
@@ -42,7 +42,7 @@ TYPO3 CMS distribution that powers [mens-circle.de](https://mens-circle.de), the
 | Area            | Tools                                                   |
 | --------------- | ------------------------------------------------------- |
 | **CMS**         | TYPO3 13.3+, custom `mens-circle/sitepackage` extension |
-| **Backend**     | PHP 8.4, Composer, TYPO3 Console, Redis, Sodium         |
+| **Backend**     | PHP 8.5, Composer, TYPO3 Console, Redis, Sodium         |
 | **Frontend**    | Vite 7, Bun, TypeScript, Lightning CSS, GSAP, Motion    |
 | **Database**    | MariaDB (via DDEV), Doctrine ORM                        |
 | **Deployment**  | FrankenPHP runtime, Docker, Caddy                       |
@@ -100,7 +100,7 @@ Once running, visit `https://vite.mens-circle.ddev.site` for instant feedback wh
 
 ## Running the project without DDEV
 
-1. Ensure PHP 8.4 with required extensions (pdo_mysql, intl, gd, redis, zip, sodium, apcu).
+1. Ensure PHP 8.5 with required extensions (pdo_mysql, intl, gd, redis, zip, sodium, apcu).
 2. Configure a web server (Apache, Nginx, or Caddy) with document root `public/`.
 3. Copy `.env.example` (if provided) to `.env` and set `TYPO3_CONTEXT` and `JWT_SECRET`.
 4. Execute:
@@ -200,7 +200,7 @@ ddev typo3 cache:flush
 
 ## Deployment
 
-The included `Dockerfile` builds on `dunglas/frankenphp:1-php8.4` and bundles Composer/Bun assets for production use:
+The included `Dockerfile` builds on `dunglas/frankenphp:1-php8.5` and bundles Composer/Bun assets for production use:
 
 ```bash
 docker build -t mens-circle:latest .

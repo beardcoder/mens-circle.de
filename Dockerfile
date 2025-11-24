@@ -11,7 +11,7 @@ COPY packages ./packages
 
 # Install production dependencies only (no dev)
 # Ignore platform requirements as composer:2 image doesn't have all PHP extensions
-# The final PHP 8.4 image will have all required extensions
+# The final PHP 8.5 image will have all required extensions
 RUN composer install \
     --no-dev \
     --no-scripts \
@@ -59,7 +59,7 @@ RUN bun run build
 # ============================================
 # Stage 3: Final Production Image (FrankenPHP)
 # ============================================
-FROM dunglas/frankenphp:1-php8.4-alpine
+FROM dunglas/frankenphp:1-php8.5-alpine
 
 # Install system dependencies
 RUN apk add --no-cache \

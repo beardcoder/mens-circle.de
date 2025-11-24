@@ -14,9 +14,6 @@
 	"keywords": [
 		"TYPO3 CMS"
 	],
-	"license": [
-		"GPL-2.0-or-later"
-	],
 	"name": "mens-circle/sitepackage",
 	"require": {
 		"php": "^8.3 || ^8.4",

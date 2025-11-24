@@ -4,17 +4,15 @@
 	"license": "GPL-2.0-or-later",
 	"type": "project",
 	"require": {
-		"php": "^8.4",
+		"php": "^8.5",
 		"ext-redis": "*",
 		"ext-sodium": "*",
 		"b13/container": "dev-master",
 		"b13/picture": "dev-master",
-		"eluceo/ical": "^2.15",
 		"helhum/dotenv-connector": "^3.2.0",
 		"helhum/typo3-console": "^8.2.3",
 		"lcobucci/clock": "^3.5.0",
 		"lcobucci/jwt": "^5.6",
-		"beardcoder/queue": "@dev",
 		"mens-circle/sitepackage": "@dev",
 		"networkteam/sentry-client": "^5.2.1",
 		"praetorius/vite-asset-collector": "^1.14",
@@ -69,7 +67,7 @@
 			"typo3/cms-composer-installers": true
 		},
 		"platform": {
-			"php": "8.4"
+			"php": "8.5"
 		},
 		"sort-packages": true
 	},

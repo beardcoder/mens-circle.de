@@ -14,15 +14,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 #[AsMessageHandler]
 final class SendMailHandler
 {
-    public function __invoke(SendMailMessage $message): void
+    public function __invoke(SendMailMessage $sendMailMessage): void
     {
         $fluidEmail = new FluidEmail()
             ->from(new Address('hallo@mens-circle.de', "Men's Circle Website"))
-            ->to($message->toEmail)
-            ->subject($message->subject)
+            ->to($sendMailMessage->toEmail)
+            ->subject($sendMailMessage->subject)
             ->format(FluidEmail::FORMAT_BOTH)
-            ->setTemplate($message->template)
-            ->assignMultiple($message->variables)
+            ->setTemplate($sendMailMessage->template)
+            ->assignMultiple($sendMailMessage->variables)
         ;
 
         $mailer = GeneralUtility::makeInstance(Mailer::class);
