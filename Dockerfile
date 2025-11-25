@@ -71,14 +71,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpng-dev \
     libwebp-dev \
     libsodium-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev libxpm-dev \
+    libfreetype6-dev \
     graphicsmagick \
     imagemagick \
     ghostscript \
     $PHPIZE_DEPS
 
+RUN docker-php-ext-configure gd \
+    --with-freetype --with-jpeg --with-webp
+
+RUN apt-get install -y --no-install-recommends locales && locale-gen de_DE.UTF-8
+
 RUN set -eux; \
     install-php-extensions \
     @composer \
+    exif \
+    gd \
     intl \
     pdo_mysql \
     zip \
@@ -100,9 +110,8 @@ ENV SERVER_NAME=":80"
 
 WORKDIR /var/www/html
 
-# Add Cache and var directories with proper permissions
+# Add Cache and var directories
 RUN mkdir -p /var/www/html/var/cache
-RUN chown www-data:www-data /var/www/html/var/cache
 
 # Allow ImageMagick 6 to read/write pdf files
 COPY .docker/imagemagick-policy.xml /etc/ImageMagick-7/policy.xml
