@@ -59,10 +59,13 @@ RUN bun run build
 # ============================================
 # Stage 3: Final Production Image (FrankenPHP)
 # ============================================
-FROM dunglas/frankenphp:1-php8.5-alpine
+FROM dunglas/frankenphp:1-php8.5
 
 # Install system dependencies
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    wget \
+    unzip \
     supervisor \
     libzip-dev \
     libpng-dev \
@@ -94,18 +97,10 @@ RUN docker-php-ext-configure gd \
 RUN install-php-extensions imagick/imagick@master
 
 # Clean up build dependencies
-RUN apk del --no-cache $PHPIZE_DEPS \
-    && rm -rf /tmp/* /var/cache/apk/*
+RUN rm -rf /var/lib/apt/lists/*
 
 # Install Composer from official image
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Install runtime dependencies for Composer
-RUN apk add --no-cache \
-    git \
-    unzip \
-    wget \
-    && rm -rf /var/cache/apk/*
 
 # Configure PHP for production
 COPY .docker/php/typo3.ini /usr/local/etc/php/conf.d/typo3.ini
