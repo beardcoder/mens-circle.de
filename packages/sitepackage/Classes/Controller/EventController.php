@@ -12,7 +12,6 @@ use MensCircle\Sitepackage\Enum\ExtensionEnum;
 use MensCircle\Sitepackage\Message\SendMailMessage;
 use MensCircle\Sitepackage\Middleware\EventApiMiddleware;
 use MensCircle\Sitepackage\PageTitle\EventPageTitleProvider;
-use MensCircle\Sitepackage\Service\EmailService;
 use MensCircle\Sitepackage\Service\FrontendUserService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -23,6 +22,7 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Service\ImageService;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -36,7 +36,6 @@ class EventController extends ActionController
         private readonly ImageService $imageService,
         private readonly PageRenderer $pageRenderer,
         private readonly MetaTagManagerRegistry $metaTagManagerRegistry,
-        private readonly EmailService $emailService,
         private readonly FrontendUserService $frontendUserService,
         private readonly PersistenceManager $persistenceManager,
         private readonly LoggerInterface $logger,
@@ -51,6 +50,10 @@ class EventController extends ActionController
         return $this->htmlResponse();
     }
 
+    /**
+     * @throws \DateMalformedStringException
+     * @throws InvalidQueryException
+     */
     public function upcomingAction(?Event $event = null): ResponseInterface
     {
         $upcomingEvent = $event ?? $this->eventRepository->findNextUpcomingEvent()->getFirst();
@@ -208,6 +211,10 @@ class EventController extends ActionController
         $this->metaTagManagerRegistry->getManagerForProperty($property)->addProperty($property, $value, $additionalData);
     }
 
+    /**
+     * @throws \DateMalformedStringException
+     * @throws InvalidQueryException
+     */
     private function handleEventNotFoundError(): ResponseInterface
     {
         $queryResult = $this->eventRepository->findNextUpcomingEvent();

@@ -193,7 +193,6 @@ ddev typo3 cache:flush
 
 ## APIs & integrations
 
-- **Event feed**: `https://mens-circle.de/events/feed.{json|ics|jcal}`
 - **Per-event iCal**: `https://mens-circle.de/api/event/{uid}/ical`
 - **Newsletter subscription**: POST forms handled by `SubscriptionController`, including double opt-in token flow.
 - **Structured data**: Schema.org Event data is rendered on detail pages to improve search visibility.

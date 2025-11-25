@@ -15,6 +15,7 @@ $config = TYPO3\CodingStandards\CsFixerConfig::create();
 $config->setRules([
     '@PHP84Migration' => true,
     '@PHP82Migration:risky' => true,
+    '@PHP85Migration' => true,
     '@PSR12' => true,
     '@PSR2' => true,
     '@PhpCsFixer' => true,
@@ -27,6 +28,7 @@ $config->setRules([
     'modernize_types_casting' => true,
     'use_arrow_functions' => true,
 ])
+    ->setUnsupportedPhpVersionAllowed(true)
     ->setRiskyAllowed(true)
     ->getFinder()
     ->in(__DIR__ . '/packages');

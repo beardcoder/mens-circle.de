@@ -56,7 +56,7 @@ call_user_func(static function (): void {
 
     ExtensionManagementUtility::addPiFlexFormValue(
         '*',
-        'FILE:EXT:sitepackage/Configuration/FlexForms/flexform_event_list.xml',
+        'FILE:EXT:sitepackage/Configuration/FlexForm/EventList.xml',
         $signature('EventList'),
     );
 
