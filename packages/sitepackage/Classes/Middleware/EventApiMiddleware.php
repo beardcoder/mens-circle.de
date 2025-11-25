@@ -130,8 +130,8 @@ readonly class EventApiMiddleware implements MiddlewareInterface
 
         if ($event->isOffline()) {
             $calendarEvent->address($event->getFullAddress(), $event->location->place);
-            $lat = (float) $event->location->latitude;
-            $lng = (float) $event->location->longitude;
+            $lat = $event->location->latitude;
+            $lng = $event->location->longitude;
             if ($lat !== 0.0 && $lng !== 0.0) {
                 $calendarEvent->coordinates($lat, $lng);
                 // Add Apple structured location for iOS/macOS Maps integration

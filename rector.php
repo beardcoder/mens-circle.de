@@ -20,16 +20,20 @@ return RectorConfig::configure()
     // ->withPhpSets()
     ->withPhpVersion(PhpVersion::PHP_85)
     ->withPhpSets(php85: true)
-    ->withCodeQualityLevel(75)
     ->withAttributesSets(all: true)
-    ->withCodingStyleLevel(100)
     ->withParallel()
+    ->withPreparedSets(deadCode: true, codingStyle: true, symfonyCodeQuality: true, codeQuality: true, earlyReturn: true, naming: true)
     ->withSets([
         SetList::EARLY_RETURN,
         SetList::INSTANCEOF,
         SetList::TYPE_DECLARATION,
         SetList::NAMING,
         SetList::PHP_84,
+        SetList::PHP_85,
+        SetList::CODE_QUALITY,
+        SetList::DEAD_CODE,
+        SetList::TYPE_DECLARATION,
+        Typo3SetList::TYPO3_13,
         Typo3SetList::CODE_QUALITY,
         Typo3SetList::GENERAL,
         Typo3LevelSetList::UP_TO_TYPO3_13,

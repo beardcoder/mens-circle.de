@@ -48,8 +48,8 @@ final class SyncNewsletterSubscriptionCommand extends Command
 
         // Determine users that need a subscription; skip empty/invalid emails and deduplicate by email
         $toSyncByEmail = [];
-        foreach ($feusers as $user) {
-            $email = (string) ($user['email'] ?? '');
+        foreach ($feusers as $feuser) {
+            $email = (string) ($feuser['email'] ?? '');
             $emailLower = strtolower($email);
             if ($emailLower === '') {
                 continue;
@@ -64,7 +64,7 @@ final class SyncNewsletterSubscriptionCommand extends Command
             }
 
             if (!isset($toSyncByEmail[$emailLower])) {
-                $toSyncByEmail[$emailLower] = $user;
+                $toSyncByEmail[$emailLower] = $feuser;
             }
         }
 
@@ -82,28 +82,28 @@ final class SyncNewsletterSubscriptionCommand extends Command
 
         try {
             $connection->beginTransaction();
-            foreach ($toSyncByEmail as $emailLower => $user) {
-                $firstName = (string) ($user['first_name'] ?? '');
-                $lastName = (string) ($user['last_name'] ?? '');
+            foreach ($toSyncByEmail as $toSync) {
+                $firstName = (string) ($toSync['first_name'] ?? '');
+                $lastName = (string) ($toSync['last_name'] ?? '');
                 $now = time();
 
                 $connection->insert(
                     self::TARGET_TABLE,
                     [
-                        'email' => (string) $user['email'],
+                        'email' => (string) $toSync['email'],
                         'first_name' => $firstName,
                         'last_name' => $lastName, // fixed: use last_name, not first_name
                         'status' => SubscriptionStatusEnum::Active->value,
-                        'fe_user' => (int) $user['uid'],
-                        'pid' => (int) ($user['pid'] ?? 0),
+                        'fe_user' => (int) $toSync['uid'],
+                        'pid' => (int) ($toSync['pid'] ?? 0),
                         'crdate' => $now,
                         'tstamp' => $now,
                     ]
                 );
 
                 $synced[] = [
-                    'uid' => (int) $user['uid'],
-                    'email' => (string) $user['email'],
+                    'uid' => (int) $toSync['uid'],
+                    'email' => (string) $toSync['email'],
                     'first_name' => $firstName,
                     'last_name' => $lastName,
                 ];

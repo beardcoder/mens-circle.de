@@ -137,7 +137,7 @@ final class ClassViewHelper extends AbstractViewHelper
         $classes[(string) $value] = true;
     }
 
-    public function getContentArgumentName(): ?string
+    public function getContentArgumentName(): string
     {
         return 'value';
     }
