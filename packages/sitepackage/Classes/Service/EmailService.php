@@ -19,9 +19,6 @@ readonly class EmailService
     ) {
     }
 
-    /**
-     * @param array<string, mixed> $variables
-     */
     public function sendMail(
         string $toEmail,
         string $template,

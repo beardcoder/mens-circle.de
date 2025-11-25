@@ -61,9 +61,6 @@ readonly class TokenService
         }
     }
 
-    /**
-     * @return array<string, mixed>|null
-     */
     public function parseToken(string $token): ?array
     {
         try {

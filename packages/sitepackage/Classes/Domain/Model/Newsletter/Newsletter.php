@@ -33,17 +33,11 @@ class Newsletter extends AbstractEntity
     /**
      * @param ObjectStorage<Subscription> $objectStorage
      */
-    /**
-     * @param ObjectStorage<Subscription> $objectStorage
-     */
     public function setSubscriptions(ObjectStorage $objectStorage): void
     {
         $this->subscriptions = $objectStorage;
     }
 
-    /**
-     * @return ObjectStorage<Subscription>
-     */
     public function getSubscriptions(): ObjectStorage
     {
         return $this->subscriptions;

@@ -127,9 +127,9 @@ final class SyncNewsletterSubscriptionCommand extends Command
         $symfonyStyle->listing(array_map(
             static fn (array $u): string => \sprintf(
                 '%s <%s> (uid: %d)',
-                trim($u['first_name'].' '.$u['last_name']) ?: '(no name)',
-                $u['email'],
-                $u['uid']
+                trim(($u['first_name'] ?? '').' '.($u['last_name'] ?? '')) ?: '(no name)',
+                $u['email'] ?? '',
+                $u['uid'] ?? 0
             ),
             $synced
         ));

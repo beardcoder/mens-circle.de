@@ -6,7 +6,6 @@ namespace MensCircle\Sitepackage\Domain\Repository;
 
 use MensCircle\Sitepackage\Domain\Model\Event;
 use MensCircle\Sitepackage\Domain\Repository\Traits\StoragePageAgnosticTrait;
-use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -39,7 +38,6 @@ class EventRepository extends Repository
     }
 
     /**
-     * @return QueryResultInterface<int, DomainObjectInterface>
      * @throws \DateMalformedStringException
      * @throws InvalidQueryException
      */

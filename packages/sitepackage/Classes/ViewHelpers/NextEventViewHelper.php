@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace MensCircle\Sitepackage\ViewHelpers;
 
-use MensCircle\Sitepackage\Domain\Model\Event;
 use MensCircle\Sitepackage\Domain\Repository\EventRepository;
-use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -22,8 +20,8 @@ class NextEventViewHelper extends AbstractViewHelper
      * @throws InvalidQueryException
      */
     #[\Override]
-    public function render(): DomainObjectInterface
+    public function render(): QueryResultInterface
     {
-        return $this->eventRepository->findNextUpcomingEvent()->getFirst();
+        return $this->eventRepository->findNextUpcomingEvent();
     }
 }

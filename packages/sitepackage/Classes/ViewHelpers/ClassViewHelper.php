@@ -131,7 +131,6 @@ final class ClassViewHelper extends AbstractViewHelper
 
     /**
      * Fallback for other scalar types (int, float, etc.).
-     * @param array<string, true> $classes
      */
     private static function addScalar(mixed $value, array &$classes): void
     {

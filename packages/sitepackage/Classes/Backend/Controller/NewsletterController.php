@@ -122,7 +122,7 @@ class NewsletterController extends ActionController
         return $this->redirect('new');
     }
 
-    protected function generateFrontendLinkInBackendContext(string $token): string
+    protected function generateFrontendLinkInBackendContext($token): string
     {
         // create url
         $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId(13);

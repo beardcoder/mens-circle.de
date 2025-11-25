@@ -11,9 +11,6 @@ enum EventAttendanceModeEnum: int
     case OFFLINE = 0;
     case ONLINE = 1;
 
-    /**
-     * @return array<int, array<string, int|string>>
-     */
     public static function selects(): array
     {
         return array_map(static fn (EventAttendanceModeEnum $eventAttendanceModeEnum): array => [
@@ -25,7 +22,7 @@ enum EventAttendanceModeEnum: int
         ], self::cases());
     }
 
-    public function getDescription(): string
+    public function getDescription(): EventAttendanceModeEnumeration|string
     {
         return match ($this) {
             EventAttendanceModeEnum::OFFLINE => EventAttendanceModeEnumeration::OfflineEventAttendanceMode,

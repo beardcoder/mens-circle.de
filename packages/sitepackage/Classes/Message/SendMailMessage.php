@@ -9,9 +9,6 @@ use Symfony\Component\Messenger\Attribute\AsMessage;
 #[AsMessage]
 class SendMailMessage
 {
-    /**
-     * @param array<string, mixed> $variables
-     */
     public function __construct(
         public string $toEmail,
         public string $template,
