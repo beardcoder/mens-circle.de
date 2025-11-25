@@ -78,6 +78,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN set -eux; \
     install-php-extensions \
+    @composer \
     intl \
     pdo_mysql \
     zip \
@@ -86,9 +87,6 @@ RUN set -eux; \
 
 # Clean up build dependencies
 RUN rm -rf /var/lib/apt/lists/*
-
-# Install Composer from official image
-COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Configure PHP for production
 COPY .docker/php/typo3.ini /usr/local/etc/php/conf.d/typo3.ini
@@ -101,6 +99,10 @@ ENV FRANKENPHP_CONFIG=""
 ENV SERVER_NAME=":80"
 
 WORKDIR /var/www/html
+
+# Add Cache and var directories with proper permissions
+RUN mkdir -p /var/www/html/var/cache
+RUN chown www-data:www-data /var/www/html/var/cache
 
 # Allow ImageMagick 6 to read/write pdf files
 COPY .docker/imagemagick-policy.xml /etc/ImageMagick-7/policy.xml
