@@ -149,7 +149,7 @@ class EventNotificationController extends ActionController
                     ->setTitle($event->getLongTitle())
                     ->setActive(isset($params['event']) && $event->getUid() === (int) $params['event'])
                     ->setHref(
-                        $this->backendUriBuilder->buildUriFromRoute(
+                        (string) $this->backendUriBuilder->buildUriFromRoute(
                             'events_notification.EventNotification_new',
                             [
                                 'event' => $event->getUid(),

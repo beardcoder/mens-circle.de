@@ -8,6 +8,9 @@ use TYPO3\CMS\Backend\Form\FormDataProvider\TcaSlug;
 
 class EventSlugService
 {
+    /**
+     * @param array<string, mixed> $params
+     */
     public function modifySlug(array $params): string
     {
         $raw = (string) ($params['record']['start_date'] ?? '');
@@ -19,6 +22,9 @@ class EventSlugService
         return date('d-m-Y', $timestamp);
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function getPrefix(array $parameters, TcaSlug $tcaSlug): string
     {
         return '';

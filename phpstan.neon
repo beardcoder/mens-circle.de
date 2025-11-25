@@ -1,0 +1,33 @@
+# Baseline file - tracks existing errors to prevent regressions
+# Generate new baseline with: composer phpstan:baseline
+
+parameters:
+    # Set the rule level (0-9, where 9 is the strictest)
+    # Start with level 6 for a balanced approach between strictness and pragmatism
+    level: 5
+
+    # Define paths to analyze
+    paths:
+        - packages/
+
+    # Exclude patterns from analysis
+    excludePaths:
+        - packages/*/Tests/*
+        - packages/*/Resources/*
+        - vendor/*
+        - var/*
+
+    # Parallel processing disabled to avoid memory issues
+    # Can be re-enabled after increasing PHP memory limit
+    # parallel:
+    #     maximumNumberOfProcesses: 4
+    #     processTimeout: 120.0
+
+    # Memory limit (can be overridden via CLI)
+    tmpDir: var/cache/phpstan
+
+    # Define type aliases for common TYPO3 patterns
+    typeAliases:
+        TCAConfig: 'array<string, mixed>'
+        TypoScriptConfig: 'array<string, mixed>'
+

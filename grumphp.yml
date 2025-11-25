@@ -12,5 +12,9 @@ grumphp:
   tasks:
     composer_normalize: ~
     yamllint: ~
+    phpstan:
+      configuration: phpstan.neon
+      memory_limit: "2G"
+      use_grumphp_paths: false
   testsuites: [ ]
   extensions: [ ]

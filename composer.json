@@ -40,6 +40,7 @@
 		"b13/make": "dev-main",
 		"ergebnis/composer-normalize": "^2.48.2",
 		"phpro/grumphp-shim": "^2.17",
+		"phpstan/phpstan": "^2.0",
 		"rector/rector": "^2.2.7",
 		"roave/security-advisories": "dev-latest",
 		"ssch/typo3-rector": "dev-main",
@@ -48,7 +49,8 @@
 		"typo3/cms-belog": ">=13.3",
 		"typo3/cms-lowlevel": ">=13.3",
 		"typo3/cms-styleguide": "^13.4.20",
-		"typo3/coding-standards": "^0.8.0"
+		"typo3/coding-standards": "^0.8.0",
+		"typo3/testing-framework": "^8.3"
 	},
 	"repositories": [
 		{
@@ -82,6 +84,8 @@
 			"@fix:php:cs"
 		],
 		"fix:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php",
+		"phpstan": "phpstan analyse --memory-limit=2G",
+		"phpstan:baseline": "phpstan analyse --memory-limit=2G --generate-baseline",
 		"run-extension-setup": [
 			"typo3 extension:setup"
 		],

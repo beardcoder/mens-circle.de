@@ -68,6 +68,10 @@ class EventController extends ActionController
         );
     }
 
+    /**
+     * @throws \DateMalformedStringException
+     * @throws InvalidQueryException
+     */
     public function detailAction(
         ?Event $event = null,
         ?Participant $participant = null,
@@ -81,7 +85,7 @@ class EventController extends ActionController
 
         $this->prepareSeoForEvent($event);
 
-        $this->pageRenderer->addHeaderData($event->buildSchema($this->uriBuilder));
+        $this->pageRenderer->addHeaderData((string)$event->buildSchema($this->uriBuilder));
 
         $this->view->assign('event', $event);
         $this->view->assign('registrationComplete', $registrationComplete);
@@ -206,6 +210,12 @@ class EventController extends ActionController
         $this->setPageMetaProperty('og:url', $this->getUrlForEvent($event));
     }
 
+    /**
+     * @param string $property
+     * @param string $value
+     * @param array $additionalData
+     * @return void
+     */
     private function setPageMetaProperty(string $property, string $value, array $additionalData = []): void
     {
         $this->metaTagManagerRegistry->getManagerForProperty($property)->addProperty($property, $value, $additionalData);
@@ -223,7 +233,7 @@ class EventController extends ActionController
             $site = $this->request->getAttribute('site');
             \assert($site instanceof Site);
 
-            return $this->redirectToUri($site->getBase(), 301);
+            return $this->redirectToUri((string) $site->getBase());
         }
 
         $this->addFlashMessage(LocalizationUtility::translate('event.not_found', ExtensionEnum::getName()));

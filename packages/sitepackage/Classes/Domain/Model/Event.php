@@ -128,14 +128,14 @@ class Event extends AbstractEntity
             ->image($imageUri)
             ->startDate($this->startDate)
             ->endDate($this->endDate)
-            ->eventAttendanceMode($this->getRealAttendanceMode()->getDescription())
-            ->eventStatus(EventStatusEnum::EventScheduled->value)
+            ->eventAttendanceMode(Schema::eventAttendanceModeEnumeration()->name($this->getRealAttendanceMode()->getDescription()))
+            ->eventStatus(Schema::eventStatusType()->name(EventStatusEnum::EventScheduled->value))
             ->location($place)
             ->offers(
                 Schema::offer()
                     ->validFrom($this->crdate)
                     ->price(0)
-                    ->availability(ItemAvailability::InStock)
+                    ->availability(Schema::itemAvailability()->name(ItemAvailability::InStock))
                     ->url($thisUrl)
                     ->priceCurrency('EUR'),
             )
