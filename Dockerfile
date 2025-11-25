@@ -1,7 +1,7 @@
 # ============================================
 # Stage 1: PHP Dependencies (Composer)
 # ============================================
-FROM composer:2 AS composer-builder
+FROM composer AS composer-builder
 
 WORKDIR /app
 
@@ -69,32 +69,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     supervisor \
     libzip-dev \
     libpng-dev \
-    libjpeg-turbo-dev \
-    freetype-dev \
     libwebp-dev \
-    icu-dev \
     libsodium-dev \
     graphicsmagick \
     imagemagick \
-    imagemagick-dev \
     ghostscript \
     $PHPIZE_DEPS
 
-# Install PHP extensions not included in FrankenPHP
-RUN docker-php-ext-configure gd \
-        --with-freetype \
-        --with-jpeg \
-        --with-webp \
-    && docker-php-ext-install -j$(nproc) \
-        gd \
-        intl \
-        pdo_mysql \
-        zip \
-        sodium \
-    && pecl install redis \
-    && docker-php-ext-enable redis
-
-RUN install-php-extensions imagick/imagick@master
+RUN set -eux; \
+    install-php-extensions \
+    intl \
+    pdo_mysql \
+    zip \
+    redis \
+    ;
 
 # Clean up build dependencies
 RUN rm -rf /var/lib/apt/lists/*
