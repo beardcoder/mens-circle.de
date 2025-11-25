@@ -18,7 +18,7 @@ final class SyncNewsletterSubscriptionCommand extends Command
 
     protected const string TARGET_TABLE = 'tx_sitepackage_domain_model_subscription';
 
-    public function __construct(protected readonly ConnectionPool $connectionPool)
+    public function __construct(private readonly ConnectionPool $connectionPool)
     {
         parent::__construct();
     }

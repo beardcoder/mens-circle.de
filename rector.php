@@ -22,36 +22,35 @@ return RectorConfig::configure()
     ->withPhpSets(php85: true)
     ->withAttributesSets(all: true)
     ->withParallel()
-    ->withPreparedSets(deadCode: true, codingStyle: true, symfonyCodeQuality: true, codeQuality: true, earlyReturn: true, naming: true)
+    ->withPreparedSets(
+        deadCode: true,
+        codeQuality: true,
+        codingStyle: true,
+        typeDeclarations: true,
+        privatization: true,
+        naming: true,
+        instanceOf: true,
+        earlyReturn: true,
+    )
     ->withSets([
-        SetList::EARLY_RETURN,
-        SetList::INSTANCEOF,
-        SetList::TYPE_DECLARATION,
-        SetList::NAMING,
-        SetList::PHP_84,
-        SetList::PHP_85,
-        SetList::CODE_QUALITY,
-        SetList::DEAD_CODE,
-        SetList::TYPE_DECLARATION,
-        Typo3SetList::TYPO3_13,
         Typo3SetList::CODE_QUALITY,
         Typo3SetList::GENERAL,
         Typo3LevelSetList::UP_TO_TYPO3_13,
-        LevelSetList::UP_TO_PHP_85,
     ])
     // To have a better analysis from PHPStan, we teach it here some more things
     ->withPHPStanConfigs([
         Typo3Option::PHPSTAN_FOR_RECTOR_PATH,
     ])
     ->withConfiguredRule(ExtEmConfRector::class, [
-        ExtEmConfRector::PHP_VERSION_CONSTRAINT => '8.1.0-8.5.99',
-        ExtEmConfRector::TYPO3_VERSION_CONSTRAINT => '13.2.0-13.6.99',
+        ExtEmConfRector::PHP_VERSION_CONSTRAINT => '8.5.0-8.5.99',
+        ExtEmConfRector::TYPO3_VERSION_CONSTRAINT => '13.3.0-13.9.99',
         ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => [],
     ])
     // If you use withImportNames(), you should consider excluding some TYPO3 files.
     ->withSkip([
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
+            'ext_emconf.php',
         ],
     ])
 ;
