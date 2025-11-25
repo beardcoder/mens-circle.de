@@ -156,7 +156,7 @@ The `sitepackage` extension follows TYPO3 best practices:
 - **`EventController.php`**: Manages event listings, detail pages, registration, and redirects to upcoming events
 - **`SubscriptionController.php`**: Handles newsletter subscriptions with double opt-in flow
 - **Middleware**: `EventFeedMiddleware` and `EventApiMiddleware` serve cached feeds and calendar downloads with ETag headers
-- **Services**: Reusable components including `EmailService`, `EventCalendarService`, `FrontendUserService`, and `TokenService`
+- **Services**: Reusable components including `EmailService`, `FrontendUserService`, and `TokenService`
 - **Models**: Domain entities for Events, Participants, Newsletters, and Subscriptions
 
 ### Configuration
