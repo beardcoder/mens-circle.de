@@ -88,7 +88,7 @@ RUN set -eux; \
 RUN rm -rf /var/lib/apt/lists/*
 
 # Install Composer from official image
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Configure PHP for production
 COPY .docker/php/typo3.ini /usr/local/etc/php/conf.d/typo3.ini
