@@ -39,17 +39,17 @@ readonly class EventApiMiddleware implements MiddlewareInterface
     ) {
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function process(ServerRequestInterface $serverRequest, RequestHandlerInterface $requestHandler): ResponseInterface
     {
-        $path = $request->getUri()->getPath();
+        $path = $serverRequest->getUri()->getPath();
 
         if (preg_match('#^'.preg_quote(self::BASE_PATH, '#').'(\d+)'.preg_quote(self::PATH_ICAL, '#').'/?$#', $path, $m)) {
             $eventId = (int) $m[1];
 
-            return $this->generateICalForEvent($request, $eventId);
+            return $this->generateICalForEvent($serverRequest, $eventId);
         }
 
-        return $handler->handle($request);
+        return $requestHandler->handle($serverRequest);
     }
 
     private function generateICalForEvent(ServerRequestInterface $serverRequest, int $eventId): ResponseInterface
