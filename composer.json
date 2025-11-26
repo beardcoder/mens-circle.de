@@ -95,7 +95,7 @@
 		"post-update-cmd": [
 			"composer outdated --direct"
 		],
-		"phpstan": "phpstan analyse -c phpstan.neon.dist",
+		"phpstan": "phpstan analyse -c phpstan.neon",
 		"run-upgrade": [
 			"typo3 language:update --skip-extension=sitepackage --skip-extension=vite_asset_collector",
 			"typo3 upgrade:run"

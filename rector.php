@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Rector\PostRector\Rector\NameImportingPostRector;
-use Rector\Set\ValueObject\LevelSetList;
-use Rector\Set\ValueObject\SetList;
 use Rector\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
@@ -14,7 +12,7 @@ use Ssch\TYPO3Rector\Set\Typo3SetList;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__.'/packages',
+        __DIR__ . '/packages',
     ])
     // uncomment to reach your current PHP version
     // ->withPhpSets()
@@ -52,5 +50,4 @@ return RectorConfig::configure()
             'ClassAliasMap.php',
             'ext_emconf.php',
         ],
-    ])
-;
+    ]);
