@@ -13,6 +13,9 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 use function Symfony\Component\Clock\now;
 
+/**
+ * @extends Repository<Event>
+ */
 class EventRepository extends Repository
 {
     use StoragePageAgnosticTrait;
@@ -24,6 +27,8 @@ class EventRepository extends Repository
     protected $objectType = Event::class;
 
     /**
+     * @return QueryResultInterface<int, Event>
+     *
      * @throws \DateMalformedStringException
      * @throws InvalidQueryException
      */
@@ -41,7 +46,7 @@ class EventRepository extends Repository
      * @throws \DateMalformedStringException
      * @throws InvalidQueryException
      */
-    public function findNextUpcomingEvent(): QueryResultInterface
+    public function findNextUpcomingEvent(): ?Event
     {
         $query = $this->createQuery();
 
@@ -49,6 +54,6 @@ class EventRepository extends Repository
             ->matching($query->greaterThanOrEqual('startDate', now()))
             ->setLimit(1)
             ->execute()
-        ;
+            ->getFirst();
     }
 }

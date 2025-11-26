@@ -34,8 +34,6 @@ readonly class DoubleOptInService
             return null;
         }
 
-        \assert($subscription instanceof Subscription);
-
         $subscription->doubleOptInToken = '';
         $subscription->doubleOptInDate = new \DateTime();
         $subscription->status = SubscriptionStatusEnum::Active;

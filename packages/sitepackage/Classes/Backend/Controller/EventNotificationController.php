@@ -134,28 +134,22 @@ class EventNotificationController extends ActionController
 
         // Fetch events
         $events = $this->eventRepository->findAll();
-        if (empty($events)) {
+        if ($events->count() === 0) {
             return; // Exit early if no events exist
         }
 
         // Build menu items for each event
         foreach ($events as $event) {
-            if (!$event instanceof Event) {
-                continue; // Skip invalid items if necessary
-            }
-
             $menu->addMenuItem(
                 $menu->makeMenuItem()
                     ->setTitle($event->getLongTitle())
                     ->setActive(isset($params['event']) && $event->getUid() === (int) $params['event'])
-                    ->setHref(
-                        $this->backendUriBuilder->buildUriFromRoute(
-                            'events_notification.EventNotification_new',
-                            [
-                                'event' => $event->getUid(),
-                            ],
-                        ),
-                    ),
+                    ->setHref((string) $this->backendUriBuilder->buildUriFromRoute(
+                        'events_notification.EventNotification_new',
+                        [
+                            'event' => $event->getUid(),
+                        ],
+                    )),
             );
         }
 

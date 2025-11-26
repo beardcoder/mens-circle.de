@@ -40,8 +40,11 @@
 		"b13/make": "dev-main",
 		"ergebnis/composer-normalize": "^2.48.2",
 		"phpro/grumphp-shim": "^2.17",
+		"phpstan/extension-installer": "^1.4",
+		"phpstan/phpstan": "^2.1",
 		"rector/rector": "^2.2.7",
 		"roave/security-advisories": "dev-latest",
+		"saschaegerer/phpstan-typo3": "^2.1",
 		"ssch/typo3-rector": "dev-main",
 		"symfony/var-dumper": "^7.3.5",
 		"symplify/easy-coding-standard": "^13.0",
@@ -59,13 +62,14 @@
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"config": {
-		"allow-plugins": {
-			"ergebnis/composer-normalize": true,
-			"helhum/dotenv-connector": true,
-			"phpro/grumphp-shim": true,
-			"typo3/class-alias-loader": true,
-			"typo3/cms-composer-installers": true
-		},
+			"allow-plugins": {
+				"phpstan/extension-installer": true,
+				"ergebnis/composer-normalize": true,
+				"helhum/dotenv-connector": true,
+				"phpro/grumphp-shim": true,
+				"typo3/class-alias-loader": true,
+				"typo3/cms-composer-installers": true
+			},
 		"platform": {
 			"php": "8.5"
 		},
@@ -91,6 +95,7 @@
 		"post-update-cmd": [
 			"composer outdated --direct"
 		],
+		"phpstan": "phpstan analyse -c phpstan.neon.dist",
 		"run-upgrade": [
 			"typo3 language:update --skip-extension=sitepackage --skip-extension=vite_asset_collector",
 			"typo3 upgrade:run"

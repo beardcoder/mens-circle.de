@@ -38,6 +38,9 @@ class Newsletter extends AbstractEntity
         $this->subscriptions = $objectStorage;
     }
 
+    /**
+     * @return ObjectStorage<Subscription>
+     */
     public function getSubscriptions(): ObjectStorage
     {
         return $this->subscriptions;

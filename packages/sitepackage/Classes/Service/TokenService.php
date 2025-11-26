@@ -25,6 +25,7 @@ readonly class TokenService
     }
 
     /**
+     * @param array<string, mixed>|null $claims
      * @throws \DateMalformedStringException
      */
     public function generateToken(?array $claims = [], int $validForSeconds = 86400): string
@@ -61,6 +62,9 @@ readonly class TokenService
         }
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public function parseToken(string $token): ?array
     {
         try {

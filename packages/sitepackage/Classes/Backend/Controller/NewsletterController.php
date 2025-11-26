@@ -79,6 +79,7 @@ class NewsletterController extends ActionController
      */
     public function sendAction(Newsletter $newsletter): ResponseInterface
     {
+        /** @var list<Subscription> $subscriptions */
         $subscriptions = $this->subscriptionRepository->findBy([
             'status' => SubscriptionStatusEnum::Active,
         ])->toArray();
@@ -122,7 +123,7 @@ class NewsletterController extends ActionController
         return $this->redirect('new');
     }
 
-    protected function generateFrontendLinkInBackendContext($token): string
+    protected function generateFrontendLinkInBackendContext(string $token): string
     {
         // create url
         $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId(13);

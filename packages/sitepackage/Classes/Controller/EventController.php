@@ -56,7 +56,7 @@ class EventController extends ActionController
      */
     public function upcomingAction(?Event $event = null): ResponseInterface
     {
-        $upcomingEvent = $event ?? $this->eventRepository->findNextUpcomingEvent()->getFirst();
+        $upcomingEvent = $event ?? $this->eventRepository->findNextUpcomingEvent();
 
         if (!$upcomingEvent instanceof Event) {
             return $this->handleEventNotFoundError();
@@ -81,7 +81,7 @@ class EventController extends ActionController
 
         $this->prepareSeoForEvent($event);
 
-        $this->pageRenderer->addHeaderData($event->buildSchema($this->uriBuilder));
+        $this->pageRenderer->addHeaderData($event->buildSchema($this->uriBuilder)->toScript());
 
         $this->view->assign('event', $event);
         $this->view->assign('registrationComplete', $registrationComplete);
@@ -206,6 +206,9 @@ class EventController extends ActionController
         $this->setPageMetaProperty('og:url', $this->getUrlForEvent($event));
     }
 
+    /**
+     * @param array<string, int|string> $additionalData
+     */
     private function setPageMetaProperty(string $property, string $value, array $additionalData = []): void
     {
         $this->metaTagManagerRegistry->getManagerForProperty($property)->addProperty($property, $value, $additionalData);
@@ -217,13 +220,13 @@ class EventController extends ActionController
      */
     private function handleEventNotFoundError(): ResponseInterface
     {
-        $queryResult = $this->eventRepository->findNextUpcomingEvent();
+        $nextEvent = $this->eventRepository->findNextUpcomingEvent();
 
-        if (!$queryResult instanceof Event) {
+        if (!$nextEvent instanceof Event) {
             $site = $this->request->getAttribute('site');
             \assert($site instanceof Site);
 
-            return $this->redirectToUri($site->getBase(), 301);
+            return $this->redirectToUri($site->getBase(), null, 301);
         }
 
         $this->addFlashMessage(LocalizationUtility::translate('event.not_found', ExtensionEnum::getName()));
@@ -231,7 +234,7 @@ class EventController extends ActionController
         $redirectUrl = $this->uriBuilder->reset()
             ->setTargetPageUid(3)
             ->setNoCache(true)
-            ->uriFor('detail', ['event' => $queryResult])
+            ->uriFor('detail', ['event' => $nextEvent])
         ;
 
         return $this->redirectToUri($redirectUrl);

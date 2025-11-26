@@ -14,6 +14,9 @@ readonly class UniversalSecureTokenService
         $this->encryptionKey = hash('sha256', $systemKey, true);
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function encrypt(array $data, string $additionalData = ''): string
     {
         $nonceLength = \SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_NPUBBYTES;
@@ -31,6 +34,9 @@ readonly class UniversalSecureTokenService
         return sodium_bin2base64($encrypted, \SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function decrypt(string $encodedData, string $additionalData = ''): array
     {
         $decoded = sodium_base642bin($encodedData, \SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);

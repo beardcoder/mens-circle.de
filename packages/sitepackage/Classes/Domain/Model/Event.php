@@ -121,6 +121,8 @@ class Event extends AbstractEntity
             ->setTargetPageUid(1)
             ->buildFrontendUri()
         ;
+        $eventStatus = Schema::eventStatusType()->setProperty('@id', EventStatusEnum::EventScheduled->value);
+        $availability = Schema::itemAvailability()->setProperty('@id', ItemAvailability::InStock);
 
         return Schema::event()
             ->name(\sprintf('%s am %s', $this->title, $this->startDate->format('d.m.Y')))
@@ -129,13 +131,13 @@ class Event extends AbstractEntity
             ->startDate($this->startDate)
             ->endDate($this->endDate)
             ->eventAttendanceMode($this->getRealAttendanceMode()->getDescription())
-            ->eventStatus(EventStatusEnum::EventScheduled->value)
+            ->eventStatus($eventStatus)
             ->location($place)
             ->offers(
                 Schema::offer()
                     ->validFrom($this->crdate)
                     ->price(0)
-                    ->availability(ItemAvailability::InStock)
+                    ->availability($availability)
                     ->url($thisUrl)
                     ->priceCurrency('EUR'),
             )
@@ -165,11 +167,17 @@ class Event extends AbstractEntity
         return \sprintf('%s, %s %s, Deutschland', $this->location->address, $this->location->zip, $this->location->city);
     }
 
+    /**
+     * @param ObjectStorage<Participant> $objectStorage
+     */
     public function setParticipants(ObjectStorage $objectStorage): void
     {
         $this->participants = $objectStorage;
     }
 
+    /**
+     * @return ObjectStorage<Participant>
+     */
     public function getParticipants(): ObjectStorage
     {
         return $this->participants;

@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace MensCircle\Sitepackage\Enum;
 
 use Spatie\SchemaOrg\EventAttendanceModeEnumeration;
+use Spatie\SchemaOrg\Schema;
 
 enum EventAttendanceModeEnum: int
 {
     case OFFLINE = 0;
     case ONLINE = 1;
 
+    /**
+     * @return list<array{value: int, label: string}>
+     */
     public static function selects(): array
     {
         return array_map(static fn (EventAttendanceModeEnum $eventAttendanceModeEnum): array => [
@@ -22,11 +26,13 @@ enum EventAttendanceModeEnum: int
         ], self::cases());
     }
 
-    public function getDescription(): EventAttendanceModeEnumeration|string
+    public function getDescription(): EventAttendanceModeEnumeration
     {
-        return match ($this) {
+        $value = match ($this) {
             EventAttendanceModeEnum::OFFLINE => EventAttendanceModeEnumeration::OfflineEventAttendanceMode,
             EventAttendanceModeEnum::ONLINE => EventAttendanceModeEnumeration::OnlineEventAttendanceMode,
         };
+
+        return Schema::eventAttendanceModeEnumeration()->setProperty('@id', $value);
     }
 }

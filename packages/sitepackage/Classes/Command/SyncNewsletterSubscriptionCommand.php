@@ -75,6 +75,7 @@ final class SyncNewsletterSubscriptionCommand extends Command
         }
 
         $connection = $this->connectionPool->getConnectionForTable(self::TARGET_TABLE);
+        /** @var list<array{uid: int, email: string, first_name: string, last_name: string}> $synced */
         $synced = [];
 
         $symfonyStyle->section(\sprintf('Creating %d missing subscription(s)...', \count($toSyncByEmail)));
@@ -127,9 +128,9 @@ final class SyncNewsletterSubscriptionCommand extends Command
         $symfonyStyle->listing(array_map(
             static fn (array $u): string => \sprintf(
                 '%s <%s> (uid: %d)',
-                trim(($u['first_name'] ?? '').' '.($u['last_name'] ?? '')) ?: '(no name)',
-                $u['email'] ?? '',
-                $u['uid'] ?? 0
+                trim($u['first_name'].' '.$u['last_name']) ?: '(no name)',
+                $u['email'],
+                $u['uid']
             ),
             $synced
         ));

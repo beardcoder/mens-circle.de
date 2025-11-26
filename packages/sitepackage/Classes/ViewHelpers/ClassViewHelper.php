@@ -58,6 +58,8 @@ final class ClassViewHelper extends AbstractViewHelper
 
     /**
      * Extract classes from various input types and deduplicate.
+     *
+     * @return array<string, true>
      */
     private function extractClasses(mixed $value): array
     {
@@ -69,6 +71,8 @@ final class ClassViewHelper extends AbstractViewHelper
 
     /**
      * Recursively process values and add to classes array.
+     *
+     * @param array<string, true> $classes
      */
     private static function processValue(mixed $value, array &$classes): void
     {
@@ -86,6 +90,8 @@ final class ClassViewHelper extends AbstractViewHelper
 
     /**
      * Normalize and split a string of classes, adding them to the list.
+     *
+     * @param array<string, true> $classes
      */
     private static function addClassesFromString(string $value, array &$classes): void
     {
@@ -104,6 +110,9 @@ final class ClassViewHelper extends AbstractViewHelper
     /**
      * Iterate over an iterable value, handling associative truthy flags and nested structures.
      * Accepts both arrays and Traversable instances.
+     *
+     * @param iterable<string|int, mixed> $values
+     * @param array<string, true> $classes
      */
     private static function addClassesFromIterable(iterable $values, array &$classes): void
     {
@@ -123,6 +132,8 @@ final class ClassViewHelper extends AbstractViewHelper
 
     /**
      * Handle object values by using __toString when available, otherwise public properties.
+     *
+     * @param array<string, true> $classes
      */
     private static function addClassesFromObject(object $value, array &$classes): void
     {
@@ -131,6 +142,8 @@ final class ClassViewHelper extends AbstractViewHelper
 
     /**
      * Fallback for other scalar types (int, float, etc.).
+     *
+     * @param array<string, true> $classes
      */
     private static function addScalar(mixed $value, array &$classes): void
     {
