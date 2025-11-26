@@ -21,19 +21,17 @@
                 {record.bodytext -> f:format.raw()}
             </div>
             <f:if condition="{nextEvent}">
-                <f:alias map="{event: '{f:first(value: nextEvent)}'}">
-                    <f:link.action
-                        pageUid="3"
-                        class="hero__cta animate-in"
-                        controller="Event"
-                        extensionName="Sitepackage"
-                        pluginName="EventDetail"
-                        action="detail"
-                        arguments="{event: event.uid}"
-                    >
-                        Nächstes Treffen →
-                    </f:link.action>
-                </f:alias>
+                <f:link.action
+                    pageUid="3"
+                    class="hero__cta animate-in"
+                    controller="Event"
+                    extensionName="Sitepackage"
+                    pluginName="EventDetail"
+                    action="detail"
+                    arguments="{event: nextEvent.uid}"
+                >
+                    Nächstes Treffen →
+                </f:link.action>
             </f:if>
         </div>
     </div>

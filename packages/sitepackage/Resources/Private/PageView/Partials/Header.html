@@ -40,19 +40,17 @@
             </f:for>
             <f:if condition="{nextEvent}">
                 <li>
-                    <f:alias map="{event: '{f:first(value: nextEvent)}'}">
-                        <f:link.action
-                            action="detail"
-                            arguments="{event: event.uid}"
-                            class="nav__link nav__link--cta"
-                            controller="Event"
-                            extensionName="Sitepackage"
-                            pageUid="3"
-                            pluginName="EventDetail"
-                        >
-                            Nächstes Treffen →
-                        </f:link.action>
-                    </f:alias>
+                    <f:link.action
+                        action="detail"
+                        arguments="{event: nextEvent.uid}"
+                        class="nav__link nav__link--cta"
+                        controller="Event"
+                        extensionName="Sitepackage"
+                        pageUid="3"
+                        pluginName="EventDetail"
+                    >
+                        Nächstes Treffen →
+                    </f:link.action>
                 </li>
             </f:if>
         </ul>
