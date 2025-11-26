@@ -63,8 +63,8 @@ FROM oven/bun:1-alpine AS frontend-builder
 WORKDIR /app
 
 # Copy composer dependencies required by vite-plugin-typo3
-COPY --from=base /app/vendor ./vendor
-COPY --from=base /app/composer.json ./composer.json
+COPY --from=base /var/www/html/vendor ./vendor
+COPY --from=base /var/www/html/composer.json ./composer.json
 
 # Copy package files and install dependencies
 COPY package.json bun.lock ./
