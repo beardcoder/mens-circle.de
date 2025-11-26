@@ -1,67 +1,9 @@
 # ============================================
 # Stage 1: PHP Dependencies (Composer)
 # ============================================
-FROM composer AS composer-builder
+FROM dunglas/frankenphp:1-php8.5 AS base
 
-WORKDIR /app
-
-# Copy composer files
-COPY composer.json composer.lock ./
-COPY packages ./packages
-
-# Install production dependencies only (no dev)
-# Ignore platform requirements as composer:2 image doesn't have all PHP extensions
-# The final PHP 8.5 image will have all required extensions
-RUN composer install \
-    --no-dev \
-    --no-scripts \
-    --no-interaction \
-    --prefer-dist \
-    --optimize-autoloader \
-    --ignore-platform-reqs
-
-# Copy application code for post-install scripts
-COPY . .
-RUN composer dump-autoload --optimize --classmap-authoritative
-
-# ============================================
-# Stage 2: Frontend Build (Bun/Vite)
-# Requires Composer dependencies from Stage 1
-# ============================================
-FROM oven/bun:1-alpine AS frontend-builder
-
-WORKDIR /app
-
-# Copy composer dependencies (needed by frontend build)
-COPY --from=composer-builder /app/vendor ./vendor
-
-# Copy composer.json (required by vite-plugin-typo3)
-COPY --from=composer-builder /app/composer.json ./composer.json
-
-# Copy package files
-COPY package.json bun.lock ./
-COPY packages ./packages
-
-# Install dependencies and build
-RUN bun install --frozen-lockfile
-
-# Copy necessary files for Vite build
-COPY vite.config.ts ./
-COPY tsconfig.json* ./
-COPY .prettierrc* ./
-COPY .stylelintrc* ./
-COPY config ./config
-COPY public ./public
-
-# Run build
-RUN bun run build
-
-# ============================================
-# Stage 3: Final Production Image (FrankenPHP)
-# ============================================
-FROM dunglas/frankenphp:1-php8.5
-
-# Install system dependencies
+# Install system dependencies and configure in single layer
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     wget \
@@ -73,23 +15,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libwebp-dev \
     libsodium-dev \
     libjpeg62-turbo-dev \
-    libpng-dev libxpm-dev \
+    libxpm-dev \
     libfreetype6-dev \
     graphicsmagick \
     imagemagick \
     ghostscript \
-    $PHPIZE_DEPS 
+    $PHPIZE_DEPS \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen \
+    && sed -i '/de_DE.UTF-8/s/^# //g' /etc/locale.gen \
+    && locale-gen \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
+# Set locale environment
+ENV LC_ALL=de_DE.UTF-8 \
+    LANG=de_DE.UTF-8 \
+    LANGUAGE=de_DE:de
 
-RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
-    sed -i '/de_DE.UTF-8/s/^# //g' /etc/locale.gen && \
-    locale-gen
-
-ENV LC_ALL=de_DE.UTF-8
-ENV LANG=de_DE.UTF-8
-ENV LANGUAGE=de_DE:de
-
+# Install PHP extensions
 RUN set -eux; \
     install-php-extensions \
     @composer \
@@ -98,44 +41,70 @@ RUN set -eux; \
     intl \
     pdo_mysql \
     zip \
-    redis \
-    ;
+    redis
 
-# Clean up build dependencies
-RUN rm -rf /var/lib/apt/lists/*
-
-# Configure PHP for production
-COPY .docker/php/typo3.ini /usr/local/etc/php/conf.d/typo3.ini
-
-# Copy Caddyfile
-COPY .docker/frankenphp/Caddyfile /etc/caddy/Caddyfile
-
-# FrankenPHP Environment Variables
-ENV FRANKENPHP_CONFIG=""
-ENV SERVER_NAME=":80"
-
+COPY . /var/www/html
 WORKDIR /var/www/html
 
-# Add Cache and var directories
-RUN mkdir -p /var/www/html/var/cache
+# Install production dependencies only
+RUN composer install \
+    --no-dev \
+    --no-scripts \
+    --no-interaction \
+    --prefer-dist \
+    --optimize-autoloader \
+    --ignore-platform-reqs
 
-# Allow ImageMagick 6 to read/write pdf files
+# ============================================
+# Stage 2: Frontend Build (Bun/Vite)
+# ============================================
+FROM oven/bun:1-alpine AS frontend-builder
+
+WORKDIR /app
+
+# Copy composer dependencies required by vite-plugin-typo3
+COPY --from=base /app/vendor ./vendor
+COPY --from=base /app/composer.json ./composer.json
+
+# Copy package files and install dependencies
+COPY package.json bun.lock ./
+COPY packages ./packages
+RUN bun install --frozen-lockfile
+
+# Copy build configuration and source files
+COPY vite.config.ts tsconfig.json* ./
+COPY .prettierrc* .stylelintrc* ./
+COPY config ./config
+COPY public ./public
+
+# Build frontend assets
+RUN bun run build
+
+# ============================================
+# Stage 3: Final Production Image (FrankenPHP)
+# ============================================
+FROM base
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Configure FrankenPHP environment
+ENV FRANKENPHP_CONFIG="" \
+    SERVER_NAME=":80"
+
+# Copy configuration files
+COPY .docker/php/typo3.ini /usr/local/etc/php/conf.d/typo3.ini
+COPY .docker/frankenphp/Caddyfile /etc/caddy/Caddyfile
 COPY .docker/imagemagick-policy.xml /etc/ImageMagick-7/policy.xml
-
-# Copy application files
-COPY --chown=www-data:www-data . .
-
-# Copy composer dependencies
-COPY --from=composer-builder --chown=www-data:www-data /app/vendor ./vendor
-
-# Copy frontend build artifacts
-COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./public/_assets
-
-# Supervisor configuration (FrankenPHP + queue worker)
 COPY .docker/supervisor/supervisord.conf /etc/supervisord.conf
 
-# Ensure Supervisor log directory exists
-RUN mkdir -p /var/log/supervisor
+# Create required directories
+RUN mkdir -p /var/www/html/var/cache /var/log/supervisor
+
+# Copy build artifacts from previous stages
+COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./public/_assets
+
+RUN chown -R www-data:www-data /var/www/html
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
