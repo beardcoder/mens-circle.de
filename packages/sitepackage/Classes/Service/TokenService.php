@@ -18,17 +18,23 @@ readonly class TokenService
 
     public function __construct()
     {
+        $jwtSecret = (string) getenv('JWT_SECRET');
+        if ($jwtSecret === '') {
+            throw new \RuntimeException('JWT_SECRET is missing or empty', 1594414078);
+        }
+
         $this->configuration = Configuration::forSymmetricSigner(
             new Sha256(),
-            InMemory::plainText(getenv('JWT_SECRET')),
+            InMemory::plainText($jwtSecret),
         );
     }
 
     /**
-     * @param array<string, mixed>|null $claims
+     * @param array<string, mixed> $claims
+     *
      * @throws \DateMalformedStringException
      */
-    public function generateToken(?array $claims = [], int $validForSeconds = 86400): string
+    public function generateToken(array $claims = [], int $validForSeconds = 86400): string
     {
         $now = new \DateTimeImmutable();
 
@@ -38,6 +44,10 @@ readonly class TokenService
         ;
 
         foreach ($claims as $key => $value) {
+            if ($key === '') {
+                continue;
+            }
+
             $builder->withClaim($key, $value);
         }
 
@@ -46,6 +56,10 @@ readonly class TokenService
 
     public function validateToken(string $token): bool
     {
+        if ($token === '') {
+            return false;
+        }
+
         try {
             $parsedToken = $this->configuration->parser()->parse($token);
 
@@ -68,6 +82,10 @@ readonly class TokenService
     public function parseToken(string $token): ?array
     {
         try {
+            if ($token === '') {
+                return null;
+            }
+
             $parsedToken = $this->configuration->parser()->parse($token);
             if (!$parsedToken instanceof Plain) {
                 return null;

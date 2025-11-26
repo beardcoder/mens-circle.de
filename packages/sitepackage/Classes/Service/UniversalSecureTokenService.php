@@ -22,8 +22,13 @@ readonly class UniversalSecureTokenService
         $nonceLength = \SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_NPUBBYTES;
         $nonce = random_bytes($nonceLength);
 
+        $json = json_encode($data, \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES);
+        if ($json === false) {
+            throw new \RuntimeException('Failed to encode token payload for encryption.', 1233547257);
+        }
+
         $ciphertext = sodium_crypto_aead_xchacha20poly1305_ietf_encrypt(
-            json_encode($data, \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES),
+            $json,
             $additionalData,
             $nonce,
             $this->encryptionKey,

@@ -81,7 +81,7 @@ final class ClassViewHelper extends AbstractViewHelper
         }
 
         match (true) {
-            \is_string($value) || $value instanceof \Stringable => self::addClassesFromString($value, $classes),
+            \is_string($value) || $value instanceof \Stringable => self::addClassesFromString((string) $value, $classes),
             is_iterable($value) => self::addClassesFromIterable($value, $classes),
             \is_object($value) => self::addClassesFromObject($value, $classes),
             default => self::addScalar($value, $classes),
@@ -112,7 +112,7 @@ final class ClassViewHelper extends AbstractViewHelper
      * Accepts both arrays and Traversable instances.
      *
      * @param iterable<string|int, mixed> $values
-     * @param array<string, true> $classes
+     * @param array<string, true>         $classes
      */
     private static function addClassesFromIterable(iterable $values, array &$classes): void
     {

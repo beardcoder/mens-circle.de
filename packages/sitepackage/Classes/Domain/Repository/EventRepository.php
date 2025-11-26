@@ -54,6 +54,7 @@ class EventRepository extends Repository
             ->matching($query->greaterThanOrEqual('startDate', now()))
             ->setLimit(1)
             ->execute()
-            ->getFirst();
+            ->getFirst()
+        ;
     }
 }

@@ -11,6 +11,7 @@ use MensCircle\Sitepackage\Domain\Repository\EventNotificationRepository;
 use MensCircle\Sitepackage\Domain\Repository\EventRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
@@ -24,6 +25,7 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 
 #[AsController]
 class EventNotificationController extends ActionController
@@ -72,9 +74,17 @@ class EventNotificationController extends ActionController
         return $this->htmlResponse($this->moduleTemplate->render('EventNotification/New'));
     }
 
+    /**
+     * @throws IllegalObjectTypeException
+     * @throws TransportExceptionInterface
+     */
     public function sendAction(EventNotification $eventNotification): ResponseInterface
     {
         $event = $eventNotification->event;
+        if (!$event instanceof Event) {
+            throw new \RuntimeException('EventNotification must be associated with an Event.', 1646008234);
+        }
+
         $eventNotification->setPid($event->getPid());
         $this->eventNotificationRepository->add($eventNotification);
         $objectStorage = $event->getParticipants();

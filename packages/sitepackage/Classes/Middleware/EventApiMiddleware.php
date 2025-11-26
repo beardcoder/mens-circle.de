@@ -204,7 +204,7 @@ readonly class EventApiMiddleware implements MiddlewareInterface
             'crdate' => $event->crdate?->format('c') ?? '',
         ];
 
-        return md5(json_encode($parts, \JSON_UNESCAPED_UNICODE));
+        return md5(json_encode($parts, \JSON_UNESCAPED_UNICODE) ?: trim($event->title));
     }
 
     private function sanitizeFilename(string $name): string

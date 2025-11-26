@@ -12,20 +12,48 @@ final class ContentPartialNameViewHelper extends AbstractViewHelper
 
     protected $escapeOutput = false;
 
+    private const string PREFIX = 'sitepackage';
+
+    private const string FALLBACK_PARTIAL = 'Generic';
+
     #[\Override]
     public function initializeArguments(): void
     {
-        $this->registerArgument('value', 'string', 'Name of the content type like sitepackage_text or sitepackage_image', true);
+        $this->registerArgument(
+            name: 'value',
+            type: 'string',
+            description: 'Content type identifier (e.g., sitepackage_text, sitepackage_image)',
+            required: true
+        );
     }
 
     #[\Override]
     public function render(): string
     {
         $value = (string) $this->arguments['value'];
-        if (str_starts_with($value, 'sitepackage')) {
-            return ucfirst(substr(strrchr($value, '_'), 1));
+
+        return $this->extractPartialName($value);
+    }
+
+    /**
+     * Extract and capitalize the partial name from content type identifier.
+     */
+    private function extractPartialName(string $contentType): string
+    {
+        if (!str_starts_with($contentType, self::PREFIX)) {
+            return self::FALLBACK_PARTIAL;
         }
 
-        return 'Generic';
+        $lastPart = strrchr($contentType, '_');
+        if ($lastPart === false) {
+            return self::FALLBACK_PARTIAL;
+        }
+
+        $partialName = substr($lastPart, 1);
+        if ($partialName === '') {
+            return self::FALLBACK_PARTIAL;
+        }
+
+        return ucfirst($partialName);
     }
 }
