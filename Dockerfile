@@ -65,6 +65,7 @@ FROM dunglas/frankenphp:1-php8.5
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     wget \
+    locales \
     unzip \
     supervisor \
     libzip-dev \
@@ -77,12 +78,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     graphicsmagick \
     imagemagick \
     ghostscript \
-    $PHPIZE_DEPS
+    $PHPIZE_DEPS 
 
-RUN docker-php-ext-configure gd \
-    --with-freetype --with-jpeg --with-webp
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 
-RUN apt-get install -y --no-install-recommends locales && locale-gen de_DE.UTF-8
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    sed -i '/de_DE.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen
+
+ENV LC_ALL=de_DE.UTF-8
+ENV LANG=de_DE.UTF-8
+ENV LANGUAGE=de_DE:de
 
 RUN set -eux; \
     install-php-extensions \

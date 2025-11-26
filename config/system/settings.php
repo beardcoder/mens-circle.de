@@ -220,7 +220,7 @@ return [
         ],
         'phpTimeZone' => 'Europe/Berlin',
         'sitename' => 'Men\'s Circle Niederbayern',
-        'systemLocale' => 'de_DE.utf8',
+        'systemLocale' => 'de_DE.UTF-8',
         'systemMaintainers' => [
             1,
         ],
