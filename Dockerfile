@@ -10,18 +10,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     locales \
     unzip \
     supervisor \
-    libzip-dev \
+    zlib1g-dev \
     libpng-dev \
-    libwebp-dev \
-    libsodium-dev \
+    libjpeg62-turbo \
     libjpeg62-turbo-dev \
-    libxpm-dev \
+    libwebp-dev \
     libfreetype6-dev \
-    graphicsmagick \
-    imagemagick \
     ghostscript \
+    imagemagick \
+    graphicsmagick \
     $PHPIZE_DEPS \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-configure gd --with-libdir=/usr/include/ --with-jpeg --with-freetype --with-webp \
     && sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen \
     && sed -i '/de_DE.UTF-8/s/^# //g' /etc/locale.gen \
     && locale-gen \
