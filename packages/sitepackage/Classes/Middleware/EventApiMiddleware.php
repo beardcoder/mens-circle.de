@@ -22,15 +22,22 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Typolink\LinkFactory;
 use TYPO3\CMS\Frontend\Typolink\UnableToLinkException;
 
-readonly class EventApiMiddleware implements MiddlewareInterface
+/**
+ * Middleware for generating iCal calendar files from events.
+ *
+ * Handles /api/event/{eventId}/ical endpoints with proper HTTP caching via ETags.
+ */
+final readonly class EventApiMiddleware implements MiddlewareInterface
 {
-    public const string BASE_PATH = '/api/event/';
-
-    public const string PATH_ICAL = '/ical';
-
+    private const string API_PATTERN = '#^/api/event/(\d+)/ical/?$#';
     private const string ORGANIZER_EMAIL = 'hallo@mens-circle.de';
-
     private const string ORGANIZER_NAME = 'Markus Sommer';
+    private const int CACHE_MAX_AGE = 3600;
+    private const int ALERT_MINUTES_SHORT = 15;
+    private const int ALERT_MINUTES_LONG = 60;
+    private const int IMAGE_SIZE = 600;
+    private const int FILENAME_MAX_LENGTH = 120;
+    private const int LOCATION_RADIUS_METERS = 72;
 
     public function __construct(
         private EventRepository $eventRepository,
@@ -39,47 +46,94 @@ readonly class EventApiMiddleware implements MiddlewareInterface
     ) {
     }
 
-    public function process(ServerRequestInterface $serverRequest, RequestHandlerInterface $requestHandler): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    {
+        $eventId = $this->extractEventId($request);
+
+        if ($eventId === null) {
+            return $handler->handle($request);
+        }
+
+        return $this->generateICalForEvent($request, $eventId);
+    }
+
+    /**
+     * Extract event ID from request path.
+     */
+    private function extractEventId(ServerRequestInterface $serverRequest): ?int
     {
         $path = $serverRequest->getUri()->getPath();
 
-        if (preg_match('#^'.preg_quote(self::BASE_PATH, '#').'(\d+)'.preg_quote(self::PATH_ICAL, '#').'/?$#', $path, $m)) {
-            $eventId = (int) $m[1];
-
-            return $this->generateICalForEvent($serverRequest, $eventId);
+        if (preg_match(self::API_PATTERN, $path, $matches) !== 1) {
+            return null;
         }
 
-        return $requestHandler->handle($serverRequest);
+        return (int) $matches[1];
     }
 
+    /**
+     * Generate iCal response for a specific event.
+     */
     private function generateICalForEvent(ServerRequestInterface $serverRequest, int $eventId): ResponseInterface
     {
         $event = $this->eventRepository->findByUid($eventId);
+
         if (!$event instanceof Event) {
-            return new Response('php://temp', 404, [
-                'Content-Type' => 'text/plain; charset=utf-8',
-                'Cache-Control' => 'no-store',
-            ]);
+            return $this->createErrorResponse(404);
         }
 
-        // Validate required data
         if (!$event->startDate instanceof \DateTimeInterface) {
-            return new Response('php://temp', 422, [
-                'Content-Type' => 'text/plain; charset=utf-8',
-                'Cache-Control' => 'no-store',
-            ]);
+            return $this->createErrorResponse(422);
         }
 
-        // Conditional GET via ETag
+        // Handle conditional GET via ETag
         $etag = $this->buildEventEtag($event);
-        if ($serverRequest->getHeaderLine('If-None-Match') === '"'.$etag.'"') {
-            return new Response('php://temp', 304, [
-                'ETag' => '"'.$etag.'"',
-                'Cache-Control' => 'public, max-age=3600',
-            ]);
+        if ($this->isNotModified($serverRequest, $etag)) {
+            return $this->createNotModifiedResponse($etag);
         }
 
-        // Build the calendar event
+        // Generate calendar
+        $calendarEvent = $this->buildCalendarEvent($serverRequest, $event);
+        $calendar = Calendar::create($event->getLongTitle())->event($calendarEvent);
+
+        return $this->createICalResponse($calendar->get(), $event->getLongTitle(), $etag);
+    }
+
+    /**
+     * Create an error response with appropriate headers.
+     */
+    private function createErrorResponse(int $statusCode): ResponseInterface
+    {
+        return new Response('php://temp', $statusCode, [
+            'Content-Type' => 'text/plain; charset=utf-8',
+            'Cache-Control' => 'no-store',
+        ]);
+    }
+
+    /**
+     * Check if the request should return 304 Not Modified.
+     */
+    private function isNotModified(ServerRequestInterface $serverRequest, string $etag): bool
+    {
+        return $serverRequest->getHeaderLine('If-None-Match') === '"'.$etag.'"';
+    }
+
+    /**
+     * Create 304 Not Modified response.
+     */
+    private function createNotModifiedResponse(string $etag): ResponseInterface
+    {
+        return new Response('php://temp', 304, [
+            'ETag' => '"'.$etag.'"',
+            'Cache-Control' => 'public, max-age='.self::CACHE_MAX_AGE,
+        ]);
+    }
+
+    /**
+     * Build the calendar event with all properties.
+     */
+    private function buildCalendarEvent(ServerRequestInterface $serverRequest, Event $event): CalendarEvent
+    {
         $calendarEvent = CalendarEvent::create()
             ->name($event->title)
             ->description($event->description)
@@ -89,24 +143,49 @@ readonly class EventApiMiddleware implements MiddlewareInterface
             ->status($event->isCancelled() ? IcsEventStatus::Cancelled : IcsEventStatus::Confirmed)
         ;
 
-        // Set URL: prefer online call URL for online events, else detail URL
+        $this->addEventUrl($serverRequest, $event, $calendarEvent);
+        $this->addEventDates($event, $calendarEvent);
+        $this->addEventImage($event, $calendarEvent);
+        $this->addEventLocation($event, $calendarEvent);
+        $this->addEventAlerts($calendarEvent);
+
+        return $calendarEvent;
+    }
+
+    /**
+     * Add URL and conference information to the calendar event.
+     */
+    private function addEventUrl(ServerRequestInterface $serverRequest, Event $event, CalendarEvent $calendarEvent): void
+    {
         $detailUrl = $this->getUrlForEvent($serverRequest, $event);
         $callUrl = trim($event->callUrl ?? '');
+
         if ($event->isOnline() && $callUrl !== '') {
             $calendarEvent->url($callUrl);
-            // Conference hints for Apple/clients
-            if (str_contains($callUrl, 'meet.google.com')) {
-                $calendarEvent->googleConference($callUrl);
-            } elseif (str_contains($callUrl, 'teams.microsoft.com')) {
-                $calendarEvent->microsoftTeams($callUrl);
-            }
-
-            // Also add as attachment for broader client support
+            $this->addConferenceHints($callUrl, $calendarEvent);
             $calendarEvent->attachment($callUrl, 'text/uri-list');
         } else {
             $calendarEvent->url($detailUrl);
         }
+    }
 
+    /**
+     * Add conference hints for known platforms.
+     */
+    private function addConferenceHints(string $url, CalendarEvent $calendarEvent): void
+    {
+        if (str_contains($url, 'meet.google.com')) {
+            $calendarEvent->googleConference($url);
+        } elseif (str_contains($url, 'teams.microsoft.com')) {
+            $calendarEvent->microsoftTeams($url);
+        }
+    }
+
+    /**
+     * Add creation and end dates to the calendar event.
+     */
+    private function addEventDates(Event $event, CalendarEvent $calendarEvent): void
+    {
         if ($event->crdate instanceof \DateTimeInterface) {
             $calendarEvent->createdAt($event->crdate);
         }
@@ -114,51 +193,83 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         if ($event->endDate instanceof \DateTimeInterface) {
             $calendarEvent->endsAt($event->endDate);
         }
+    }
 
-        // Optional image if present
+    /**
+     * Add event image if available.
+     */
+    private function addEventImage(Event $event, CalendarEvent $calendarEvent): void
+    {
         $original = $event->getImage()?->getOriginalResource();
-        if ($original instanceof \TYPO3\CMS\Core\Resource\FileReference) {
-            $processedFile = $this->imageService->applyProcessingInstructions(
-                $original,
-                [
-                    'width' => '600c',
-                    'height' => '600c',
-                ],
-            );
-            $calendarEvent->image($this->imageService->getImageUri($processedFile, true));
+
+        if (!$original instanceof \TYPO3\CMS\Core\Resource\FileReference) {
+            return;
         }
 
-        if ($event->isOffline()) {
-            $calendarEvent->address($event->getFullAddress(), $event->location->place);
-            $lat = $event->location->latitude;
-            $lng = $event->location->longitude;
-            if ($lat !== 0.0 && $lng !== 0.0) {
-                $calendarEvent->coordinates($lat, $lng);
-                // Add Apple structured location for iOS/macOS Maps integration
-                $calendarEvent->appendProperty(
-                    AppleLocationCoordinatesProperty::create(
-                        $lat,
-                        $lng,
-                        $event->getFullAddress(),
-                        $event->location->place,
-                        72, // default radius in meters
-                    ),
-                );
-            }
+        $processedFile = $this->imageService->applyProcessingInstructions(
+            $original,
+            [
+                'width' => self::IMAGE_SIZE.'c',
+                'height' => self::IMAGE_SIZE.'c',
+            ]
+        );
+
+        $calendarEvent->image($this->imageService->getImageUri($processedFile, true));
+    }
+
+    /**
+     * Add location information for offline events.
+     */
+    private function addEventLocation(Event $event, CalendarEvent $calendarEvent): void
+    {
+        if (!$event->isOffline()) {
+            return;
         }
 
-        // Add helpful alerts
-        $calendarEvent->alertMinutesBefore(15, 'Event reminder');
-        $calendarEvent->alertMinutesBefore(60, 'Event starts in 1 hour');
+        $calendarEvent->address($event->getFullAddress(), $event->location->place);
 
-        $calendar = Calendar::create($event->getLongTitle())->event($calendarEvent);
-        $ics = $calendar->get();
+        $lat = $event->location->latitude;
+        $lng = $event->location->longitude;
 
-        // Prepare response
-        $filename = $this->sanitizeFilename($event->getLongTitle()).'.ics';
-        $disposition = 'attachment; filename="'.$filename.'"; filename*='."UTF-8''".rawurlencode($filename);
+        if ($lat === 0.0 || $lng === 0.0) {
+            return;
+        }
+
+        $calendarEvent->coordinates($lat, $lng);
+        $calendarEvent->appendProperty(
+            AppleLocationCoordinatesProperty::create(
+                $lat,
+                $lng,
+                $event->getFullAddress(),
+                $event->location->place,
+                self::LOCATION_RADIUS_METERS
+            )
+        );
+    }
+
+    /**
+     * Add reminder alerts to the calendar event.
+     */
+    private function addEventAlerts(CalendarEvent $calendarEvent): void
+    {
+        $calendarEvent->alertMinutesBefore(self::ALERT_MINUTES_SHORT, 'Event reminder');
+        $calendarEvent->alertMinutesBefore(self::ALERT_MINUTES_LONG, 'Event starts in 1 hour');
+    }
+
+    /**
+     * Create the iCal response with proper headers.
+     */
+    private function createICalResponse(string $ics, string $eventTitle, string $etag): ResponseInterface
+    {
+        $filename = $this->sanitizeFilename($eventTitle).'.ics';
+        $disposition = \sprintf(
+            'attachment; filename="%s"; filename*=UTF-8\'\'%s',
+            $filename,
+            rawurlencode($filename)
+        );
+
         $headers = [
-            'Cache-Control' => 'public, max-age=3600',
+            'Cache-Control' => 'public, max-age='.self::CACHE_MAX_AGE,
             'Content-Type' => 'text/calendar; charset=utf-8',
             'Content-Disposition' => $disposition,
             'ETag' => '"'.$etag.'"',
@@ -173,6 +284,9 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         return new Response($stream, 200, $headers);
     }
 
+    /**
+     * Get the absolute URL for an event detail page.
+     */
     private function getUrlForEvent(ServerRequestInterface $serverRequest, Event $event): string
     {
         $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
@@ -180,7 +294,10 @@ readonly class EventApiMiddleware implements MiddlewareInterface
 
         $linkConfiguration = [
             'parameter' => 3,
-            'additionalParams' => '&tx_sitepackage_eventdetail[action]=detail&tx_sitepackage_eventdetail[controller]=Event&tx_sitepackage_eventdetail[event]='.$event->getUid(),
+            'additionalParams' => \sprintf(
+                '&tx_sitepackage_eventdetail[action]=detail&tx_sitepackage_eventdetail[controller]=Event&tx_sitepackage_eventdetail[event]=%d',
+                $event->getUid()
+            ),
         ];
 
         try {
@@ -192,6 +309,9 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         }
     }
 
+    /**
+     * Build ETag for cache validation.
+     */
     private function buildEventEtag(Event $event): string
     {
         $parts = [
@@ -207,6 +327,9 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         return md5(json_encode($parts, \JSON_UNESCAPED_UNICODE) ?: trim($event->title));
     }
 
+    /**
+     * Sanitize a string to be safely used as a filename.
+     */
     private function sanitizeFilename(string $name): string
     {
         $name = trim($name);
@@ -215,19 +338,24 @@ readonly class EventApiMiddleware implements MiddlewareInterface
         $name = trim($name, ' -.');
 
         if ($name === '') {
-            $name = 'event';
+            return 'event';
         }
 
-        // Optionally cap length to avoid extreme headers; keep multibyte safety when available
-        if (\function_exists('mb_strlen') && mb_strlen($name) > 120) {
-            $name = rtrim(mb_substr($name, 0, 120), ' -.');
-        } elseif (\strlen($name) > 180) { // byte-based fallback
-            $name = rtrim(substr($name, 0, 180), ' -.');
+        // Cap length to avoid extreme headers
+        if (\function_exists('mb_strlen') && mb_strlen($name) > self::FILENAME_MAX_LENGTH) {
+            return rtrim(mb_substr($name, 0, self::FILENAME_MAX_LENGTH), ' -.');
+        }
+
+        if (\strlen($name) > self::FILENAME_MAX_LENGTH * 1.5) {
+            return rtrim(substr($name, 0, (int) (self::FILENAME_MAX_LENGTH * 1.5)), ' -.');
         }
 
         return $name;
     }
 
+    /**
+     * Build unique identifier for the calendar event.
+     */
     private function buildEventUid(Event $event): string
     {
         $start = $event->startDate instanceof \DateTimeInterface ? $event->startDate->format('c') : '';
