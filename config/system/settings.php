@@ -1,7 +1,7 @@
 <?php
 return [
     'BE' => [
-        'compressionLevel' => 9,
+        'compressionLevel' => 0,
         'debug' => false,
         'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$SG1DcUpaRmlUNWhQSk9hbw$80/3AsTzsp0+iK/uuXY739fJWzCvCetYZKw375Jd00Y',
         'passwordHashing' => [
@@ -14,7 +14,7 @@ return [
             'Default' => [
                 'charset' => 'utf8mb4',
                 'dbname' => 'db',
-                'driver' => 'pdo_mysql',
+                'driver' => 'mysqli',
                 'host' => 'db',
                 'password' => 'db',
                 'port' => 3306,
@@ -131,7 +131,7 @@ return [
         ],
     ],
     'FE' => [
-        'compressionLevel' => 9,
+        'compressionLevel' => 0,
         'debug' => false,
         'passwordHashing' => [
             'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
