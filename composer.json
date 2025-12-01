@@ -20,6 +20,7 @@
 		"spatie/schema-org": "^3.23.1",
 		"typo3/cms-adminpanel": ">=13.3",
 		"typo3/cms-beuser": ">=13.3",
+		"typo3/cms-dashboard": "^13.4",
 		"typo3/cms-form": ">=13.3",
 		"typo3/cms-impexp": ">=13.3",
 		"typo3/cms-install": ">=13.3",
@@ -46,7 +47,7 @@
 		"roave/security-advisories": "dev-latest",
 		"saschaegerer/phpstan-typo3": "^2.1",
 		"ssch/typo3-rector": "dev-main",
-		"symfony/var-dumper": "^7.3.5",
+		"symfony/var-dumper": "^8.0",
 		"symplify/easy-coding-standard": "^13.0",
 		"typo3/cms-belog": ">=13.3",
 		"typo3/cms-lowlevel": ">=13.3",
@@ -59,6 +60,9 @@
 			"url": "./packages/*/"
 		}
 	],
+	"conflict": {
+		"symfony/dependency-injection": "7.4.0"
+	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"config": {
