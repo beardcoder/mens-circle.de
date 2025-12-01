@@ -1,4 +1,6 @@
 {
+    {$CADDY_GLOBAL_OPTIONS}
+
     # Global Options
     auto_https off
     admin off
@@ -13,9 +15,18 @@
         level ERROR
     }
 
+    frankenphp {
+           #worker /path/to/your/worker.php
+           {$FRANKENPHP_CONFIG}
+    }
+
+
     # Caddy directive ordering for FrankenPHP
     order php_server before file_server
+    order php before file_server
 }
+
+{$CADDY_EXTRA_CONFIG}
 
 :80 {
     root * /var/www/html/public
@@ -44,26 +55,30 @@
     }
     redir @canonicalPath {path}/ 308
 
-    # TYPO3 Backend Routing
-    @backend {
-        path /typo3/*
-        not path /typo3/install.php
-        file {
-            try_files {path} {path}/index.php /typo3/index.php
-            split_path .php
-        }
-    }
-    rewrite @backend {http.matchers.file.relative}
+
 
     # TYPO3 Frontend Routing
     @frontend {
-        not path /typo3/*
+        path /*
+        not path /.well-known/* /_assets/* /favicon.ico
+
         file {
-            try_files {path} {path}/index.php /index.php
+            try_files {path} /index.php
             split_path .php
         }
     }
     rewrite @frontend {http.matchers.file.relative}
+
+    # TYPO3 Backend Routing
+    @backend {
+           path /typo3/*
+           not path /typo3/install.php
+           file {
+                try_files {path} {path}/index.php /typo3/index.php
+                                       split_path .php
+                }
+    }
+    rewrite @backend {http.matchers.file.relative}
 
     # Static Assets (direct serving)
     @static {
@@ -73,6 +88,8 @@
     header @static Cache-Control "public, max-age=31536000, immutable"
 
     file_server @static
+
+   {$CADDY_SERVER_EXTRA_DIRECTIVES}
 
     # PHP Execution
     php_server
