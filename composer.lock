@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec1ca366ec45e80832aa22ad4cdc3697",
+    "content-hash": "ed36da846be0a369ae94a93aea07f156",
     "packages": [
         {
             "name": "b13/container",
@@ -6821,69 +6821,6 @@
             "support": {
                 "chat": "https://typo3.org/help",
                 "docs": "https://docs.typo3.org",
-                "issues": "https://forge.typo3.org",
-                "source": "https://github.com/typo3/typo3"
-            },
-            "time": "2025-11-11T10:57:22+00:00"
-        },
-        {
-            "name": "typo3/cms-dashboard",
-            "version": "v13.4.20",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/TYPO3-CMS/dashboard.git",
-                "reference": "186a4c8066be56b2da0ad57cae6b79ce988f26d9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3-CMS/dashboard/zipball/186a4c8066be56b2da0ad57cae6b79ce988f26d9",
-                "reference": "186a4c8066be56b2da0ad57cae6b79ce988f26d9",
-                "shasum": ""
-            },
-            "require": {
-                "typo3/cms-backend": "13.4.20",
-                "typo3/cms-core": "13.4.20",
-                "typo3/cms-extbase": "13.4.20",
-                "typo3/cms-fluid": "13.4.20",
-                "typo3/cms-frontend": "13.4.20"
-            },
-            "conflict": {
-                "typo3/cms": "*"
-            },
-            "type": "typo3-cms-framework",
-            "extra": {
-                "typo3/cms": {
-                    "Package": {
-                        "serviceProvider": "TYPO3\\CMS\\Dashboard\\ServiceProvider",
-                        "partOfFactoryDefault": true
-                    },
-                    "extension-key": "dashboard"
-                },
-                "branch-alias": {
-                    "dev-main": "13.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "TYPO3\\CMS\\Dashboard\\": "Classes/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "TYPO3 Core Team",
-                    "email": "typo3cms@typo3.org",
-                    "role": "Developer"
-                }
-            ],
-            "description": "TYPO3 CMS Dashboard - TYPO3 backend module used to configure and create backend widgets.",
-            "homepage": "https://typo3.org",
-            "support": {
-                "chat": "https://typo3.org/help",
-                "docs": "https://docs.typo3.org/c/typo3/cms-dashboard/main/en-us/",
                 "issues": "https://forge.typo3.org",
                 "source": "https://github.com/typo3/typo3"
             },
