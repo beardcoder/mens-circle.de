@@ -36,6 +36,27 @@
             <trans-unit id="content.feature.description">
                 <source>Headline and text</source>
             </trans-unit>
+			<trans-unit id="content.features">
+				<source>Features</source>
+			</trans-unit>
+			<trans-unit id="content.features.description">
+				<source>Grid Element with feature cards</source>
+			</trans-unit>
+			<trans-unit id="content.features.items">
+				<source>Feature Items</source>
+			</trans-unit>
+			<trans-unit id="feature_item">
+				<source>Feature Item</source>
+			</trans-unit>
+			<trans-unit id="feature_item.tt_content">
+				<source>Features Content Element</source>
+			</trans-unit>
+			<trans-unit id="feature_item.layout.small">
+				<source>Small</source>
+			</trans-unit>
+			<trans-unit id="feature_item.layout.large">
+				<source>Large</source>
+			</trans-unit>
             <trans-unit id="content.header">
                 <source>Header</source>
             </trans-unit>

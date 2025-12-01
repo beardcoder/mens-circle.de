@@ -1,7 +1,6 @@
 <html
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:i="http://typo3.org/ns/B13/Picture/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
 
@@ -9,9 +8,8 @@
     <div class="event-card__date-section">
         <div class="event-card__date">
             <f:comment>
-                <i:image
+                <f:image
                     alt="{event.image.alternative}"
-                    onlyWebp="{true}"
                     class="c-event-item__image"
                     height="300c"
                     image="{event.image}"

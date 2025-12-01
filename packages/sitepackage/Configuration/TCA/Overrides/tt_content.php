@@ -67,43 +67,4 @@ call_user_func(static function (): void {
         $signature('EventList'),
         'after:subheader',
     );
-
-    GeneralUtility::makeInstance(Registry::class)->configureContainer(
-        new ContainerConfiguration(
-            'features', // CType
-            'Features Container', // label
-            '', // description
-            [
-                [
-                    [
-                        'name' => 'Header',
-                        'colPos' => 210,
-                        'colspan' => 3,
-                    ],
-                ],
-                [
-                    [
-                        'name' => 'Features',
-                        'colPos' => 200,
-                    ],
-                ],
-            ], // grid configuration
-        )->setIcon('container-1col'),
-    );
-
-    GeneralUtility::makeInstance(Registry::class)->configureContainer(
-        new ContainerConfiguration(
-            'container', // CType
-            'Container', // label
-            '', // description
-            [
-                [
-                    [
-                        'name' => 'Elemente',
-                        'colPos' => 200,
-                    ],
-                ],
-            ], // grid configuration
-        )->setIcon('container-1col'),
-    );
 });

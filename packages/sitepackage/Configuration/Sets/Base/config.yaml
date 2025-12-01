@@ -2,5 +2,4 @@ name: mens-circle/base
 dependencies:
     - mens-circle/helpers
     - typo3/seo-sitemap
-    - b13/picture
     - typo3/form

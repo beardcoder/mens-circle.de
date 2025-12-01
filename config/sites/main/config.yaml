@@ -8,7 +8,6 @@ baseVariants:
     condition: 'applicationContext == "Production/Local"'
 dependencies:
   - typo3/redirects
-  - b13/picture
   - mens-circle/base
   - mens-circle/container
   - mens-circle/events

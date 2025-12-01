@@ -1,7 +1,6 @@
 <?php
 return [
     'BE' => [
-        'compressionLevel' => 0,
         'debug' => false,
         'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$SG1DcUpaRmlUNWhQSk9hbw$80/3AsTzsp0+iK/uuXY739fJWzCvCetYZKw375Jd00Y',
         'passwordHashing' => [
@@ -27,11 +26,7 @@ return [
         ],
     ],
     'EXTCONF' => [
-        'lang' => [
-            'availableLanguages' => [
-                'de',
-            ],
-        ],
+        'lang' => [],
     ],
     'EXTENSIONS' => [
         'backend' => [
@@ -67,16 +62,6 @@ return [
         ],
         'scheduler' => [
             'maxLifetime' => '1440',
-        ],
-        'sentry_client' => [
-            'disableDatabaseLogging' => '0',
-            'dsn' => '',
-            'ignoreMessageRegex' => '',
-            'logWriterComponentIgnorelist' => '',
-            'release' => '',
-            'reportDatabaseConnectionErrors' => '0',
-            'reportUserInformation' => 'userid',
-            'showEventId' => '1',
         ],
         'styleguide' => [
             'boolean_1' => '0',
@@ -131,7 +116,6 @@ return [
         ],
     ],
     'FE' => [
-        'compressionLevel' => 0,
         'debug' => false,
         'passwordHashing' => [
             'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
@@ -144,6 +128,11 @@ return [
         'processor_effects' => false,
         'processor_enabled' => true,
         'processor_path' => '/usr/bin/',
+    ],
+    'LANG' => [
+        'availableLocales' => [
+            'de',
+        ],
     ],
     'LOG' => [
         'TYPO3' => [

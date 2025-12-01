@@ -25,11 +25,14 @@ call_user_func(static function (): void {
         bodytext;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:bodytext_formlabel,
         assets,
         pi_flexform',
-    );
-
-    ExtensionManagementUtility::addPiFlexFormValue(
-        '',
-        'FILE:EXT:sitepackage/Configuration/FlexForm/Journey.xml',
-        $key,
+        [
+            'columnsOverrides' => [
+                'pi_flexform' => [
+                    'config' => [
+                        'ds' => 'FILE:EXT:sitepackage/Configuration/FlexForm/Journey.xml',
+                    ],
+                ],
+            ],
+        ]
     );
 });

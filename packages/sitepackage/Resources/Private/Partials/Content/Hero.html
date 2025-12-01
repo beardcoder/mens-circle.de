@@ -1,7 +1,6 @@
 <html
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:i="http://typo3.org/ns/B13/Picture/ViewHelpers"
     xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
@@ -37,9 +36,8 @@
     </div>
     <div class="hero__image animate-in">
         <div class="hero__image-wrapper" data-parallax="0.2">
-            <i:image
+            <f:image
                 alt="{record.assets.0.alternative}"
-                onlyWebp="{true}"
                 class="hero__img"
                 image="{record.assets.0}"
                 maxHeight="1600"

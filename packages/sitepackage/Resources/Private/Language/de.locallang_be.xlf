@@ -42,6 +42,14 @@
                 <source>Headline and text</source>
                 <target>Überschrift und Text</target>
             </trans-unit>
+			<trans-unit id="content.features">
+				<source>Features</source>
+				<target>Vorteile</target>
+			</trans-unit>
+			<trans-unit id="content.features.description">
+				<source>Grid element with cards</source>
+				<target>Gitterelement mit Karten</target>
+			</trans-unit>
             <trans-unit id="content.header">
                 <source>Header</source>
                 <target>Überschrift</target>

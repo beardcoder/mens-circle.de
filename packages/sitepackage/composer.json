@@ -16,8 +16,8 @@
 	],
 	"name": "mens-circle/sitepackage",
 	"require": {
-		"php": "^8.3 || ^8.4",
-		"typo3/cms-core": "^13.2"
+		"php": "^8.3 || ^8.4 || ^8.5",
+		"typo3/cms-core": "^14"
 	},
 	"type": "typo3-cms-extension"
 }

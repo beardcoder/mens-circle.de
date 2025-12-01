@@ -1,0 +1,48 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
+    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
+>
+
+<vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Features.entry.css" />
+
+<section class="features" id="c{data.uid}">
+    <f:if condition="{record.header}">
+        <header class="features__intro">
+            <h2 class="section__title reveal-text">{record.header}</h2>
+        </header>
+    </f:if>
+
+    <f:if condition="{record.tx_sitepackage_feature_items}">
+        <div class="features__grid">
+            <f:for as="record" each="{record.tx_sitepackage_feature_items}" iteration="iteration">
+
+                <f:variable name="isText" value="{f:if(condition: record.assets.0)}" />
+                <f:variable name="isLarge" value="{f:if(condition: '{record.layout} == \'200\'')}" />
+
+                <article class="feature-card reveal-card {f:if(condition: isText, else: 'feature-card--text')} {f:if(condition: isLarge, then: 'feature-card--large')}" id="c{record.uid}">
+                    <f:if condition="{isText}">
+                        <div class="feature-card__image">
+                            <f:image
+                                alt="{record.assets.0.alternative}"
+                                image="{record.assets.0}"
+                                width="{f:if(condition: isLarge, then: '800', else: '600')}"
+                                height="600c"
+                            />
+                        </div>
+                    </f:if>
+                    <div class="feature-card__content">
+                        <f:if condition="{record.subheader}">
+                            <span class="feature-card__label">{record.subheader}</span>
+                        </f:if>
+                        <h3 class="feature-card__title">{record.header}</h3>
+                        {record.bodytext -> f:format.html()}
+                    </div>
+                </article>
+            </f:for>
+        </div>
+    </f:if>
+</section>
+
+</html>
