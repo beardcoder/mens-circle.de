@@ -1,5 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-    <style>.c1{fill:#dce2e2}.c2{fill:#96a9b2}.c3{fill:#b9c5c6}@media (prefers-color-scheme:dark){.c1{fill:#3a4042}.c2{fill:#5a6d76}.c3{fill:#697a82}}</style>
+    <style>.c1{fill:#dce2e2}.c2{fill:#96a9b2}.c3{fill:#b9c5c6}@media
+        (prefers-color-scheme:dark){.c1{fill:#3a4042}.c2{fill:#5a6d76}.c3{fill:#697a82}}
+    </style>
     <g opacity="0.5">
         <path class="c1"
               d="M429.284 507.594H73.897c-11.929 0-21.6-9.671-21.6-21.6V25.317c0-11.929 9.671-21.6 21.6-21.6h263.026l113.961 112.739v369.538c0 11.929-9.67 21.6-21.6 21.6"/>
