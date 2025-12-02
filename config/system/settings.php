@@ -17,10 +17,6 @@ return [
                 'host' => 'db',
                 'password' => 'db',
                 'port' => 3306,
-                'tableoptions' => [
-                    'charset' => 'utf8mb4',
-                    'collate' => 'utf8mb4_unicode_ci',
-                ],
                 'user' => 'db',
             ],
         ],
