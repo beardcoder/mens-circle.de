@@ -2,6 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g>
+        <style>.c1{fill:#cfd8dc}.c2{fill:#f44336}.c3{fill:#b71c1c}.c4{fill:#b0bec5}.c5{fill:#90a4ae}@media (prefers-color-scheme:dark){.c1{fill:#3a4244}.c2{fill:#ff6b5f}.c3{fill:#e54c4c}.c4{fill:#6a7e85}.c5{fill:#5a6e75}}</style>
         <path d="M5,38L5,14L43,14L43,38C43,40.2 41.2,42 39,42L9,42C6.8,42 5,40.2 5,38" style="fill:rgb(207,216,220);fill-rule:nonzero;"/>
         <path d="M43,10L43,16L5,16L5,10C5,7.8 6.8,6 9,6L39,6C41.2,6 43,7.8 43,10" style="fill:rgb(244,67,54);fill-rule:nonzero;"/>
         <g>
