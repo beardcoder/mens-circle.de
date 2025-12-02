@@ -53,9 +53,6 @@
 			"url": "./packages/*/"
 		}
 	],
-	"conflict": {
-		"symfony/dependency-injection": "7.4.0"
-	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"config": {
