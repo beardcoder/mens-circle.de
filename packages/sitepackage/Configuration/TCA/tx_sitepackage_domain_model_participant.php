@@ -14,7 +14,6 @@ return [
         'typeicon_classes' => [
             'default' => 'tx-sitepackage-domain-model-participant',
         ],
-        'searchFields' => 'first_name',
     ],
     'types' => [
         1 => [
@@ -46,6 +45,7 @@ return [
                 'max' => 255,
                 'eval' => 'trim',
                 'required' => true,
+                'searchable' => true,
             ],
         ],
         'last_name' => [
@@ -56,6 +56,7 @@ return [
                 'max' => 255,
                 'eval' => 'trim',
                 'required' => true,
+                'searchable' => false,
             ],
         ],
         'email' => [
@@ -66,6 +67,7 @@ return [
                 'max' => 255,
                 'eval' => 'trim',
                 'required' => true,
+                'searchable' => false,
             ],
         ],
         'fe_user' => [

@@ -12,7 +12,6 @@ return [
         'typeicon_classes' => [
             'default' => 'mimetypes-x-sys_category',
         ],
-        'searchFields' => 'place',
         'enablecolumns' => [
             'disabled' => 'hidden',
         ],
@@ -47,6 +46,7 @@ return [
                 'max' => 255,
                 'eval' => 'trim',
                 'required' => true,
+                'searchable' => true,
             ],
         ],
         'address' => [
@@ -58,6 +58,7 @@ return [
                 'max' => 255,
                 'eval' => 'trim',
                 'required' => true,
+                'searchable' => false,
             ],
         ],
         'zip' => [
@@ -66,6 +67,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 4,
+                'searchable' => false,
             ],
         ],
         'city' => [
@@ -78,6 +80,7 @@ return [
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
                 ],
+                'searchable' => false,
             ],
         ],
         'longitude' => [
@@ -89,6 +92,7 @@ return [
                 'max' => 11,
                 'default' => '0.00',
                 'eval' => 'trim',
+                'searchable' => false,
             ],
         ],
         'latitude' => [
@@ -100,6 +104,7 @@ return [
                 'max' => 11,
                 'default' => '0.00',
                 'eval' => 'trim',
+                'searchable' => false,
             ],
         ],
     ],

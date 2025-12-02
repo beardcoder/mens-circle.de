@@ -19,7 +19,6 @@ return [
         'typeicon_classes' => [
             'default' => 'tx-sitepackage-domain-model-event',
         ],
-        'searchFields' => 'title,start_date',
         'enablecolumns' => [
             'disabled' => 'hidden',
         ],
@@ -56,6 +55,7 @@ return [
                 'max' => 255,
                 'eval' => 'trim',
                 'required' => true,
+                'searchable' => true,
             ],
         ],
         'description' => [
@@ -64,6 +64,7 @@ return [
                 'type' => 'text',
                 'rows' => 2,
                 'cols' => 50,
+                'searchable' => false,
             ],
         ],
         'image' => [
@@ -95,6 +96,7 @@ return [
                 ],
                 'fallbackCharacter' => '-',
                 'default' => '',
+                'searchable' => false,
             ],
         ],
         'call_url' => [
@@ -106,6 +108,7 @@ return [
                 'size' => 40,
                 'max' => 255,
                 'eval' => 'trim',
+                'searchable' => false,
             ],
         ],
         'start_date' => [
@@ -116,6 +119,7 @@ return [
                 'default' => now()
                     ->getTimestamp(),
                 'required' => true,
+                'searchable' => true,
             ],
         ],
         'end_date' => [
@@ -126,6 +130,7 @@ return [
                 'default' => now()
                     ->getTimestamp(),
                 'required' => true,
+                'searchable' => false,
             ],
         ],
         'cancelled' => [

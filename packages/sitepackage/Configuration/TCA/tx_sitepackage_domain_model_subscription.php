@@ -10,7 +10,6 @@ return [
         'label' => 'email',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'searchFields' => 'email, first_name, last_name, status',
         'typeicon_classes' => [
             'default' => 'tx-sitepackage-domain-model-subscription',
         ],
@@ -42,6 +41,7 @@ return [
                 'type' => 'email',
                 'size' => 30,
                 'required' => true,
+                'searchable' => true,
             ],
         ],
         'first_name' => [
@@ -51,6 +51,7 @@ return [
                 'eval' => 'trim',
                 'size' => 30,
                 'required' => true,
+                'searchable' => true,
             ],
         ],
         'last_name' => [
@@ -60,6 +61,7 @@ return [
                 'eval' => 'trim',
                 'size' => 30,
                 'required' => true,
+                'searchable' => true,
             ],
         ],
         'fe_user' => [
@@ -84,6 +86,7 @@ return [
                 'type' => 'datetime',
                 'format' => 'datetime',
                 'default' => 0,
+                'searchable' => false,
             ],
         ],
         'opt_out_date' => [
@@ -92,6 +95,7 @@ return [
                 'type' => 'datetime',
                 'format' => 'datetime',
                 'default' => 0,
+                'searchable' => false,
             ],
         ],
         'double_opt_in_date' => [
@@ -100,6 +104,7 @@ return [
                 'type' => 'datetime',
                 'format' => 'datetime',
                 'default' => 0,
+                'searchable' => false,
             ],
         ],
         'double_opt_in_token' => [
@@ -109,6 +114,7 @@ return [
                 'eval' => 'trim',
                 'size' => 40,
                 'default' => '',
+                'searchable' => false,
             ],
         ],
         'privacy_policy_accepted_date' => [
@@ -117,6 +123,7 @@ return [
                 'type' => 'datetime',
                 'format' => 'datetime',
                 'default' => 0,
+                'searchable' => false,
             ],
         ],
         'status' => [
@@ -129,6 +136,7 @@ return [
                     'value' => $subscriptionStatusEnum->value,
                 ], SubscriptionStatusEnum::cases()),
                 'default' => SubscriptionStatusEnum::Pending->value,
+                'searchable' => true,
             ],
         ],
         'newsletter' => [

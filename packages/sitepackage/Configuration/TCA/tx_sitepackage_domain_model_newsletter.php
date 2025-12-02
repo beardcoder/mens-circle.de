@@ -11,7 +11,6 @@ return [
         'typeicon_classes' => [
             'default' => 'tx-sitepackage-domain-model-newsletter',
         ],
-        'searchFields' => 'subject',
     ],
     'types' => [
         1 => [
@@ -27,6 +26,7 @@ return [
                 'max' => 255,
                 'eval' => 'trim',
                 'required' => true,
+                'searchable' => true,
             ],
         ],
         'message' => [
@@ -34,6 +34,7 @@ return [
             'config' => [
                 'type' => 'text',
                 'enableRichtext' => true,
+                'searchable' => false,
             ],
         ],
         'subscriptions' => [

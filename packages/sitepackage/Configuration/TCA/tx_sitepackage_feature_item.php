@@ -28,7 +28,7 @@ return [
             'ignorePageTypeRestriction' => true,
         ],
         'typeicon_classes' => [
-            'default' => 'tx-sitepackage-feature-item',
+            'default' => 'tx-sitepackage-content-feature',
         ],
     ],
     'types' => [
