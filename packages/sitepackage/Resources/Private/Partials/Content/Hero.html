@@ -36,13 +36,16 @@
     </div>
     <div class="hero__image animate-in">
         <div class="hero__image-wrapper" data-parallax="0.2">
-            <f:image
+            <app:responsiveImage
                 alt="{record.assets.0.alternative}"
                 class="hero__img"
+                decoding="async"
+                format="webp"
+                fetchpriority="high"
                 image="{record.assets.0}"
-                maxHeight="1600"
-                maxWidth="2560"
-                variants="800, 1000"
+                loading="eager"
+                sizes="(min-width: 1280px) 50vw, 100vw"
+                widths="640, 960, 1280, 1600, 2048"
             />
         </div>
     </div>

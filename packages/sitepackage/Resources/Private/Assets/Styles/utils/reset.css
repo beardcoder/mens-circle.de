@@ -71,17 +71,6 @@ blockquote {
     text-wrap: pretty;
 }
 
-/* ============================================
-   GLOBAL THEME TRANSITIONS
-   ============================================ */
-
-*::before,
-*::after {
-    transition-duration: 0.3s;
-    transition-property: background-color, background, border-color, color, fill, stroke, opacity, box-shadow;
-    transition-timing-function: var(--transition-smooth);
-}
-
 /* Preserve specific transitions */
 a,
 button,
@@ -106,4 +95,9 @@ select {
 ::view-transition-old(root),
 ::view-transition-new(root) {
     animation-duration: 0.5s;
+}
+
+a {
+    color: var(--color-primary-dark);
+    cursor: pointer;
 }

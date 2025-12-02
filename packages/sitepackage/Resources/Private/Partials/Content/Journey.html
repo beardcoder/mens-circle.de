@@ -30,11 +30,13 @@
             </ul>
         </div>
         <div class="journey__image reveal-card">
-            <f:image
+            <app:responsiveImage
                 alt="{record.assets.0.alternative}"
+                class="journey__img"
+                format="webp"
                 image="{record.assets.0}"
-                width="800c"
-                height="1000c"
+                sizes="(min-width: 1200px) 40vw, 90vw"
+                widths="640, 960, 1200, 1600"
             />
             <div class="journey__image-accent"></div>
         </div>

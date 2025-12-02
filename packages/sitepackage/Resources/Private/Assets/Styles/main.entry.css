@@ -7,21 +7,13 @@
 @import './utils/layout.css';
 
 /* Effect utilities */
-@import './utils/card-effects.css';
-@import './utils/effects.css';
 @import './utils/buttons.css';
 
 /* Component */
-@import './components/contact.css';
 @import './components/events.css';
-@import './components/features.css';
 @import './components/footer.css';
-@import './components/gallery.css';
 @import './components/navigation.css';
-@import './components/popover.css';
-@import './components/testimonials.css';
 
 /* Utility */
-@import './utils/animations.css';
 @import './utils/browser-specific.css';
 @import './utils/accessibility.css';

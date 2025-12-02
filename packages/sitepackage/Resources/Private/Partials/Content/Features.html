@@ -24,11 +24,13 @@
                 <article class="feature-card reveal-card {f:if(condition: isText, else: 'feature-card--text')} {f:if(condition: isLarge, then: 'feature-card--large')}" id="c{record.uid}">
                     <f:if condition="{isText}">
                         <div class="feature-card__image">
-                            <f:image
+                            <app:responsiveImage
                                 alt="{record.assets.0.alternative}"
+                                class="feature-card__img"
+                                format="webp"
                                 image="{record.assets.0}"
-                                width="{f:if(condition: isLarge, then: '800', else: '600')}"
-                                height="600c"
+                                sizes="(min-width: 1200px) 33vw, (min-width: 768px) 50vw, 100vw"
+                                widths="480, 720, 960, 1280"
                             />
                         </div>
                     </f:if>
