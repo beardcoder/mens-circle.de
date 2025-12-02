@@ -45,7 +45,7 @@ RUN set -eux; \
 COPY . /var/www/html
 WORKDIR /var/www/html
 
-FROM dunglas/frankenphp:1-php8.5 AS composer-builder
+FROM base AS composer-builder
 
 # Install production dependencies only
 RUN composer install \
