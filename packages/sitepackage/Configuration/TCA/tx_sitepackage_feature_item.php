@@ -60,9 +60,9 @@ return [
         ],
         'headers' => [
             'showitem' => '
-                header;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_formlabel,
-                --linebreak--,
                 subheader;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:subheader_formlabel
+                --linebreak--,
+                header;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_formlabel,
             ',
         ],
         'visibility' => [
@@ -84,7 +84,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tt_content',
-                'foreign_table_where' => 'AND tt_content.pid=###CURRENT_PID### AND tt_content.{#CType}=\'sitepackage_features\'',
+                'foreign_table_where' => "AND tt_content.pid=###CURRENT_PID### AND tt_content.{#CType}='sitepackage_features'",
                 'maxitems' => 1,
                 'default' => 0,
             ],
@@ -211,17 +211,17 @@ return [
                 ],
                 'overrideChildTca' => [
                     'types' => [
-                        \TYPO3\CMS\Core\Resource\FileType::IMAGE->value => [
+                        TYPO3\CMS\Core\Resource\FileType::IMAGE->value => [
                             'showitem' => '
                                 --palette--;;imageoverlayPalette,
                                 --palette--;;filePalette',
                         ],
-                        \TYPO3\CMS\Core\Resource\FileType::VIDEO->value => [
+                        TYPO3\CMS\Core\Resource\FileType::VIDEO->value => [
                             'showitem' => '
                                 --palette--;;videoOverlayPalette,
                                 --palette--;;filePalette',
                         ],
-                        \TYPO3\CMS\Core\Resource\FileType::AUDIO->value => [
+                        TYPO3\CMS\Core\Resource\FileType::AUDIO->value => [
                             'showitem' => '
                                 --palette--;;audioOverlayPalette,
                                 --palette--;;filePalette',
@@ -232,4 +232,3 @@ return [
         ],
     ],
 ];
-

@@ -39,6 +39,7 @@ class EventNotificationController extends ActionController
         private readonly MailerInterface $mailer,
         private readonly UriBuilder $backendUriBuilder,
         private readonly EventRepository $eventRepository,
+        private readonly \TYPO3\CMS\Backend\Template\Components\ComponentFactory $componentFactory,
     ) {
     }
 
@@ -139,7 +140,7 @@ class EventNotificationController extends ActionController
         ;
 
         // Create a menu and set its identifier
-        $menu = $menuRegistry->makeMenu();
+        $menu = $this->componentFactory->createMenu();
         $menu->setIdentifier('select-event');
 
         // Fetch events
@@ -151,7 +152,7 @@ class EventNotificationController extends ActionController
         // Build menu items for each event
         foreach ($events as $event) {
             $menu->addMenuItem(
-                $menu->makeMenuItem()
+                $this->componentFactory->createMenuItem()
                     ->setTitle($event->getLongTitle())
                     ->setActive(isset($params['event']) && $event->getUid() === (int) $params['event'])
                     ->setHref((string) $this->backendUriBuilder->buildUriFromRoute(

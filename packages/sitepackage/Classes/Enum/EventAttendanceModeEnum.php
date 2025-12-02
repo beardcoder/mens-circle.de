@@ -10,6 +10,7 @@ use Spatie\SchemaOrg\Schema;
 enum EventAttendanceModeEnum: int
 {
     case OFFLINE = 0;
+
     case ONLINE = 1;
 
     /**

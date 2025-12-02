@@ -20,7 +20,6 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
             EventController::class => 'list',
         ],
         [],
-        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     ExtensionUtility::configurePlugin(
@@ -32,7 +31,6 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         [
             EventController::class => ['registration', 'upcoming'],
         ],
-        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     ExtensionUtility::configurePlugin(
@@ -44,7 +42,6 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         [
             SubscriptionController::class => ['subscribe', 'doubleOptIn', 'unsubscribe'],
         ],
-        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['backend'] = [

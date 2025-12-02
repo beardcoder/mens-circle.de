@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-use B13\Container\Tca\ContainerConfiguration;
-use B13\Container\Tca\Registry;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 call_user_func(static function (): void {

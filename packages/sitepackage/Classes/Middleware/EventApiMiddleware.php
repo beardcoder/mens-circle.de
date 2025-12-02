@@ -30,13 +30,21 @@ use TYPO3\CMS\Frontend\Typolink\UnableToLinkException;
 final readonly class EventApiMiddleware implements MiddlewareInterface
 {
     private const string API_PATTERN = '#^/api/event/(\d+)/ical/?$#';
+
     private const string ORGANIZER_EMAIL = 'hallo@mens-circle.de';
+
     private const string ORGANIZER_NAME = 'Markus Sommer';
+
     private const int CACHE_MAX_AGE = 3600;
+
     private const int ALERT_MINUTES_SHORT = 15;
+
     private const int ALERT_MINUTES_LONG = 60;
+
     private const int IMAGE_SIZE = 600;
+
     private const int FILENAME_MAX_LENGTH = 120;
+
     private const int LOCATION_RADIUS_METERS = 72;
 
     public function __construct(
@@ -74,7 +82,7 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
     /**
      * Generate iCal response for a specific event.
      */
-    private function generateICalForEvent(ServerRequestInterface $serverRequest, int $eventId): ResponseInterface
+    private function generateICalForEvent(ServerRequestInterface $serverRequest, int $eventId): Response
     {
         $event = $this->eventRepository->findByUid($eventId);
 
@@ -102,7 +110,7 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
     /**
      * Create an error response with appropriate headers.
      */
-    private function createErrorResponse(int $statusCode): ResponseInterface
+    private function createErrorResponse(int $statusCode): Response
     {
         return new Response('php://temp', $statusCode, [
             'Content-Type' => 'text/plain; charset=utf-8',
@@ -121,7 +129,7 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
     /**
      * Create 304 Not Modified response.
      */
-    private function createNotModifiedResponse(string $etag): ResponseInterface
+    private function createNotModifiedResponse(string $etag): Response
     {
         return new Response('php://temp', 304, [
             'ETag' => '"'.$etag.'"',
@@ -259,7 +267,7 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
     /**
      * Create the iCal response with proper headers.
      */
-    private function createICalResponse(string $ics, string $eventTitle, string $etag): ResponseInterface
+    private function createICalResponse(string $ics, string $eventTitle, string $etag): Response
     {
         $filename = $this->sanitizeFilename($eventTitle).'.ics';
         $disposition = \sprintf(

@@ -15,7 +15,7 @@ return [
     ],
     'types' => [
         1 => [
-            'showitem' => '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,subject, message, subscriptions',
+            'showitem' => '--div--;core.form.tabs:general,subject, message, subscriptions',
         ],
     ],
     'columns' => [
