@@ -5,13 +5,6 @@ page = PAGE
 page {
   typeNum = 0
   shortcutIcon = favicon.ico
-  headerData {
-    1736851139 = FLUIDTEMPLATE
-    1736851139 {
-      file = EXT:sitepackage/Resources/Private/Templates/FavIcons.html
-      dataProcessing.10 = site
-    }
-  }
 
   10 = PAGEVIEW
   10 {
@@ -139,11 +132,10 @@ config {
   index_metatags = 1
   headerComment = Build with ❤️ and mindfulness in Bavaria
   noScaleUp = 1
-  compressJs = 1
-  compressCss =
+  compressJs = 0
+  compressCss = 0
   concatenateJs = 0
   concatenateCss = 0
-  spamProtectEmailAddresses = 2
   additionalHeaders.90.header = t3versions: hide-major
 
   pageTitleProviders {
@@ -196,8 +188,6 @@ newsletterApi {
 [applicationContext matches "/^Production/"]
   page.headerData.1010 = TEXT
   page.headerData.1010.value = <script async src="https://tracking.letsbenow.de/script.js" data-website-id="9384afba-8736-46df-a418-642b3ec39742"></script>
-  page.headerData.1020 = TEXT
-  page.headerData.1020.value = <style>.aspect-square {aspect-ratio: 16 / 4;min-height:300px;}</style>
 [END]
 
 

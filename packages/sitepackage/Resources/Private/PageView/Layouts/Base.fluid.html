@@ -9,6 +9,14 @@
 
 <f:render arguments="{ mainnavigation: mainnavigation }" partial="Header" />
 
+<f:page.headerData>
+    <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="{site.configuration.websiteTitle}" />
+    <link rel="manifest" href="/site.webmanifest" />
+</f:page.headerData>
+
 <main id="app" class="page">
     <f:render section="Main" />
 </main>
