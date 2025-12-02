@@ -45,6 +45,8 @@ RUN set -eux; \
 COPY . /var/www/html
 WORKDIR /var/www/html
 
+FROM dunglas/frankenphp:1-php8.5 AS composer-builder
+
 # Install production dependencies only
 RUN composer install \
     --no-dev \
@@ -62,7 +64,7 @@ FROM oven/bun:1-alpine AS frontend-builder
 WORKDIR /app
 
 # Copy composer dependencies required by vite-plugin-typo3
-COPY --from=base /var/www/html/vendor ./vendor
+COPY --from=composer-builder /var/www/html/vendor ./vendor
 COPY --from=base /var/www/html/composer.json ./composer.json
 
 # Copy package files and install dependencies
@@ -82,7 +84,7 @@ RUN bun run build
 # ============================================
 # Stage 3: Final Production Image (FrankenPHP)
 # ============================================
-FROM base
+FROM composer-builder
 
 # Set working directory
 WORKDIR /var/www/html
