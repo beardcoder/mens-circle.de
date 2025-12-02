@@ -17,3 +17,18 @@ services:
     class: 'Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineTransport'
     arguments:
       $options: [ ]
+
+  # Sentry Service
+  MensCircle\Sitepackage\Service\SentryService:
+    public: true
+
+  # Sentry Event Listeners
+  MensCircle\Sitepackage\EventListener\SentryInitializationListener:
+    tags:
+      - name: event.listener
+        identifier: 'sentry-initialization'
+        event: TYPO3\CMS\Core\Core\Event\BootCompletedEvent
+
+  MensCircle\Sitepackage\EventListener\SentryErrorHandler:
+    public: true
+
