@@ -11,9 +11,8 @@ use MensCircle\Sitepackage\Service\SentryService;
  */
 final readonly class SentryInitializationListener
 {
-    public function __construct(
-        private SentryService $sentryService,
-    ) {
+    public function __construct(private SentryService $sentryService)
+    {
     }
 
     /**
@@ -31,20 +30,5 @@ final readonly class SentryInitializationListener
             'php.version' => \PHP_VERSION,
             'context' => getenv('TYPO3_CONTEXT') ?: 'Production',
         ]);
-        // Add backend user context if available
-        if (isset($GLOBALS['BE_USER']) && $GLOBALS['BE_USER']->user) {
-            $this->sentryService->setUser([
-                'id' => (string) $GLOBALS['BE_USER']->user['uid'],
-                'username' => $GLOBALS['BE_USER']->user['username'],
-                'email' => $GLOBALS['BE_USER']->user['email'] ?? null,
-            ]);
-        }
-        // Add frontend user context if available
-        if (isset($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->user) && \is_array($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->user)) {
-            $this->sentryService->setUser([
-                'id' => (string) $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->user['uid'],
-                'username' => $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->user['username'] ?? 'anonymous',
-            ]);
-        }
     }
 }
