@@ -6,24 +6,14 @@ return [
     'ctrl' => [
         'label' => 'header',
         'label_alt' => 'subheader',
-        'sortby' => 'sorting',
-        'tstamp' => 'tstamp',
-        'crdate' => 'crdate',
-        'title' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:feature_item',
         'delete' => 'deleted',
-        'versioningWS' => true,
-        'origUid' => 't3_origuid',
+        'sortby' => 'sorting',
+        'hidden' => 'hidden',
+        'tstamp' => 'tstamp',
+        'title' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:feature_item',
         'hideTable' => true,
         'hideAtCopy' => true,
         'prependAtCopy' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.prependAtCopy',
-        'transOrigPointerField' => 'l10n_parent',
-        'transOrigDiffSourceField' => 'l10n_diffsource',
-        'languageField' => 'sys_language_uid',
-        'enablecolumns' => [
-            'disabled' => 'hidden',
-            'starttime' => 'starttime',
-            'endtime' => 'endtime',
-        ],
         'security' => [
             'ignorePageTypeRestriction' => true,
         ],
@@ -87,64 +77,6 @@ return [
                 'foreign_table_where' => "AND tt_content.pid=###CURRENT_PID### AND tt_content.{#CType}='sitepackage_features'",
                 'maxitems' => 1,
                 'default' => 0,
-            ],
-        ],
-        'hidden' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
-            'config' => [
-                'type' => 'check',
-                'renderType' => 'checkboxToggle',
-            ],
-        ],
-        'starttime' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
-            'config' => [
-                'type' => 'datetime',
-                'default' => 0,
-            ],
-            'l10n_mode' => 'exclude',
-            'l10n_display' => 'defaultAsReadonly',
-        ],
-        'endtime' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
-            'config' => [
-                'type' => 'datetime',
-                'default' => 0,
-                'range' => [
-                    'upper' => mktime(0, 0, 0, 1, 1, 2038),
-                ],
-            ],
-            'l10n_mode' => 'exclude',
-            'l10n_display' => 'defaultAsReadonly',
-        ],
-        'sys_language_uid' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => ['type' => 'language'],
-        ],
-        'l10n_parent' => [
-            'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'items' => [
-                    [
-                        'label' => '',
-                        'value' => 0,
-                    ],
-                ],
-                'foreign_table' => 'tx_sitepackage_feature_item',
-                'foreign_table_where' => 'AND tx_sitepackage_feature_item.pid=###CURRENT_PID### AND tx_sitepackage_feature_item.sys_language_uid IN (-1,0)',
-                'default' => 0,
-            ],
-        ],
-        'l10n_diffsource' => [
-            'config' => [
-                'type' => 'passthrough',
             ],
         ],
         'subheader' => [

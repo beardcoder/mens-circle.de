@@ -20,13 +20,13 @@ call_user_func(static function (): void {
             'foreign_field' => 'tt_content',
             'foreign_sortby' => 'sorting',
             'appearance' => [
-                'collapseAll' => true,
+                'collapseAll' => false,
                 'expandSingle' => true,
                 'levelLinksPosition' => 'bottom',
                 'useSortable' => true,
-                'showPossibleLocalizationRecords' => true,
-                'showAllLocalizationLink' => true,
-                'showSynchronizationLink' => true,
+                'showPossibleLocalizationRecords' => false,
+                'showAllLocalizationLink' => false,
+                'showSynchronizationLink' => false,
                 'enabledControls' => [
                     'info' => true,
                     'new' => true,
@@ -34,7 +34,7 @@ call_user_func(static function (): void {
                     'sort' => true,
                     'hide' => true,
                     'delete' => true,
-                    'localize' => true,
+                    'localize' => false,
                 ],
             ],
             'behaviour' => [
