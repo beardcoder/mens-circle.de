@@ -9,7 +9,6 @@ baseVariants:
 dependencies:
   - typo3/redirects
   - mens-circle/base
-  - mens-circle/container
   - mens-circle/events
   - mens-circle/newsletter
 disableStaticFileCache: false
