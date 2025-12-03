@@ -1,139 +1,202 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-07-04T21:54:43+02:00">
-        <body>
-            <trans-unit id="tx_sitepackage_domain_model_event">
-                <source>Event</source>
-                <target>Veranstaltung</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.attendance_mode.label">
-                <source>Type</source>
-                <target>Art</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.attendance_mode.options.offline">
-                <source>On site (offline)</source>
-                <target>Vor Ort (Offline)</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.attendance_mode.options.online">
-                <source>Virtual (Online)</source>
-                <target>Virtuell (Online)</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.call_url.label">
-                <source>Call URL</source>
-                <target>Anruf URL</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.cancelled">
-                <source>Cancelled</source>
-                <target>Abgesagt</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.description">
-                <source>Description</source>
-                <target>Beschreibung</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.enddate">
-                <source>End date</source>
-                <target>End Datum</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.hidden">
-                <source>Hidden</source>
-                <target>Versteckt</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.palettes.access">
-                <source>Access</source>
-                <target>Zugriff</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.registrations">
-                <source>Registrations</source>
-                <target>Anmeldungen</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.startdate">
-                <source>Start date</source>
-                <target>Start Datum</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.title">
-                <source>Title</source>
-                <target>Titel</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_eventnotification">
-                <source>Notification</source>
-                <target>Benachrichtigung</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_eventnotification.hidden">
-                <source>Hidden</source>
-                <target>Versteckt</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_eventnotification.message">
-                <source>Message</source>
-                <target>Nachricht</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_eventnotification.subject">
-                <source>Subject</source>
-                <target>Betreff</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_location">
-                <source>Event Place</source>
-                <target>Veranstaltungsort</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_location.address">
-                <source>Address</source>
-                <target>Adresse</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_location.city">
-                <source>City</source>
-                <target>Stadt</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_location.latitude">
-                <source>Latitude</source>
-                <target>Latitude</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_location.longitude">
-                <source>Longitude</source>
-                <target>Longitude</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_location.place">
-                <source>Place</source>
-                <target>Ort</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_location.zip">
-                <source>ZIP</source>
-                <target>PLZ</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_newsletter">
-                <source>Newsletter</source>
-                <target>Newsletter</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_newsletter.message">
-                <source>Message</source>
-                <target>Nachricht</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_newsletter.subject">
-                <source>Subject</source>
-                <target>Betreff</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_newsletter.subscriptions">
-                <source>Registrations</source>
-                <target>Anmeldungen</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant">
-                <source>Participant</source>
-                <target>Teilnehmer</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.email">
-                <source>E-Mail</source>
-                <target>E-Mail</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.fe_user">
-                <source>User</source>
-                <target>Benutzer</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.first_name">
-                <source>First name</source>
-                <target>Vorname</target>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.last_name">
-                <source>Last name</source>
-                <target>Nachname</target>
-            </trans-unit>
-        </body>
-    </file>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
+  <file id="">
+    <unit id="tx_sitepackage_domain_model_event">
+      <segment>
+        <source>Event</source>
+        <target>Veranstaltung</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.attendance_mode.label">
+      <segment>
+        <source>Type</source>
+        <target>Art</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.attendance_mode.options.offline">
+      <segment>
+        <source>On site (offline)</source>
+        <target>Vor Ort (Offline)</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.attendance_mode.options.online">
+      <segment>
+        <source>Virtual (Online)</source>
+        <target>Virtuell (Online)</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.call_url.label">
+      <segment>
+        <source>Call URL</source>
+        <target>Anruf URL</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.cancelled">
+      <segment>
+        <source>Cancelled</source>
+        <target>Abgesagt</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.description">
+      <segment>
+        <source>Description</source>
+        <target>Beschreibung</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.enddate">
+      <segment>
+        <source>End date</source>
+        <target>End Datum</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.hidden">
+      <segment>
+        <source>Hidden</source>
+        <target>Versteckt</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.palettes.access">
+      <segment>
+        <source>Access</source>
+        <target>Zugriff</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.registrations">
+      <segment>
+        <source>Registrations</source>
+        <target>Anmeldungen</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.startdate">
+      <segment>
+        <source>Start date</source>
+        <target>Start Datum</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_event.title">
+      <segment>
+        <source>Title</source>
+        <target>Titel</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_eventnotification">
+      <segment>
+        <source>Notification</source>
+        <target>Benachrichtigung</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_eventnotification.hidden">
+      <segment>
+        <source>Hidden</source>
+        <target>Versteckt</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_eventnotification.message">
+      <segment>
+        <source>Message</source>
+        <target>Nachricht</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_eventnotification.subject">
+      <segment>
+        <source>Subject</source>
+        <target>Betreff</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_location">
+      <segment>
+        <source>Event Place</source>
+        <target>Veranstaltungsort</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_location.address">
+      <segment>
+        <source>Address</source>
+        <target>Adresse</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_location.city">
+      <segment>
+        <source>City</source>
+        <target>Stadt</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_location.latitude">
+      <segment>
+        <source>Latitude</source>
+        <target>Latitude</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_location.longitude">
+      <segment>
+        <source>Longitude</source>
+        <target>Longitude</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_location.place">
+      <segment>
+        <source>Place</source>
+        <target>Ort</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_location.zip">
+      <segment>
+        <source>ZIP</source>
+        <target>PLZ</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_newsletter">
+      <segment>
+        <source>Newsletter</source>
+        <target>Newsletter</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_newsletter.message">
+      <segment>
+        <source>Message</source>
+        <target>Nachricht</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_newsletter.subject">
+      <segment>
+        <source>Subject</source>
+        <target>Betreff</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_newsletter.subscriptions">
+      <segment>
+        <source>Registrations</source>
+        <target>Anmeldungen</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_participant">
+      <segment>
+        <source>Participant</source>
+        <target>Teilnehmer</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_participant.email">
+      <segment>
+        <source>E-Mail</source>
+        <target>E-Mail</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_participant.fe_user">
+      <segment>
+        <source>User</source>
+        <target>Benutzer</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_participant.first_name">
+      <segment>
+        <source>First name</source>
+        <target>Vorname</target>
+      </segment>
+    </unit>
+    <unit id="tx_sitepackage_domain_model_participant.last_name">
+      <segment>
+        <source>Last name</source>
+        <target>Nachname</target>
+      </segment>
+    </unit>
+  </file>
 </xliff>

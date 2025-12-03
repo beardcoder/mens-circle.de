@@ -1,55 +1,76 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="de" original="" datatype="plaintext" date="2025-07-10T20:55:54+02:00">
-        <body>
-            <trans-unit id="registration.success">
-                <source>Congratulations to you! Your registration for the event on %s was successful.</source>
-                <target>Herzlichen Glückwunsch! Deine Anmeldung für das Event am %s war erfolgreich.</target>
-            </trans-unit>
-            <trans-unit id="registration.error">
-                <source>There was an error during registration. Please contact hallo@mens-circle.de.</source>
-                <target>Es gab einen Fehler bei der Registrierung. Bitte melde dich unter hallo@mens-circle.de</target>
-            </trans-unit>
-            <trans-unit id="event.not_found">
-                <source>The event you requested does not exist. You have been redirected to the next available event.</source>
-                <target>Die von dir aufgerufene Veranstaltung existiert nicht. Du wurdest zur nächsten verfügbaren Veranstaltung weitergeleitet.</target>
-            </trans-unit>
-            <trans-unit id="subscription.success.pleaseConfirm">
-                <source>Thank you! Please check your email and confirm your subscription.</source>
-                <target>Vielen Dank! Bitte überprüfe deine E-Mails und bestätige deine Anmeldung.</target>
-            </trans-unit>
-            <trans-unit id="subscription.error.alreadySubscribed">
-                <source>You are already subscribed to our newsletter.</source>
-                <target>Du hast unseren Newsletter bereits abonniert.</target>
-            </trans-unit>
-            <trans-unit id="subscription.error.general">
-                <source>An error occurred. Please try again later.</source>
-                <target>Ein Fehler ist aufgetreten. Bitte versuche es später erneut.</target>
-            </trans-unit>
-            <trans-unit id="subscription.error.validation">
-                <source>Please check your input.</source>
-                <target>Bitte überprüfe deine Eingaben.</target>
-            </trans-unit>
-            <trans-unit id="subscription.form.emailHelp">
-                <source>We'll send you a confirmation email.</source>
-                <target>Wir senden dir eine Bestätigungs-E-Mail.</target>
-            </trans-unit>
-            <trans-unit id="subscription.form.privacyAcceptance">
-                <source>I accept the privacy policy</source>
-                <target>Ich akzeptiere die Datenschutzerklärung</target>
-            </trans-unit>
-            <trans-unit id="subscription.form.privacyHelp">
-                <source>Your data will be processed according to our privacy policy.</source>
-                <target>Deine Daten werden gemäß unserer Datenschutzerklärung verarbeitet.</target>
-            </trans-unit>
-            <trans-unit id="subscription.form.submit">
-                <source>Subscribe</source>
-                <target>Abonnieren</target>
-            </trans-unit>
-            <trans-unit id="subscription.form.loading">
-                <source>Sending...</source>
-                <target>Wird gesendet...</target>
-            </trans-unit>
-        </body>
-    </file>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
+  <file id="">
+    <unit id="registration.success">
+      <segment>
+        <source>Congratulations to you! Your registration for the event on %s was successful.</source>
+        <target>Herzlichen Glückwunsch! Deine Anmeldung für das Event am %s war erfolgreich.</target>
+      </segment>
+    </unit>
+    <unit id="registration.error">
+      <segment>
+        <source>There was an error during registration. Please contact hallo@mens-circle.de.</source>
+        <target>Es gab einen Fehler bei der Registrierung. Bitte melde dich unter hallo@mens-circle.de</target>
+      </segment>
+    </unit>
+    <unit id="event.not_found">
+      <segment>
+        <source>The event you requested does not exist. You have been redirected to the next available event.</source>
+        <target>Die von dir aufgerufene Veranstaltung existiert nicht. Du wurdest zur nächsten verfügbaren Veranstaltung weitergeleitet.</target>
+      </segment>
+    </unit>
+    <unit id="subscription.success.pleaseConfirm">
+      <segment>
+        <source>Thank you! Please check your email and confirm your subscription.</source>
+        <target>Vielen Dank! Bitte überprüfe deine E-Mails und bestätige deine Anmeldung.</target>
+      </segment>
+    </unit>
+    <unit id="subscription.error.alreadySubscribed">
+      <segment>
+        <source>You are already subscribed to our newsletter.</source>
+        <target>Du hast unseren Newsletter bereits abonniert.</target>
+      </segment>
+    </unit>
+    <unit id="subscription.error.general">
+      <segment>
+        <source>An error occurred. Please try again later.</source>
+        <target>Ein Fehler ist aufgetreten. Bitte versuche es später erneut.</target>
+      </segment>
+    </unit>
+    <unit id="subscription.error.validation">
+      <segment>
+        <source>Please check your input.</source>
+        <target>Bitte überprüfe deine Eingaben.</target>
+      </segment>
+    </unit>
+    <unit id="subscription.form.emailHelp">
+      <segment>
+        <source>We'll send you a confirmation email.</source>
+        <target>Wir senden dir eine Bestätigungs-E-Mail.</target>
+      </segment>
+    </unit>
+    <unit id="subscription.form.privacyAcceptance">
+      <segment>
+        <source>I accept the privacy policy</source>
+        <target>Ich akzeptiere die Datenschutzerklärung</target>
+      </segment>
+    </unit>
+    <unit id="subscription.form.privacyHelp">
+      <segment>
+        <source>Your data will be processed according to our privacy policy.</source>
+        <target>Deine Daten werden gemäß unserer Datenschutzerklärung verarbeitet.</target>
+      </segment>
+    </unit>
+    <unit id="subscription.form.submit">
+      <segment>
+        <source>Subscribe</source>
+        <target>Abonnieren</target>
+      </segment>
+    </unit>
+    <unit id="subscription.form.loading">
+      <segment>
+        <source>Sending...</source>
+        <target>Wird gesendet...</target>
+      </segment>
+    </unit>
+  </file>
 </xliff>
