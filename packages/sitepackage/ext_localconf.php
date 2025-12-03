@@ -16,7 +16,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
     try {
         $sentryService = GeneralUtility::makeInstance(SentryService::class);
         $sentryService->initialize();
-    } catch (Throwable $e) {
+    } catch (Throwable) {
         // Silently fail if Sentry initialization fails to not break the application
     }
 

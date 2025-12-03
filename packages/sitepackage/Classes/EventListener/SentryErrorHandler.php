@@ -7,7 +7,6 @@ namespace MensCircle\Sitepackage\EventListener;
 use MensCircle\Sitepackage\Service\SentryService;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use TYPO3\CMS\Core\Error\Exception as CoreException;
 use TYPO3\CMS\Core\Error\Http\AbstractServerErrorException;
 
 /**
@@ -28,21 +27,21 @@ final class SentryErrorHandler implements LoggerAwareInterface
     /**
      * Handle an exception and report it to Sentry.
      */
-    public function handleException(\Throwable $exception): void
+    public function handleException(\Throwable $throwable): void
     {
         // Skip certain exceptions that are not errors
-        if ($this->shouldSkipException($exception)) {
+        if ($this->shouldSkipException($throwable)) {
             return;
         }
 
         // Capture the exception in Sentry
-        $eventId = $this->sentryService->captureException($exception);
+        $eventId = $this->sentryService->captureException($throwable);
 
         if ($eventId !== null) {
             $this->logger?->debug('Exception captured in Sentry', [
                 'eventId' => $eventId,
-                'exception' => $exception::class,
-                'message' => $exception->getMessage(),
+                'exception' => $throwable::class,
+                'message' => $throwable->getMessage(),
             ]);
         }
     }
@@ -50,20 +49,14 @@ final class SentryErrorHandler implements LoggerAwareInterface
     /**
      * Determine if an exception should be skipped from reporting.
      */
-    private function shouldSkipException(\Throwable $exception): bool
+    private function shouldSkipException(\Throwable $throwable): bool
     {
         // Skip HTTP 404 and other client errors (4xx)
-        if ($exception instanceof AbstractServerErrorException) {
-            $statusCode = $exception->getCode();
+        if ($throwable instanceof AbstractServerErrorException) {
+            $statusCode = $throwable->getCode();
             if ($statusCode >= 400 && $statusCode < 500) {
                 return true;
             }
-        }
-
-        // Skip specific TYPO3 exceptions that are not critical
-        if ($exception instanceof CoreException) {
-            // You can add specific exception handling here
-            return false;
         }
 
         return false;

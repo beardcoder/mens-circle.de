@@ -53,9 +53,9 @@ final class SentryService implements LoggerAwareInterface
             init($config);
             $this->initialized = true;
             $this->logger?->info('Sentry initialized successfully', ['environment' => $config['environment']]);
-        } catch (\Throwable $e) {
+        } catch (\Throwable $throwable) {
             $this->logger?->error('Failed to initialize Sentry', [
-                'exception' => $e->getMessage(),
+                'exception' => $throwable->getMessage(),
             ]);
         }
     }
@@ -79,9 +79,9 @@ final class SentryService implements LoggerAwareInterface
 
         try {
             return captureException($exception);
-        } catch (\Throwable $e) {
+        } catch (\Throwable $throwable) {
             $this->logger?->error('Failed to capture exception in Sentry', [
-                'exception' => $e->getMessage(),
+                'exception' => $throwable->getMessage(),
             ]);
 
             return null;
@@ -99,9 +99,9 @@ final class SentryService implements LoggerAwareInterface
 
         try {
             return captureMessage($message);
-        } catch (\Throwable $e) {
+        } catch (\Throwable $throwable) {
             $this->logger?->error('Failed to capture message in Sentry', [
-                'exception' => $e->getMessage(),
+                'exception' => $throwable->getMessage(),
             ]);
 
             return null;
@@ -132,7 +132,7 @@ final class SentryService implements LoggerAwareInterface
         }
 
         $hub = $this->getHub();
-        if ($hub !== null) {
+        if ($hub instanceof HubInterface) {
             $hub->configureScope(static function ($scope) use ($userData): void {
                 $scope->setUser($userData);
             });
@@ -151,7 +151,7 @@ final class SentryService implements LoggerAwareInterface
         }
 
         $hub = $this->getHub();
-        if ($hub !== null) {
+        if ($hub instanceof HubInterface) {
             $hub->configureScope(static function ($scope) use ($extra): void {
                 foreach ($extra as $key => $value) {
                     $scope->setExtra($key, $value);
@@ -172,7 +172,7 @@ final class SentryService implements LoggerAwareInterface
         }
 
         $hub = $this->getHub();
-        if ($hub !== null) {
+        if ($hub instanceof HubInterface) {
             $hub->configureScope(static function ($scope) use ($tags): void {
                 foreach ($tags as $key => $value) {
                     $scope->setTag($key, $value);
