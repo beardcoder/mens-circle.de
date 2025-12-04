@@ -92,7 +92,7 @@ class NewsletterController extends ActionController
         $emailAddresses = array_map(
             static fn (Subscription $subscription): Address => new Address(
                 $subscription->email,
-                $subscription->getName(),
+                $subscription->name,
             ),
             $subscriptions,
         );

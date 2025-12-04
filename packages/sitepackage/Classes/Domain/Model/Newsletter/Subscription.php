@@ -30,8 +30,10 @@ class Subscription extends AbstractEntity
 
     public SubscriptionStatusEnum $status = SubscriptionStatusEnum::Pending;
 
-    public function getName(): string
-    {
-        return $this->firstName.' '.$this->lastName;
+    /**
+     * Computed property: Full name from first and last name.
+     */
+    public string $name {
+        get => $this->firstName.' '.$this->lastName;
     }
 }

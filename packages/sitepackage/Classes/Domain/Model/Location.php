@@ -19,4 +19,8 @@ class Location extends AbstractEntity
     public float $longitude = 0.0;
 
     public float $latitude = 0.0;
+
+    public string $fullAddress {
+        get => "{$this->address}, {$this->zip} {$this->city}";
+    }
 }

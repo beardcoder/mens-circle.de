@@ -8,9 +8,11 @@ use MensCircle\Sitepackage\Domain\Model\FrontendUser;
 use MensCircle\Sitepackage\Domain\Model\Newsletter\Subscription;
 use MensCircle\Sitepackage\Domain\Model\Participant;
 use MensCircle\Sitepackage\Domain\Repository\FrontendUserRepository;
-use Symfony\Component\Uid\Uuid;
+use Nette\Utils\Random;
+use TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException;
 use TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 readonly class FrontendUserService
@@ -22,6 +24,10 @@ readonly class FrontendUserService
     ) {
     }
 
+    /**
+     * @throws IllegalObjectTypeException
+     * @throws InvalidPasswordHashException
+     */
     public function mapToFrontendUser(Subscription|Participant $model): FrontendUser
     {
         $frontendUser = $this->frontendUserRepository->findOneBy([
@@ -35,19 +41,22 @@ readonly class FrontendUserService
         return $frontendUser;
     }
 
+    /**
+     * @throws IllegalObjectTypeException
+     * @throws InvalidPasswordHashException
+     */
     private function mapDataToFrontendUser(Subscription|Participant $data): FrontendUser
     {
         /** @var FrontendUser $frontendUser */
         $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
 
-        $frontendUser->setEmail($data->email);
-        $frontendUser->setFirstName($data->firstName);
-        $frontendUser->setLastName($data->lastName);
-        $frontendUser->setUsername($data->email);
+        $frontendUser->email = $data->email;
+        $frontendUser->firstName = $data->firstName;
+        $frontendUser->lastName = $data->lastName;
+        $frontendUser->username = $data->email;
 
-        $randomPassword = Uuid::v4()->toRfc4122();
         $passwordHash = $this->passwordHashFactory->getDefaultHashInstance('FE');
-        $frontendUser->setPassword($passwordHash->getHashedPassword($randomPassword));
+        $frontendUser->password = $passwordHash->getHashedPassword(Random::generate());
 
         $this->frontendUserRepository->add($frontendUser);
         $this->persistenceManager->persistAll();

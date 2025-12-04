@@ -106,7 +106,7 @@ class EventController extends ActionController
     {
         try {
             $frontendUser = $this->frontendUserService->mapToFrontendUser($participant);
-            $participant->setFeUser($frontendUser);
+            $participant->feUser = $frontendUser;
             $this->participantRepository->add($participant);
             $this->persistenceManager->persistAll();
 
@@ -117,25 +117,13 @@ class EventController extends ActionController
                     [
                         'participant' => $participant,
                     ],
-                    'Neue Anmeldung von '.$participant->getName())
+                    "Neue Anmeldung von {$participant->name}")
             );
         } catch (ExceptionInterface $exception) {
             $this->logger->error($exception->getMessage());
         }
 
         return $this->redirect('registrationSuccess', null, null, ['event' => $participant->event]);
-    }
-
-    public function iCalAction(?Event $event = null): ResponseInterface
-    {
-        if (!$event instanceof Event) {
-            return $this->handleEventNotFoundError();
-        }
-
-        $path = rtrim(EventApiMiddleware::BASE_PATH, '/').'/'.$event->getUid().rtrim(EventApiMiddleware::PATH_ICAL, '/').'/';
-        $uri = $this->request->getUri()->withPath($path)->withQuery('')->withFragment('');
-
-        return $this->redirectToUri((string) $uri);
     }
 
     protected function setRegistrationFieldValuesToArguments(): void
@@ -175,9 +163,9 @@ class EventController extends ActionController
 
     private function prepareSeoForEvent(Event $event): void
     {
-        $this->eventPageTitleProvider->setTitle($event->getLongTitle());
+        $this->eventPageTitleProvider->setTitle($event->longTitle);
 
-        $this->setPageMetaProperty('og:title', $event->getLongTitle());
+        $this->setPageMetaProperty('og:title', $event->longTitle);
         $this->setPageMetaProperty('og:description', $event->description);
 
         $imageUri = '';

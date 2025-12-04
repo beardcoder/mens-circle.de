@@ -8,63 +8,50 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class FrontendUser extends AbstractEntity
 {
-    protected string $firstName = '';
-
-    protected string $lastName = '';
-
-    protected string $email = '';
-
-    protected string $username = '';
-
-    protected string $password = '';
-
-    public function getFirstName(): string
-    {
-        return $this->firstName;
+    public string $firstName = '' {
+        get => $this->firstName;
+        set {
+            $this->firstName = $value;
+        }
     }
 
-    public function setFirstName(string $firstName): void
-    {
-        $this->firstName = $firstName;
+    public string $lastName = '' {
+        get => $this->lastName;
+        set {
+            $this->lastName = $value;
+        }
     }
 
-    public function getLastName(): string
-    {
-        return $this->lastName;
+    public string $email = '' {
+        get => $this->email;
+        set {
+            $this->email = $value;
+        }
     }
 
-    public function setLastName(string $lastName): void
-    {
-        $this->lastName = $lastName;
+    public string $username = '' {
+        get => $this->username;
+        set {
+            $this->username = $value;
+        }
     }
 
-    public function getEmail(): string
-    {
-        return $this->email;
+    public string $password = '' {
+        get => $this->password;
+        set {
+            $this->password = $value;
+        }
     }
 
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
+    /**
+     * Computed property: Full name from first and last name.
+     */
+    public string $name {
+        get => trim("{$this->firstName} {$this->lastName}");
+
+        set {
+            $this->name = trim("{$this->firstName} {$this->lastName}");
+        }
     }
 
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): void
-    {
-        $this->username = $username;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): void
-    {
-        $this->password = $password;
-    }
 }

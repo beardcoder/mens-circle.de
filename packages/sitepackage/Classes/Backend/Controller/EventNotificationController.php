@@ -88,12 +88,12 @@ class EventNotificationController extends ActionController
 
         $eventNotification->setPid($event->getPid());
         $this->eventNotificationRepository->add($eventNotification);
-        $objectStorage = $event->getParticipants();
+        $objectStorage = $event->participants;
 
         $emailAddresses = array_map(
             static fn (Participant $participant): Address => new Address(
-                $participant->getEmail(),
-                $participant->getName(),
+                $participant->email,
+                $participant->name,
             ),
             $objectStorage->toArray(),
         );
@@ -153,7 +153,7 @@ class EventNotificationController extends ActionController
         foreach ($events as $event) {
             $menu->addMenuItem(
                 $this->componentFactory->createMenuItem()
-                    ->setTitle($event->getLongTitle())
+                    ->setTitle($event->longTitle)
                     ->setActive(isset($params['event']) && $event->getUid() === (int) $params['event'])
                     ->setHref((string) $this->backendUriBuilder->buildUriFromRoute(
                         'events_notification.EventNotification_new',

@@ -10,7 +10,7 @@ use Spatie\SchemaOrg\Event as EventSchema;
 use Spatie\SchemaOrg\ItemAvailability;
 use Spatie\SchemaOrg\Schema;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Attribute\ORM;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -40,17 +40,20 @@ class Event extends AbstractEntity
 
     public Location $location;
 
-    #[Extbase\ORM\Lazy()]
+    #[ORM\Lazy()]
     protected FileReference|LazyLoadingProxy|null $image = null;
 
     /**
      * @var ObjectStorage<Participant>
      */
-    #[Extbase\ORM\Lazy()]
-    #[Extbase\ORM\Cascade([
-        'value' => 'remove',
-    ])]
-    protected ObjectStorage $participants;
+    #[ORM\Lazy()]
+    #[ORM\Cascade(value: 'remove')]
+    public ObjectStorage $participants {
+        get => $this->participants;
+        set(ObjectStorage $value) {
+            $this->participants = $value;
+        }
+    }
 
     public function __construct()
     {
@@ -62,26 +65,36 @@ class Event extends AbstractEntity
         $this->participants = new ObjectStorage();
     }
 
-    public function isOnline(): bool
-    {
-        return $this->getRealAttendanceMode() === EventAttendanceModeEnum::ONLINE;
+    /**
+     * Computed property: Check if event is online.
+     */
+    public bool $isOnline {
+        get => $this->realAttendanceMode === EventAttendanceModeEnum::ONLINE;
     }
 
-    public function getRealAttendanceMode(): EventAttendanceModeEnum
-    {
-        return EventAttendanceModeEnum::from($this->attendanceMode);
+    /**
+     * Computed property: Check if event is cancelled.
+     */
+    public bool $isCancelled {
+        get => $this->cancelled;
     }
 
-    public function isCancelled(): bool
-    {
-        return $this->cancelled;
+    /**
+     * Computed property: Get long title with date.
+     */
+    public string $longTitle {
+        get {
+            $date = $this->startDate?->format('d.m.Y') ?? '';
+
+            return $date !== '' ? ($this->title.' am '.$date) : $this->title;
+        }
     }
 
-    public function getLongTitle(): string
-    {
-        $date = $this->startDate?->format('d.m.Y') ?? '';
-
-        return $date !== '' ? ($this->title.' am '.$date) : $this->title;
+    /**
+     * Computed property: Get real attendance mode enum.
+     */
+    public EventAttendanceModeEnum $realAttendanceMode {
+        get => EventAttendanceModeEnum::from($this->attendanceMode);
     }
 
     public function buildSchema(UriBuilder $uriBuilder): EventSchema
@@ -105,7 +118,7 @@ class Event extends AbstractEntity
             ],
         ) : null;
 
-        $place = $this->isOffline() ? Schema::place()
+        $place = $this->isOffline ? Schema::place()
             ->name($this->location->place)
             ->address(
                 Schema::postalAddress()
@@ -130,7 +143,7 @@ class Event extends AbstractEntity
             ->image($imageUri)
             ->startDate($this->startDate)
             ->endDate($this->endDate)
-            ->eventAttendanceMode($this->getRealAttendanceMode()->getDescription())
+            ->eventAttendanceMode($this->realAttendanceMode->getDescription())
             ->eventStatus($eventStatus)
             ->location($place)
             ->offers(
@@ -146,41 +159,27 @@ class Event extends AbstractEntity
         ;
     }
 
+    public bool $isOffline {
+        get => $this->realAttendanceMode === EventAttendanceModeEnum::OFFLINE;
+    }
+
+    public string $fullAddress {
+        get => "{$this->location->address}, {$this->location->zip} {$this->location->city}, Deutschland";
+    }
+
     public function getImage(): ?FileReference
     {
-        if ($this->image instanceof LazyLoadingProxy) {
-            /** @var FileReference $image */
-            $image = $this->image->_loadRealInstance();
-            $this->image = $image;
+        if ($this->image instanceof FileReference) {
+            return $this->image;
         }
 
-        return $this->image;
-    }
+        $image = $this->image->_loadRealInstance();
 
-    public function isOffline(): bool
-    {
-        return $this->getRealAttendanceMode() === EventAttendanceModeEnum::OFFLINE;
-    }
+        if ($image instanceof FileReference) {
+            return $image;
+        }
 
-    public function getFullAddress(): string
-    {
-        return \sprintf('%s, %s %s, Deutschland', $this->location->address, $this->location->zip, $this->location->city);
-    }
-
-    /**
-     * @param ObjectStorage<Participant> $objectStorage
-     */
-    public function setParticipants(ObjectStorage $objectStorage): void
-    {
-        $this->participants = $objectStorage;
-    }
-
-    /**
-     * @return ObjectStorage<Participant>
-     */
-    public function getParticipants(): ObjectStorage
-    {
-        return $this->participants;
+        return null;
     }
 
     public function addParticipant(Participant $participant): void

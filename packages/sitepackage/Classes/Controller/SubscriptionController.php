@@ -13,8 +13,10 @@ use MensCircle\Sitepackage\Service\FrontendUserService;
 use MensCircle\Sitepackage\Service\TokenService;
 use MensCircle\Sitepackage\Service\UniversalSecureTokenService;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 
 class SubscriptionController extends ActionController
 {
@@ -40,6 +42,10 @@ class SubscriptionController extends ActionController
         return $this->htmlResponse();
     }
 
+    /**
+     * @throws \DateMalformedStringException
+     * @throws IllegalObjectTypeException
+     */
     public function subscribeAction(Subscription $subscription): ResponseInterface
     {
         $existingSubscription = $this->subscriptionRepository->findOneBy([
@@ -51,7 +57,7 @@ class SubscriptionController extends ActionController
                 $this->addFlashMessage(
                     'Du hast unseren Newsletter bereits abonniert.',
                     '',
-                    \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::WARNING
+                    ContextualFeedbackSeverity::WARNING
                 );
 
                 return $this->redirect('form');
