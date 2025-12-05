@@ -17,7 +17,8 @@ class Participant extends AbstractEntity
     #[Validate(validator: 'NotEmpty')]
     public string $lastName;
 
-    #[Validate(validator: ['NotEmpty', 'EmailAddress'])]
+    #[Validate(validator: 'NotEmpty')]
+    #[Validate(validator: 'EmailAddress')]
     public string $email {
         get => $this->email;
         set {
