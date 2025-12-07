@@ -1,84 +1,86 @@
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en">
-  <file id="messages">
-    <unit id="registration.success">
-      <segment>
-        <source>Congratulations to you! Your registration for the event on %s was successful.</source>
-      </segment>
-    </unit>
-    <unit id="registration.error">
-      <segment>
-        <source>There was an error during registration. Please contact hallo@mens-circle.de.</source>
-      </segment>
-    </unit>
-    <unit id="event.not_found">
-      <segment>
-        <source>The event you requested does not exist. You have been redirected to the next available event.</source>
-      </segment>
-    </unit>
-    <unit id="validator.newsletter.firstName.notEmpty">
-      <segment>
-        <source>Pflichtfeld</source>
-      </segment>
-    </unit>
-    <unit id="validator.newsletter.lastName.notEmpty">
-      <segment>
-        <source>Pflichtfeld</source>
-      </segment>
-    </unit>
-    <unit id="validator.newsletter.email.notEmpty">
-      <segment>
-        <source>Pflichtfeld</source>
-      </segment>
-    </unit>
-    <unit id="validator.newsletter.email.invalid">
-      <segment>
-        <source>Ungültige E-Mail</source>
-      </segment>
-    </unit>
-    <unit id="subscription.success.pleaseConfirm">
-      <segment>
-        <source>Thank you! Please check your email and confirm your subscription.</source>
-      </segment>
-    </unit>
-    <unit id="subscription.error.alreadySubscribed">
-      <segment>
-        <source>You are already subscribed to our newsletter.</source>
-      </segment>
-    </unit>
-    <unit id="subscription.error.general">
-      <segment>
-        <source>An error occurred. Please try again later.</source>
-      </segment>
-    </unit>
-    <unit id="subscription.error.validation">
-      <segment>
-        <source>Please check your input.</source>
-      </segment>
-    </unit>
-    <unit id="subscription.form.emailHelp">
-      <segment>
-        <source>We'll send you a confirmation email.</source>
-      </segment>
-    </unit>
-    <unit id="subscription.form.privacyAcceptance">
-      <segment>
-        <source>I accept the privacy policy</source>
-      </segment>
-    </unit>
-    <unit id="subscription.form.privacyHelp">
-      <segment>
-        <source>Your data will be processed according to our privacy policy.</source>
-      </segment>
-    </unit>
-    <unit id="subscription.form.submit">
-      <segment>
-        <source>Subscribe</source>
-      </segment>
-    </unit>
-    <unit id="subscription.form.loading">
-      <segment>
-        <source>Sending...</source>
-      </segment>
-    </unit>
-  </file>
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en">
+    <file id="messages">
+        <unit id="registration.success">
+            <segment>
+                <source>Congratulations to you! Your registration for the event on %s was successful.</source>
+                <target>Congratulations to you! Your registration for the event on %s was successful.</target>
+            </segment>
+        </unit>
+        <unit id="registration.error">
+            <segment>
+                <source>There was an error during registration. Please contact hallo@mens-circle.de.</source>
+            </segment>
+        </unit>
+        <unit id="event.not_found">
+            <segment>
+                <source>The event you requested does not exist. You have been redirected to the next available event.</source>
+            </segment>
+        </unit>
+        <unit id="validator.newsletter.firstName.notEmpty">
+            <segment>
+                <source>Pflichtfeld</source>
+            </segment>
+        </unit>
+        <unit id="validator.newsletter.lastName.notEmpty">
+            <segment>
+                <source>Pflichtfeld</source>
+            </segment>
+        </unit>
+        <unit id="validator.newsletter.email.notEmpty">
+            <segment>
+                <source>Pflichtfeld</source>
+            </segment>
+        </unit>
+        <unit id="validator.newsletter.email.invalid">
+            <segment>
+                <source>Ungültige E-Mail</source>
+            </segment>
+        </unit>
+        <unit id="subscription.success.pleaseConfirm">
+            <segment>
+                <source>Thank you! Please check your email and confirm your subscription.</source>
+            </segment>
+        </unit>
+        <unit id="subscription.error.alreadySubscribed">
+            <segment>
+                <source>You are already subscribed to our newsletter.</source>
+            </segment>
+        </unit>
+        <unit id="subscription.error.general">
+            <segment>
+                <source>An error occurred. Please try again later.</source>
+            </segment>
+        </unit>
+        <unit id="subscription.error.validation">
+            <segment>
+                <source>Please check your input.</source>
+            </segment>
+        </unit>
+        <unit id="subscription.form.emailHelp">
+            <segment>
+                <source>We&apos;ll send you a confirmation email.</source>
+            </segment>
+        </unit>
+        <unit id="subscription.form.privacyAcceptance">
+            <segment>
+                <source>I accept the privacy policy</source>
+            </segment>
+        </unit>
+        <unit id="subscription.form.privacyHelp">
+            <segment>
+                <source>Your data will be processed according to our privacy policy.</source>
+            </segment>
+        </unit>
+        <unit id="subscription.form.submit">
+            <segment>
+                <source>Subscribe</source>
+            </segment>
+        </unit>
+        <unit id="subscription.form.loading">
+            <segment>
+                <source>Sending...</source>
+            </segment>
+        </unit>
+    </file>
 </xliff>
