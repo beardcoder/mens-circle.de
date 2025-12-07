@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     supervisor \
     zlib1g-dev \
     libpng-dev \
+    libmemcached-dev \
     libjpeg62-turbo \
     libjpeg62-turbo-dev \
     libwebp-dev \
