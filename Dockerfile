@@ -37,6 +37,7 @@ RUN set -eux; \
     @composer \
     exif \
     gd \
+    memcached \
     intl \
     pdo_mysql \
     zip \
