@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+/*
+ * Created by Markus Sommer
+ * "Slow your breath, slow your mind — let the right code appear."
+ */
+
 use MensCircle\Sitepackage\Domain\Model\FrontendUser;
 use MensCircle\Sitepackage\Domain\Model\Newsletter\Newsletter;
 use MensCircle\Sitepackage\Domain\Model\Newsletter\Subscription;

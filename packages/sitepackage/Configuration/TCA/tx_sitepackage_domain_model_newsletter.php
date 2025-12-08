@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+/*
+ * Created by Markus Sommer
+ * "Slow your breath, slow your mind — let the right code appear."
+ */
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tx_sitepackage_domain_model_newsletter',

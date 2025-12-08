@@ -11,6 +11,12 @@ declare(strict_types=1);
  */
 $config = TYPO3\CodingStandards\CsFixerConfig::create();
 
+// Define fancy ASCII header for package files
+$header = <<<'HEADER'
+Created by Markus Sommer
+"Slow your breath, slow your mind — let the right code appear."
+HEADER;
+
 // Apply comprehensive rule sets for modern PHP and coding standards
 $config->setRules([
     '@PHP84Migration' => true,
@@ -27,6 +33,12 @@ $config->setRules([
     'modernize_strpos' => true,
     'modernize_types_casting' => true,
     'use_arrow_functions' => true,
+    'header_comment' => [
+        'header' => $header,
+        'comment_type' => 'comment',
+        'location' => 'after_declare_strict',
+        'separate' => 'both',
+    ],
 ])
     ->setUnsupportedPhpVersionAllowed(true)
     ->setRiskyAllowed(true)
