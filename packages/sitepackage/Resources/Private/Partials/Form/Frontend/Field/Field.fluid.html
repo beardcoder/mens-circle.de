@@ -1,4 +1,4 @@
-<html data-namespace-typo3-fluid="true"
+<fluid data-namespace-typo3-fluid="true"
       xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 <f:form.validationResults for="{element.rootForm.identifier}.{element.identifier}">
     <div class="form__group{f:if(condition: '{validationResults.errors.0}', then: ' form__group--error')}">
@@ -28,4 +28,4 @@
         </div>
     </div>
 </f:form.validationResults>
-</html>
+</fluid>

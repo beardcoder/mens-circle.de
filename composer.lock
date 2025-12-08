@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "008cae216c32e000608685254dedeb62",
+    "content-hash": "bd659bd35cac014c99ad6ba9cb591abf",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -3196,16 +3196,16 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v7.4.1",
+            "version": "v7.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "a09a0a424008e48bc68b1998648f2b4cab9e94c7"
+                "reference": "baf614f7c15b30ba6762d4b1ddabdf83dbf0d29b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/a09a0a424008e48bc68b1998648f2b4cab9e94c7",
-                "reference": "a09a0a424008e48bc68b1998648f2b4cab9e94c7",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/baf614f7c15b30ba6762d4b1ddabdf83dbf0d29b",
+                "reference": "baf614f7c15b30ba6762d4b1ddabdf83dbf0d29b",
                 "shasum": ""
             },
             "require": {
@@ -3256,7 +3256,7 @@
             "description": "Allows you to standardize and centralize the way objects are constructed in your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/dependency-injection/tree/v7.4.1"
+                "source": "https://github.com/symfony/dependency-injection/tree/v7.4.2"
             },
             "funding": [
                 {
@@ -3276,7 +3276,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-07T09:37:31+00:00"
+            "time": "2025-12-08T06:57:04+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -5872,16 +5872,16 @@
         },
         {
             "name": "symfony/validator",
-            "version": "v7.4.1",
+            "version": "v7.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "fde121bfa6ff3c85edade1afdca204243fe1fda1"
+                "reference": "569b71d1243ccc58e8f1d21e279669239e78f60d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/fde121bfa6ff3c85edade1afdca204243fe1fda1",
-                "reference": "fde121bfa6ff3c85edade1afdca204243fe1fda1",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/569b71d1243ccc58e8f1d21e279669239e78f60d",
+                "reference": "569b71d1243ccc58e8f1d21e279669239e78f60d",
                 "shasum": ""
             },
             "require": {
@@ -5952,7 +5952,7 @@
             "description": "Provides tools to validate values",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/validator/tree/v7.4.1"
+                "source": "https://github.com/symfony/validator/tree/v7.4.2"
             },
             "funding": [
                 {
@@ -5972,7 +5972,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-05T14:04:53+00:00"
+            "time": "2025-12-07T17:35:40+00:00"
         },
         {
             "name": "symfony/var-exporter",
@@ -8130,6 +8130,490 @@
     ],
     "packages-dev": [
         {
+            "name": "a9f/fractor",
+            "version": "v0.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreaswolf/fractor-fractor.git",
+                "reference": "c9ee25063148db7c14ad4025fc3cb128dbd73b78"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreaswolf/fractor-fractor/zipball/c9ee25063148db7c14ad4025fc3cb128dbd73b78",
+                "reference": "c9ee25063148db7c14ad4025fc3cb128dbd73b78",
+                "shasum": ""
+            },
+            "require": {
+                "league/flysystem": "^2.0 || ^3.0",
+                "league/flysystem-memory": "^2.0 || ^3.0",
+                "nette/utils": "^4.0",
+                "ondram/ci-detector": "^4.2",
+                "php": "^8.2",
+                "sebastian/diff": "^4.0 || ^5.0 || ^6.0 || ^7.0",
+                "symfony/config": "^5.4 || ^6.4 || ^7.0",
+                "symfony/console": "^5.4 || ^6.4 || ^7.0",
+                "symfony/dependency-injection": "^6.4 || ^7.0",
+                "symfony/filesystem": "^5.4 || ^6.4 || ^7.0",
+                "symfony/finder": "^5.4 || ^6.4 || ^7.0",
+                "symplify/rule-doc-generator-contracts": "^11.2",
+                "webmozart/assert": "^1.11"
+            },
+            "bin": [
+                "bin/fractor"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "a9f\\Fractor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Wolf",
+                    "email": "dev@a-w.io",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "File Read-Analyse-Change Tool",
+            "keywords": [
+                "automation",
+                "dev",
+                "fractor",
+                "migration",
+                "refactoring",
+                "upgrade"
+            ],
+            "support": {
+                "issues": "https://github.com/andreaswolf/fractor-fractor/issues",
+                "source": "https://github.com/andreaswolf/fractor-fractor/tree/v0.5.8"
+            },
+            "time": "2025-12-01T20:26:39+00:00"
+        },
+        {
+            "name": "a9f/fractor-extension-installer",
+            "version": "v0.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreaswolf/fractor-extension-installer.git",
+                "reference": "ecb39a33705ec94acd5170ed2633c9598279b54c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreaswolf/fractor-extension-installer/zipball/ecb39a33705ec94acd5170ed2633c9598279b54c",
+                "reference": "ecb39a33705ec94acd5170ed2633c9598279b54c",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "composer/composer": "^2.7"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "a9f\\FractorExtensionInstaller\\InstallerPlugin",
+                "branch-alias": {
+                    "dev-main": "0.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "a9f\\FractorExtensionInstaller\\": "src/",
+                    "a9f\\FractorExtensionInstaller\\Generated\\": "generated/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Wolf",
+                    "email": "dev@a-w.io",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "Installer for Fractor extensions.",
+            "support": {
+                "source": "https://github.com/andreaswolf/fractor-extension-installer/tree/v0.5.8"
+            },
+            "time": "2025-04-30T21:48:47+00:00"
+        },
+        {
+            "name": "a9f/fractor-fluid",
+            "version": "v0.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreaswolf/fractor-fluid.git",
+                "reference": "f077257b2c6db7583b3a5de44107af9ba0ebb67e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreaswolf/fractor-fluid/zipball/f077257b2c6db7583b3a5de44107af9ba0ebb67e",
+                "reference": "f077257b2c6db7583b3a5de44107af9ba0ebb67e",
+                "shasum": ""
+            },
+            "require": {
+                "a9f/fractor": "^0.5.8",
+                "a9f/fractor-extension-installer": "^0.5.8",
+                "nette/utils": "^4.0",
+                "php": "^8.2",
+                "symplify/rule-doc-generator-contracts": "^11.2",
+                "webmozart/assert": "^1.11"
+            },
+            "type": "fractor-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "a9f\\FractorFluid\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Wolf",
+                    "email": "dev@a-w.io",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "Fluid extension for the File Read-Analyse-Change Tool. Allows modifying Fluid files",
+            "keywords": [
+                "automation",
+                "dev",
+                "fractor",
+                "migration",
+                "refactoring",
+                "upgrade"
+            ],
+            "support": {
+                "issues": "https://github.com/andreaswolf/fractor-fluid/issues",
+                "source": "https://github.com/andreaswolf/fractor-fluid/tree/v0.5.8"
+            },
+            "time": "2025-12-01T20:26:39+00:00"
+        },
+        {
+            "name": "a9f/fractor-htaccess",
+            "version": "v0.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreaswolf/fractor-htaccess.git",
+                "reference": "d524f7dc452d566d9a62e7b0bb62ab67ab7f99ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreaswolf/fractor-htaccess/zipball/d524f7dc452d566d9a62e7b0bb62ab67ab7f99ab",
+                "reference": "d524f7dc452d566d9a62e7b0bb62ab67ab7f99ab",
+                "shasum": ""
+            },
+            "require": {
+                "a9f/fractor": "^0.5.8",
+                "a9f/fractor-extension-installer": "^0.5.8",
+                "nette/utils": "^4.0",
+                "php": "^8.2",
+                "symplify/rule-doc-generator-contracts": "^11.2",
+                "tivie/htaccess-parser": "^0.4.0",
+                "webmozart/assert": "^1.11"
+            },
+            "type": "fractor-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "a9f\\FractorHtaccess\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simon Schaufelberger",
+                    "email": "simonschaufi@gmail.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "htaccess extension for the File Read-Analyse-Change Tool. Allows modifying htaccess files",
+            "keywords": [
+                "automation",
+                "dev",
+                "fractor",
+                "migration",
+                "refactoring",
+                "upgrade"
+            ],
+            "support": {
+                "source": "https://github.com/andreaswolf/fractor-htaccess/tree/v0.5.8"
+            },
+            "time": "2025-12-01T20:26:39+00:00"
+        },
+        {
+            "name": "a9f/fractor-typoscript",
+            "version": "v0.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreaswolf/fractor-typoscript.git",
+                "reference": "b7dd8733e5614f9c0397d6fe4d53d10ec66cfbf3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreaswolf/fractor-typoscript/zipball/b7dd8733e5614f9c0397d6fe4d53d10ec66cfbf3",
+                "reference": "b7dd8733e5614f9c0397d6fe4d53d10ec66cfbf3",
+                "shasum": ""
+            },
+            "require": {
+                "a9f/fractor": "^0.5.8",
+                "a9f/fractor-extension-installer": "^0.5.8",
+                "helmich/typo3-typoscript-parser": "^2.8.0",
+                "php": "^8.2",
+                "symplify/rule-doc-generator-contracts": "^11.2",
+                "webmozart/assert": "^1.11"
+            },
+            "type": "fractor-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "a9f\\FractorTypoScript\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Wolf",
+                    "email": "dev@a-w.io",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "TypoScript extension for the File Read-Analyse-Change Tool. Allows modifying TYPO3 TypoScript configuration files",
+            "keywords": [
+                "automation",
+                "dev",
+                "fractor",
+                "migration",
+                "refactoring",
+                "upgrade"
+            ],
+            "support": {
+                "source": "https://github.com/andreaswolf/fractor-typoscript/tree/v0.5.8"
+            },
+            "time": "2025-12-01T20:26:39+00:00"
+        },
+        {
+            "name": "a9f/fractor-xml",
+            "version": "v0.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreaswolf/fractor-xml.git",
+                "reference": "ebc3edc138a1635cd802b883493689a9463f3ba2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreaswolf/fractor-xml/zipball/ebc3edc138a1635cd802b883493689a9463f3ba2",
+                "reference": "ebc3edc138a1635cd802b883493689a9463f3ba2",
+                "shasum": ""
+            },
+            "require": {
+                "a9f/fractor": "^0.5.8",
+                "a9f/fractor-extension-installer": "^0.5.8",
+                "ext-dom": "*",
+                "ext-xml": "*",
+                "php": "^8.2",
+                "simonschaufi/pretty-xml": "^3.0.0",
+                "symplify/rule-doc-generator-contracts": "^11.2",
+                "webmozart/assert": "^1.11"
+            },
+            "type": "fractor-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "a9f\\FractorXml\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Wolf",
+                    "email": "dev@a-w.io",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "XML extension for the File Read-Analyse-Change Tool. Allows modifying XML files",
+            "keywords": [
+                "automation",
+                "dev",
+                "fractor",
+                "migration",
+                "refactoring",
+                "upgrade"
+            ],
+            "support": {
+                "source": "https://github.com/andreaswolf/fractor-xml/tree/v0.5.8"
+            },
+            "time": "2025-12-01T20:26:39+00:00"
+        },
+        {
+            "name": "a9f/fractor-yaml",
+            "version": "v0.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreaswolf/fractor-yaml.git",
+                "reference": "3fd22492d5206582b7bfe29a82d08b4136c297ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreaswolf/fractor-yaml/zipball/3fd22492d5206582b7bfe29a82d08b4136c297ac",
+                "reference": "3fd22492d5206582b7bfe29a82d08b4136c297ac",
+                "shasum": ""
+            },
+            "require": {
+                "a9f/fractor": "^0.5.8",
+                "a9f/fractor-extension-installer": "^0.5.8",
+                "php": "^8.2",
+                "symfony/yaml": "^5.4 || ^6.4 || ^7.0",
+                "symplify/rule-doc-generator-contracts": "^11.2",
+                "webmozart/assert": "^1.11"
+            },
+            "type": "fractor-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "a9f\\FractorYaml\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Wolf",
+                    "email": "dev@a-w.io",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "YAML extension for the File Read-Analyse-Change Tool. Allows modifying YAML files",
+            "keywords": [
+                "automation",
+                "dev",
+                "fractor",
+                "migration",
+                "refactoring",
+                "upgrade"
+            ],
+            "support": {
+                "source": "https://github.com/andreaswolf/fractor-yaml/tree/v0.5.8"
+            },
+            "time": "2025-12-01T20:26:39+00:00"
+        },
+        {
+            "name": "a9f/typo3-fractor",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreaswolf/fractor-typo3-fractor.git",
+                "reference": "7a2cd0966ad72308252c3bd3776dab51d6269f79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreaswolf/fractor-typo3-fractor/zipball/7a2cd0966ad72308252c3bd3776dab51d6269f79",
+                "reference": "7a2cd0966ad72308252c3bd3776dab51d6269f79",
+                "shasum": ""
+            },
+            "require": {
+                "a9f/fractor": "^0.5.8",
+                "a9f/fractor-extension-installer": "^0.5.8",
+                "a9f/fractor-fluid": "^0.5.8",
+                "a9f/fractor-htaccess": "^0.5.8",
+                "a9f/fractor-typoscript": "^0.5.8",
+                "a9f/fractor-xml": "^0.5.8",
+                "a9f/fractor-yaml": "^0.5.8",
+                "ext-dom": "*",
+                "php": "^8.2",
+                "symplify/rule-doc-generator-contracts": "^11.2"
+            },
+            "default-branch": true,
+            "bin": [
+                "bin/typo3-fractor-init"
+            ],
+            "type": "fractor-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "a9f\\Typo3Fractor\\": [
+                        "src/",
+                        "rules/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Wolf",
+                    "email": "dev@a-w.io",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "TYPO3 extension for the File Read-Analyse-Change Tool. Allows modifying XML files",
+            "keywords": [
+                "automation",
+                "dev",
+                "fractor",
+                "migration",
+                "refactoring",
+                "typo3",
+                "upgrade"
+            ],
+            "support": {
+                "source": "https://github.com/andreaswolf/fractor-typo3-fractor/tree/main"
+            },
+            "time": "2025-12-06T21:31:39+00:00"
+        },
+        {
             "name": "clue/ndjson-react",
             "version": "v1.3.0",
             "source": {
@@ -9091,6 +9575,69 @@
             "time": "2025-12-05T19:45:37+00:00"
         },
         {
+            "name": "helmich/typo3-typoscript-parser",
+            "version": "v2.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/martin-helmich/typo3-typoscript-parser.git",
+                "reference": "dd9f7a3acbd240670e168619d308df603d4b56d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/martin-helmich/typo3-typoscript-parser/zipball/dd9f7a3acbd240670e168619d308df603d4b56d6",
+                "reference": "dd9f7a3acbd240670e168619d308df603d4b56d6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/config": "^5.4 || ^6.4 || ^7.0",
+                "symfony/console": "^5.4 || ^6.4 || ^7.0",
+                "symfony/dependency-injection": "^5.4 || ^6.4 || ^7.0",
+                "symfony/yaml": "^5.4 || ^6.4 || ^7.0"
+            },
+            "require-dev": {
+                "php-vfs/php-vfs": "^1.4.2",
+                "phpspec/prophecy-phpunit": "^2.1.0",
+                "phpstan/phpstan": "^2.0",
+                "phpunit/phpunit": "^10.5 || ^11.5",
+                "symfony/phpunit-bridge": "^5.4 || ^6.4 || ^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Helmich\\TypoScriptParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Helmich",
+                    "email": "m.helmich@mittwald.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Parser for the TYPO3 configuration language TypoScript.",
+            "homepage": "https://github.com/martin-helmich",
+            "support": {
+                "issues": "https://github.com/martin-helmich/typo3-typoscript-parser/issues",
+                "source": "https://github.com/martin-helmich/typo3-typoscript-parser/tree/v2.8.1"
+            },
+            "funding": [
+                {
+                    "url": "https://donate.helmich.me",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/martin-helmich",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-08-31T09:10:27+00:00"
+        },
+        {
             "name": "justinrainbow/json-schema",
             "version": "6.6.3",
             "source": {
@@ -9617,6 +10164,84 @@
                 "source": "https://github.com/nette/utils/tree/v4.1.0"
             },
             "time": "2025-12-01T17:49:23+00:00"
+        },
+        {
+            "name": "ondram/ci-detector",
+            "version": "4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OndraM/ci-detector.git",
+                "reference": "8b0223b5ed235fd377c75fdd1bfcad05c0f168b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OndraM/ci-detector/zipball/8b0223b5ed235fd377c75fdd1bfcad05c0f168b8",
+                "reference": "8b0223b5ed235fd377c75fdd1bfcad05c0f168b8",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.13.2",
+                "lmc/coding-standard": "^3.0.0",
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/extension-installer": "^1.1.0",
+                "phpstan/phpstan": "^1.2.0",
+                "phpstan/phpstan-phpunit": "^1.0.0",
+                "phpunit/phpunit": "^9.6.13"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "OndraM\\CiDetector\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ondřej Machulda",
+                    "email": "ondrej.machulda@gmail.com"
+                }
+            ],
+            "description": "Detect continuous integration environment and provide unified access to properties of current build",
+            "keywords": [
+                "CircleCI",
+                "Codeship",
+                "Wercker",
+                "adapter",
+                "appveyor",
+                "aws",
+                "aws codebuild",
+                "azure",
+                "azure devops",
+                "azure pipelines",
+                "bamboo",
+                "bitbucket",
+                "buddy",
+                "ci-info",
+                "codebuild",
+                "continuous integration",
+                "continuousphp",
+                "devops",
+                "drone",
+                "github",
+                "gitlab",
+                "interface",
+                "jenkins",
+                "pipelines",
+                "sourcehut",
+                "teamcity",
+                "travis"
+            ],
+            "support": {
+                "issues": "https://github.com/OndraM/ci-detector/issues",
+                "source": "https://github.com/OndraM/ci-detector/tree/4.2.0"
+            },
+            "time": "2024-03-12T13:22:30+00:00"
         },
         {
             "name": "phpro/grumphp-shim",
@@ -10370,12 +10995,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "10c1e6abcb8094a428b92e7d8c3126371f9f9126"
+                "reference": "116121f02bbca0fec8f26c658e17f3f6e90010ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/10c1e6abcb8094a428b92e7d8c3126371f9f9126",
-                "reference": "10c1e6abcb8094a428b92e7d8c3126371f9f9126",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/116121f02bbca0fec8f26c658e17f3f6e90010ff",
+                "reference": "116121f02bbca0fec8f26c658e17f3f6e90010ff",
                 "shasum": ""
             },
             "conflict": {
@@ -11015,7 +11640,7 @@
                 "reportico-web/reportico": "<=8.1",
                 "rhukster/dom-sanitizer": "<1.0.7",
                 "rmccue/requests": ">=1.6,<1.8",
-                "robrichards/xmlseclibs": ">=1,<3.0.4",
+                "robrichards/xmlseclibs": "<=3.1.3",
                 "roots/soil": "<4.1",
                 "roundcube/roundcubemail": "<1.5.10|>=1.6,<1.6.11",
                 "rudloff/alltube": "<3.0.3",
@@ -11361,7 +11986,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-05T21:05:14+00:00"
+            "time": "2025-12-08T18:07:51+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -11431,17 +12056,77 @@
             "time": "2025-02-07T04:55:46+00:00"
         },
         {
+            "name": "simonschaufi/pretty-xml",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simonschaufi/pretty-xml.git",
+                "reference": "2af716465f67cac264785cf1ca1484ce054c0f23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simonschaufi/pretty-xml/zipball/2af716465f67cac264785cf1ca1484ce054c0f23",
+                "reference": "2af716465f67cac264785cf1ca1484ce054c0f23",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "symfony/polyfill-php80": "^1.31"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.47",
+                "phpunit/phpunit": "^10.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PrettyXml\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shane Auckland",
+                    "email": "shane.auckland@gmail.com",
+                    "homepage": "https://shaneauckland.co.uk"
+                }
+            ],
+            "description": "Library for pretty-printing XML",
+            "keywords": [
+                "pretty",
+                "xml"
+            ],
+            "support": {
+                "issues": "https://github.com/simonschaufi/pretty-xml/issues",
+                "source": "https://github.com/simonschaufi/pretty-xml/tree/3.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/simonschaufi/10",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/simonschaufi",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-05-02T09:09:58+00:00"
+        },
+        {
             "name": "ssch/typo3-rector",
             "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabbelasichon/typo3-rector.git",
-                "reference": "103298c35bdeb6a715de0e6ecb9ce103616d8a56"
+                "reference": "3b3be7eca3ce1b8424151385e4916609ff7467c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/103298c35bdeb6a715de0e6ecb9ce103616d8a56",
-                "reference": "103298c35bdeb6a715de0e6ecb9ce103616d8a56",
+                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/3b3be7eca3ce1b8424151385e4916609ff7467c6",
+                "reference": "3b3be7eca3ce1b8424151385e4916609ff7467c6",
                 "shasum": ""
             },
             "require": {
@@ -11545,7 +12230,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-12-06T22:33:17+00:00"
+            "time": "2025-12-08T20:38:32+00:00"
         },
         {
             "name": "symfony/polyfill-php81",
@@ -11920,6 +12605,113 @@
                 }
             ],
             "time": "2025-11-06T14:47:06+00:00"
+        },
+        {
+            "name": "symplify/rule-doc-generator-contracts",
+            "version": "11.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symplify/rule-doc-generator-contracts.git",
+                "reference": "479cfcfd46047f80624aba931d9789e50475b5c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symplify/rule-doc-generator-contracts/zipball/479cfcfd46047f80624aba931d9789e50475b5c6",
+                "reference": "479cfcfd46047f80624aba931d9789e50475b5c6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "^1.3",
+                "phpstan/extension-installer": "^1.2",
+                "rector/rector": "^0.15.10",
+                "symplify/easy-ci": "^11.1",
+                "symplify/easy-coding-standard": "^11.1",
+                "symplify/easy-testing": "^11.1",
+                "symplify/phpstan-extensions": "^11.1",
+                "symplify/phpstan-rules": "11.2.3.72",
+                "tomasvotruba/unused-public": "^0.0.34"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "11.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symplify\\RuleDocGenerator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Contracts for production code of RuleDocGenerator",
+            "support": {
+                "source": "https://github.com/symplify/rule-doc-generator-contracts/tree/11.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/rectorphp",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-18T22:02:54+00:00"
+        },
+        {
+            "name": "tivie/htaccess-parser",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tivie/php-htaccess-parser.git",
+                "reference": "0b6252a36b8ac0586306fd2db3dac78985c48589"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tivie/php-htaccess-parser/zipball/0b6252a36b8ac0586306fd2db3dac78985c48589",
+                "reference": "0b6252a36b8ac0586306fd2db3dac78985c48589",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.0.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tivie\\HtaccessParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Estevão Soares dos Santos",
+                    "email": "estevao@soares-dos-santos.com"
+                }
+            ],
+            "description": "A .htaccess parser and validator implemented in PHP",
+            "homepage": "https://github.com/tivie/php-htaccess-parser",
+            "keywords": [
+                ".htaccess",
+                "htaccess"
+            ],
+            "support": {
+                "issues": "https://github.com/tivie/php-htaccess-parser/issues",
+                "source": "https://github.com/tivie/php-htaccess-parser/tree/0.4.0"
+            },
+            "time": "2025-08-13T07:38:02+00:00"
         },
         {
             "name": "typo3/cms-belog",
@@ -12420,6 +13212,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "a9f/typo3-fractor": 20,
         "mens-circle/sitepackage": 20,
         "roave/security-advisories": 20,
         "ssch/typo3-rector": 20

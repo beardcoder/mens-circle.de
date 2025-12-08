@@ -1,4 +1,4 @@
-@import "EXT:sitepackage/Configuration/Sets/Base/TsConfig/Page/All.tsconfig"
+@import 'EXT:sitepackage/Configuration/Sets/Base/TsConfig/Page/All.tsconfig'
 
 TCEMAIN.linkHandler.event {
   handler = TYPO3\CMS\Backend\LinkHandler\RecordLinkHandler

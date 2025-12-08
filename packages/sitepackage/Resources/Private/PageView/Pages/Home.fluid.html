@@ -1,12 +1,12 @@
-<html
+<fluid
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 >
-<f:layout name="Base" />
+<f:layout name="Base"/>
 
 <f:section name="Main">
     <f:for as="record" each="{content.main.records}">
-        <f:render partial="Content" arguments="{record: record}"/>
+        <f:render arguments="{record: record}" partial="Content"/>
     </f:for>
 </f:section>
-</html>
+</fluid>

@@ -45,6 +45,7 @@ class FrontendUser extends AbstractEntity
 
     /**
      * Computed property: Full name from first and last name.
+     * Read-only - setting name parses it into first/last name.
      */
     public string $name {
         get => trim("{$this->firstName} {$this->lastName}");

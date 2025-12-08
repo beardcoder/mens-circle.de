@@ -1,19 +1,34 @@
-@import './utils/variables.css';
+/* ============================================
+   CSS LAYER ORDER
+   Defines cascade priority (lowest to highest)
+   ============================================ */
+@layer reset, base, layout, components, utilities;
 
-/* Base */
-@import './utils/reset.css';
+/* ============================================
+   DESIGN TOKENS
+   ============================================ */
+@import './utils/variables.css' layer(base);
 
-/* Layout utilities */
-@import './utils/layout.css';
+/* ============================================
+   RESET & BASE
+   ============================================ */
+@import './utils/reset.css' layer(reset);
 
-/* Effect utilities */
-@import './utils/buttons.css';
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+@import './utils/layout.css' layer(layout);
 
-/* Component */
-@import './components/events.css';
-@import './components/footer.css';
-@import './components/navigation.css';
+/* ============================================
+   COMPONENTS
+   ============================================ */
+@import './utils/buttons.css' layer(components);
+@import './components/events.css' layer(components);
+@import './components/footer.css' layer(components);
+@import './components/navigation.css' layer(components);
 
-/* Utility */
-@import './utils/browser-specific.css';
-@import './utils/accessibility.css';
+/* ============================================
+   UTILITIES (highest priority)
+   ============================================ */
+@import './utils/browser-specific.css' layer(utilities);
+@import './utils/accessibility.css' layer(utilities);

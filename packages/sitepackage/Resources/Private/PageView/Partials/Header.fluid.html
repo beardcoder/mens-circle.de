@@ -1,19 +1,18 @@
-<html
+<fluid
     data-namespace-typo3-fluid="true"
     xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
 
 <f:variable name="nextEvent" value="{app:nextEvent()}"/>
 
-<nav aria-label="Hauptnavigation" class="nav" id="nav" role="navigation">
+<nav aria-label="Hauptnavigation" class="nav" id="nav">
     <div class="nav__container">
         <a aria-label="Männerkreis Startseite" class="nav__logo" href="/">
             <span class="nav__logo-text">MÄNNERKREIS</span>
         </a>
 
-        <ul class="nav__menu" id="navMenu" role="list">
+        <ul class="nav__menu" id="navMenu">
             <f:for as="mainnavigationItem" each="{mainnavigation}">
                 <li>
                     <f:if condition="{mainnavigationItem.data.content_link}">
@@ -34,7 +33,6 @@
                             </a>
                         </f:else>
                     </f:if>
-
                 </li>
             </f:for>
             <f:if condition="{nextEvent}">
@@ -53,66 +51,7 @@
                 </li>
             </f:if>
         </ul>
-
-        <div class="nav__controls">
-            <button
-                aria-label="Theme wechseln"
-                class="nav__theme-toggle"
-                id="themeToggle"
-                title="Dark/Light Mode"
-                type="button"
-            >
-                <svg
-                    class="nav__theme-icon nav__theme-icon--sun"
-                    fill="none"
-                    height="20"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="20"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <circle cx="12" cy="12" r="5"></circle>
-                    <line x1="12" x2="12" y1="1" y2="3"></line>
-                    <line x1="12" x2="12" y1="21" y2="23"></line>
-                    <line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
-                    <line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
-                    <line x1="1" x2="3" y1="12" y2="12"></line>
-                    <line x1="21" x2="23" y1="12" y2="12"></line>
-                    <line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
-                    <line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
-                </svg>
-                <svg
-                    class="nav__theme-icon nav__theme-icon--moon"
-                    fill="none"
-                    height="20"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="20"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-            </button>
-
-            <button
-                aria-expanded="false"
-                aria-label="Navigation öffnen"
-                class="nav__toggle"
-                id="navToggle"
-                type="button"
-            >
-                <span class="nav__toggle-line"></span>
-                <span class="nav__toggle-line"></span>
-                <span class="nav__toggle-line"></span>
-            </button>
-        </div>
     </div>
 </nav>
 
-</html>
+</fluid>

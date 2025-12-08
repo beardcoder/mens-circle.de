@@ -1,33 +1,30 @@
-<html
+<fluid
     data-namespace-typo3-fluid="true"
-    xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
-    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
 
-<vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Journey.entry.css" />
+<vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Journey.entry.css"/>
 
 <section class="journey" id="c{record.uid}">
     <div class="journey__content">
         <div class="journey__text reveal-text">
             <span class="journey__label">{record.subheader}</span>
             <h2 class="journey__title">{record.header}</h2>
-            <p class="journey__description">
-                {record.bodytext}
-            </p>
+            <p class="journey__description">{record.bodytext}</p>
 
-            <ul class="journey__list">
-                <f:for each="{record.pi_flexform.list}" as="item" iteration="itemKey">
+            <ol class="journey__list">
+                <f:for as="item" each="{record.pi_flexform.list}" iteration="itemKey">
                     <li class="journey__item">
-                        <span class="journey__icon">{f:format.padding(padLength: '2', padString: '0', padType: 'left', value: itemKey.cycle)}</span>
+                        <span class="journey__icon">{itemKey.cycle -> f:format.padding(padLength: 2, padString: '0')}</span>
                         <div>
                             <h4>{item.item.title}</h4>
                             <p>{item.item.text}</p>
                         </div>
                     </li>
                 </f:for>
-            </ul>
+            </ol>
         </div>
         <div class="journey__image reveal-card">
             <app:responsiveImage
@@ -38,9 +35,9 @@
                 sizes="(min-width: 1200px) 40vw, 90vw"
                 widths="640, 960, 1200, 1600"
             />
-            <div class="journey__image-accent"></div>
+            <div aria-hidden="true" class="journey__image-accent"></div>
         </div>
     </div>
 </section>
 
-</html>
+</fluid>

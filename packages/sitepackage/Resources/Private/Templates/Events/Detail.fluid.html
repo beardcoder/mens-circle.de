@@ -1,7 +1,7 @@
-<html
+<fluid
     data-namespace-typo3-fluid="true"
-    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
 <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Events/Detail.entry.ts"/>
@@ -13,9 +13,9 @@
     </div>
 
     <div class="registration-hero__content">
-        <f:render partial="Events/Detail/Hero" arguments="{ event:event }" />
-        <f:render partial="Events/Detail/Form" arguments="{_all}" />
+        <f:render arguments="{ event:event }" partial="Events/Detail/Hero"/>
+        <f:render arguments="{_all}" partial="Events/Detail/Form"/>
     </div>
 </section>
 
-</html>
+</fluid>

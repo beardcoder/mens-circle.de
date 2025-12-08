@@ -1,4 +1,4 @@
-<html
+<fluid
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
@@ -12,7 +12,8 @@
             <div class="newsletter__text reveal-text is-visible">
                 <span class="newsletter__label">NEWSLETTER</span>
                 <h2 class="section__title">Bleib in Verbindung</h2>
-                <p class="newsletter__description">Erhalte Inspirationen, Termine und Neuigkeiten direkt in dein Postfach. Kein Spam, nur wertvolle Inhalte für deinen Weg.</p>
+                <p class="newsletter__description">Erhalte Inspirationen, Termine und Neuigkeiten direkt in dein
+                    Postfach. Kein Spam, nur wertvolle Inhalte für deinen Weg.</p>
             </div>
 
             <f:form
@@ -28,26 +29,26 @@
                             <f:form.textfield
                                 autocomplete="given-name"
                                 class="newsletter__input"
-                                placeholder="Vorname"
                                 id="firstName"
+                                placeholder="Vorname"
                                 property="firstName"
                                 required="1"
                                 type="text"
                             />
-                            <f:render partial="Newsletter/ValidationResult" arguments="{property: 'firstName'}" />
+                            <f:render arguments="{property: 'firstName'}" partial="Newsletter/ValidationResult"/>
                         </div>
 
                         <div class="newsletter__field">
                             <f:form.textfield
                                 autocomplete="family-name"
                                 class="newsletter__input"
-                                placeholder="Nachname"
                                 id="lastName"
+                                placeholder="Nachname"
                                 property="lastName"
                                 required="1"
                                 type="text"
                             />
-                            <f:render partial="Newsletter/ValidationResult" arguments="{property: 'lastName'}" />
+                            <f:render arguments="{property: 'lastName'}" partial="Newsletter/ValidationResult"/>
                         </div>
                     </div>
 
@@ -56,18 +57,29 @@
                             <f:form.textfield
                                 autocomplete="email"
                                 class="newsletter__input newsletter__input--email"
-                                placeholder="deine@email.de"
                                 id="email"
+                                placeholder="deine@email.de"
                                 property="email"
                                 required="1"
                                 type="email"
                             />
-                            <f:render partial="Newsletter/ValidationResult" arguments="{property: 'email'}" />
+                            <f:render arguments="{property: 'email'}" partial="Newsletter/ValidationResult"/>
                         </div>
 
-                        <f:form.button type="submit" class="newsletter__submit" aria-label="Newsletter abonnieren">
-                            <svg class="newsletter__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <f:form.button aria-label="Newsletter abonnieren" class="newsletter__submit" type="submit">
+                            <svg
+                                aria-hidden="true"
+                                class="newsletter__icon"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    d="M5 12h14M12 5l7 7-7 7"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                ></path>
                             </svg>
                         </f:form.button>
                     </div>
@@ -82,4 +94,4 @@
     </section>
 
 </f:section>
-</html>
+</fluid>

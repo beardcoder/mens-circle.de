@@ -116,7 +116,6 @@ config {
   pageTitleFirst = 1
   linkVars = L
   renderCharset = utf-8
-  metaCharset = utf-8
   doctype = html5
   removeDefaultJS = 1
   inlineStyle2TempFile = 1
@@ -132,10 +131,6 @@ config {
   index_metatags = 1
   headerComment = Build with ❤️ and mindfulness in Bavaria
   noScaleUp = 1
-  compressJs = 0
-  compressCss = 0
-  concatenateJs = 0
-  concatenateCss = 0
   additionalHeaders.90.header = t3versions: hide-major
 
   pageTitleProviders {
@@ -188,7 +183,7 @@ newsletterApi {
 [applicationContext matches "/^Production/"]
   page.headerData.1010 = TEXT
   page.headerData.1010.value = <script async src="https://tracking.letsbenow.de/script.js" data-website-id="9384afba-8736-46df-a418-642b3ec39742"></script>
-[END]
+[end]
 
 
 config.recordLinks.event {

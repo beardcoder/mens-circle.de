@@ -11,4 +11,3 @@ options {
     doktypesToShowInNewPageDragArea := addToList(1724352539)
   }
 }
-

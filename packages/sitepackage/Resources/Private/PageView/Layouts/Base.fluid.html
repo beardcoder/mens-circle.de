@@ -1,26 +1,27 @@
-<html
+<fluid
     data-namespace-typo3-fluid="true"
-    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
-<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Scripts/main.entry.ts" />
-<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Styles/main.entry.css" />
 
-<f:render arguments="{ mainnavigation: mainnavigation }" partial="Header" />
+<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Scripts/main.entry.ts"/>
+<vite:asset entry="EXT:sitepackage/Resources/Private/Assets/Styles/main.entry.css"/>
+
+<f:render arguments="{ mainnavigation: mainnavigation }" partial="Header"/>
 
 <f:page.headerData>
-    <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="{site.configuration.websiteTitle}" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link href="/favicon-48x48.png" rel="icon" sizes="48x48" type="image/png"/>
+    <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+    <meta content="{site.configuration.websiteTitle}" name="apple-mobile-web-app-title"/>
+    <link href="/site.webmanifest" rel="manifest"/>
 </f:page.headerData>
 
-<main id="app" class="page">
-    <f:render section="Main" />
+<main class="page" id="app">
+    <f:render section="Main"/>
 </main>
 
-<f:render arguments="{_all}" partial="Footer" />
+<f:render arguments="{_all}" partial="Footer"/>
 
-</html>
+</fluid>

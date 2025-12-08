@@ -1,12 +1,12 @@
-<html
+<fluid
     data-namespace-typo3-fluid="true"
-    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
 
-<vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Hero.entry.css" />
-<f:variable name="nextEvent" value="{app:nextEvent()}" />
+<vite:asset entry="EXT:sitepackage/Resources/Private/Partials/Content/Hero.entry.css"/>
+<f:variable name="nextEvent" value="{app:nextEvent()}"/>
 
 <section class="hero" id="c{record.uid}">
     <div class="hero__content">
@@ -21,13 +21,13 @@
             </div>
             <f:if condition="{nextEvent}">
                 <f:link.action
-                    pageUid="3"
+                    action="detail"
+                    arguments="{event: nextEvent.uid}"
                     class="hero__cta animate-in"
                     controller="Event"
                     extensionName="Sitepackage"
+                    pageUid="3"
                     pluginName="EventDetail"
-                    action="detail"
-                    arguments="{event: nextEvent.uid}"
                 >
                     Nächstes Treffen →
                 </f:link.action>
@@ -40,8 +40,8 @@
                 alt="{record.assets.0.alternative}"
                 class="hero__img"
                 decoding="async"
-                format="webp"
                 fetchpriority="high"
+                format="webp"
                 image="{record.assets.0}"
                 loading="eager"
                 sizes="(min-width: 1280px) 50vw, 100vw"
@@ -51,5 +51,4 @@
     </div>
 </section>
 
-
-</html>
+</fluid>

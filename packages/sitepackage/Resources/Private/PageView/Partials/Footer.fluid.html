@@ -1,4 +1,4 @@
-<html
+<fluid
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 >
@@ -7,31 +7,19 @@
     <div class="footer__content">
         <div class="footer__main">
             <div class="footer__brand">
-                <h3 class="footer__logo">MÄNNERKREIS</h3>
+                <p class="footer__logo">MÄNNERKREIS</p>
                 <p class="footer__tagline">Ein Raum für echte Begegnungen, persönliches Wachstum und tiefe Verbindungen
                     unter Männern.</p>
-                <f:comment>
-                    <!--<div class="footer__social">
-                        <a aria-label="Instagram" class="footer__social-link" href="https://instagram.com">
-                            <span>Instagram</span>
-                        </a>
-                        <a aria-label="Facebook" class="footer__social-link" href="https://facebook.com">
-                            <span>Facebook</span>
-                        </a>
-                    </div>-->
-                </f:comment>
             </div>
 
-            <nav class="footer__nav">
+            <nav aria-label="Footer Navigation" class="footer__nav">
                 <div class="footer__nav-group">
-                    <h4 class="footer__nav-title">Navigation</h4>
+                    <p class="footer__nav-title">Navigation</p>
                     <ul class="footer__nav-list">
                         <f:for as="item" each="{footernavigation}">
-                            <li><a
-                                href="{item.link}"
-                                target="{item.target}"
-                                title="{item.title}"
-                            >{item.title}</a></li>
+                            <li>
+                                <a href="{item.link}" target="{item.target}" title="{item.title}">{item.title}</a>
+                            </li>
                         </f:for>
                     </ul>
                 </div>
@@ -39,9 +27,12 @@
         </div>
 
         <div class="footer__bottom">
-            <p>© 2025 Männerkreis</p>
+            <p>©
+                <f:format.date format="Y">now</f:format.date>
+                Männerkreis
+            </p>
         </div>
     </div>
 </footer>
 
-</html>
+</fluid>

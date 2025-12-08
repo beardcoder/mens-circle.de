@@ -1,99 +1,101 @@
 {
-	"name": "mens-circle/site",
-	"description": "Website https://mens-circle.de",
-	"license": "GPL-2.0-or-later",
-	"type": "project",
-	"require": {
-		"php": "^8.5",
-		"ext-redis": "*",
-		"ext-sodium": "*",
-		"eluceo/ical": "^2.14",
-		"helhum/dotenv-connector": "^3.2.0",
-		"lcobucci/clock": "^3.5.0",
-		"lcobucci/jwt": "^5.6",
-		"mens-circle/sitepackage": "@dev",
-		"praetorius/vite-asset-collector": "^1.14",
-		"sentry/sentry": "^4.19",
-		"spatie/schema-org": "^3.23.1",
-		"typo3/cms-adminpanel": ">=14",
-		"typo3/cms-beuser": ">=14",
-		"typo3/cms-form": ">=14",
-		"typo3/cms-impexp": ">=14",
-		"typo3/cms-install": ">=14",
-		"typo3/cms-linkvalidator": ">=14",
-		"typo3/cms-reactions": ">=14",
-		"typo3/cms-redirects": ">=14",
-		"typo3/cms-reports": ">=14",
-		"typo3/cms-rte-ckeditor": ">=14",
-		"typo3/cms-scheduler": ">=14",
-		"typo3/cms-seo": ">=14",
-		"typo3/cms-setup": ">=14",
-		"typo3/cms-t3editor": ">=14",
-		"typo3/cms-tstemplate": ">=14",
-		"typo3/minimal": ">=14",
-		"vlucas/phpdotenv": "^5.6.2"
-	},
-	"require-dev": {
-		"ergebnis/composer-normalize": "^2.48.2",
-		"phpro/grumphp-shim": "^2.17",
-		"phpstan/extension-installer": "^1.4",
-		"phpstan/phpstan": "^2.1",
-		"rector/rector": "^2.2.7",
-		"roave/security-advisories": "dev-latest",
-		"ssch/typo3-rector": "dev-main",
-		"symfony/var-dumper": "^8.0",
-		"symplify/easy-coding-standard": "^13.0",
-		"typo3/cms-belog": ">=14",
-		"typo3/cms-lowlevel": ">=14",
-		"typo3/cms-styleguide": "^14",
-		"typo3/coding-standards": "^0.8.0"
-	},
-	"repositories": [
-		{
-			"type": "path",
-			"url": "./packages/*/"
-		}
-	],
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-	"config": {
-			"allow-plugins": {
-				"phpstan/extension-installer": true,
-				"ergebnis/composer-normalize": true,
-				"helhum/dotenv-connector": true,
-				"phpro/grumphp-shim": true,
-				"typo3/class-alias-loader": true,
-				"typo3/cms-composer-installers": true
-			},
-		"platform": {
-			"php": "8.5"
-		},
-		"sort-packages": true
-	},
-	"extra": {
-		"composer-normalize": {
-			"indent-size": 2,
-			"indent-style": "space"
-		}
-	},
-	"scripts": {
-		"fix:php": [
-			"@fix:php:cs"
-		],
-		"fix:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php",
-		"run-extension-setup": [
-			"typo3 extension:setup"
-		],
-		"post-install-cmd": [
-			"composer outdated --direct"
-		],
-		"post-update-cmd": [
-			"composer outdated --direct"
-		],
-		"phpstan": "phpstan analyse -c phpstan.neon",
-		"run-upgrade": [
-			"typo3 language:update --skip-extension=sitepackage --skip-extension=vite_asset_collector",
-			"typo3 upgrade:run"
-		]
-	}
+  "name": "mens-circle/site",
+  "description": "Website https://mens-circle.de",
+  "license": "GPL-2.0-or-later",
+  "type": "project",
+  "require": {
+    "php": "^8.5",
+    "ext-redis": "*",
+    "ext-sodium": "*",
+    "eluceo/ical": "^2.14",
+    "helhum/dotenv-connector": "^3.2.0",
+    "lcobucci/clock": "^3.5.0",
+    "lcobucci/jwt": "^5.6",
+    "mens-circle/sitepackage": "@dev",
+    "praetorius/vite-asset-collector": "^1.14",
+    "sentry/sentry": "^4.19",
+    "spatie/schema-org": "^3.23.1",
+    "typo3/cms-adminpanel": ">=14",
+    "typo3/cms-beuser": ">=14",
+    "typo3/cms-form": ">=14",
+    "typo3/cms-impexp": ">=14",
+    "typo3/cms-install": ">=14",
+    "typo3/cms-linkvalidator": ">=14",
+    "typo3/cms-reactions": ">=14",
+    "typo3/cms-redirects": ">=14",
+    "typo3/cms-reports": ">=14",
+    "typo3/cms-rte-ckeditor": ">=14",
+    "typo3/cms-scheduler": ">=14",
+    "typo3/cms-seo": ">=14",
+    "typo3/cms-setup": ">=14",
+    "typo3/cms-t3editor": ">=14",
+    "typo3/cms-tstemplate": ">=14",
+    "typo3/minimal": ">=14",
+    "vlucas/phpdotenv": "^5.6.2"
+  },
+  "require-dev": {
+    "a9f/typo3-fractor": "dev-main",
+    "ergebnis/composer-normalize": "^2.48.2",
+    "phpro/grumphp-shim": "^2.17",
+    "phpstan/extension-installer": "^1.4",
+    "phpstan/phpstan": "^2.1",
+    "rector/rector": "^2.2.7",
+    "roave/security-advisories": "dev-latest",
+    "ssch/typo3-rector": "dev-main",
+    "symfony/var-dumper": "^8.0",
+    "symplify/easy-coding-standard": "^13.0",
+    "typo3/cms-belog": ">=14",
+    "typo3/cms-lowlevel": ">=14",
+    "typo3/cms-styleguide": "^14",
+    "typo3/coding-standards": "^0.8.0"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "./packages/*/"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "a9f/fractor-extension-installer": true,
+      "ergebnis/composer-normalize": true,
+      "helhum/dotenv-connector": true,
+      "phpro/grumphp-shim": true,
+      "phpstan/extension-installer": true,
+      "typo3/class-alias-loader": true,
+      "typo3/cms-composer-installers": true
+    },
+    "platform": {
+      "php": "8.5"
+    },
+    "sort-packages": true
+  },
+  "extra": {
+    "composer-normalize": {
+      "indent-size": 2,
+      "indent-style": "space"
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "composer outdated --direct"
+    ],
+    "post-update-cmd": [
+      "composer outdated --direct"
+    ],
+    "fix:php": [
+      "@fix:php:cs"
+    ],
+    "fix:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php",
+    "phpstan": "phpstan analyse -c phpstan.neon",
+    "run-extension-setup": [
+      "typo3 extension:setup"
+    ],
+    "run-upgrade": [
+      "typo3 language:update --skip-extension=sitepackage --skip-extension=vite_asset_collector",
+      "typo3 upgrade:run"
+    ]
+  }
 }

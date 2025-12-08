@@ -2,30 +2,30 @@
 # BACKENDLAYOUT: DEFAULT
 #
 mod {
-    web_layout {
-        BackendLayouts {
-            home {
-                title = LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:backend_layout.home
-                config {
-                    backend_layout {
-                        colCount = 1
-                        rowCount = 1
-                        rows {
-                            1 {
-                                columns {
-                                    1 {
-                                        name = LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:backend_layout.column.normal
-                                        colPos = 0
-                                        identifier = main
-                                    }
-                                }
-                            }
-                        }
-                    }
+  web_layout {
+    BackendLayouts {
+      home {
+        title = LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:backend_layout.home
+        config {
+          backend_layout {
+            colCount = 1
+            rowCount = 1
+            rows {
+              1 {
+                columns {
+                  1 {
+                    name = LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:backend_layout.column.normal
+                    colPos = 0
+                    identifier = main
+                  }
                 }
-
-                icon = EXT:sitepackage/Resources/Public/Images/BackendLayouts/default.png
+              }
             }
+          }
         }
+
+        icon = EXT:sitepackage/Resources/Public/Images/BackendLayouts/default.png
+      }
     }
+  }
 }

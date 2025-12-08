@@ -1,31 +1,30 @@
-<html
+<fluid
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:app="http://typo3.org/ns/MensCircle/Sitepackage/ViewHelpers"
-    xmlns:mce="http://typo3.org/ns/MensCircle/Sitepackage/ComponentCollection"
     xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
 >
 
-<f:layout name="Default" />
+<f:layout name="Default"/>
 
 <f:section name="Main">
-<f:if condition="{events}">
-    <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Events/List.entry.css" />
+    <f:if condition="{events}">
+        <vite:asset entry="EXT:sitepackage/Resources/Private/Templates/Events/List.entry.css"/>
 
-    <section class="events" id="events">
-        <div class="events__header">
-            <div class="events__header-text reveal-text">
-                <span class="events__label">NÄCHSTER TERMIN</span>
-                <h2 class="section__title">Kommendes Treffen</h2>
+        <section class="events" id="events">
+            <header class="events__header">
+                <div class="events__header-text reveal-text">
+                    <span class="events__label">NÄCHSTER TERMIN</span>
+                    <h2 class="section__title">Kommendes Treffen</h2>
+                </div>
+            </header>
+
+            <div class="events__container">
+                <f:for as="event" each="{events}">
+                    <f:render arguments="{event: event}" partial="Item"/>
+                </f:for>
             </div>
-        </div>
-
-        <div class="events__container">
-            <f:for as="event" each="{events}">
-                <f:render arguments="{ event: event }" partial="Item" />
-            </f:for>
-        </div>
-    </section>
-</f:if>
+        </section>
+    </f:if>
 </f:section>
-</html>
+
+</fluid>

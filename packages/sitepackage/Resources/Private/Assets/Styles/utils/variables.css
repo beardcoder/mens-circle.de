@@ -1,11 +1,17 @@
 /* ============================================
    CSS CUSTOM PROPERTIES (Variables)
-   Central theme configuration
+   Central theme configuration using modern CSS
    ============================================ */
+
+/* Enable light-dark() function */
+:root {
+    color-scheme: light dark;
+}
 
 :root {
     /* ============================================
        COLOR PALETTE - Erdige Farben (Ethno Style)
+       Static colors (theme-independent)
        ============================================ */
 
     /* Primary Colors */
@@ -23,9 +29,9 @@
     --color-accent-50: rgb(212 165 116 / 5%);
     --color-accent-100: rgb(212 165 116 / 10%);
 
-    /* Earth Tones */
-    --color-earth: #4a4238; /* Dunkles Erdbraun */
-    --color-earth-light: #6b5d52;
+    /* Earth Tones - Theme adaptive */
+    --color-earth: light-dark(#4a4238, #e8d5c4);
+    --color-earth-light: light-dark(#6b5d52, #c7bfb4);
     --color-clay: #a67c52; /* Lehm */
     --color-stone: #8c8174; /* Stein */
 
@@ -33,11 +39,11 @@
     --color-forest: #5b6c5d; /* Waldgrün */
     --color-forest-dark: #3d4a3e;
 
-    /* Base Colors - Light Mode */
-    --color-bg: #f5f1eb; /* Heller Sandton */
-    --color-bg-dark: #e8e1d6;
-    --color-text: #2d2520;
-    --color-text-light: #5d524a;
+    /* Base Colors - Theme adaptive using light-dark() */
+    --color-bg: light-dark(#f5f1eb, #1a1410);
+    --color-bg-dark: light-dark(#e8e1d6, #0f0b08);
+    --color-text: light-dark(#2d2520, #f5f1eb);
+    --color-text-light: light-dark(#5d524a, #c7bfb4);
     --color-white: #fffdf9;
 
     /* Semantic Colors */
@@ -107,16 +113,10 @@
     --transition-snappy: cubic-bezier(0.2, 0.9, 0.3, 1);
 
     /* ============================================
-       SHADOWS
+       SHADOWS - Theme adaptive (defined below)
        ============================================ */
 
-    --shadow-sm: 0 2px 8px rgb(45 37 32 / 6%);
-    --shadow-md: 0 4px 16px rgb(45 37 32 / 8%);
-    --shadow-lg: 0 8px 32px rgb(45 37 32 / 12%);
-    --shadow-xl: 0 16px 48px rgb(45 37 32 / 16%);
-    --shadow-colored: 0 8px 24px rgb(193 123 93 / 15%);
-    --shadow-colored-lg: 0 16px 48px rgb(193 123 93 / 20%);
-    --shadow-inset: inset 0 2px 4px rgb(45 37 32 / 6%);
+    --shadow-inset: light-dark(inset 0 2px 4px rgb(45 37 32 / 6%), inset 0 2px 4px rgb(0 0 0 / 20%));
 
     /* ============================================
        GRADIENTS
@@ -144,112 +144,76 @@
     --texture-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulance type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
 
     /* ============================================
-       COMPONENT-SPECIFIC COLORS - Light Mode
+       COMPONENT-SPECIFIC COLORS - Theme adaptive
+       Using light-dark() for automatic switching
        ============================================ */
 
     /* Navigation */
-    --nav-bg: rgb(255 253 249 / 92%);
-    --nav-bg-scrolled: rgb(255 253 249 / 98%);
-    --nav-border: rgb(193 123 93 / 8%);
-    --nav-border-scrolled: rgb(193 123 93 / 15%);
+    --nav-bg: light-dark(rgb(255 253 249 / 92%), rgb(26 20 16 / 92%));
+    --nav-bg-scrolled: light-dark(rgb(255 253 249 / 98%), rgb(26 20 16 / 98%));
+    --nav-border: light-dark(rgb(193 123 93 / 8%), rgb(193 123 93 / 15%));
+    --nav-border-scrolled: light-dark(rgb(193 123 93 / 15%), rgb(193 123 93 / 25%));
     --nav-logo-color: var(--color-earth);
     --nav-link-color: var(--color-text);
     --nav-cta-bg: var(--color-primary);
-    --nav-cta-bg-hover: var(--color-primary-dark);
+    --nav-cta-bg-hover: light-dark(var(--color-primary-dark), var(--color-primary-light));
     --nav-cta-color: var(--color-white);
-    --nav-theme-toggle-bg: rgb(193 123 93 / 8%);
-    --nav-theme-toggle-bg-hover: rgb(193 123 93 / 15%);
-    --nav-theme-toggle-border: rgb(193 123 93 / 20%);
-    --nav-theme-icon-color: var(--color-earth);
+    --nav-theme-toggle-bg: light-dark(rgb(193 123 93 / 8%), rgb(193 123 93 / 15%));
+    --nav-theme-toggle-bg-hover: light-dark(rgb(193 123 93 / 15%), rgb(193 123 93 / 25%));
+    --nav-theme-toggle-border: light-dark(rgb(193 123 93 / 20%), rgb(193 123 93 / 30%));
+    --nav-theme-icon-color: light-dark(var(--color-earth), var(--color-accent-bright));
     --nav-toggle-color: var(--color-earth);
-    --nav-mobile-bg: rgb(255 253 249 / 98%);
+    --nav-mobile-bg: light-dark(rgb(255 253 249 / 98%), rgb(26 20 16 / 98%));
     --nav-height: 64px;
 
     /* Cards & Sections */
-    --card-bg: #fff;
-    --card-border: rgb(193 123 93 / 10%);
+    --card-bg: light-dark(#fff, #241d18);
+    --card-border: light-dark(rgb(193 123 93 / 10%), rgb(193 123 93 / 20%));
     --card-shadow: var(--shadow-md);
-    --section-bg-alt: #f9f6f1;
-    --overlay-bg: rgb(45 37 32 / 50%);
+    --section-bg-alt: light-dark(#f9f6f1, #211913);
+    --overlay-bg: light-dark(rgb(45 37 32 / 50%), rgb(0 0 0 / 70%));
 
     /* Forms & Inputs */
-    --input-bg: #fff;
-    --input-border: rgb(193 123 93 / 20%);
-    --input-focus-border: var(--color-primary);
+    --input-bg: light-dark(#fff, #2d2520);
+    --input-border: light-dark(rgb(193 123 93 / 20%), rgb(193 123 93 / 30%));
+    --input-focus-border: light-dark(var(--color-primary), var(--color-primary-light));
     --input-text: var(--color-text);
 
     /* Buttons */
     --button-primary-bg: var(--color-primary);
-    --button-primary-hover: var(--color-primary-dark);
+    --button-primary-hover: light-dark(var(--color-primary-dark), var(--color-primary-light));
     --button-secondary-bg: transparent;
-    --button-secondary-border: var(--color-primary);
+    --button-secondary-border: light-dark(var(--color-primary), var(--color-primary-light));
 
     /* Hero */
     --hero-bg: var(--color-bg);
     --hero-gradient-start: var(--color-bg);
-    --hero-gradient-end: var(--color-bg);
+    --hero-gradient-end: var(--color-bg-dark);
+
+    /* Shadows - Theme adaptive */
+    --shadow-sm: light-dark(0 2px 8px rgb(45 37 32 / 6%), 0 2px 8px rgb(0 0 0 / 30%));
+    --shadow-md: light-dark(0 4px 16px rgb(45 37 32 / 8%), 0 4px 16px rgb(0 0 0 / 40%));
+    --shadow-lg: light-dark(0 8px 32px rgb(45 37 32 / 12%), 0 8px 32px rgb(0 0 0 / 50%));
+    --shadow-xl: light-dark(0 16px 48px rgb(45 37 32 / 16%), 0 16px 48px rgb(0 0 0 / 60%));
+    --shadow-colored: light-dark(0 8px 24px rgb(193 123 93 / 15%), 0 8px 24px rgb(193 123 93 / 30%));
+    --shadow-colored-lg: light-dark(0 16px 48px rgb(193 123 93 / 20%), 0 16px 48px rgb(193 123 93 / 40%));
 }
 
 /* ============================================
-   DARK MODE THEME
+   DARK MODE OVERRIDE
+   For manual theme toggle via data-theme attribute
+   Forces dark mode regardless of system preference
    ============================================ */
 
 [data-theme='dark'] {
-    /* Base Colors - Dark Mode */
-    --color-bg: #1a1410;
-    --color-bg-dark: #0f0b08;
-    --color-text: #f5f1eb;
-    --color-text-light: #c7bfb4;
-    --color-white: #fffdf9;
-    --color-earth: #e8d5c4;
-    --color-earth-light: #c7bfb4;
+    color-scheme: dark;
+}
 
-    /* Navigation - Dark Mode */
-    --nav-bg: rgb(26 20 16 / 92%);
-    --nav-bg-scrolled: rgb(26 20 16 / 98%);
-    --nav-border: rgb(193 123 93 / 15%);
-    --nav-border-scrolled: rgb(193 123 93 / 25%);
-    --nav-logo-color: var(--color-white);
-    --nav-link-color: var(--color-text);
-    --nav-cta-bg: var(--color-primary);
-    --nav-cta-bg-hover: var(--color-primary-light);
-    --nav-cta-color: var(--color-white);
-    --nav-theme-toggle-bg: rgb(193 123 93 / 15%);
-    --nav-theme-toggle-bg-hover: rgb(193 123 93 / 25%);
-    --nav-theme-toggle-border: rgb(193 123 93 / 30%);
-    --nav-theme-icon-color: var(--color-accent-bright);
-    --nav-toggle-color: var(--color-white);
-    --nav-mobile-bg: rgb(26 20 16 / 98%);
+/* ============================================
+   LIGHT MODE OVERRIDE
+   Forces light mode regardless of system preference
+   ============================================ */
 
-    /* Cards & Sections - Dark Mode */
-    --card-bg: #241d18;
-    --card-border: rgb(193 123 93 / 20%);
-    --card-shadow: 0 4px 16px rgb(0 0 0 / 50%);
-    --section-bg-alt: #211913;
-    --overlay-bg: rgb(0 0 0 / 70%);
-
-    /* Forms & Inputs - Dark Mode */
-    --input-bg: #2d2520;
-    --input-border: rgb(193 123 93 / 30%);
-    --input-focus-border: var(--color-primary-light);
-    --input-text: var(--color-text);
-
-    /* Buttons - Dark Mode */
-    --button-primary-bg: var(--color-primary);
-    --button-primary-hover: var(--color-primary-light);
-    --button-secondary-bg: transparent;
-    --button-secondary-border: var(--color-primary-light);
-
-    /* Hero - Dark Mode */
-    --hero-bg: var(--color-bg);
-    --hero-gradient-start: var(--color-bg);
-    --hero-gradient-end: var(--color-bg-dark);
-
-    /* Shadows - Dark Mode */
-    --shadow-sm: 0 2px 8px rgb(0 0 0 / 30%);
-    --shadow-md: 0 4px 16px rgb(0 0 0 / 40%);
-    --shadow-lg: 0 8px 32px rgb(0 0 0 / 50%);
-    --shadow-xl: 0 16px 48px rgb(0 0 0 / 60%);
-    --shadow-colored: 0 8px 24px rgb(193 123 93 / 30%);
-    --shadow-colored-lg: 0 16px 48px rgb(193 123 93 / 40%);
+[data-theme='light'] {
+    color-scheme: light;
 }
