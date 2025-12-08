@@ -36,5 +36,4 @@ class Participant extends AbstractEntity
     public string $name {
         get => "{$this->firstName} {$this->lastName}";
     }
-
 }

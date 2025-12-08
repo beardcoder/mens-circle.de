@@ -139,7 +139,6 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
         $calendarFactory = new CalendarFactory();
         $calendarComponent = $calendarFactory->createCalendar($calendar);
 
-
         $filenameWithoutPrefix = Strings::webalize("{$event->title} {$event->startDate->format('d. m. Y')}");
         $headers = [
             'Content-Type' => 'text/calendar; charset=utf-8',

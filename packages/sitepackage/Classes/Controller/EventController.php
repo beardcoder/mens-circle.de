@@ -10,7 +10,6 @@ use MensCircle\Sitepackage\Domain\Repository\EventRepository;
 use MensCircle\Sitepackage\Domain\Repository\ParticipantRepository;
 use MensCircle\Sitepackage\Enum\ExtensionEnum;
 use MensCircle\Sitepackage\Message\SendMailMessage;
-use MensCircle\Sitepackage\Middleware\EventApiMiddleware;
 use MensCircle\Sitepackage\PageTitle\EventPageTitleProvider;
 use MensCircle\Sitepackage\Service\FrontendUserService;
 use Psr\Http\Message\ResponseInterface;

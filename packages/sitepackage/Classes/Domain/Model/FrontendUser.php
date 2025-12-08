@@ -53,5 +53,4 @@ class FrontendUser extends AbstractEntity
             $this->name = trim("{$this->firstName} {$this->lastName}");
         }
     }
-
 }
