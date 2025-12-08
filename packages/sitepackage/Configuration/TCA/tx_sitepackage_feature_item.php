@@ -39,8 +39,8 @@ return [
     'palettes' => [
         'access' => [
             'showitem' => '
-                starttime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel,
-                endtime;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel
+                starttime;core.db.general:starttime,
+                endtime;core.db.general:endtime
             ',
         ],
         'general' => [
@@ -50,9 +50,9 @@ return [
         ],
         'headers' => [
             'showitem' => '
-                subheader;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:subheader_formlabel
+                subheader
                 --linebreak--,
-                header;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_formlabel,
+                header,
             ',
         ],
         'visibility' => [

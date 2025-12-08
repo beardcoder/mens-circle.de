@@ -136,8 +136,8 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
      */
     private function createICalResponse(Calendar $calendar, Event $event): ResponseInterface
     {
-        $componentFactory = new CalendarFactory();
-        $calendarComponent = $componentFactory->createCalendar($calendar);
+        $calendarFactory = new CalendarFactory();
+        $calendarComponent = $calendarFactory->createCalendar($calendar);
 
 
         $filenameWithoutPrefix = Strings::webalize("{$event->title} {$event->startDate->format('d. m. Y')}");

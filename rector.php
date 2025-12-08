@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Rector\PostRector\Rector\NameImportingPostRector;
+use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
@@ -47,6 +48,7 @@ return RectorConfig::configure()
     ])
     // If you use withImportNames(), you should consider excluding some TYPO3 files.
     ->withSkip([
+        EncapsedStringsToSprintfRector::class,
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
             'ext_emconf.php',
