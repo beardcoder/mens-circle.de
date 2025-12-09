@@ -18,7 +18,7 @@
         <div class="features__grid">
             <f:for as="featureItem" each="{record.tx_sitepackage_feature_items}" iteration="iteration">
                 <f:variable name="hasImage" value="{featureItem.assets.0}"/>
-                <f:variable name="isLarge" value="{f:if(condition: '{record.layout} == \'200\'')}" />
+                <f:variable name="isLarge" value="{f:if(condition: '{featureItem.layout} == 200')}" />
 
                 <article
                     class="feature-card reveal-card{f:if(condition: '!{hasImage}', then: ' feature-card--text')}{f:if(condition: isLarge, then: ' feature-card--large')}"
