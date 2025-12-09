@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 /*
+ * This file is part of the mens-circle/sitepackage extension.
  * Created by Markus Sommer
  * "Slow your breath, slow your mind — let the right code appear."
  */
@@ -29,6 +30,6 @@ call_user_func(static function (): void {
     $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][$customPageDoktype] = $customIconClass;
 
     foreach (['hideinmenu', 'root'] as $suffix) {
-        $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][$customPageDoktype.'-'.$suffix] = $customIconClass.'-'.$suffix;
+        $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes']["{$customPageDoktype}-{$suffix}"] = "{$customIconClass}-{$suffix}";
     }
 });

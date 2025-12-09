@@ -10931,21 +10931,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.2.11",
+            "version": "2.2.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "7bd21a40b0332b93d4bfee284093d7400696902d"
+                "reference": "6d56bb0e94d4df4f57a78610550ac76ab403657d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/7bd21a40b0332b93d4bfee284093d7400696902d",
-                "reference": "7bd21a40b0332b93d4bfee284093d7400696902d",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/6d56bb0e94d4df4f57a78610550ac76ab403657d",
+                "reference": "6d56bb0e94d4df4f57a78610550ac76ab403657d",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0",
-                "phpstan/phpstan": "^2.1.32"
+                "phpstan/phpstan": "^2.1.33"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -10979,7 +10979,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.2.11"
+                "source": "https://github.com/rectorphp/rector/tree/2.2.14"
             },
             "funding": [
                 {
@@ -10987,7 +10987,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-12-02T11:23:46+00:00"
+            "time": "2025-12-09T10:57:55+00:00"
         },
         {
             "name": "roave/security-advisories",
@@ -10995,12 +10995,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "116121f02bbca0fec8f26c658e17f3f6e90010ff"
+                "reference": "eeebba0043eaddd36fd8747cc144b9b661d9b392"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/116121f02bbca0fec8f26c658e17f3f6e90010ff",
-                "reference": "116121f02bbca0fec8f26c658e17f3f6e90010ff",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/eeebba0043eaddd36fd8747cc144b9b661d9b392",
+                "reference": "eeebba0043eaddd36fd8747cc144b9b661d9b392",
                 "shasum": ""
             },
             "conflict": {
@@ -11911,6 +11911,7 @@
                 "yoast-seo-for-typo3/yoast_seo": "<7.2.3",
                 "yourls/yourls": "<=1.8.2",
                 "yuan1994/tpadmin": "<=1.3.12",
+                "yungifez/skuul": "<=2.6.5",
                 "z-push/z-push-dev": "<2.7.6",
                 "zencart/zencart": "<=1.5.7.0-beta",
                 "zendesk/zendesk_api_client_php": "<2.2.11",
@@ -11986,7 +11987,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-08T18:07:51+00:00"
+            "time": "2025-12-08T23:05:37+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -12121,12 +12122,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabbelasichon/typo3-rector.git",
-                "reference": "3b3be7eca3ce1b8424151385e4916609ff7467c6"
+                "reference": "80467453d3654a653d39fd420b776822510ad49e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/3b3be7eca3ce1b8424151385e4916609ff7467c6",
-                "reference": "3b3be7eca3ce1b8424151385e4916609ff7467c6",
+                "url": "https://api.github.com/repos/sabbelasichon/typo3-rector/zipball/80467453d3654a653d39fd420b776822510ad49e",
+                "reference": "80467453d3654a653d39fd420b776822510ad49e",
                 "shasum": ""
             },
             "require": {
@@ -12230,7 +12231,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-12-08T20:38:32+00:00"
+            "time": "2025-12-08T22:27:03+00:00"
         },
         {
             "name": "symfony/polyfill-php81",

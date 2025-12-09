@@ -57,6 +57,11 @@
   ],
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "autoload-dev": {
+    "psr-4": {
+      "MensCircle\\Rector\\": "rector/"
+    }
+  },
   "config": {
     "allow-plugins": {
       "a9f/fractor-extension-installer": true,

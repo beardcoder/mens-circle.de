@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 /*
+ * This file is part of the mens-circle/sitepackage extension.
  * Created by Markus Sommer
  * "Slow your breath, slow your mind — let the right code appear."
  */
@@ -39,6 +40,6 @@ class Subscription extends AbstractEntity
      * Computed property: Full name from first and last name.
      */
     public string $name {
-        get => $this->firstName.' '.$this->lastName;
+        get => "{$this->firstName} {$this->lastName}";
     }
 }

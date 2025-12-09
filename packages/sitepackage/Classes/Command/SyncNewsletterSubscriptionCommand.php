@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 /*
+ * This file is part of the mens-circle/sitepackage extension.
  * Created by Markus Sommer
  * "Slow your breath, slow your mind — let the right code appear."
  */
@@ -133,7 +134,7 @@ final class SyncNewsletterSubscriptionCommand extends Command
         $symfonyStyle->listing(array_map(
             static fn (array $u): string => \sprintf(
                 '%s <%s> (uid: %d)',
-                trim($u['first_name'].' '.$u['last_name']) ?: '(no name)',
+                trim("{$u['first_name']} {$u['last_name']}") ?: '(no name)',
                 $u['email'],
                 $u['uid']
             ),

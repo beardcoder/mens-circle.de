@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 /*
+ * This file is part of the mens-circle/sitepackage extension.
  * Created by Markus Sommer
  * "Slow your breath, slow your mind — let the right code appear."
  */
@@ -82,7 +83,7 @@ final class ResponsiveImageViewHelper extends AbstractTagBasedViewHelper
             }
 
             $srcSet = implode(', ', array_map(
-                static fn (array $source): string => \sprintf('%s %dw', $source['uri'], $source['width']),
+                static fn (array $source): string => "{$source['uri']} {$source['width']}w",
                 $sources
             ));
             $fallback = array_last($sources);
@@ -245,10 +246,10 @@ final class ResponsiveImageViewHelper extends AbstractTagBasedViewHelper
             $request = $this->renderingContext->getAttribute(ServerRequestInterface::class);
             $currentContentObject = $request->getAttribute('currentContentObject');
             if ($currentContentObject instanceof ContentObjectRenderer) {
-                return \sprintf('Unable to render responsive image in "%s": %s', $currentContentObject->currentRecord, $detailedMessage);
+                return "Unable to render responsive image in \"{$currentContentObject->currentRecord}\": {$detailedMessage}";
             }
         }
 
-        return 'Unable to render responsive image: '.$detailedMessage;
+        return "Unable to render responsive image: {$detailedMessage}";
     }
 }

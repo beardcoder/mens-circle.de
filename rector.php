@@ -2,9 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * Created by Markus Sommer
+ * "Slow your breath, slow your mind — let the right code appear."
+ */
+
+use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\Config\RectorConfig;
 use Rector\PostRector\Rector\NameImportingPostRector;
-use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
 use Rector\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
@@ -13,7 +18,7 @@ use Ssch\TYPO3Rector\Set\Typo3SetList;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__ . '/packages',
+        __DIR__.'/packages',
     ])
     // uncomment to reach your current PHP version
     // ->withPhpSets()
@@ -46,6 +51,9 @@ return RectorConfig::configure()
         ExtEmConfRector::TYPO3_VERSION_CONSTRAINT => '14.0.0-14.9.99',
         ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => [],
     ])
+    ->withRules([
+        \MensCircle\Rector\CodingStyle\Rector\SprintfToEncapsedStringsRector::class,
+    ])
     // If you use withImportNames(), you should consider excluding some TYPO3 files.
     ->withSkip([
         EncapsedStringsToSprintfRector::class,
@@ -53,4 +61,5 @@ return RectorConfig::configure()
             'ClassAliasMap.php',
             'ext_emconf.php',
         ],
-    ]);
+    ])
+;
