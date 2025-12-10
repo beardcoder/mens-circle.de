@@ -34,7 +34,6 @@ TYPO3 CMS distribution that powers [mens-circle.de](https://mens-circle.de), the
 
 - **DDEV Development Environment**: Streamlined local development setup
 - **Docker Deployment**: FrankenPHP-based production containerization
-- **Monitoring**: Sentry integration for error tracking and performance monitoring
 - **Caching**: Intelligent caching strategies for feeds and API responses
 
 ## 🛠️ Tech Stack
@@ -46,7 +45,6 @@ TYPO3 CMS distribution that powers [mens-circle.de](https://mens-circle.de), the
 | **Frontend**    | Vite 7, Bun, TypeScript, Lightning CSS, GSAP, Motion    |
 | **Database**    | MariaDB (via DDEV), Doctrine ORM                        |
 | **Deployment**  | FrankenPHP runtime, Docker, Caddy                       |
-| **Monitoring**  | Sentry for error tracking                               |
 | **Development** | DDEV, ESLint, Stylelint, Prettier, PHP-CS-Fixer         |
 
 ## Prerequisites
@@ -211,7 +209,6 @@ Customize `config/Caddyfile` and environment variables to match the target infra
 ## Maintenance checklist
 
 - Keep Composer and Bun dependencies updated (`ddev composer outdated`, `ddev bun update`).
-- Review Sentry logs (configured via environment DSN) for regressions.
 - Ensure cron or TYPO3 Scheduler jobs run regularly for newsletter and event notifications.
 
 ## 🤝 Contributing

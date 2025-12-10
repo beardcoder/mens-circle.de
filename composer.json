@@ -13,7 +13,6 @@
     "lcobucci/jwt": "^5.6",
     "mens-circle/sitepackage": "@dev",
     "praetorius/vite-asset-collector": "^1.14",
-    "sentry/sentry": "^4.19",
     "spatie/schema-org": "^3.23.1",
     "typo3/cms-adminpanel": ">=14",
     "typo3/cms-beuser": ">=14",

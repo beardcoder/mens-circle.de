@@ -43,7 +43,6 @@ mutations:
       - "'unsafe-eval'"
       - 'https://tracking.letsbenow.de'
       - 'https://bug.letsbenow.de'
-      - '*.o4508569353977856.ingest.de.sentry.io'
 
   - mode: extend
     directive: 'style-src'
