@@ -10,21 +10,11 @@ declare(strict_types=1);
 
 use MensCircle\Sitepackage\Controller\EventController;
 use MensCircle\Sitepackage\Controller\SubscriptionController;
-use MensCircle\Sitepackage\Service\SentryService;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 (static function (): void {
     $extensionKey = 'sitepackage';
-
-    // Initialize Sentry as early as possible
-    try {
-        $sentryService = GeneralUtility::makeInstance(SentryService::class);
-        $sentryService->initialize();
-    } catch (Throwable) {
-        // Silently fail if Sentry initialization fails to not break the application
-    }
 
     $GLOBALS['TYPO3_CONF_VARS']['RTE']['Presets'][$extensionKey] = 'EXT:sitepackage/Configuration/RTE/Default.yaml';
 

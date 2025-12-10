@@ -10,7 +10,6 @@
 		"@fontsource-variable/playfair-display": "^5.2.8",
 		"@fontsource/nothing-you-could-do": "^5.2.7",
 		"@hotwired/turbo": "^8.0.20",
-		"@sentry/browser": "^10.27.0",
 		"@trivago/prettier-plugin-sort-imports": "^6.0.0",
 		"@types/leaflet": "^1.9.21",
 		"@types/node": "^24.10.1",
