@@ -1,7 +1,7 @@
 import { CONFIG } from './config'
-import { createNavigation } from './components/Navigation'
-import { createSmoothScroll } from './components/SmoothScroll'
-import { createViewTransitions } from './components/ViewTransitions'
+import { createNavigation } from './components/navigation.ts'
+import { createSmoothScroll } from './components/smoothScroll.ts'
+import './components/newsletterSuccess.ts'
 import type { Factory } from './types'
 
 const factories: Factory[] = []
@@ -13,11 +13,11 @@ const registerFactory = (factory?: Factory | null): void => {
 }
 
 const loadUtilities = (() => {
-    let promise: Promise<typeof import('./components/Utilities')> | null = null
+    let promise: Promise<typeof import('./components/utilities.ts')> | null = null
 
     return () => {
         if (!promise) {
-            promise = import('./components/Utilities')
+            promise = import('./components/utilities.ts')
         }
 
         return promise
@@ -37,7 +37,7 @@ const bootstrap = async (): Promise<void> => {
     }
 
     if (document.querySelector('.reveal-card, .reveal-text')) {
-        const { createScrollReveal } = await import('./components/ScrollReveal')
+        const { createScrollReveal } = await import('./components/scrollReveal.ts')
         registerFactory(createScrollReveal())
     }
 
