@@ -39,6 +39,7 @@ RUN set -eux; \
     gd \
     intl \
     pdo_sqlite \
+    sqlite3 \
     zip \
     redis
 
