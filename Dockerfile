@@ -38,7 +38,7 @@ RUN set -eux; \
     exif \
     gd \
     intl \
-    pdo_mysql \
+    pdo_sqlite \
     zip \
     redis
 
