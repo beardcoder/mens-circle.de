@@ -11,9 +11,9 @@ declare(strict_types=1);
 namespace MensCircle\Sitepackage\Log\Writer;
 
 use MensCircle\Sitepackage\Error\SentryService;
+use Psr\Log\LogLevel;
 use Sentry\Severity;
 use Sentry\State\Scope;
-use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Log\LogRecord;
 use TYPO3\CMS\Core\Log\Writer\AbstractWriter;
 
@@ -21,7 +21,7 @@ use function Sentry\captureMessage;
 use function Sentry\withScope;
 
 /**
- * TYPO3 Log Writer that sends log entries to Sentry
+ * TYPO3 Log Writer that sends log entries to Sentry.
  *
  * Features:
  * - Maps TYPO3 log levels to Sentry severity
@@ -34,17 +34,17 @@ final class SentryLogWriter extends AbstractWriter
 {
     /**
      * Minimum log level to send to Sentry (default: ERROR)
-     * Lower levels are added as breadcrumbs
+     * Lower levels are added as breadcrumbs.
      */
-    private int $minimumLevel = LogLevel::ERROR;
+    private string $minimumLevel = LogLevel::ERROR;
 
     /**
-     * Whether to add lower-level logs as breadcrumbs
+     * Whether to add lower-level logs as breadcrumbs.
      */
     private bool $addBreadcrumbs = true;
 
     /**
-     * Components to ignore (regex patterns)
+     * Components to ignore (regex patterns).
      *
      * @var list<string>
      */
@@ -61,14 +61,14 @@ final class SentryLogWriter extends AbstractWriter
         parent::__construct($options);
 
         if (isset($options['minimumLevel'])) {
-            $this->minimumLevel = (int)$options['minimumLevel'];
+            $this->minimumLevel = $options['minimumLevel'];
         }
 
         if (isset($options['addBreadcrumbs'])) {
-            $this->addBreadcrumbs = (bool)$options['addBreadcrumbs'];
+            $this->addBreadcrumbs = $options['addBreadcrumbs'];
         }
 
-        if (isset($options['ignoredComponents']) && is_array($options['ignoredComponents'])) {
+        if (isset($options['ignoredComponents']) && \is_array($options['ignoredComponents'])) {
             $this->ignoredComponents = $options['ignoredComponents'];
         }
     }
@@ -126,7 +126,6 @@ final class SentryLogWriter extends AbstractWriter
             // Add context
             $scope->setTag('log.component', $record->getComponent());
             $scope->setExtra('request_id', $record->getRequestId());
-            $scope->setExtra('log_level', LogLevel::getName($record->getLevel()));
 
             $data = $record->getData();
 
@@ -164,7 +163,7 @@ final class SentryLogWriter extends AbstractWriter
         );
     }
 
-    private function mapLogLevel(int $level): Severity
+    private function mapLogLevel(string $level): Severity
     {
         return match ($level) {
             LogLevel::EMERGENCY, LogLevel::ALERT, LogLevel::CRITICAL => Severity::fatal(),
@@ -187,9 +186,10 @@ final class SentryLogWriter extends AbstractWriter
     }
 
     /**
-     * Filter out sensitive data from log context
+     * Filter out sensitive data from log context.
      *
      * @param array<string, mixed> $data
+     *
      * @return array<string, mixed>
      */
     private function filterSensitiveData(array $data): array
@@ -211,7 +211,7 @@ final class SentryLogWriter extends AbstractWriter
         $filtered = [];
 
         foreach ($data as $key => $value) {
-            $lowerKey = strtolower((string)$key);
+            $lowerKey = strtolower($key);
 
             // Check if key contains sensitive keywords
             $isSensitive = false;
@@ -226,7 +226,7 @@ final class SentryLogWriter extends AbstractWriter
 
             if ($isSensitive) {
                 $filtered[$key] = '[FILTERED]';
-            } elseif (is_array($value)) {
+            } elseif (\is_array($value)) {
                 $filtered[$key] = $this->filterSensitiveData($value);
             } else {
                 $filtered[$key] = $value;

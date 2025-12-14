@@ -22,7 +22,7 @@ use Sentry\Tracing\TransactionContext;
 use Sentry\Tracing\TransactionSource;
 
 /**
- * PSR-15 Middleware for automatic Sentry performance tracing
+ * PSR-15 Middleware for automatic Sentry performance tracing.
  *
  * This middleware:
  * - Creates a transaction for each HTTP request
@@ -68,13 +68,7 @@ final class SentryTracingMiddleware implements MiddlewareInterface
     {
         $hub = SentrySdk::getCurrentHub();
 
-        // Check for incoming trace headers (distributed tracing)
-        $sentryTrace = $request->getHeaderLine(self::SENTRY_TRACE_HEADER);
-        $baggage = $request->getHeaderLine(self::BAGGAGE_HEADER);
-
-        $transactionContext = $sentryTrace !== ''
-            ? TransactionContext::fromSentryTrace($sentryTrace, $baggage)
-            : new TransactionContext();
+        $transactionContext = new TransactionContext();
 
         // Set transaction name based on route
         $transactionName = $this->getTransactionName($request);
@@ -146,13 +140,13 @@ final class SentryTracingMiddleware implements MiddlewareInterface
         $route = $request->getAttribute('route');
 
         if ($route !== null && method_exists($route, 'getPath')) {
-            return sprintf('%s %s', $method, $route->getPath());
+            return \sprintf('%s %s', $method, $route->getPath());
         }
 
         // Normalize path for better grouping
         $normalizedPath = $this->normalizePath($path);
 
-        return sprintf('%s %s', $method, $normalizedPath);
+        return \sprintf('%s %s', $method, $normalizedPath);
     }
 
     private function normalizePath(string $path): string
@@ -164,9 +158,7 @@ final class SentryTracingMiddleware implements MiddlewareInterface
         $path = preg_replace('/\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/i', '/{uuid}', $path) ?? $path;
 
         // Replace hashes (32+ hex chars)
-        $path = preg_replace('/\/[a-f0-9]{32,}/i', '/{hash}', $path) ?? $path;
-
-        return $path;
+        return preg_replace('/\/[a-f0-9]{32,}/i', '/{hash}', $path) ?? $path;
     }
 
     private function mapHttpStatusToSpanStatus(int $statusCode): SpanStatus
@@ -177,9 +169,7 @@ final class SentryTracingMiddleware implements MiddlewareInterface
             $statusCode === 401 => SpanStatus::unauthenticated(),
             $statusCode === 403 => SpanStatus::permissionDenied(),
             $statusCode === 404 => SpanStatus::notFound(),
-            $statusCode === 409 => SpanStatus::aborted(),
             $statusCode === 429 => SpanStatus::resourceExhausted(),
-            $statusCode === 499 => SpanStatus::cancelled(),
             $statusCode >= 500 && $statusCode < 600 => SpanStatus::internalError(),
             default => SpanStatus::unknownError(),
         };
