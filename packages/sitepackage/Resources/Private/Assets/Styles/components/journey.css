@@ -3,18 +3,13 @@
    ============================================ */
 
 .journey {
-    background: linear-gradient(135deg, var(--color-earth) 0%, var(--color-forest-dark) 100%);
+    background: light-dark(linear-gradient(135deg, #4a4238 0%, var(--color-forest-dark) 100%), linear-gradient(135deg, var(--color-bg-dark) 0%, #0f1410 100%));
+    border-block-end: light-dark(none, 1px solid var(--card-border));
+    border-block-start: light-dark(none, 1px solid var(--card-border));
     color: var(--color-white);
     overflow: hidden;
     padding: var(--space-3xl) 0;
     position: relative;
-}
-
-/* Dark Mode Journey Adjustments */
-[data-theme='dark'] .journey {
-    background: linear-gradient(135deg, var(--color-bg-dark) 0%, #0f1410 100%);
-    border-block-end: 1px solid var(--card-border);
-    border-block-start: 1px solid var(--card-border);
 }
 
 .journey__content {

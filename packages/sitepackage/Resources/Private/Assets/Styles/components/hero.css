@@ -218,7 +218,7 @@
     }
 
     .hero__image-wrapper::before {
-        background: linear-gradient(180deg, var(--hero-gradient-start) 0%, rgb(245 241 235 / 30%) 15%, transparent 35%);
+        background: linear-gradient(180deg, var(--hero-gradient-start) 0%, light-dark(rgb(245 241 235 / 30%), rgb(26 20 16 / 30%)) 15%, transparent 35%);
     }
 }
 

@@ -1,6 +1,6 @@
 .c-about {
-    background-color: var(--bg-color--light);
-    color: var(--font-color);
+    background-color: var(--section-bg-alt);
+    color: var(--color-text);
     max-inline-size: 100vi;
     overflow: hidden;
 
@@ -26,7 +26,7 @@
 }
 
 .c-about__header {
-    color: var(--font-color);
+    color: var(--color-text);
     font-size: 2.25rem;
     font-weight: 700;
     letter-spacing: -0.025em;
@@ -39,12 +39,12 @@
 }
 
 .c-about__subheader {
-    color: var(--color--primary);
+    color: var(--color-primary);
     display: block;
 }
 
 .c-about__body {
-    color: var(--font-color);
+    color: var(--color-text);
     max-inline-size: none;
 
     @media (width >= 1024px) {

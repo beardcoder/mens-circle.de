@@ -22,22 +22,22 @@
 /* ============================================
    COMPONENTS
    ============================================ */
-@import './components/event/detail.css' layer(component);
-@import './components/event/list.css' layer(component);
-@import './components/about.css' layer(component);
-@import './components/buttons.css' layer(component);
-@import './components/events.css' layer(component);
-@import './components/faq.css' layer(component);
-@import './components/features.css' layer(component);
-@import './components/footer.css' layer(component);
-@import './components/form.css' layer(component);
-@import './components/header.css' layer(component);
-@import './components/hero.css' layer(component);
-@import './components/journey.css' layer(component);
-@import './components/misc.css' layer(component);
-@import './components/navigation.css' layer(component);
-@import './components/quote.css' layer(component);
-@import './components/text.css' layer(component);
+@import './components/event/detail.css' layer(components);
+@import './components/event/list.css' layer(components);
+@import './components/about.css' layer(components);
+@import './components/buttons.css' layer(components);
+@import './components/events.css' layer(components);
+@import './components/faq.css' layer(components);
+@import './components/features.css' layer(components);
+@import './components/footer.css' layer(components);
+@import './components/form.css' layer(components);
+@import './components/header.css' layer(components);
+@import './components/hero.css' layer(components);
+@import './components/journey.css' layer(components);
+@import './components/misc.css' layer(components);
+@import './components/navigation.css' layer(components);
+@import './components/quote.css' layer(components);
+@import './components/text.css' layer(components);
 
 /* ============================================
    UTILITIES (highest priority)
