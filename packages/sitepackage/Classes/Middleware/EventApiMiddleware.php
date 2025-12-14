@@ -21,7 +21,6 @@ use Eluceo\iCal\Domain\ValueObject\TimeSpan;
 use Eluceo\iCal\Presentation\Factory\CalendarFactory;
 use MensCircle\Sitepackage\Domain\Model\Event;
 use MensCircle\Sitepackage\Domain\Repository\EventRepository;
-use Nette\Utils\Strings;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -145,7 +144,7 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
         $calendarFactory = new CalendarFactory();
         $calendarComponent = $calendarFactory->createCalendar($calendar);
 
-        $filenameWithoutPrefix = Strings::webalize("{$event->title} {$event->startDate->format('d. m. Y')}");
+        $filenameWithoutPrefix = $this->sanitizeFilename("{$event->title} {$event->startDate->format('d. m. Y')}");
         $headers = [
             'Content-Type' => 'text/calendar; charset=utf-8',
             'Content-Disposition' => "attachment; filename=\"{$filenameWithoutPrefix}.ics\"",
@@ -155,5 +154,29 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
             body: new StreamFactory()->createStream((string) $calendarComponent),
             headers: $headers
         );
+    }
+
+    /**
+     * Sanitize a string to create a web-safe filename.
+     *
+     * Converts the string to lowercase, transliterates special characters to ASCII,
+     * and replaces non-alphanumeric characters with hyphens.
+     */
+    private function sanitizeFilename(string $filename): string
+    {
+        // Transliterate special characters to ASCII equivalents
+        $filename = transliterator_transliterate('Any-Latin; Latin-ASCII', $filename);
+
+        // Convert to lowercase
+        $filename = mb_strtolower($filename, 'UTF-8');
+
+        // Replace non-alphanumeric characters with hyphens
+        $filename = (string) preg_replace('/[^a-z0-9]+/', '-', $filename);
+
+        // Remove duplicate hyphens
+        $filename = (string) preg_replace('/-+/', '-', $filename);
+
+        // Trim hyphens from start and end
+        return trim($filename, '-');
     }
 }
