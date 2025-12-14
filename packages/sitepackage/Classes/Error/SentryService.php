@@ -148,6 +148,11 @@ final class SentryService implements SingletonInterface
             }
         }
 
+        // Filter out PHP deprecations
+        if (self::isDeprecation($exception)) {
+            return null;
+        }
+
         $eventId = null;
 
         withScope(static function (Scope $scope) use ($exception, &$eventId): void {
@@ -457,7 +462,28 @@ final class SentryService implements SingletonInterface
             }
         }
 
+        // Filter out PHP deprecations
+        if (self::isDeprecation($exception)) {
+            return null;
+        }
+
         return $event;
+    }
+
+    /**
+     * Check if an exception is a PHP deprecation warning.
+     *
+     * Deprecations are ErrorException instances with severity E_DEPRECATED or E_USER_DEPRECATED.
+     */
+    private static function isDeprecation(\Throwable $exception): bool
+    {
+        if (!$exception instanceof \ErrorException) {
+            return false;
+        }
+
+        $severity = $exception->getSeverity();
+
+        return $severity === \E_DEPRECATED || $severity === \E_USER_DEPRECATED;
     }
 
     private static function beforeSendTransaction(Event $event, ?EventHint $hint): ?Event
