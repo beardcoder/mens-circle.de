@@ -3,14 +3,10 @@
    ============================================ */
 
 .footer {
-    background: var(--color-earth);
+    background: light-dark(#4a4238, var(--color-bg-dark));
+    border-block-start: light-dark(none, 1px solid var(--card-border));
     color: var(--color-white);
     padding: var(--space-xl) var(--container-padding) var(--space-md);
-}
-
-[data-theme='dark'] .footer {
-    background: var(--color-bg-dark);
-    border-block-start: 1px solid var(--card-border);
 }
 
 .footer__content {
