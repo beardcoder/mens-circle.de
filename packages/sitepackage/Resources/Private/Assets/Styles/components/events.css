@@ -31,6 +31,7 @@
 .events__container {
     margin: 0 auto;
     max-inline-size: var(--container-max);
+    overflow-x: hidden;
     padding: 0 var(--container-padding);
 
     /* Enable Container Queries (2025) */
@@ -86,16 +87,23 @@
     grid-template-columns: 1fr 2fr;
 }
 
-.event-card:hover {
-    transform: translateY(-10px) scale(1.02);
-}
+/* Only enable hover effects on devices that support hover (not touch) */
+@media (hover: hover) and (pointer: fine) {
+    .event-card:hover {
+        transform: translateY(-10px) scale(1.02);
+    }
 
-.event-card:hover::before {
-    opacity: 0.8;
-}
+    .event-card:hover::before {
+        opacity: 0.8;
+    }
 
-.event-card:hover::after {
-    opacity: 1;
+    .event-card:hover::after {
+        opacity: 1;
+    }
+
+    .event-card:hover .event-card__date-section {
+        transform: scale(1.05);
+    }
 }
 
 .event-card__date-section {
@@ -105,14 +113,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: var(--space-2xl);
+    padding: var(--space-lg);
     position: relative;
     text-align: center;
     transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.event-card:hover .event-card__date-section {
-    transform: scale(1.05);
 }
 
 .event-card__date-section::after {
@@ -132,7 +136,7 @@
 }
 
 .event-card__day {
-    font-size: 4.5rem;
+    font-size: clamp(3rem, 8vw, 4.5rem);
     font-weight: 900;
     letter-spacing: -0.02em;
     line-height: 0.9;
@@ -166,7 +170,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-    padding: var(--space-2xl);
+    padding: var(--space-lg);
     position: relative;
     z-index: 1;
 }
@@ -238,11 +242,11 @@
     border-radius: var(--radius-full);
     display: inline-flex;
     flex: 1;
-    font-size: 1rem;
+    font-size: clamp(0.875rem, 2vw, 1rem);
     font-weight: 600;
     gap: 0.5rem;
     justify-content: center;
-    padding: 1rem 2rem;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
     text-decoration: none;
     transition: all 0.3s var(--transition-smooth);
 }
@@ -268,6 +272,43 @@
     background: var(--color-primary);
     color: var(--color-white);
     transform: translateY(-2px);
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS - Very small screens
+   ============================================ */
+
+/* Extra small screens (< 400px) */
+@container events (max-width: 400px) {
+    .event-card__content {
+        gap: var(--space-sm);
+        padding: var(--space-md);
+    }
+
+    .event-card__date-section {
+        padding: var(--space-md);
+    }
+
+    .event-card__meta {
+        gap: var(--space-sm);
+    }
+
+    .event-card__meta-item {
+        font-size: 0.875rem;
+    }
+
+    .event-card__actions {
+        gap: var(--space-sm);
+        margin-block-start: var(--space-md);
+    }
+
+    .event-card__title {
+        font-size: clamp(1.25rem, 5vw, 1.5rem);
+    }
+
+    .event-card__description {
+        font-size: 0.9375rem;
+    }
 }
 
 /* ============================================
@@ -308,6 +349,10 @@
     .event-card__content {
         padding: var(--space-xl);
     }
+
+    .event-card__date-section {
+        padding: var(--space-xl);
+    }
 }
 
 /* Container Query: When container is >= 768px */
@@ -331,6 +376,10 @@
         padding: var(--space-2xl);
     }
 
+    .event-card__date-section {
+        padding: var(--space-2xl);
+    }
+
     .event-card__meta {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -346,8 +395,16 @@
             grid-template-columns: 1fr;
         }
 
+        .event-card__date-section {
+            padding: var(--space-lg);
+        }
+
         .event-card__date-section::after {
             display: none;
+        }
+
+        .event-card__content {
+            padding: var(--space-lg);
         }
 
         .event-card__meta {
@@ -360,6 +417,38 @@
 
         .event-card__cta {
             inline-size: 100%;
+        }
+    }
+
+    @media (width <= 400px) {
+        .event-card__content {
+            gap: var(--space-sm);
+            padding: var(--space-md);
+        }
+
+        .event-card__date-section {
+            padding: var(--space-md);
+        }
+
+        .event-card__meta {
+            gap: var(--space-sm);
+        }
+
+        .event-card__meta-item {
+            font-size: 0.875rem;
+        }
+
+        .event-card__actions {
+            gap: var(--space-sm);
+            margin-block-start: var(--space-md);
+        }
+
+        .event-card__title {
+            font-size: clamp(1.25rem, 5vw, 1.5rem);
+        }
+
+        .event-card__description {
+            font-size: 0.9375rem;
         }
     }
 }
