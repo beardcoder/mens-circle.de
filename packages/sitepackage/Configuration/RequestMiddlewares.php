@@ -9,13 +9,26 @@ declare(strict_types=1);
  */
 
 use MensCircle\Sitepackage\Middleware\EventApiMiddleware;
+use MensCircle\Sitepackage\Middleware\SentryTracingMiddleware;
 
 return [
     'frontend' => [
+        'mens-circle/sitepackage/sentry-tracing' => [
+            'target' => SentryTracingMiddleware::class,
+            'before' => ['typo3/cms-frontend/timetracker'],
+            'after' => ['typo3/cms-core/response-propagation'],
+        ],
         'mens-circle/sitepackage/event' => [
             'target' => EventApiMiddleware::class,
             'before' => ['typo3/cms-frontend/page-resolver'],
             'after' => ['typo3/cms-frontend/eid'],
+        ],
+    ],
+    'backend' => [
+        'mens-circle/sitepackage/sentry-tracing' => [
+            'target' => SentryTracingMiddleware::class,
+            'before' => ['typo3/cms-backend/authentication'],
+            'after' => ['typo3/cms-core/response-propagation'],
         ],
     ],
 ];
