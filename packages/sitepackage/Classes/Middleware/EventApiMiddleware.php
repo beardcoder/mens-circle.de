@@ -64,7 +64,7 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
     {
         $path = $serverRequest->getUri()->getPath();
 
-        if (!preg_match(self::API_PATTERN, $path, $matches)) {
+        if (preg_match(self::API_PATTERN, $path, $matches) !== 1) {
             return null;
         }
 
