@@ -59,6 +59,17 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         'loginFootnote' => '© 2023-2024 Build with ❤️ and mindfulness in Bavaria',
     ];
 
+    // Configure response cache
+    if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['response_cache'])) {
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['response_cache'] = [
+            'frontend' => \TYPO3\CMS\Core\Cache\Frontend\VariableFrontend::class,
+            'backend' => \TYPO3\CMS\Core\Cache\Backend\Typo3DatabaseBackend::class,
+            'options' => [
+                'defaultLifetime' => 3600,
+            ],
+        ];
+    }
+
     ExtensionManagementUtility::addTypoScriptSetup('
         plugin.tx_form {
           settings {

@@ -9,6 +9,7 @@ declare(strict_types=1);
  */
 
 use MensCircle\Sitepackage\Middleware\EventApiMiddleware;
+use MensCircle\Sitepackage\Middleware\ResponseCacheMiddleware;
 use MensCircle\Sitepackage\Middleware\SentryTracingMiddleware;
 
 return [
@@ -16,6 +17,11 @@ return [
         'mens-circle/sitepackage/sentry-tracing' => [
             'target' => SentryTracingMiddleware::class,
             'before' => ['typo3/cms-frontend/timetracker'],
+        ],
+        'mens-circle/sitepackage/response-cache' => [
+            'target' => ResponseCacheMiddleware::class,
+            'after' => ['mens-circle/sitepackage/sentry-tracing'],
+            'before' => ['typo3/cms-frontend/page-resolver'],
         ],
         'mens-circle/sitepackage/event' => [
             'target' => EventApiMiddleware::class,
