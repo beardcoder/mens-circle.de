@@ -16,7 +16,6 @@ return [
         'mens-circle/sitepackage/sentry-tracing' => [
             'target' => SentryTracingMiddleware::class,
             'before' => ['typo3/cms-frontend/timetracker'],
-            'after' => ['typo3/cms-core/response-propagation'],
         ],
         'mens-circle/sitepackage/event' => [
             'target' => EventApiMiddleware::class,
@@ -27,8 +26,7 @@ return [
     'backend' => [
         'mens-circle/sitepackage/sentry-tracing' => [
             'target' => SentryTracingMiddleware::class,
-            'before' => ['typo3/cms-backend/authentication'],
-            'after' => ['typo3/cms-core/response-propagation'],
+            'before' => ['typo3/cms-core/normalized-params-attribute'],
         ],
     ],
 ];
