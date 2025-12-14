@@ -12,6 +12,7 @@
     "lcobucci/clock": "^3.5.0",
     "lcobucci/jwt": "^5.6",
     "mens-circle/sitepackage": "@dev",
+    "nette/utils": "^4.1",
     "praetorius/vite-asset-collector": "^1.14",
     "spatie/schema-org": "^3.23.1",
     "typo3/cms-adminpanel": ">=14",
