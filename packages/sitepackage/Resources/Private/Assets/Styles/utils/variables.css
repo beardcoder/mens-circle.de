@@ -158,10 +158,6 @@
     --nav-cta-bg: var(--color-primary);
     --nav-cta-bg-hover: light-dark(var(--color-primary-dark), var(--color-primary-light));
     --nav-cta-color: var(--color-white);
-    --nav-theme-toggle-bg: light-dark(rgb(193 123 93 / 8%), rgb(193 123 93 / 15%));
-    --nav-theme-toggle-bg-hover: light-dark(rgb(193 123 93 / 15%), rgb(193 123 93 / 25%));
-    --nav-theme-toggle-border: light-dark(rgb(193 123 93 / 20%), rgb(193 123 93 / 30%));
-    --nav-theme-icon-color: light-dark(var(--color-earth), var(--color-accent-bright));
     --nav-toggle-color: var(--color-earth);
     --nav-mobile-bg: light-dark(rgb(255 253 249 / 98%), rgb(26 20 16 / 98%));
     --nav-height: 64px;
@@ -199,21 +195,3 @@
     --shadow-colored-lg: light-dark(0 16px 48px rgb(193 123 93 / 20%), 0 16px 48px rgb(193 123 93 / 40%));
 }
 
-/* ============================================
-   DARK MODE OVERRIDE
-   For manual theme toggle via data-theme attribute
-   Forces dark mode regardless of system preference
-   ============================================ */
-
-[data-theme='dark'] {
-    color-scheme: dark;
-}
-
-/* ============================================
-   LIGHT MODE OVERRIDE
-   Forces light mode regardless of system preference
-   ============================================ */
-
-[data-theme='light'] {
-    color-scheme: light;
-}

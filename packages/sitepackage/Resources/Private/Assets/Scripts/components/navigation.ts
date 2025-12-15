@@ -3,8 +3,8 @@ import { debounce, throttle } from '../utils/functions'
 import type { NavigationFactory } from '../types/index'
 
 /**
- * Navigation Factory (Enhanced with Dark Mode)
- * Creates a responsive navigation with scroll behavior and theme toggle
+ * Navigation Factory
+ * Creates a responsive navigation with scroll behavior
  */
 export const createNavigation = (): NavigationFactory => {
     // DOM Elements
@@ -12,35 +12,10 @@ export const createNavigation = (): NavigationFactory => {
     const navToggle = document.getElementById('navToggle')
     const navMenu = document.getElementById('navMenu')
     const navLinks = navMenu?.querySelectorAll('[data-nav-link]') ?? null
-    const themeToggle = document.getElementById('themeToggle')
 
     // State
     let lastScrollY = window.scrollY
     const scrollThreshold = CONFIG.navigation.scrollThreshold
-    let currentTheme = getStoredTheme()
-
-    // Theme Management
-    function getStoredTheme(): string {
-        return (
-            localStorage.getItem('theme') ||
-            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-        )
-    }
-
-    function setTheme(theme: string): void {
-        currentTheme = theme
-        document.documentElement.setAttribute('data-theme', theme)
-        localStorage.setItem('theme', theme)
-
-        if (CONFIG.development) {
-            console.info(`🎨 Theme changed to: ${theme}`)
-        }
-    }
-
-    function toggleTheme(): void {
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light'
-        setTheme(newTheme)
-    }
 
     // Mobile Menu Management
     const toggleMenu = (): void => {
@@ -148,12 +123,6 @@ export const createNavigation = (): NavigationFactory => {
     const init = (): void => {
         if (!nav) return
 
-        // Apply stored theme
-        setTheme(currentTheme)
-
-        // Theme toggle
-        themeToggle?.addEventListener('click', toggleTheme)
-
         // Mobile menu toggle
         navToggle?.addEventListener('click', toggleMenu)
 
@@ -182,7 +151,7 @@ export const createNavigation = (): NavigationFactory => {
         updateActiveLink()
 
         if (CONFIG.development) {
-            console.info('✨ Enhanced Navigation with Dark Mode initialized')
+            console.info('✨ Navigation initialized')
         }
     }
 
@@ -199,13 +168,8 @@ export const createNavigation = (): NavigationFactory => {
         toggleMenu()
     }
 
-    const getTheme = (): string => {
-        return currentTheme
-    }
-
     const destroy = (): void => {
         // Remove all event listeners
-        themeToggle?.removeEventListener('click', toggleTheme)
         navToggle?.removeEventListener('click', toggleMenu)
         window.removeEventListener('scroll', throttledScroll)
         window.removeEventListener('resize', debouncedResize)
@@ -231,7 +195,6 @@ export const createNavigation = (): NavigationFactory => {
         show,
         hide,
         toggle,
-        getTheme,
         destroy,
         // ES2023: Symbol.dispose for automatic cleanup
         [Symbol.dispose]: destroy,

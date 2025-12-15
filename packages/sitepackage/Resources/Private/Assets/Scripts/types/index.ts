@@ -63,7 +63,6 @@ export interface NavigationFactory extends FactoryWithDestroy {
     show: () => void
     hide: () => void
     toggle: () => void
-    getTheme: () => string
 }
 
 // ScrollReveal Factory
