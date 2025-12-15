@@ -1,7 +1,6 @@
 import { CONFIG } from './config'
 import { createNavigation } from './components/navigation.ts'
 import { createSmoothScroll } from './components/smoothScroll.ts'
-import './components/newsletterSuccess.ts'
 import type { Factory } from './types'
 
 const factories: Factory[] = []
@@ -25,9 +24,6 @@ const loadUtilities = (() => {
 })()
 
 const bootstrap = async (): Promise<void> => {
-    // Initialize View Transitions API (2025)
-    registerFactory(createViewTransitions())
-
     registerFactory(createNavigation())
     registerFactory(createSmoothScroll())
 
