@@ -1,5 +1,5 @@
 /* ============================================
-   NAVIGATION - Enhanced with Dark Mode Support
+   NAVIGATION
    ============================================ */
 
 /* Base Navigation */
@@ -142,66 +142,6 @@
     transform: translateY(-2px);
 }
 
-/* Controls Container */
-.nav__controls {
-    align-items: center;
-    display: flex;
-    gap: 1rem;
-}
-
-/* Theme Toggle Button */
-.nav__theme-toggle {
-    align-items: center;
-    background: var(--nav-theme-toggle-bg);
-    block-size: 2.5rem;
-    border: 2px solid var(--nav-theme-toggle-border);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    inline-size: 2.5rem;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    transition: all 0.3s var(--transition-smooth);
-}
-
-.nav__theme-toggle:hover {
-    background: var(--nav-theme-toggle-bg-hover);
-    border-color: var(--color-primary);
-    transform: rotate(180deg) scale(1.1);
-}
-
-.nav__theme-toggle:active {
-    transform: rotate(180deg) scale(0.95);
-}
-
-.nav__theme-icon {
-    color: var(--nav-theme-icon-color);
-    position: absolute;
-    transition: all 0.4s var(--transition-smooth);
-}
-
-.nav__theme-icon--sun {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-}
-
-.nav__theme-icon--moon {
-    opacity: 0;
-    transform: rotate(-180deg) scale(0);
-}
-
-/* Dark Mode Active */
-[data-theme='dark'] .nav__theme-icon--sun {
-    opacity: 0;
-    transform: rotate(180deg) scale(0);
-}
-
-[data-theme='dark'] .nav__theme-icon--moon {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
-}
-
 /* Mobile Menu Toggle */
 .nav__toggle {
     background: transparent;
@@ -303,11 +243,6 @@
     .nav__toggle {
         display: flex;
     }
-
-    .nav__theme-toggle {
-        block-size: 2.25rem;
-        inline-size: 2.25rem;
-    }
 }
 
 /* Tablet Adjustments */
@@ -373,7 +308,6 @@
    ============================================ */
 
 .nav__link:focus-visible,
-.nav__theme-toggle:focus-visible,
 .nav__toggle:focus-visible {
     border-radius: 4px;
     outline: 2px solid var(--color-primary);
@@ -385,8 +319,6 @@
     .nav,
     .nav__link,
     .nav__link::after,
-    .nav__theme-toggle,
-    .nav__theme-icon,
     .nav__toggle-line,
     .nav__menu {
         animation: none !important;
