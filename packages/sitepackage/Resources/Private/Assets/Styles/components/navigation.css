@@ -45,7 +45,7 @@
     color: var(--nav-logo-color);
     display: flex;
     font-family: var(--font-display);
-    font-size: clamp(1.25rem, 3vi, 1.625rem);
+    font-size: clamp(1.25rem, 3cqi, 1.625rem);
     font-weight: 800;
     gap: 0.75rem;
     letter-spacing: 0.1em;
@@ -53,6 +53,7 @@
     text-decoration: none;
     transition: all 0.4s var(--transition-smooth);
     z-index: 1001;
+    field-sizing: content;
 }
 
 .nav__logo:hover {
@@ -70,7 +71,7 @@
 .nav__menu {
     align-items: center;
     display: flex;
-    gap: clamp(1.25rem, 3vi, 2.5rem);
+    gap: clamp(1.25rem, 3cqi, 2.5rem);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -248,7 +249,7 @@
 /* Tablet Adjustments */
 @media (width >= 769px) and (width <= 1024px) {
     .nav__menu {
-        gap: clamp(1rem, 2vi, 1.5rem);
+        gap: clamp(1rem, 2cqi, 1.5rem);
     }
 
     .nav__link {

@@ -31,6 +31,8 @@ html {
     /* Interpolate discrete properties for smooth transitions */
     @media (prefers-reduced-motion: no-preference) {
         interpolate-size: allow-keywords;
+        animation-range: entry 0% cover 20%;
+        animation-timeline: scroll();
     }
 }
 
@@ -42,7 +44,9 @@ body {
         radial-gradient(circle at 80% 80%, rgb(212 165 116 / 3%) 0%, transparent 50%), var(--texture-noise);
     color: var(--color-text);
     font-family: var(--font-primary);
-    font-feature-settings: 'kern' 1, 'liga' 1;
+    font-feature-settings:
+        'kern' 1,
+        'liga' 1;
     font-size: var(--text-base);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -51,7 +55,9 @@ body {
     text-rendering: optimizelegibility;
 
     /* Smooth color scheme transitions */
-    transition: background-color 0.3s var(--transition-smooth), color 0.3s var(--transition-smooth);
+    transition:
+        background-color 0.3s var(--transition-smooth),
+        color 0.3s var(--transition-smooth);
 }
 
 /* ============================================
@@ -63,11 +69,18 @@ body {
     text-wrap: balance;
     max-inline-size: 30ch;
     font-family: var(--font-heading);
+    field-sizing: content;
 }
 
 /* Prose content: Pretty wrapping prevents orphans */
 :is(p, li, blockquote, figcaption) {
     text-wrap: pretty;
+    field-sizing: content;
+}
+
+/* Modern form elements with field-sizing */
+:is(input, textarea, select) {
+    field-sizing: content;
 }
 
 /* ============================================

@@ -117,6 +117,7 @@
     border: 2px solid var(--input-border);
     border-radius: var(--radius-full);
     color: var(--color-text);
+    field-sizing: content;
     font-family: inherit;
     font-size: 1rem;
     inline-size: 100%;

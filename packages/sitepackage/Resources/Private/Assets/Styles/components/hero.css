@@ -237,7 +237,7 @@
     }
 
     .hero__title {
-        font-size: var(--text-4xl);
+        font-size: var(--text-6xl);
     }
 
     .hero__image {
