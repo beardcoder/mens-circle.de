@@ -35,6 +35,7 @@ ENV LC_ALL=de_DE.UTF-8 \
 RUN set -eux; \
     install-php-extensions \
     @composer \
+    apcu \
     exif \
     gd \
     intl \
@@ -98,9 +99,10 @@ COPY .docker/php/typo3.ini /usr/local/etc/php/conf.d/typo3.ini
 COPY .docker/frankenphp/Caddyfile /etc/caddy/Caddyfile
 COPY .docker/imagemagick-policy.xml /etc/ImageMagick-7/policy.xml
 COPY .docker/supervisor/supervisord.conf /etc/supervisord.conf
+COPY .docker/typo3/additional.php /var/www/html/config/system/additional.php
 
 # Create required directories
-RUN mkdir -p /var/www/html/var/cache /var/log/supervisor
+RUN mkdir -p /var/www/html/var/cache /var/log/supervisor /var/www/html/config/system
 
 # Copy build artifacts from previous stages
 COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./public/_assets
