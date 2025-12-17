@@ -34,9 +34,10 @@ Das Dockerfile nutzt ein **Multi-Stage Build** mit:
 
 ### php/typo3.ini
 - PHP Production Settings
-- Memory Limits (512M)
+- Memory Limits (1028M)
 - Upload Limits (64M)
 - OPcache Optimierungen
+- APCu Cache Konfiguration (128M)
 - Security Settings
 - Session Configuration
 - PHP 8.5 spezifische Einstellungen
@@ -81,7 +82,7 @@ Die Anwendung wird vollständig über Environment-Variablen konfiguriert. Siehe 
 - `REDIS_PERSISTENT=true` - Persistente Redis-Connections für FrankenPHP (Standard: true)
 - `DB_PERSISTENT=false` - Persistente DB-Connections (Standard: false)
 - `FRANKENPHP_ENABLED=true` - FrankenPHP-spezifische Optimierungen
-- `APCU_ENABLED=false` - APCu für Runtime-Caches (wenn installiert)
+- `APCU_ENABLED=true` - APCu für Runtime-Caches (Standard aktiviert)
 
 ### Best Practices:
 - Verwende starke, zufällig generierte Passwörter
@@ -121,6 +122,7 @@ FrankenPHP bietet deutlich bessere Performance als traditionelles PHP-FPM:
 - **Early Hints:** Für optimales Preloading
 - **Worker Mode:** Optional für 3-4x bessere Performance (über `FRANKENPHP_CONFIG`)
 - **Persistente Connections:** Redis und optional Datenbank
+- **APCu In-Memory Cache:** 128M für Runtime-Caches (vorinstalliert und aktiviert)
 
 ### Worker Mode aktivieren (Optional):
 ```env

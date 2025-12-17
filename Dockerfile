@@ -35,6 +35,7 @@ ENV LC_ALL=de_DE.UTF-8 \
 RUN set -eux; \
     install-php-extensions \
     @composer \
+    apcu \
     exif \
     gd \
     intl \
