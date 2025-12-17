@@ -13,24 +13,10 @@ use TYPO3\CMS\Core\Log\Writer\Enum\Interval;
 use TYPO3\CMS\Core\Log\Writer\NullWriter;
 use TYPO3\CMS\Core\Log\Writer\RotatingFileWriter;
 
-// Cache environment variables to avoid repeated lookups
-static $envCache = [];
-
-/**
- * Optimized environment variable getter with static caching.
- */
 function env(string $key, mixed $default = null): mixed
 {
-    global $envCache;
-
-    if (array_key_exists($key, $envCache)) {
-        return $envCache[$key];
-    }
-
-    $value = $_ENV[$key] ?? $_SERVER[$key] ?? false;
-    $envCache[$key] = $value !== false ? $value : $default;
-
-    return $envCache[$key];
+    $value = $_ENV[$key] ?? $_SERVER[$key] ?? getenv($key);
+    return $value !== false ? $value : $default;
 }
 
 /**
