@@ -109,10 +109,6 @@ COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./pub
 
 RUN chown -R www-data:www-data /var/www/html
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost/typo3/login || exit 1
-
 # Expose ports
 EXPOSE 80 443
 
