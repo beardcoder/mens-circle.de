@@ -5,9 +5,10 @@
   "type": "project",
   "require": {
     "php": "^8.5",
+    "ext-pdo": "*",
     "ext-redis": "*",
     "ext-sodium": "*",
-    "eluceo/ical": "^2.14",
+    "eluceo/ical": "^2.15",
     "helhum/dotenv-connector": "^3.2.0",
     "lcobucci/clock": "^3.5.0",
     "lcobucci/jwt": "^5.6",

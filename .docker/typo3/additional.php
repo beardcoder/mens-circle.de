@@ -61,7 +61,9 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['productionExceptionHandler'] = ProductionExc
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['debugExceptionHandler'] = DebugExceptionHandler::class;
 
 // Sentry Logging Configuration
-$GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::ERROR][SentryLogWriter::class]['addBreadcrumbs'] = true;
+$GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::ERROR][SentryLogWriter::class] = [
+    'addBreadcrumbs' => true,
+];
 
 // Database Configuration
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['charset'] = 'utf8mb4';
@@ -130,11 +132,15 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['sentry_client']['options']['environment'
 // Explicitly disable warning level logs
 $GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::WARNING][NullWriter::class] = [];
 // Keep error level logs for a week
-$GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::ERROR][RotatingFileWriter::class]['interval'] = Interval::DAILY;
-$GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::ERROR][RotatingFileWriter::class]['maxFiles'] = envInt('LOG_ERROR_MAX_FILES', 7);
+$GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::ERROR][RotatingFileWriter::class] = [
+    'interval' => Interval::DAILY,
+    'maxFiles' => envInt('LOG_ERROR_MAX_FILES', 7),
+];
 // Keep critical level logs for eight weeks
-$GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::CRITICAL][RotatingFileWriter::class]['interval'] = Interval::WEEKLY;
-$GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::CRITICAL][RotatingFileWriter::class]['maxFiles'] = envInt('LOG_CRITICAL_MAX_FILES', 8);
+$GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::CRITICAL][RotatingFileWriter::class] = [
+    'interval' => Interval::WEEKLY,
+    'maxFiles' => envInt('LOG_CRITICAL_MAX_FILES', 8),
+];
 
 // Redis Cache Configuration
 if (envBool('REDIS_ENABLED', true)) {
