@@ -106,11 +106,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['reverseProxySSL'] = '*';
 // TYPO3 v14: Optimize for FrankenPHP/Caddy
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = env('TRUSTED_HOSTS_PATTERN', '.*');
 
-// Runtime Cache Configuration (APCu or TransientMemory)
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['runtime']['backend'] = envBool('APCU_ENABLED', false)
-    ? ApcuBackend::class
-    : TransientMemoryBackend::class;
-
 // Frontend Configuration
 $GLOBALS['TYPO3_CONF_VARS']['FE']['debug'] = envInt('FE_DEBUG', 0);
 $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['enforceValidation'] = true;
@@ -141,69 +136,3 @@ $GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::CRITICAL][Ro
     'interval' => Interval::WEEKLY,
     'maxFiles' => envInt('LOG_CRITICAL_MAX_FILES', 8),
 ];
-
-// Redis Cache Configuration
-if (envBool('REDIS_ENABLED', true)) {
-    // Cache Redis connection settings
-    $redisHost = env('REDIS_HOST', 'localhost');
-    $redisPort = envInt('REDIS_PORT', 6379);
-    $redisPassword = env('REDIS_PASSWORD', '');
-    $redisPersistent = envBool('REDIS_PERSISTENT', true);
-    $redisCompressionLevel = envInt('REDIS_COMPRESSION_LEVEL', 1);
-
-    // Pages cache (database 0) - 1 week lifetime with compression
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['backend'] = RedisBackend::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['options']['database'] = 0;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['options']['hostname'] = $redisHost;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['options']['port'] = $redisPort;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['options']['password'] = $redisPassword;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['options']['persistentConnection'] = $redisPersistent;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['options']['compressionLevel'] = $redisCompressionLevel;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['options']['defaultLifetime'] = envInt('REDIS_CACHE_PAGES_LIFETIME', 604800);
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['options']['compression'] = envBool('REDIS_CACHE_PAGES_COMPRESSION', true);
-
-    // Pagesection cache (database 1) - 1 week lifetime
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pagesection']['backend'] = RedisBackend::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pagesection']['options']['database'] = 1;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pagesection']['options']['hostname'] = $redisHost;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pagesection']['options']['port'] = $redisPort;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pagesection']['options']['password'] = $redisPassword;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pagesection']['options']['persistentConnection'] = $redisPersistent;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pagesection']['options']['compressionLevel'] = $redisCompressionLevel;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pagesection']['options']['defaultLifetime'] = envInt('REDIS_CACHE_PAGESECTION_LIFETIME', 604800);
-
-    // Hash cache (database 2) - Unlimited lifetime
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['backend'] = RedisBackend::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['options']['database'] = 2;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['options']['hostname'] = $redisHost;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['options']['port'] = $redisPort;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['options']['password'] = $redisPassword;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['options']['persistentConnection'] = $redisPersistent;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['options']['compressionLevel'] = $redisCompressionLevel;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['options']['defaultLifetime'] = envInt('REDIS_CACHE_HASH_LIFETIME', 0);
-
-    // Rootline cache (database 3) - Unlimited lifetime
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['backend'] = RedisBackend::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['options']['database'] = 3;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['options']['hostname'] = $redisHost;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['options']['port'] = $redisPort;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['options']['password'] = $redisPassword;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['options']['persistentConnection'] = $redisPersistent;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['options']['compressionLevel'] = $redisCompressionLevel;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['options']['defaultLifetime'] = envInt('REDIS_CACHE_ROOTLINE_LIFETIME', 0);
-}
-
-// FrankenPHP Specific Optimizations
-if (\PHP_SAPI === 'frankenphp' || envBool('FRANKENPHP_ENABLED', false)) {
-    // Enable persistent connections and optimize for long-running process
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['runtime']['backend'] = TransientMemoryBackend::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['runtime']['options'] = [];
-
-    // Optimize session handling for FrankenPHP
-    $GLOBALS['TYPO3_CONF_VARS']['FE']['sessionDataLifetime'] = envInt('FE_SESSION_LIFETIME', 86400);
-    $GLOBALS['TYPO3_CONF_VARS']['BE']['sessionTimeout'] = envInt('BE_SESSION_TIMEOUT', 28800);
-}
-
-// Coolify Specific: Health check endpoint optimization
-$GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFound_handling'] = env('PAGE_NOT_FOUND_HANDLING', '');
-$GLOBALS['TYPO3_CONF_VARS']['FE']['pageUnavailable_handling'] = env('PAGE_UNAVAILABLE_HANDLING', '');
