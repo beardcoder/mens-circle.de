@@ -7,13 +7,6 @@ mkdir -p /var/www/html/var/cache
 mkdir -p /var/log/supervisor
 mkdir -p /var/www/html/config/system
 
-# Wait for database to be ready
-echo "Waiting for database..."
-until php -r "try { new PDO('mysql:host='.getenv('DB_HOST').';port='.getenv('DB_PORT'), getenv('DB_USER'), getenv('DB_PASSWORD')); exit(0); } catch(Exception \$e) { exit(1); }" 2>/dev/null; do
-    sleep 2
-done
-echo "Database is ready!"
-
 # Cache warmup for production
 echo "Warming up caches for production..."
 
