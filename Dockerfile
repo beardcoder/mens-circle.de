@@ -106,6 +106,12 @@ COPY .docker/imagemagick-policy.xml /etc/ImageMagick-7/policy.xml
 COPY .docker/supervisor/supervisord.conf /etc/supervisord.conf
 COPY .docker/typo3/additional.php /var/www/html/config/system/additional.php
 
+# Ensure storage directories exist
+RUN mkdir -p /var/www/html/var/
+RUN mkdir -p /var/www/html/var/cache
+RUN mkdir -p /var/log/supervisor
+RUN mkdir -p /var/www/html/config/system
+
 # Copy build artifacts from previous stages
 COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./public/_assets
 

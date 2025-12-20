@@ -1,12 +1,6 @@
 #!/bin/sh
 set -e
 
-# Ensure storage directories exist and have correct permissions
-mkdir -p /var/www/html/var/
-mkdir -p /var/www/html/var/cache
-mkdir -p /var/log/supervisor
-mkdir -p /var/www/html/config/system
-
 # Cache warmup for production
 echo "Warming up caches for production..."
 
