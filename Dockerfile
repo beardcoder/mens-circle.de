@@ -115,11 +115,10 @@ ENV TIDEWAYS_SAMPLERATE=25
 ENV TIDEWAYS_CONNECTION=tcp://tideways-daemon:9135
 
 COPY --from=ghcr.io/tideways/php:latest /tideways/ /tideways/
-RUN set -ex; \
-    docker-php-ext-enable --ini-name tideways.ini "$(php /tideways/get-ext-path.php)"; \
-    echo "tideways.auto_start=0\n" >> /usr/local/etc/php/conf.d/tideways.ini
+RUN docker-php-ext-enable --ini-name tideways.ini "$(php /tideways/get-ext-path.php)"
 
-# Set permissions
+
+# Set permission
 RUN chown -R www-data:www-data /var/www/html
 
 # Expose ports
