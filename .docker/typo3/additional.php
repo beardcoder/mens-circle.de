@@ -141,15 +141,12 @@ $GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::CRITICAL][Ro
 ];
 
 // =============================================================================
-// Cache Configuration - Optimized for Production with Redis + APCu
+// Cache Configuration - Optimized for Production with Redis
 // =============================================================================
 $redisHost = env('REDIS_HOST', 'redis');
 $redisPort = envInt('REDIS_PORT', 6379);
 $redisPassword = env('REDIS_PASSWORD', '');
 $redisDatabase = envInt('REDIS_DATABASE', 0);
-
-// Detect CLI mode - APCu is not available in CLI
-$isCli = PHP_SAPI === 'cli';
 
 // Redis connection options
 $redisDefaultOptions = [
@@ -157,54 +154,54 @@ $redisDefaultOptions = [
     'port' => $redisPort,
     'database' => $redisDatabase,
     'password' => $redisPassword,
-    'defaultLifetime' => 86400, // 24 hours default TTL
+    'defaultLifetime' => 86400,
     'compression' => true,
 ];
 
-// For caches that would use APCu in web context, use Redis in CLI
-// APCu is only available in web requests, not CLI
-$apcuOrRedisBackend = $isCli ? RedisBackend::class : ApcuBackend::class;
-$apcuOrRedisOptions = static function (int $dbOffset = 6, int $lifetime = 86400) use ($isCli, $redisDefaultOptions, $redisDatabase): array {
-    if ($isCli) {
-        return array_merge($redisDefaultOptions, [
-            'database' => $redisDatabase + $dbOffset,
-            'defaultLifetime' => $lifetime,
-        ]);
-    }
-    return [
-        'defaultLifetime' => $lifetime,
-    ];
-};
+// =============================================================================
+// Caches using VariableFrontend -> Can use Redis
+// =============================================================================
 
-// High-traffic caches -> Redis (persistent, shared across requests)
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages'] = [
-    'backend' => RedisBackend::class,
-    'options' => array_merge($redisDefaultOptions, [
-        'database' => $redisDatabase,
-        'compression' => true,
-        'defaultLifetime' => 86400,
-    ]),
-];
+// Pages cache (page output)
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['backend'] = RedisBackend::class;
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['options'] = array_merge($redisDefaultOptions, [
+    'database' => $redisDatabase,
+]);
 
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline'] = [
-    'backend' => RedisBackend::class,
-    'options' => array_merge($redisDefaultOptions, [
-        'database' => $redisDatabase + 1,
-        'defaultLifetime' => 2592000, // 30 days
-    ]),
-];
+// Rootline cache
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['backend'] = RedisBackend::class;
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['options'] = array_merge($redisDefaultOptions, [
+    'database' => $redisDatabase + 1,
+    'defaultLifetime' => 2592000,
+]);
 
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash'] = [
-    'backend' => RedisBackend::class,
-    'options' => array_merge($redisDefaultOptions, [
-        'database' => $redisDatabase + 2,
-        'defaultLifetime' => 2592000,
-    ]),
-];
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pagesection'] = [
-    'backend' => RedisBackend::class,
-    'options' => array_merge($redisDefaultOptions, [
-        'database' => $redisDatabase + 3,
-        'defaultLifetime' => 604800, // 7 days
-    ]),
-];
+// Hash cache
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['backend'] = RedisBackend::class;
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['options'] = array_merge($redisDefaultOptions, [
+    'database' => $redisDatabase + 2,
+]);
+
+// Image sizes cache
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['imagesizes']['backend'] = RedisBackend::class;
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['imagesizes']['options'] = array_merge($redisDefaultOptions, [
+    'database' => $redisDatabase + 3,
+]);
+
+// Extbase cache
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase']['backend'] = RedisBackend::class;
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase']['options'] = array_merge($redisDefaultOptions, [
+    'database' => $redisDatabase + 4,
+]);
+
+// L10n cache (localization)
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['l10n']['backend'] = RedisBackend::class;
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['l10n']['options'] = array_merge($redisDefaultOptions, [
+    'database' => $redisDatabase + 5,
+]);
+
+// Assets cache
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['assets']['backend'] = RedisBackend::class;
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['assets']['options'] = array_merge($redisDefaultOptions, [
+    'database' => $redisDatabase + 6,
+]);
+
