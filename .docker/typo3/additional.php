@@ -111,7 +111,7 @@ $GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::CRITICAL][Ro
     'interval' => Interval::WEEKLY,
     'maxFiles' => envInt('LOG_CRITICAL_MAX_FILES', 8),
 ];
-/*
+
 $redisHost = env('REDIS_HOST', 'redis');
 $redisPort = envInt('REDIS_PORT', 6379);
 $redisCaches = [
@@ -144,4 +144,4 @@ foreach ($redisCaches as $name => $values) {
             = $values['compression'];
     }
 }
-*/
+
