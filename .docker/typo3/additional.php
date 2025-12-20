@@ -8,7 +8,10 @@ use MensCircle\Sitepackage\Log\Writer\SentryLogWriter;
 use Psr\Log\LogLevel;
 use TYPO3\CMS\Core\Cache\Backend\ApcuBackend;
 use TYPO3\CMS\Core\Cache\Backend\RedisBackend;
+use TYPO3\CMS\Core\Cache\Backend\SimpleFileBackend;
 use TYPO3\CMS\Core\Cache\Backend\TransientMemoryBackend;
+use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
+use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\Log\Writer\Enum\Interval;
 use TYPO3\CMS\Core\Log\Writer\NullWriter;
 use TYPO3\CMS\Core\Log\Writer\RotatingFileWriter;
@@ -215,39 +218,48 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase'] 
     ]),
 ];
 
-// Fluid template cache -> APCu in web, Redis in CLI
+// Fluid template cache -> SimpleFileBackend (requires PhpFrontend)
+// PhpFrontend can only work with file-based backends
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_template'] = [
-    'backend' => $apcuOrRedisBackend,
-    'options' => $apcuOrRedisOptions(6, 86400),
+    'frontend' => PhpFrontend::class,
+    'backend' => SimpleFileBackend::class,
+    'options' => [],
 ];
 
-// Core caches -> APCu in web, Redis in CLI
+// Core caches -> SimpleFileBackend (requires PhpFrontend!)
+// This cache stores compiled PHP code, must use file backend
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['core'] = [
-    'backend' => $apcuOrRedisBackend,
-    'options' => $apcuOrRedisOptions(7, 0),
+    'frontend' => PhpFrontend::class,
+    'backend' => SimpleFileBackend::class,
+    'options' => [],
 ];
 
 // Runtime caches -> TransientMemory (request-scoped, fastest)
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['runtime'] = [
+    'frontend' => VariableFrontend::class,
     'backend' => TransientMemoryBackend::class,
 ];
 
 // Assets cache -> APCu in web, Redis in CLI
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['assets'] = [
+    'frontend' => VariableFrontend::class,
     'backend' => $apcuOrRedisBackend,
     'options' => $apcuOrRedisOptions(8, 86400),
 ];
 
 // L10n cache -> APCu in web, Redis in CLI
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['l10n'] = [
+    'frontend' => VariableFrontend::class,
     'backend' => $apcuOrRedisBackend,
     'options' => $apcuOrRedisOptions(9, 86400),
 ];
 
-// DI cache -> APCu in web, Redis in CLI (critical for fast bootstrap)
+// DI cache -> SimpleFileBackend (requires PhpFrontend for DI container!)
+// This cache stores compiled DI container, must use file backend
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['di'] = [
-    'backend' => $apcuOrRedisBackend,
-    'options' => $apcuOrRedisOptions(10, 0),
+    'frontend' => PhpFrontend::class,
+    'backend' => SimpleFileBackend::class,
+    'options' => [],
 ];
 
 // Typoscript cache -> Redis
