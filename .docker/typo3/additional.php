@@ -145,3 +145,6 @@ foreach ($redisCaches as $name => $values) {
     }
 }
 
+
+// test to disable all logging for performance reasons
+unset($GLOBALS['TYPO3_CONF_VARS']['LOG']);
