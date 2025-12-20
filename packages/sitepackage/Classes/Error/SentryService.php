@@ -30,7 +30,7 @@ use function Sentry\init;
 use function Sentry\withScope;
 
 /**
- * Sentry integration service for TYPO3 v14
+ * Sentry integration service for TYPO3 v14.
  *
  * Supports:
  * - Error tracking with context
@@ -45,7 +45,7 @@ final class SentryService implements SingletonInterface
     private static bool $initialized = false;
 
     /**
-     * Exceptions that should never be reported to Sentry
+     * Exceptions that should never be reported to Sentry.
      *
      * @var array<class-string<\Throwable>>
      */
@@ -121,8 +121,8 @@ final class SentryService implements SingletonInterface
         $options['tags'] = [
             'typo3.version' => $typo3Version->getVersion(),
             'typo3.context' => Environment::getContext()->__toString(),
-            'php.version' => PHP_VERSION,
-            'php.sapi' => PHP_SAPI,
+            'php.version' => \PHP_VERSION,
+            'php.sapi' => \PHP_SAPI,
         ];
 
         init($options);
@@ -164,7 +164,7 @@ final class SentryService implements SingletonInterface
     }
 
     /**
-     * Start a new transaction for performance monitoring
+     * Start a new transaction for performance monitoring.
      */
     public static function startTransaction(string $name, string $operation = 'http.server'): ?\Sentry\Tracing\Transaction
     {
@@ -188,7 +188,7 @@ final class SentryService implements SingletonInterface
     }
 
     /**
-     * Start a child span within the current transaction
+     * Start a child span within the current transaction.
      */
     public static function startSpan(string $operation, string $description): ?\Sentry\Tracing\Span
     {
@@ -210,7 +210,7 @@ final class SentryService implements SingletonInterface
     }
 
     /**
-     * Finish a span and restore parent
+     * Finish a span and restore parent.
      */
     public static function finishSpan(?\Sentry\Tracing\Span $span): void
     {
@@ -229,7 +229,7 @@ final class SentryService implements SingletonInterface
     }
 
     /**
-     * Add a breadcrumb for debugging context
+     * Add a breadcrumb for debugging context.
      */
     public static function addBreadcrumb(
         string $message,
@@ -251,7 +251,7 @@ final class SentryService implements SingletonInterface
     }
 
     /**
-     * Set user context from TYPO3 frontend user
+     * Set user context from TYPO3 frontend user.
      */
     public static function setUserContext(?int $userId = null, ?string $email = null, ?string $username = null): void
     {
@@ -264,7 +264,7 @@ final class SentryService implements SingletonInterface
             $userData = [];
 
             if ($userId !== null) {
-                $userData['id'] = (string)$userId;
+                $userData['id'] = (string) $userId;
             }
 
             if ($email !== null) {
@@ -282,7 +282,7 @@ final class SentryService implements SingletonInterface
     }
 
     /**
-     * Record a metric (counter, gauge, distribution)
+     * Record a metric (counter, gauge, distribution).
      */
     public static function incrementCounter(string $key, float $value = 1.0, array $tags = []): void
     {
@@ -327,12 +327,12 @@ final class SentryService implements SingletonInterface
 
     private static function getDsn(): string
     {
-        return (string)($_ENV['SENTRY_DSN'] ?? getenv('SENTRY_DSN') ?: '');
+        return (string) ($_ENV['SENTRY_DSN'] ?? getenv('SENTRY_DSN') ?: '');
     }
 
     private static function getEnvironment(): string
     {
-        $env = (string)($_ENV['SENTRY_ENVIRONMENT'] ?? getenv('SENTRY_ENVIRONMENT') ?: '');
+        $env = (string) ($_ENV['SENTRY_ENVIRONMENT'] ?? getenv('SENTRY_ENVIRONMENT') ?: '');
 
         if ($env !== '') {
             return $env;
@@ -351,7 +351,7 @@ final class SentryService implements SingletonInterface
 
     private static function getRelease(): string
     {
-        return (string)($_ENV['SENTRY_RELEASE'] ?? getenv('SENTRY_RELEASE') ?: '');
+        return (string) ($_ENV['SENTRY_RELEASE'] ?? getenv('SENTRY_RELEASE') ?: '');
     }
 
     private static function getTracesSampleRate(): float
@@ -359,7 +359,7 @@ final class SentryService implements SingletonInterface
         $rate = $_ENV['SENTRY_TRACES_SAMPLE_RATE'] ?? getenv('SENTRY_TRACES_SAMPLE_RATE') ?: null;
 
         if ($rate !== null && $rate !== false) {
-            return (float)$rate;
+            return (float) $rate;
         }
 
         // Default: 10% in production, 100% in development
@@ -369,14 +369,14 @@ final class SentryService implements SingletonInterface
     private static function getProfilesSampleRate(): float
     {
         // Profiling requires Excimer extension
-        if (!extension_loaded('excimer')) {
+        if (!\extension_loaded('excimer')) {
             return 0.0;
         }
 
         $rate = $_ENV['SENTRY_PROFILES_SAMPLE_RATE'] ?? getenv('SENTRY_PROFILES_SAMPLE_RATE') ?: null;
 
         if ($rate !== null && $rate !== false) {
-            return (float)$rate;
+            return (float) $rate;
         }
 
         // Default: 10% in production, 100% in development
@@ -391,7 +391,7 @@ final class SentryService implements SingletonInterface
         $targets = $_ENV['SENTRY_TRACE_PROPAGATION_TARGETS'] ?? getenv('SENTRY_TRACE_PROPAGATION_TARGETS') ?: null;
 
         if ($targets !== null && $targets !== false) {
-            return array_map('trim', explode(',', (string)$targets));
+            return array_map('trim', explode(',', (string) $targets));
         }
 
         // Default: propagate to same host

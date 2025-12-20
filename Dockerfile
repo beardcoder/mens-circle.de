@@ -101,16 +101,17 @@ COPY .docker/imagemagick-policy.xml /etc/ImageMagick-7/policy.xml
 COPY .docker/supervisor/supervisord.conf /etc/supervisord.conf
 COPY .docker/typo3/additional.php /var/www/html/config/system/additional.php
 
-# Create required directories
-RUN mkdir -p /var/www/html/var/cache /var/log/supervisor /var/www/html/config/system
-
 # Copy build artifacts from previous stages
 COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./public/_assets
 
-RUN chown -R www-data:www-data /var/www/html
-
 # Expose ports
 EXPOSE 80 443
+
+# Entrypoint script
+COPY .docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # Start FrankenPHP + queue worker via Supervisor
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

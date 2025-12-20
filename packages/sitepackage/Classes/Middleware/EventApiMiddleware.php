@@ -10,18 +10,9 @@ declare(strict_types=1);
 
 namespace MensCircle\Sitepackage\Middleware;
 
-use Eluceo\iCal\Domain\Entity\Calendar;
-use Eluceo\iCal\Domain\Entity\Event as CalendarEvent;
-use Eluceo\iCal\Domain\ValueObject\DateTime as CalendarDateTime;
-use Eluceo\iCal\Domain\ValueObject\EmailAddress;
-use Eluceo\iCal\Domain\ValueObject\GeographicPosition;
-use Eluceo\iCal\Domain\ValueObject\Location;
-use Eluceo\iCal\Domain\ValueObject\Organizer;
-use Eluceo\iCal\Domain\ValueObject\TimeSpan;
-use Eluceo\iCal\Presentation\Factory\CalendarFactory;
 use MensCircle\Sitepackage\Domain\Model\Event;
 use MensCircle\Sitepackage\Domain\Repository\EventRepository;
-use Nette\Utils\Strings;
+use MensCircle\Sitepackage\Service\ICalGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -32,7 +23,7 @@ use TYPO3\CMS\Core\Http\StreamFactory;
 /**
  * Middleware for generating iCal calendar files from events.
  *
- * Handles /api/event/{eventId}/ical endpoints with proper HTTP caching via ETags.
+ * Handles /api/event/{eventId}/ical endpoints.
  */
 final readonly class EventApiMiddleware implements MiddlewareInterface
 {
@@ -42,8 +33,10 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
 
     private const string ORGANIZER_NAME = 'Markus Sommer';
 
-    public function __construct(private EventRepository $eventRepository)
-    {
+    public function __construct(
+        private EventRepository $eventRepository,
+        private ICalGenerator $iCalGenerator,
+    ) {
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -86,11 +79,24 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
             return $this->createErrorResponse(422);
         }
 
-        // Generate calendar
-        $calendarEvent = $this->buildCalendarEvent($event);
-        $calendar = new Calendar([$calendarEvent]);
+        $iCalContent = $this->iCalGenerator->generate([
+            'uid' => \sprintf('event-%d@mens-circle.de', $eventId),
+            'summary' => $event->title,
+            'description' => $event->description,
+            'start' => $event->startDate,
+            'end' => $event->endDate,
+            'location' => $event->location->fullAddress,
+            'geo' => [
+                'lat' => $event->location->latitude,
+                'lon' => $event->location->longitude,
+            ],
+            'organizer' => [
+                'email' => self::ORGANIZER_EMAIL,
+                'name' => self::ORGANIZER_NAME,
+            ],
+        ]);
 
-        return $this->createICalResponse($calendar, $event);
+        return $this->createICalResponse($iCalContent, $event);
     }
 
     /**
@@ -104,56 +110,30 @@ final readonly class EventApiMiddleware implements MiddlewareInterface
         ]);
     }
 
-    private function buildCalendarEvent(Event $event): CalendarEvent
-    {
-        $calendarEvent = new CalendarEvent();
-
-        $calendarEvent
-            ->setSummary($event->title)
-            ->setDescription($event->description)
-            ->setOccurrence(
-                new TimeSpan(
-                    new CalendarDateTime($event->startDate, false),
-                    new CalendarDateTime($event->endDate, false)
-                )
-            )
-            ->setOrganizer(
-                new Organizer(
-                    new EmailAddress(self::ORGANIZER_EMAIL),
-                    self::ORGANIZER_NAME
-                )
-            )
-            ->setLocation(
-                new Location($event->location->fullAddress)
-                    ->withGeographicPosition(
-                        new GeographicPosition(
-                            $event->location->latitude,
-                            $event->location->longitude
-                        )
-                    )
-            )
-        ;
-
-        return $calendarEvent;
-    }
-
     /**
      * Create the iCal response with proper headers.
      */
-    private function createICalResponse(Calendar $calendar, Event $event): ResponseInterface
+    private function createICalResponse(string $iCalContent, Event $event): ResponseInterface
     {
-        $calendarFactory = new CalendarFactory();
-        $calendarComponent = $calendarFactory->createCalendar($calendar);
-
-        $filenameWithoutPrefix = Strings::webalize("{$event->title} {$event->startDate->format('d. m. Y')}");
-        $headers = [
-            'Content-Type' => 'text/calendar; charset=utf-8',
-            'Content-Disposition' => "attachment; filename=\"{$filenameWithoutPrefix}.ics\"",
-        ];
+        $filename = $this->generateFilename($event);
 
         return new Response(
-            body: new StreamFactory()->createStream((string) $calendarComponent),
-            headers: $headers
+            body: new StreamFactory()->createStream($iCalContent),
+            headers: [
+                'Content-Type' => 'text/calendar; charset=utf-8',
+                'Content-Disposition' => \sprintf('attachment; filename="%s.ics"', $filename),
+            ]
         );
+    }
+
+    /**
+     * Generate a URL-safe filename from event data.
+     */
+    private function generateFilename(Event $event): string
+    {
+        $raw = \sprintf('%s %s', $event->title, $event->startDate->format('d-m-Y'));
+        $slug = preg_replace('/[^a-z0-9]+/i', '-', $raw) ?? $raw;
+
+        return strtolower(trim($slug, '-'));
     }
 }
