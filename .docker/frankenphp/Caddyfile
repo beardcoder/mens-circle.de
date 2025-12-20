@@ -16,11 +16,7 @@
     }
 
     frankenphp {
-        # Worker mode for better performance
-        # Enable via FRANKENPHP_CONFIG environment variable:
-        # FRANKENPHP_CONFIG="worker /var/www/html/public/worker.php 4"
-        # The number (4) is the number of workers per CPU core
-        {$FRANKENPHP_CONFIG}
+       worker /var/www/html/public/worker.php 4
     }
 
     # Caddy directive ordering for FrankenPHP
