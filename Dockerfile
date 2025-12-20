@@ -41,7 +41,8 @@ RUN set -eux; \
     intl \
     pdo_mysql \
     zip \
-    redis
+    redis \
+    tideways
 
 COPY . /var/www/html
 WORKDIR /var/www/html
@@ -96,6 +97,7 @@ ENV FRANKENPHP_CONFIG="" \
 
 # Copy configuration files
 COPY .docker/php/typo3.ini /usr/local/etc/php/conf.d/typo3.ini
+COPY .docker/php/tideways.ini /usr/local/etc/php/conf.d/tideways.ini
 COPY .docker/frankenphp/Caddyfile /etc/caddy/Caddyfile
 COPY .docker/imagemagick-policy.xml /etc/ImageMagick-7/policy.xml
 COPY .docker/supervisor/supervisord.conf /etc/supervisord.conf
