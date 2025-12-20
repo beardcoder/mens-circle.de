@@ -58,7 +58,7 @@ services:
     image: ghcr.io/tideways/daemon
 
   redis:
-    image: redis:8-alpine
+    image: redis:9-alpine
     volumes:
       - redis_data:/data
     command:
