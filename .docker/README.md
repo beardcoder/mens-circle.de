@@ -58,7 +58,6 @@ Das Dockerfile nutzt ein **Multi-Stage Build** mit:
 - Database Settings mit persistenten Verbindungen
 - Optimiert für TYPO3 v13/v14 + PHP 8.5 + FrankenPHP
 - Mail Configuration (SMTP)
-- Sentry Error Tracking
 - Session Handling
 - Siehe `.env.production.example` für alle verfügbaren Environment-Variablen
 
@@ -92,12 +91,6 @@ Die Anwendung wird vollständig über Environment-Variablen konfiguriert. Siehe 
 - `FRANKENPHP_ENABLED=true` - FrankenPHP-spezifische Optimierungen
 - `APCU_ENABLED=true` - APCu für Runtime-Caches (Standard aktiviert)
 
-### Best Practices:
-- Verwende starke, zufällig generierte Passwörter
-- Setze `REDIS_ENABLED=true` für optimale Performance
-- Aktiviere `REDIS_PERSISTENT=true` für FrankenPHP
-- Konfiguriere `SENTRY_TRACES_SAMPLE_RATE` für Error Tracking
-
 ## Logging
 
 Alle Logs werden an die Docker Console (stdout/stderr) ausgegeben und sind in Coolify sichtbar:
@@ -105,7 +98,6 @@ Alle Logs werden an die Docker Console (stdout/stderr) ausgegeben und sind in Co
 - **FrankenPHP/Caddy access_log** → stdout
 - **FrankenPHP/Caddy error_log** → stderr
 - **PHP errors** → stderr (via RotatingFileWriter)
-- **TYPO3 errors** → stderr + Sentry (wenn konfiguriert)
 - **Supervisor** → stdout/stderr
 - **Queue Worker** → stdout/stderr
 

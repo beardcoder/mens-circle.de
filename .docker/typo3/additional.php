@@ -2,9 +2,6 @@
 
 declare(strict_types=1);
 
-use MensCircle\Sitepackage\Error\DebugExceptionHandler;
-use MensCircle\Sitepackage\Error\ProductionExceptionHandler;
-use MensCircle\Sitepackage\Log\Writer\SentryLogWriter;
 use Psr\Log\LogLevel;
 use TYPO3\CMS\Core\Log\Writer\Enum\Interval;
 use TYPO3\CMS\Core\Log\Writer\NullWriter;
@@ -52,15 +49,6 @@ function envFloat(string $key, float $default = 0.0): float
 
     return $value !== null ? (float) $value : $default;
 }
-
-// Exception Handlers
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['productionExceptionHandler'] = ProductionExceptionHandler::class;
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['debugExceptionHandler'] = DebugExceptionHandler::class;
-
-// Sentry Logging Configuration
-$GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::ERROR][SentryLogWriter::class] = [
-    'addBreadcrumbs' => true,
-];
 
 // Database Configuration
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['charset'] = 'utf8mb4';
@@ -110,10 +98,6 @@ $GLOBALS['TYPO3_CONF_VARS']['BE']['debug'] = envInt('BE_DEBUG', 0);
 $GLOBALS['TYPO3_CONF_VARS']['BE']['lockSSL'] = envInt('BE_LOCK_SSL', 1);
 $GLOBALS['TYPO3_CONF_VARS']['BE']['sessionTimeout'] = envInt('BE_SESSION_TIMEOUT', 28800); // 8 hours
 
-// Sentry Configuration
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['sentry_client']['options']['traces_sample_rate'] = envFloat('SENTRY_TRACES_SAMPLE_RATE', 1.0);
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['sentry_client']['options']['environment'] = env('APP_ENV', 'production');
-
 // Log Writer Configuration
 // Explicitly disable warning level logs
 $GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::WARNING][NullWriter::class] = [];
@@ -127,7 +111,7 @@ $GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::CRITICAL][Ro
     'interval' => Interval::WEEKLY,
     'maxFiles' => envInt('LOG_CRITICAL_MAX_FILES', 8),
 ];
-
+/*
 $redisHost = env('REDIS_HOST', 'redis');
 $redisPort = envInt('REDIS_PORT', 6379);
 $redisCaches = [
@@ -160,3 +144,4 @@ foreach ($redisCaches as $name => $values) {
             = $values['compression'];
     }
 }
+*/

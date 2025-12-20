@@ -26,7 +26,6 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         [
             EventController::class => 'list',
         ],
-        [],
     );
 
     ExtensionUtility::configurePlugin(

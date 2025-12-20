@@ -20,7 +20,6 @@ This document provides Claude Code with essential context about the Mens Circle 
 - **Email**: Symfony Mailer with Fluid templates
 - **Queue**: Symfony Messenger with database transport
 - **Security**: LCOBUCCI JWT, PHP Sodium
-- **Monitoring**: Sentry for error tracking
 
 ### Frontend
 - **Build Tool**: Vite 7 with vite-plugin-typo3
