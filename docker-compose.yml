@@ -66,7 +66,7 @@ services:
       - --appendonly no
       - --save ""
       - --tcp-keepalive 300
-      - --loglevel error
+      - --loglevel nothing
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
