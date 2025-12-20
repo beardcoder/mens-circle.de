@@ -18,7 +18,7 @@ services:
       # Redis configuration
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - TIDEWAYS_APIKEY=${SERVICE_TIDEWAYS_APIKEY}
+      - TIDEWAYS_APIKEY=tw_AgpNIhaeVm5K4y7Hcckp2CS2b9200
       - TIDEWAYS_CONNECTION=tcp://tideways-daemon:9135
       - TIDEWAYS_SAMPLERATE=25
       - TIDEWAYS_SERVICE=app
