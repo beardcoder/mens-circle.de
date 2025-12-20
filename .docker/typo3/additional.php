@@ -145,6 +145,9 @@ $redisPort = envInt('REDIS_PORT', 6379);
 $redisPassword = env('REDIS_PASSWORD', '');
 $redisDatabase = envInt('REDIS_DATABASE', 0);
 
+// Detect CLI mode - APCu is not available in CLI
+$isCli = PHP_SAPI === 'cli';
+
 // Redis connection options
 $redisDefaultOptions = [
     'hostname' => $redisHost,
@@ -154,6 +157,21 @@ $redisDefaultOptions = [
     'defaultLifetime' => 86400, // 24 hours default TTL
     'compression' => true,
 ];
+
+// For caches that would use APCu in web context, use Redis in CLI
+// APCu is only available in web requests, not CLI
+$apcuOrRedisBackend = $isCli ? RedisBackend::class : ApcuBackend::class;
+$apcuOrRedisOptions = static function (int $dbOffset = 6, int $lifetime = 86400) use ($isCli, $redisDefaultOptions, $redisDatabase): array {
+    if ($isCli) {
+        return array_merge($redisDefaultOptions, [
+            'database' => $redisDatabase + $dbOffset,
+            'defaultLifetime' => $lifetime,
+        ]);
+    }
+    return [
+        'defaultLifetime' => $lifetime,
+    ];
+};
 
 // High-traffic caches -> Redis (persistent, shared across requests)
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages'] = [
@@ -197,20 +215,16 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase'] 
     ]),
 ];
 
-// Fluid template cache -> APCu (very fast, local)
+// Fluid template cache -> APCu in web, Redis in CLI
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_template'] = [
-    'backend' => ApcuBackend::class,
-    'options' => [
-        'defaultLifetime' => 86400,
-    ],
+    'backend' => $apcuOrRedisBackend,
+    'options' => $apcuOrRedisOptions(6, 86400),
 ];
 
-// Core caches -> APCu (frequently accessed, low latency needed)
+// Core caches -> APCu in web, Redis in CLI
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['core'] = [
-    'backend' => ApcuBackend::class,
-    'options' => [
-        'defaultLifetime' => 0, // Never expires
-    ],
+    'backend' => $apcuOrRedisBackend,
+    'options' => $apcuOrRedisOptions(7, 0),
 ];
 
 // Runtime caches -> TransientMemory (request-scoped, fastest)
@@ -218,26 +232,22 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['runtime'] 
     'backend' => TransientMemoryBackend::class,
 ];
 
+// Assets cache -> APCu in web, Redis in CLI
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['assets'] = [
-    'backend' => ApcuBackend::class,
-    'options' => [
-        'defaultLifetime' => 86400,
-    ],
+    'backend' => $apcuOrRedisBackend,
+    'options' => $apcuOrRedisOptions(8, 86400),
 ];
 
+// L10n cache -> APCu in web, Redis in CLI
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['l10n'] = [
-    'backend' => ApcuBackend::class,
-    'options' => [
-        'defaultLifetime' => 86400,
-    ],
+    'backend' => $apcuOrRedisBackend,
+    'options' => $apcuOrRedisOptions(9, 86400),
 ];
 
-// DI cache -> APCu (critical for fast bootstrap)
+// DI cache -> APCu in web, Redis in CLI (critical for fast bootstrap)
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['di'] = [
-    'backend' => ApcuBackend::class,
-    'options' => [
-        'defaultLifetime' => 0,
-    ],
+    'backend' => $apcuOrRedisBackend,
+    'options' => $apcuOrRedisOptions(10, 0),
 ];
 
 // Typoscript cache -> Redis
