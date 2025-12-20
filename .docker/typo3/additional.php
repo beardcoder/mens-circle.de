@@ -181,6 +181,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages'] = 
     'backend' => RedisBackend::class,
     'options' => array_merge($redisDefaultOptions, [
         'database' => $redisDatabase,
+        'compression' => true,
         'defaultLifetime' => 86400,
     ]),
 ];
@@ -200,73 +201,10 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash'] = [
         'defaultLifetime' => 2592000,
     ]),
 ];
-
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['imagesizes'] = [
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pagesection'] = [
     'backend' => RedisBackend::class,
     'options' => array_merge($redisDefaultOptions, [
         'database' => $redisDatabase + 3,
-        'defaultLifetime' => 2592000,
+        'defaultLifetime' => 604800, // 7 days
     ]),
 ];
-
-// Extbase caches -> Redis
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase'] = [
-    'backend' => RedisBackend::class,
-    'options' => array_merge($redisDefaultOptions, [
-        'database' => $redisDatabase + 4,
-        'defaultLifetime' => 86400,
-    ]),
-];
-
-// Fluid template cache -> SimpleFileBackend (requires PhpFrontend)
-// PhpFrontend can only work with file-based backends
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_template'] = [
-    'frontend' => PhpFrontend::class,
-    'backend' => SimpleFileBackend::class,
-    'options' => [],
-];
-
-// Core caches -> SimpleFileBackend (requires PhpFrontend!)
-// This cache stores compiled PHP code, must use file backend
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['core'] = [
-    'frontend' => PhpFrontend::class,
-    'backend' => SimpleFileBackend::class,
-    'options' => [],
-];
-
-// Runtime caches -> TransientMemory (request-scoped, fastest)
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['runtime'] = [
-    'frontend' => VariableFrontend::class,
-    'backend' => TransientMemoryBackend::class,
-];
-
-// Assets cache -> APCu in web, Redis in CLI
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['assets'] = [
-    'frontend' => VariableFrontend::class,
-    'backend' => $apcuOrRedisBackend,
-    'options' => $apcuOrRedisOptions(8, 86400),
-];
-
-// L10n cache -> APCu in web, Redis in CLI
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['l10n'] = [
-    'frontend' => VariableFrontend::class,
-    'backend' => $apcuOrRedisBackend,
-    'options' => $apcuOrRedisOptions(9, 86400),
-];
-
-// DI cache -> SimpleFileBackend (requires PhpFrontend for DI container!)
-// This cache stores compiled DI container, must use file backend
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['di'] = [
-    'frontend' => PhpFrontend::class,
-    'backend' => SimpleFileBackend::class,
-    'options' => [],
-];
-
-// Typoscript cache -> SimpleFileBackend (requires PhpFrontend!)
-// UserTsConfigFactory requires PhpFrontend
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typoscript'] = [
-    'frontend' => PhpFrontend::class,
-    'backend' => SimpleFileBackend::class,
-    'options' => [],
-];
-
