@@ -262,12 +262,11 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['di'] = [
     'options' => [],
 ];
 
-// Typoscript cache -> Redis
+// Typoscript cache -> SimpleFileBackend (requires PhpFrontend!)
+// UserTsConfigFactory requires PhpFrontend
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typoscript'] = [
-    'backend' => RedisBackend::class,
-    'options' => array_merge($redisDefaultOptions, [
-        'database' => $redisDatabase + 5,
-        'defaultLifetime' => 86400,
-    ]),
+    'frontend' => PhpFrontend::class,
+    'backend' => SimpleFileBackend::class,
+    'options' => [],
 ];
 
