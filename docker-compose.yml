@@ -18,6 +18,10 @@ services:
       # Redis configuration
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - TIDEWAYS_APIKEY=${SERVICE_TIDEWAYS_APIKEY}
+      - TIDEWAYS_CONNECTION=tcp://tideways-daemon:9135
+      - TIDEWAYS_SAMPLERATE=25
+      - TIDEWAYS_SERVICE=app
     volumes:
       # Persistent data
       - web_var:/var/www/html/var
