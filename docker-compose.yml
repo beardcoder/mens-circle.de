@@ -1,38 +1,29 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "8080:80"
     environment:
-      TYPO3_CONTEXT: Production
-      JWT_SECRET: ${JWT_SECRET:-dev-secret-change-in-production}
+      - SERVICE_URL_WEB_80
+      - TYPO3_CONTEXT=Production
+      - JWT_SECRET=${SERVICE_SECRET_BASE64_64_JWT}
+      - TYPO3_ENCRYPTION_KEY=${SERVICE_SECRET_BASE64_64_ENCRYPTION_}
+      - SERVICE_URL_WORDPRESS
+      - WORDPRESS_DB_USER=$SERVICE_USER_MYSQL
+      - WORDPRESS_DB_PASSWORD=$SERVICE_PASSWORD_MYSQL
       # Database configuration
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_NAME: typo3
-      DB_USER: typo3
-      DB_PASSWORD: typo3
-      DB_PERSISTENT: "true"
+      - DB_HOST=mysql
+      - DB_NAME=typo3
+      - DB_USER=$SERVICE_USER_MYSQL
+      - DB_PASSWORD=$SERVICE_PASSWORD_MYSQL
       # Redis configuration
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      REDIS_DATABASE: 0
-      # FrankenPHP configuration - Worker mode enabled for production
-      # Workers keep PHP alive between requests for better performance
-      # Format: worker <script> <num_workers>
-      FRANKENPHP_CONFIG: "worker /var/www/html/public/index.php"
-      SERVER_NAME: ":80"
-      FRANKENPHP_MAX_REQUESTS: 1000
-      # Performance settings
-      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 0
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DATABASE=0
     volumes:
       # Persistent data
-      - typo3_var:/var/www/html/var
-      - typo3_fileadmin:/var/www/html/public/fileadmin
+      - web_var:/var/www/html/var
+      - web_fileadmin:/var/www/html/public/fileadmin
     depends_on:
       db:
         condition: service_healthy
@@ -47,12 +38,12 @@ services:
       start_period: 60s
 
   db:
-    image: mysql:8.0
+    image: mysql:9.0
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: typo3
-      MYSQL_USER: typo3
-      MYSQL_PASSWORD: typo3
+      - MYSQL_ROOT_PASSWORD=$SERVICE_PASSWORD_ROOT
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=$SERVICE_USER_WORDPRESS
+      - MYSQL_PASSWORD=$SERVICE_PASSWORD_WORDPRESS
     volumes:
       - db_data:/var/lib/mysql
     command:
@@ -71,14 +62,16 @@ services:
       - --sort-buffer-size=256K
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "typo3", "-ptypo3"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 5s
+      timeout: 20s
+      retries: 10
+
+  tideways-daemon:
+    image: ghcr.io/tideways/daemon
 
   redis:
-    image: redis:7-alpine
+    image: redis:8-alpine
     volumes:
       - redis_data:/data
     command:
@@ -88,6 +81,7 @@ services:
       - --appendonly no
       - --save ""
       - --tcp-keepalive 300
+      - --loglevel error
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -96,7 +90,7 @@ services:
       retries: 5
 
 volumes:
-  typo3_var:
-  typo3_fileadmin:
+  web_var:
+  web_fileadmin:
   db_data:
   redis_data:

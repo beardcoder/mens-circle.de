@@ -6,12 +6,6 @@ use MensCircle\Sitepackage\Error\DebugExceptionHandler;
 use MensCircle\Sitepackage\Error\ProductionExceptionHandler;
 use MensCircle\Sitepackage\Log\Writer\SentryLogWriter;
 use Psr\Log\LogLevel;
-use TYPO3\CMS\Core\Cache\Backend\ApcuBackend;
-use TYPO3\CMS\Core\Cache\Backend\RedisBackend;
-use TYPO3\CMS\Core\Cache\Backend\SimpleFileBackend;
-use TYPO3\CMS\Core\Cache\Backend\TransientMemoryBackend;
-use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
-use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 use TYPO3\CMS\Core\Log\Writer\Enum\Interval;
 use TYPO3\CMS\Core\Log\Writer\NullWriter;
 use TYPO3\CMS\Core\Log\Writer\RotatingFileWriter;
@@ -71,14 +65,13 @@ $GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::ERROR][Sentr
 // Database Configuration
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['charset'] = 'utf8mb4';
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'] = env('DB_NAME', 'default');
-$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['driver'] = 'pdo_mysql';
+$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['driver'] = 'mysqli';
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'] = env('DB_HOST', 'localhost');
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'] = env('DB_PASSWORD', '');
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['port'] = envInt('DB_PORT', 3306);
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['user'] = env('DB_USER', 'root');
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['defaultTableOptions']['charset'] = 'utf8mb4';
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['defaultTableOptions']['collation'] = 'utf8mb4_unicode_ci';
-$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['options'][PDO::ATTR_PERSISTENT] = envBool('DB_PERSISTENT', false);
 
 // Graphics Configuration
 $GLOBALS['TYPO3_CONF_VARS']['GFX']['processor'] = 'ImageMagick';
@@ -106,7 +99,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['sqlDebug'] = envInt('SQL_DEBUG', 0);
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['reverseProxyHeaderMultiValue'] = 'first';
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['reverseProxyIP'] = '*';
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['reverseProxySSL'] = '*';
-// TYPO3 v14: Optimize for FrankenPHP/Caddy
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = env('TRUSTED_HOSTS_PATTERN', '.*');
 
 // Frontend Configuration
@@ -117,10 +109,6 @@ $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['enforceValidation'] = true;
 $GLOBALS['TYPO3_CONF_VARS']['BE']['debug'] = envInt('BE_DEBUG', 0);
 $GLOBALS['TYPO3_CONF_VARS']['BE']['lockSSL'] = envInt('BE_LOCK_SSL', 1);
 $GLOBALS['TYPO3_CONF_VARS']['BE']['sessionTimeout'] = envInt('BE_SESSION_TIMEOUT', 28800); // 8 hours
-
-// HTTP Client Configuration
-$GLOBALS['TYPO3_CONF_VARS']['HTTP']['timeout'] = envInt('HTTP_TIMEOUT', 30);
-$GLOBALS['TYPO3_CONF_VARS']['HTTP']['connect_timeout'] = envInt('HTTP_CONNECT_TIMEOUT', 10);
 
 // Sentry Configuration
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['sentry_client']['options']['traces_sample_rate'] = envFloat('SENTRY_TRACES_SAMPLE_RATE', 1.0);
@@ -139,3 +127,36 @@ $GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::CRITICAL][Ro
     'interval' => Interval::WEEKLY,
     'maxFiles' => envInt('LOG_CRITICAL_MAX_FILES', 8),
 ];
+
+$redisHost = env('REDIS_HOST', 'redis');
+$redisPort = envInt('REDIS_PORT', 6379);
+$redisCaches = [
+    'pages' => [
+        'defaultLifetime' => 86400 * 7, // 1 week
+        'compression' => true,
+    ],
+    'pagesection' => [
+        'defaultLifetime' => 86400 * 7,
+    ],
+    'hash' => [],
+    'rootline' => [],
+];
+
+$redisDatabase = 0;
+foreach ($redisCaches as $name => $values) {
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$name]['backend']
+        = \TYPO3\CMS\Core\Cache\Backend\RedisBackend::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$name]['options'] = [
+        'database' => $redisDatabase++,
+        'hostname' => $redisHost,
+        'port' => $redisPort,
+    ];
+    if (isset($values['defaultLifetime'])) {
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$name]['options']['defaultLifetime']
+            = $values['defaultLifetime'];
+    }
+    if (isset($values['compression'])) {
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$name]['options']['compression']
+            = $values['compression'];
+    }
+}

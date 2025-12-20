@@ -31,6 +31,11 @@ ENV LC_ALL=de_DE.UTF-8 \
     LANG=de_DE.UTF-8 \
     LANGUAGE=de_DE:de
 
+COPY --from=ghcr.io/tideways/php:latest /tideways/ /tideways/
+RUN set -ex; \
+    docker-php-ext-enable --ini-name tideways.ini "$(php /tideways/get-ext-path.php)"; \
+    echo "tideways.auto_start=0\n" >> /usr/local/etc/php/conf.d/tideways.ini
+
 # Install PHP extensions
 RUN set -eux; \
     install-php-extensions \
@@ -39,7 +44,7 @@ RUN set -eux; \
     exif \
     gd \
     intl \
-    pdo_mysql \
+    mysqli \
     zip \
     redis
 
@@ -103,6 +108,9 @@ COPY .docker/typo3/additional.php /var/www/html/config/system/additional.php
 
 # Copy build artifacts from previous stages
 COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./public/_assets
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html
 
 # Expose ports
 EXPOSE 80 443
