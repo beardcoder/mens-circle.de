@@ -11,26 +11,40 @@ services:
       TYPO3_CONTEXT: Production
       JWT_SECRET: ${JWT_SECRET:-dev-secret-change-in-production}
       # Database configuration
-      TYPO3_DB_DRIVER: mysqli
-      TYPO3_DB_HOST: db
-      TYPO3_DB_PORT: 3306
-      TYPO3_DB_NAME: typo3
-      TYPO3_DB_USERNAME: typo3
-      TYPO3_DB_PASSWORD: typo3
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: typo3
+      DB_USER: typo3
+      DB_PASSWORD: typo3
+      DB_PERSISTENT: "true"
       # Redis configuration
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      REDIS_DATABASE: 0
       # FrankenPHP configuration
+      # Enable worker mode for better performance (optional):
+      # FRANKENPHP_CONFIG: "worker /var/www/html/public/worker.php 4"
       FRANKENPHP_CONFIG: ""
       SERVER_NAME: ":80"
+      FRANKENPHP_MAX_REQUESTS: 1000
+      # Performance settings
+      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 0
     volumes:
       # Persistent data
       - typo3_var:/var/www/html/var
       - typo3_fileadmin:/var/www/html/public/fileadmin
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   db:
     image: mysql:8.0
@@ -41,14 +55,45 @@ services:
       MYSQL_PASSWORD: typo3
     volumes:
       - db_data:/var/lib/mysql
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      # Performance optimizations
+      - --innodb-buffer-pool-size=256M
+      - --innodb-log-file-size=64M
+      - --innodb-flush-log-at-trx-commit=2
+      - --innodb-flush-method=O_DIRECT
+      - --max-connections=100
+      - --query-cache-type=0
+      - --tmp-table-size=64M
+      - --max-heap-table-size=64M
+      - --join-buffer-size=256K
+      - --sort-buffer-size=256K
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "typo3", "-ptypo3"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   redis:
     image: redis:7-alpine
     volumes:
       - redis_data:/data
+    command:
+      - redis-server
+      - --maxmemory 256mb
+      - --maxmemory-policy allkeys-lfu
+      - --appendonly no
+      - --save ""
+      - --tcp-keepalive 300
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   typo3_var:

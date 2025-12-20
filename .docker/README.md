@@ -33,22 +33,30 @@ Das Dockerfile nutzt ein **Multi-Stage Build** mit:
 - Schutz für sensible Verzeichnisse
 
 ### php/typo3.ini
-- PHP Production Settings
-- Memory Limits (1028M)
+- PHP Production Settings für FrankenPHP
+- Memory Limits (512M - optimal für TYPO3)
 - Upload Limits (64M)
-- OPcache Optimierungen
-- APCu Cache Konfiguration (128M)
-- Security Settings
-- Session Configuration
-- PHP 8.5 spezifische Einstellungen
+- **OPcache Optimierungen:**
+  - JIT aktiviert (opcache.jit = 1255)
+  - 128M JIT Buffer
+  - Timestamp-Validierung deaktiviert
+  - 30.000 max accelerated files
+- APCu Cache Konfiguration (256M)
+- Realpath Cache (8M, 1h TTL)
+- Security & Session Settings
+- Output Buffering für schnellere Responses
 
 ### typo3/additional.php
-- **NEU:** TYPO3 System-Konfiguration mit Environment-Variablen
-- Ersetzt hardcoded Konfigurationen durch flexible ENV-basierte Settings
-- Optimiert für TYPO3 v14 + PHP 8.5 + FrankenPHP
-- Performance-Optimierungen für FrankenPHP (persistente Connections)
-- Redis Cache Konfiguration
-- Database Settings
+- TYPO3 System-Konfiguration mit Environment-Variablen
+- **Redis Cache für:**
+  - pages, rootline, hash, imagesizes (persistent)
+  - extbase, typoscript
+- **APCu Cache für:**
+  - core, di, fluid_template (low-latency)
+  - assets, l10n
+- **TransientMemory für:** runtime cache
+- Database Settings mit persistenten Verbindungen
+- Optimiert für TYPO3 v13/v14 + PHP 8.5 + FrankenPHP
 - Mail Configuration (SMTP)
 - Sentry Error Tracking
 - Session Handling

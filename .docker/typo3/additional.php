@@ -136,3 +136,116 @@ $GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'][LogLevel::CRITICAL][Ro
     'interval' => Interval::WEEKLY,
     'maxFiles' => envInt('LOG_CRITICAL_MAX_FILES', 8),
 ];
+
+// =============================================================================
+// Cache Configuration - Optimized for Production with Redis + APCu
+// =============================================================================
+$redisHost = env('REDIS_HOST', 'redis');
+$redisPort = envInt('REDIS_PORT', 6379);
+$redisPassword = env('REDIS_PASSWORD', '');
+$redisDatabase = envInt('REDIS_DATABASE', 0);
+
+// Redis connection options
+$redisDefaultOptions = [
+    'hostname' => $redisHost,
+    'port' => $redisPort,
+    'database' => $redisDatabase,
+    'password' => $redisPassword,
+    'defaultLifetime' => 86400, // 24 hours default TTL
+    'compression' => true,
+];
+
+// High-traffic caches -> Redis (persistent, shared across requests)
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages'] = [
+    'backend' => RedisBackend::class,
+    'options' => array_merge($redisDefaultOptions, [
+        'database' => $redisDatabase,
+        'defaultLifetime' => 86400,
+    ]),
+];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline'] = [
+    'backend' => RedisBackend::class,
+    'options' => array_merge($redisDefaultOptions, [
+        'database' => $redisDatabase + 1,
+        'defaultLifetime' => 2592000, // 30 days
+    ]),
+];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash'] = [
+    'backend' => RedisBackend::class,
+    'options' => array_merge($redisDefaultOptions, [
+        'database' => $redisDatabase + 2,
+        'defaultLifetime' => 2592000,
+    ]),
+];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['imagesizes'] = [
+    'backend' => RedisBackend::class,
+    'options' => array_merge($redisDefaultOptions, [
+        'database' => $redisDatabase + 3,
+        'defaultLifetime' => 2592000,
+    ]),
+];
+
+// Extbase caches -> Redis
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['extbase'] = [
+    'backend' => RedisBackend::class,
+    'options' => array_merge($redisDefaultOptions, [
+        'database' => $redisDatabase + 4,
+        'defaultLifetime' => 86400,
+    ]),
+];
+
+// Fluid template cache -> APCu (very fast, local)
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['fluid_template'] = [
+    'backend' => ApcuBackend::class,
+    'options' => [
+        'defaultLifetime' => 86400,
+    ],
+];
+
+// Core caches -> APCu (frequently accessed, low latency needed)
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['core'] = [
+    'backend' => ApcuBackend::class,
+    'options' => [
+        'defaultLifetime' => 0, // Never expires
+    ],
+];
+
+// Runtime caches -> TransientMemory (request-scoped, fastest)
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['runtime'] = [
+    'backend' => TransientMemoryBackend::class,
+];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['assets'] = [
+    'backend' => ApcuBackend::class,
+    'options' => [
+        'defaultLifetime' => 86400,
+    ],
+];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['l10n'] = [
+    'backend' => ApcuBackend::class,
+    'options' => [
+        'defaultLifetime' => 86400,
+    ],
+];
+
+// DI cache -> APCu (critical for fast bootstrap)
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['di'] = [
+    'backend' => ApcuBackend::class,
+    'options' => [
+        'defaultLifetime' => 0,
+    ],
+];
+
+// Typoscript cache -> Redis
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['typoscript'] = [
+    'backend' => RedisBackend::class,
+    'options' => array_merge($redisDefaultOptions, [
+        'database' => $redisDatabase + 5,
+        'defaultLifetime' => 86400,
+    ]),
+];
+

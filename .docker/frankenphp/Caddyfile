@@ -8,7 +8,7 @@
     local_certs
     auto_https disable_redirects
 
-    # Disable access logs
+    # Disable access logs (enable for debugging)
     log {
         format console
         output stderr
@@ -16,10 +16,12 @@
     }
 
     frankenphp {
-           #worker /path/to/your/worker.php
-           {$FRANKENPHP_CONFIG}
+        # Worker mode for better performance
+        # Enable via FRANKENPHP_CONFIG environment variable:
+        # FRANKENPHP_CONFIG="worker /var/www/html/public/worker.php 4"
+        # The number (4) is the number of workers per CPU core
+        {$FRANKENPHP_CONFIG}
     }
-
 
     # Caddy directive ordering for FrankenPHP
     order php_server before file_server
@@ -31,14 +33,20 @@
 :80 {
     root * /var/www/html/public
 
-    # Compression
-    encode zstd gzip
+    # Compression - prefer zstd for modern browsers
+    encode {
+        zstd
+        gzip
+        minimum_length 256
+    }
 
     # Security Headers (X-Frame-Options managed by TYPO3)
     header /* {
         X-Content-Type-Options "nosniff"
         Referrer-Policy "strict-origin-when-cross-origin"
         X-XSS-Protection "1; mode=block"
+        # Cache status header for debugging
+        X-Cache-Status "HIT"
     }
 
     # Block sensitive files
@@ -80,12 +88,26 @@
     }
     rewrite @backend {http.matchers.file.relative}
 
-    # Static Assets (direct serving)
+    # Static Assets (direct serving with aggressive caching)
     @static {
         path /fileadmin/* /_assets/* *.ico *.css *.js *.gif *.webp *.avif *.jpg *.jpeg *.png *.svg *.woff *.woff2 *.txt
         file
     }
-    header @static Cache-Control "public, max-age=31536000, immutable"
+    header @static {
+        Cache-Control "public, max-age=31536000, immutable"
+        # Prevent range request attacks
+        Accept-Ranges "bytes"
+    }
+
+    # Fonts - extra long cache with CORS
+    @fonts {
+        path *.woff *.woff2 *.ttf *.eot
+        file
+    }
+    header @fonts {
+        Cache-Control "public, max-age=31536000, immutable"
+        Access-Control-Allow-Origin "*"
+    }
 
     file_server @static
 
