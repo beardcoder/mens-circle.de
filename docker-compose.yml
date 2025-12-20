@@ -1,3 +1,5 @@
+# port: 80
+
 services:
   app:
     build:
@@ -6,8 +8,8 @@ services:
     environment:
       - SERVICE_URL_WEB_80
       - TYPO3_CONTEXT=Production
-      - JWT_SECRET=${SERVICE_SECRET_BASE64_64_JWT}
-      - TYPO3_ENCRYPTION_KEY=${SERVICE_SECRET_BASE64_64_ENCRYPTION_}
+      - JWT_SECRET=${SERVICE_BASE64_64_JWT}
+      - TYPO3_ENCRYPTION_KEY=${SERVICE_BASE64_64_ENCRYPTION}
       # Database configuration
       - DB_HOST=db
       - DB_NAME=typo3
@@ -73,9 +75,3 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-volumes:
-  web_var:
-  web_fileadmin:
-  db_data:
-  redis_data:
