@@ -16,7 +16,10 @@
     }
 
     frankenphp {
-       worker /var/www/html/public/worker.php 4
+        # Worker mode is configured via FRANKENPHP_CONFIG environment variable
+        # Example: FRANKENPHP_CONFIG="worker /var/www/html/public/index.php"
+        # This keeps PHP processes alive between requests for much better performance
+        {$FRANKENPHP_CONFIG}
     }
 
     # Caddy directive ordering for FrankenPHP
@@ -84,26 +87,12 @@
     }
     rewrite @backend {http.matchers.file.relative}
 
-    # Static Assets (direct serving with aggressive caching)
+    # Static Assets (direct serving)
     @static {
         path /fileadmin/* /_assets/* *.ico *.css *.js *.gif *.webp *.avif *.jpg *.jpeg *.png *.svg *.woff *.woff2 *.txt
         file
     }
-    header @static {
-        Cache-Control "public, max-age=31536000, immutable"
-        # Prevent range request attacks
-        Accept-Ranges "bytes"
-    }
-
-    # Fonts - extra long cache with CORS
-    @fonts {
-        path *.woff *.woff2 *.ttf *.eot
-        file
-    }
-    header @fonts {
-        Cache-Control "public, max-age=31536000, immutable"
-        Access-Control-Allow-Origin "*"
-    }
+    header @static Cache-Control "public, max-age=31536000, immutable"
 
     file_server @static
 

@@ -21,10 +21,10 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_DATABASE: 0
-      # FrankenPHP configuration
-      # Enable worker mode for better performance (optional):
-      # FRANKENPHP_CONFIG: "worker /var/www/html/public/worker.php 4"
-      FRANKENPHP_CONFIG: ""
+      # FrankenPHP configuration - Worker mode enabled for production
+      # Workers keep PHP alive between requests for better performance
+      # Format: worker <script> <num_workers>
+      FRANKENPHP_CONFIG: "worker /var/www/html/public/index.php"
       SERVER_NAME: ":80"
       FRANKENPHP_MAX_REQUESTS: 1000
       # Performance settings
