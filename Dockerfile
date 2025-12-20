@@ -110,6 +110,7 @@ RUN mkdir -p /var/www/html/config/system
 # Copy build artifacts from previous stages
 COPY --from=frontend-builder --chown=www-data:www-data /app/public/_assets ./public/_assets
 
+ENV TIDEWAYS_APIKEY=tw_AgpNIhaeVm5K4y7Hcckp2CS2b9200
 ENV TIDEWAYS_SERVICE=app
 ENV TIDEWAYS_SAMPLERATE=25
 ENV TIDEWAYS_CONNECTION=tcp://tideways-daemon:9135
