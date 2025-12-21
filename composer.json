@@ -12,7 +12,6 @@
     "nette/utils": "^4.1",
     "praetorius/vite-asset-collector": "^1.14",
     "spatie/schema-org": "^3.23.1",
-    "typo3/cms-adminpanel": ">=14",
     "typo3/cms-beuser": ">=14",
     "typo3/cms-form": ">=14",
     "typo3/cms-impexp": ">=14",
