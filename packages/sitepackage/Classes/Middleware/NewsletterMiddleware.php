@@ -18,7 +18,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Core\Http\HtmlResponse;
 use TYPO3\CMS\Core\Http\JsonResponse;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3Fluid\Fluid\View\TemplateView;
 
 final readonly class NewsletterMiddleware implements MiddlewareInterface
 {
@@ -30,7 +30,7 @@ final readonly class NewsletterMiddleware implements MiddlewareInterface
 
     public function __construct(
         private SubscriptionService $subscriptionService,
-        private StandaloneView $view,
+        private TemplateView $view,
     ) {}
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
