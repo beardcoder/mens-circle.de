@@ -1,10 +1,13 @@
 <?php
+
+declare(strict_types=1);
+
 return [
     'BE' => [
         'debug' => false,
-        'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$SG1DcUpaRmlUNWhQSk9hbw$80/3AsTzsp0+iK/uuXY739fJWzCvCetYZKw375Jd00Y',
+        'installToolPassword' => '$argon2id$v=19$m=65536,t=16,p=1$placeholder',
         'passwordHashing' => [
-            'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
+            'className' => \TYPO3\CMS\Core\Crypto\PasswordHashing\Argon2idPasswordHash::class,
             'options' => [],
         ],
     ],
@@ -12,111 +15,65 @@ return [
         'Connections' => [
             'Default' => [
                 'charset' => 'utf8mb4',
-                'dbname' => 'test',
-                'defaultTableOptions' => [
+                'driver' => 'mysqli',
+                'dbname' => getenv('TYPO3_DB_NAME') ?: 'db',
+                'host' => getenv('TYPO3_DB_HOST') ?: 'db',
+                'password' => getenv('TYPO3_DB_PASSWORD') ?: 'db',
+                'port' => (int)(getenv('TYPO3_DB_PORT') ?: 3306),
+                'user' => getenv('TYPO3_DB_USER') ?: 'db',
+                'tableoptions' => [
                     'charset' => 'utf8mb4',
-                    'collation' => 'utf8mb4_unicode_ci',
+                    'collate' => 'utf8mb4_unicode_ci',
                 ],
-                'driver' => 'pdo_mysql',
-                'host' => 'db',
-                'password' => 'db',
-                'port' => 3306,
-                'user' => 'db',
             ],
         ],
     ],
-    'EXTENSIONS' => [
-        'backend' => [
-            'backendFavicon' => '',
-            'backendLogo' => 'EXT:sitepackage/Resources/Public/Images/logo-white.svg',
-            'loginBackgroundImage' => 'EXT:sitepackage/Resources/Public/Images/Background.jpg',
-            'loginFootnote' => '© 2023-2024 Build with ❤️ and mindfulness in Bavaria',
-            'loginHighlightColor' => '#b76f2b',
-            'loginLogo' => 'EXT:sitepackage/Resources/Public/Images/logo-small.png',
-            'loginLogoAlt' => '',
-        ],
-        'redirects' => [
-            'showCheckIntegrityInfoInReports' => '1',
-            'showCheckIntegrityInfoInReportsSeconds' => '86400',
-        ],
-        'scheduler' => [
-            'maxLifetime' => '1440',
-        ],
-        'vite_asset_collector' => [
-            'defaultManifest' => '_assets/vite/.vite/manifest.json',
-            'devServerUri' => 'auto',
-            'useDevServer' => 'auto',
-        ],
-    ],
     'FE' => [
+        'cacheHash' => [
+            'enforceValidation' => true,
+        ],
         'debug' => false,
+        'disableNoCacheParameter' => true,
         'passwordHashing' => [
-            'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
+            'className' => \TYPO3\CMS\Core\Crypto\PasswordHashing\Argon2idPasswordHash::class,
             'options' => [],
         ],
     ],
     'GFX' => [
-        'imagefile_ext' => 'gif,jpg,jpeg,tif,tiff,bmp,pcx,tga,png,pdf,ai,svg,webp',
-        'processor' => 'GraphicsMagick',
-        'processor_effects' => false,
-        'processor_enabled' => true,
+        'processor' => 'ImageMagick',
         'processor_path' => '/usr/bin/',
-    ],
-    'LANG' => [
-        'availableLocales' => [
-            'de',
-        ],
+        'processor_colorspace' => 'sRGB',
     ],
     'LOG' => [
-        'TYPO3' => [
-            'CMS' => [
-                'deprecations' => [
-                    'writerConfiguration' => [
-                        'notice' => [
-                            'TYPO3\CMS\Core\Log\Writer\FileWriter' => [
-                                'disabled' => true,
-                            ],
-                        ],
-                    ],
+        'writerConfiguration' => [
+            \Psr\Log\LogLevel::WARNING => [
+                \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
+                    'logFileInfix' => 'main',
                 ],
             ],
         ],
     ],
     'MAIL' => [
-        'layoutRootPaths' => [
-            500 => 'EXT:sitepackage/Resources/Private/Layouts/Emails/',
-        ],
-        'templateRootPaths' => [
-            500 => 'EXT:sitepackage/Resources/Private/Templates/Emails/',
-        ],
-        'transport' => 'sendmail',
-        'transport_sendmail_command' => '/usr/local/bin/mailpit sendmail -t --smtp-addr 127.0.0.1:1025',
-        'transport_smtp_encrypt' => '',
-        'transport_smtp_password' => '',
-        'transport_smtp_server' => '',
-        'transport_smtp_username' => '',
+        'transport' => 'smtp',
+        'transport_smtp_server' => getenv('TYPO3_MAIL_SMTP_SERVER') ?: 'localhost:1025',
+        'transport_smtp_encrypt' => false,
+        'defaultMailFromAddress' => 'noreply@mens-circle.de',
+        'defaultMailFromName' => 'Mens Circle',
     ],
     'SYS' => [
-        'UTF8filesystem' => true,
         'caching' => [
             'cacheConfigurations' => [
                 'hash' => [
-                    'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
-                ],
-                'imagesizes' => [
-                    'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
-                    'options' => [
-                        'compression' => true,
-                    ],
+                    'backend' => \TYPO3\CMS\Core\Cache\Backend\Typo3DatabaseBackend::class,
                 ],
                 'pages' => [
-                    'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
+                    'backend' => \TYPO3\CMS\Core\Cache\Backend\Typo3DatabaseBackend::class,
                     'options' => [
                         'compression' => true,
                     ],
                 ],
                 'rootline' => [
-                    'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
+                    'backend' => \TYPO3\CMS\Core\Cache\Backend\Typo3DatabaseBackend::class,
                     'options' => [
                         'compression' => true,
                     ],
@@ -125,28 +82,9 @@ return [
         ],
         'devIPmask' => '',
         'displayErrors' => 0,
-        'encryptionKey' => '7bf24e59234ae81bb2875eac483d6a45ff37b012bbca68ddc75eb5dd9d94718bdf647f1f363466ba3317e8a5377a3b37',
-        'exceptionalErrors' => 4096,
-        'features' => [
-            'extbase.consistentDateTimeHandling' => true,
-            'frontend.cache.autoTagging' => true,
-            'security.backend.enforceReferrer' => false,
-            'security.backend.htmlSanitizeRte' => true,
-            'security.frontend.enforceContentSecurityPolicy' => true,
-        ],
-        'generateApacheHtaccess' => false,
-        'messenger' => [
-            'routing' => [
-                '*' => 'doctrine',
-            ],
-        ],
-        'phpTimeZone' => 'Europe/Berlin',
-        'sitename' => 'Men\'s Circle Niederbayern',
-        'systemLocale' => 'de_DE.UTF-8',
-        'systemMaintainers' => [
-            1,
-            2,
-        ],
-        'trustedHostsPattern' => '.*.*',
+        'encryptionKey' => getenv('TYPO3_ENCRYPTION_KEY') ?: 'placeholder-encryption-key-replace-in-production',
+        'exceptionalErrors' => E_ALL & ~(E_STRICT | E_NOTICE | E_DEPRECATED | E_USER_DEPRECATED),
+        'sitename' => 'Mens Circle',
+        'trustedHostsPattern' => '.*\\.ddev\\.site$|^mens-circle\\.de$|^www\\.mens-circle\\.de$',
     ],
 ];

@@ -1,0 +1,330 @@
+@layer reset, base, layout, components, utilities;
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    min-block-size: 100dvh;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+}
+
+@layer base {
+  :root {
+    /* Colors */
+    --color-primary: oklch(0.45 0.12 250);
+    --color-primary-light: oklch(0.65 0.12 250);
+    --color-primary-dark: oklch(0.35 0.12 250);
+
+    --color-surface: oklch(0.99 0 0);
+    --color-surface-alt: oklch(0.97 0 0);
+    --color-text: oklch(0.2 0 0);
+    --color-text-muted: oklch(0.45 0 0);
+
+    --color-success: oklch(0.55 0.15 145);
+    --color-error: oklch(0.55 0.2 25);
+
+    /* Typography */
+    --font-sans: system-ui, -apple-system, sans-serif;
+    --font-mono: ui-monospace, monospace;
+
+    --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.8125rem);
+    --text-sm: clamp(0.875rem, 0.82rem + 0.2vw, 0.9375rem);
+    --text-base: clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);
+    --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+    --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+    --text-2xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+    --text-3xl: clamp(2rem, 1.5rem + 2vw, 3rem);
+
+    /* Spacing */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-24: 6rem;
+
+    /* Layout */
+    --container-max: 75rem;
+    --container-padding: var(--space-4);
+
+    /* Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+@layer layout {
+  .Container {
+    inline-size: 100%;
+    margin-inline: auto;
+    max-inline-size: var(--container-max);
+    padding-inline: var(--container-padding);
+  }
+
+  .Header {
+    background-color: var(--color-surface);
+    inset-block-start: 0;
+    position: sticky;
+    z-index: 100;
+  }
+
+  .Main {
+    min-block-size: calc(100dvh - 10rem);
+  }
+
+  .Footer {
+    background-color: var(--color-surface-alt);
+    padding-block: var(--space-8);
+  }
+
+  .Footer__inner {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    justify-content: space-between;
+    margin-inline: auto;
+    max-inline-size: var(--container-max);
+    padding-inline: var(--container-padding);
+  }
+
+  .Footer__list {
+    display: flex;
+    gap: var(--space-4);
+  }
+}
+
+@layer components {
+  /* Navigation */
+  .Navigation {
+    align-items: center;
+    display: flex;
+    gap: var(--space-8);
+    justify-content: space-between;
+    margin-inline: auto;
+    max-inline-size: var(--container-max);
+    padding-block: var(--space-4);
+    padding-inline: var(--container-padding);
+  }
+
+  .Navigation__logo {
+    font-size: var(--text-lg);
+    font-weight: 700;
+  }
+
+  .Navigation__toggle {
+    background: none;
+    block-size: 2.5rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    inline-size: 2.5rem;
+  }
+
+  @media (width >= 48rem) {
+    .Navigation__toggle {
+      display: none;
+    }
+  }
+
+  .Navigation__list {
+    display: none;
+    gap: var(--space-6);
+  }
+
+  @media (width >= 48rem) {
+    .Navigation__list {
+      display: flex;
+    }
+  }
+
+  .Navigation__list.is-open {
+    background-color: var(--color-surface);
+    display: flex;
+    flex-direction: column;
+    inset-block-start: 100%;
+    inset-inline: 0;
+    padding: var(--space-4);
+    position: absolute;
+  }
+
+  .Navigation__link {
+    color: var(--color-text);
+    transition: color var(--transition-fast);
+  }
+
+  .Navigation__link:hover,
+  .Navigation__link.is-active {
+    color: var(--color-primary);
+  }
+
+  /* Forms */
+  .Form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .FormField {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .FormLabel {
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .FormInput {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-text-muted);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    transition: border-color var(--transition-fast);
+  }
+
+  .FormInput:focus {
+    border-color: var(--color-primary);
+    outline: none;
+  }
+
+  .FormInput.is-invalid {
+    border-color: var(--color-error);
+  }
+
+  .FormError {
+    color: var(--color-error);
+    font-size: var(--text-sm);
+  }
+
+  .FormMessage {
+    background-color: var(--color-success);
+    border-radius: var(--radius-md);
+    color: white;
+    padding: var(--space-4);
+  }
+
+  /* Buttons */
+  .Button {
+    align-items: center;
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: var(--radius-md);
+    color: white;
+    cursor: pointer;
+    display: inline-flex;
+    font-weight: 500;
+    gap: var(--space-2);
+    justify-content: center;
+    padding-block: var(--space-3);
+    padding-inline: var(--space-6);
+    transition: background-color var(--transition-fast);
+  }
+
+  .Button:hover {
+    background-color: var(--color-primary-dark);
+  }
+
+  .Button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .Button[aria-busy="true"] {
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  .sr-only {
+    block-size: 1px;
+    clip: rect(0, 0, 0, 0);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-muted {
+    color: var(--color-text-muted);
+  }
+}

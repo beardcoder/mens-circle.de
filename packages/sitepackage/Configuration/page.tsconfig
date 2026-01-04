@@ -1,1 +1,20 @@
-templates.mens-circle/sitepackage.100 = mens-circle/sitepackage:Resources/Private/Backend/
+@import 'EXT:sitepackage/Configuration/TsConfig/Page/BackendLayouts.tsconfig'
+
+TCEFORM {
+    pages {
+        backend_layout {
+            keepItems = default,twoColumns,fullWidth
+        }
+        backend_layout_next_level {
+            keepItems = default,twoColumns,fullWidth
+        }
+    }
+}
+
+mod.wizards.newContentElement.wizardItems {
+    common.elements {
+        header.iconIdentifier = content-header
+        text.iconIdentifier = content-text
+        textmedia.iconIdentifier = content-textmedia
+    }
+}

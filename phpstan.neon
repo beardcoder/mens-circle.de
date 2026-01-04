@@ -1,7 +1,11 @@
+includes:
+  - vendor/saschaegerer/phpstan-typo3/extension.neon
+
 parameters:
-  level: 7
-  tmpDir: var/phpstan
+  level: 8
   paths:
-    - packages/
-  bootstrapFiles:
-    - vendor/autoload.php
+    - packages/sitepackage/Classes
+  excludePaths:
+    - packages/sitepackage/Classes/*/Fixtures/*
+  checkGenericClassInNonGenericObjectType: false
+  reportUnmatchedIgnoredErrors: false

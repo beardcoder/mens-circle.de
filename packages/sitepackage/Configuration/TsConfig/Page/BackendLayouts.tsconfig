@@ -1,0 +1,69 @@
+mod.web_layout.BackendLayouts {
+    default {
+        title = Default
+        icon = EXT:sitepackage/Resources/Public/Icons/BackendLayouts/default.svg
+        config {
+            backend_layout {
+                colCount = 1
+                rowCount = 1
+                rows {
+                    1 {
+                        columns {
+                            1 {
+                                name = Main Content
+                                colPos = 0
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    twoColumns {
+        title = Two Columns
+        icon = EXT:sitepackage/Resources/Public/Icons/BackendLayouts/two-columns.svg
+        config {
+            backend_layout {
+                colCount = 2
+                rowCount = 1
+                rows {
+                    1 {
+                        columns {
+                            1 {
+                                name = Main Content
+                                colPos = 0
+                                colspan = 2
+                            }
+                            2 {
+                                name = Sidebar
+                                colPos = 1
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fullWidth {
+        title = Full Width
+        icon = EXT:sitepackage/Resources/Public/Icons/BackendLayouts/full-width.svg
+        config {
+            backend_layout {
+                colCount = 1
+                rowCount = 1
+                rows {
+                    1 {
+                        columns {
+                            1 {
+                                name = Content
+                                colPos = 0
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

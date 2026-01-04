@@ -1,23 +1,27 @@
 {
-	"autoload": {
-		"psr-4": {
-			"MensCircle\\Sitepackage\\": "Classes/"
-		}
-	},
-	"description": "",
-	"extra": {
-		"typo3/cms": {
-			"extension-key": "sitepackage"
-		}
-	},
-	"homepage": "https://mens-circle.de",
-	"keywords": [
-		"TYPO3 CMS"
-	],
-	"name": "mens-circle/sitepackage",
-	"require": {
-		"php": "^8.3 || ^8.4 || ^8.5",
-		"typo3/cms-core": "^14"
-	},
-	"type": "typo3-cms-extension"
+    "name": "menscircle/sitepackage",
+    "type": "typo3-cms-extension",
+    "description": "Site configuration and templates for mens-circle.de",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Markus Sommer",
+            "email": "markus@beardcoder.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "typo3/cms-core": "^14.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MensCircle\\Sitepackage\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "sitepackage"
+        }
+    }
 }

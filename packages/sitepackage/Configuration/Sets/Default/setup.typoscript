@@ -1,0 +1,94 @@
+@import 'EXT:fluid_styled_content/Configuration/TypoScript/setup.typoscript'
+
+page = PAGE
+page {
+    typeNum = 0
+
+    10 = PAGEVIEW
+    10 {
+        paths {
+            100 = EXT:sitepackage/Resources/Private/PageView/
+        }
+
+        dataProcessing {
+            10 = page-content
+            10 {
+                as = content
+                contentType = main
+                colPos = 0
+            }
+
+            20 = page-content
+            20 {
+                as = sidebar
+                contentType = aside
+                colPos = 1
+            }
+
+            30 = menu
+            30 {
+                as = mainMenu
+                levels = 2
+            }
+
+            40 = menu
+            40 {
+                as = footerMenu
+                special = directory
+                special.value = {$page.footer.menuPid}
+                levels = 1
+            }
+        }
+
+        variables {
+            currentYear = TEXT
+            currentYear.data = date:U
+            currentYear.strftime = %Y
+        }
+    }
+
+    meta {
+        viewport = width=device-width, initial-scale=1
+        robots = index, follow
+        theme-color = #1a1a2e
+    }
+
+    headerData {
+        10 = TEXT
+        10.value (
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+)
+        20 = VITE_ASSET_COLLECTOR
+        20 {
+            devServerUri = https://mens-circle.ddev.site:5173
+            manifest = EXT:sitepackage/Resources/Public/.vite/manifest.json
+            entry = main
+            css = 1
+            js = 0
+        }
+    }
+
+    includeJSFooter {
+        vite = VITE_ASSET_COLLECTOR
+        vite {
+            devServerUri = https://mens-circle.ddev.site:5173
+            manifest = EXT:sitepackage/Resources/Public/.vite/manifest.json
+            entry = main
+            css = 0
+            js = 1
+        }
+    }
+}
+
+lib.contentElement {
+    templateRootPaths {
+        20 = EXT:sitepackage/Resources/Private/PageView/Content/
+    }
+    partialRootPaths {
+        20 = EXT:sitepackage/Resources/Private/PageView/Partials/
+    }
+    layoutRootPaths {
+        20 = EXT:sitepackage/Resources/Private/PageView/Layouts/
+    }
+}

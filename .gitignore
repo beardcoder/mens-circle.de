@@ -1,20 +1,46 @@
+# TYPO3
+/public/fileadmin/
+/public/typo3/
+/public/typo3conf/
+/public/typo3temp/
+/public/uploads/
+/var/
+/vendor/
+
+# Node
+/node_modules/
+/packages/*/node_modules/
+
+# Build artifacts
+/public/assets/
+*.map
+
+# IDE
+/.idea/
+/.vscode/
+*.sublime-*
+
+# OS
 .DS_Store
-.idea
-nbproject
-/var/*
-!/var/labels
-/vendor
-!/public/.htaccess
-!/public/typo3conf
-/public/typo3conf/*
-!/public/typo3conf/LocalConfiguration.php
-!/public/typo3conf/AdditionalConfiguration.php
-node_modules
-/public
-.php-cs-fixer.cache
-!Resources/Public/Icons/*
-.dumps
-config/system/additional.php
+Thumbs.db
+
+# Environment
 .env
-.ddev
-.worktrees/
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Cache
+.php-cs-fixer.cache
+.phpunit.result.cache
+
+# DDEV
+/.ddev/.ddev-docker-compose-*
+/.ddev/.global_commands
+/.ddev/.homeadditions
+/.ddev/.sso-lifetime
+/.ddev/db_snapshots
+/.ddev/sequelpro.spf
+/.ddev/.webimageBuild

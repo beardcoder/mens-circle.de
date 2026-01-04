@@ -1,42 +1,28 @@
-import js from '@eslint/js'
-import globals from 'globals'
+import eslint from '@eslint/js'
+import prettier from 'eslint-config-prettier'
 import tseslint from 'typescript-eslint'
-import json from '@eslint/json'
-import css from '@eslint/css'
-import { defineConfig } from 'eslint/config'
-import { fileURLToPath } from 'node:url'
-import { includeIgnoreFile } from '@eslint/compat'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
-const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url))
-
-export default defineConfig([
-    includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
-    tseslint.configs.recommended,
-    {
-        files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-        plugins: { js },
-        extends: ['js/recommended'],
-        rules: {
-            quotes: ['error', 'single'],
-            '@typescript-eslint/no-explicit-any': 'off',
-            'no-unused-vars': 'off',
-        },
-        languageOptions: { globals: { ...globals.browser, ...globals.node } },
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.strict,
+  prettier,
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
-    { files: ['**/*.json'], plugins: { json }, language: 'json/json', extends: ['json/recommended'] },
-    {
-        files: ['**/*.css'],
-        plugins: { css },
-        language: 'css/css',
-        extends: ['css/recommended'],
-        rules: {
-            'css/no-invalid-at-rules': 'off',
-            'css/no-important': 'off',
-            'css/use-baseline': 'off',
-            'css/font-family-fallbacks': 'off',
-            'css/no-invalid-properties': 'off',
-        },
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
+      '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
     },
-    eslintPluginPrettierRecommended,
-])
+  },
+  {
+    ignores: ['node_modules/', 'public/', 'var/', 'vendor/'],
+  },
+)

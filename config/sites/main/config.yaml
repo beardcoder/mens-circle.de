@@ -1,37 +1,20 @@
-base: 'https://mens-circle.de/'
-baseVariants:
-  -
-    base: 'https://mens-circle.ddev.site/'
-    condition: 'applicationContext == "Development/Local"'
-  -
-    base: 'https://mens-circle.ddev.site/'
-    condition: 'applicationContext == "Production/Local"'
-dependencies:
-  - typo3/redirects
-  - mens-circle/base
-  - mens-circle/events
-  - mens-circle/newsletter
-disableStaticFileCache: false
+rootPageId: 1
+base: /
 languages:
-  -
-    title: Deutsch
+  - title: English
     enabled: true
     languageId: 0
     base: /
-    locale: de_DE.UTF-8
-    navigationTitle: Deutsch
-    flag: de
-rootPageId: 1
-routes:
-  -
-    route: robots.txt
-    type: staticText
-    content: "User-agent: *\r\nDisallow:\r\nSitemap: https://mens-circle.de/sitemap.xml\r\n"
-  -
-    route: newsletter/unsubscribe
-    type: uri
-    source: 't3://page?uid=1'
-websiteTitle: 'Men’s Circle Niederbayern'
-imports:
-  -
-    resource: 'EXT:sitepackage/Configuration/Routes/Events.yaml'
+    locale: en_US.UTF-8
+    navigationTitle: EN
+    flag: en-us-gb
+    direction: ltr
+settings:
+  menscircle/default: []
+errorHandling:
+  - errorCode: 404
+    errorHandler: Page
+    errorContentSource: t3://page?uid=404
+  - errorCode: 0
+    errorHandler: Page
+    errorContentSource: t3://page?uid=500

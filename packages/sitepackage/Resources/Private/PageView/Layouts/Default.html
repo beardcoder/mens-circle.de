@@ -1,0 +1,28 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+<!DOCTYPE html>
+<html lang="{language.twoLetterIsoCode}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{page.title} | Mens Circle</title>
+    <f:render section="Meta" optional="1" />
+</head>
+<body class="Page Page--{page.backendLayout -> f:format.case(mode: 'lower')}">
+    <a class="SkipLink" href="#main-content">Skip to content</a>
+
+    <header class="Header">
+        <f:render partial="Navigation/Main" arguments="{mainMenu: mainMenu, site: site}" />
+    </header>
+
+    <main class="Main" id="main-content">
+        <f:render section="Main" />
+    </main>
+
+    <footer class="Footer">
+        <f:render partial="Footer" arguments="{footerMenu: footerMenu, currentYear: currentYear}" />
+    </footer>
+</body>
+</html>

@@ -2,62 +2,54 @@
 
 declare(strict_types=1);
 
-/**
- * Configures PHP-CS-Fixer rules for TYPO3 coding standards.
- *
- * This configuration enables modern PHP syntax, PSR standards,
- * Symfony conventions, and strict typing while allowing risky fixes.
- * It applies these rules across all packages in the current directory.
- */
+$finder = (new PhpCsFixer\Finder())
+    ->in(__DIR__ . '/packages')
+    ->exclude('node_modules')
+    ->exclude('vendor');
 
-require_once __DIR__ . '/php-cs-fixer/Fixer/ExtensionHeaderCommentFixer.php';
-
-$config = TYPO3\CodingStandards\CsFixerConfig::create();
-
-// Define fancy ASCII header for package files
-$header = <<<'HEADER'
-This file is part of the {{name}} extension.
-Created by Markus Sommer
-"Slow your breath, slow your mind — let the right code appear."
-HEADER;
-
-// Apply comprehensive rule sets for modern PHP and coding standards
-$config->setRules([
-    '@PHP84Migration' => true,
-    '@PHP82Migration:risky' => true,
-    '@PHP85Migration' => true,
-    '@PSR12' => true,
-    '@PSR2' => true,
-    '@PhpCsFixer' => true,
-    '@Symfony' => true,
-    '@Symfony:risky' => true,
-    'simplified_if_return' => true,
-    'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
-    'declare_strict_types' => true,
-    'modernize_strpos' => true,
-    'modernize_types_casting' => true,
-    'use_arrow_functions' => true,
-    'header_comment' => false,
-])
-    ->setUnsupportedPhpVersionAllowed(true)
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
-    ->getFinder()
-    ->in(__DIR__ . '/packages');
+    ->setRules([
+        '@PER-CS2.0' => true,
+        '@PER-CS2.0:risky' => true,
+        '@PHP84Migration' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'blank_line_before_statement' => [
+            'statements' => ['return', 'throw', 'try'],
+        ],
+        'cast_spaces' => ['space' => 'none'],
+        'class_attributes_separation' => [
+            'elements' => ['method' => 'one'],
+        ],
+        'concat_space' => ['spacing' => 'one'],
+        'declare_strict_types' => true,
+        'final_class' => true,
+        'global_namespace_import' => [
+            'import_classes' => true,
+            'import_constants' => false,
+            'import_functions' => false,
+        ],
+        'header_comment' => [
+            'header' => <<<'EOF'
+This file is part of the "sitepackage" extension for TYPO3 CMS.
 
-// Register custom fixer for extension-based header comments
-$config->registerCustomFixers([
-    new MensCircle\PhpCsFixer\Fixer\ExtensionHeaderCommentFixer(),
-]);
-
-// Add custom fixer rule
-$rules = $config->getRules();
-$rules['MensCircle/extension_header_comment'] = [
-    'packages_path' => 'packages',
-    'header_template' => $header,
-    'comment_type' => 'comment',
-    'location' => 'after_declare_strict',
-    'separate' => 'both',
-];
-$config->setRules($rules);
-
-return $config;
+For the full copyright and license information, please read the
+LICENSE.txt file that was distributed with this source code.
+EOF,
+        ],
+        'no_unused_imports' => true,
+        'nullable_type_declaration_for_default_null_value' => true,
+        'ordered_imports' => [
+            'imports_order' => ['class', 'function', 'const'],
+            'sort_algorithm' => 'alpha',
+        ],
+        'phpdoc_align' => ['align' => 'left'],
+        'phpdoc_separation' => true,
+        'phpdoc_summary' => false,
+        'single_line_throw' => false,
+        'trailing_comma_in_multiline' => [
+            'elements' => ['arrays', 'arguments', 'parameters'],
+        ],
+        'yoda_style' => ['equal' => false, 'identical' => false],
+    ])
+    ->setFinder($finder);

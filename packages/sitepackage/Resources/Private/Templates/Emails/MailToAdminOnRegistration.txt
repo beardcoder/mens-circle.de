@@ -1,7 +1,0 @@
-<f:layout name="Default" />
-<f:section name="Title">Registrierung von {participant.name} zum Event am {participant.event.startDate -> f:format.date(format: 'd.m.Y H:i')}</f:section>
-<f:section name="Main">{introduction}
-
-Vorname: {participant.firstName}
-Nachname: {participant.lastName}
-E-Mail: {participant.email}</f:section>

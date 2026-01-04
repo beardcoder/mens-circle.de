@@ -3,18 +3,8 @@ services:
     autowire: true
     autoconfigure: true
     public: false
+
   MensCircle\Sitepackage\:
     resource: '../Classes/*'
-  MensCircle\Sitepackage\Command\SyncNewsletterSubscriptionCommand:
-    tags:
-      -
-        name: console.command
-        command: 'sitepackage:sync-newsletter-subscription'
-        description: 'Sync all fe users with newsletter subscription'
-        schedulable: true
-  messenger.transport.default:
-    factory: [ '@TYPO3\CMS\Core\Messenger\DoctrineTransportFactory', 'createTransport' ]
-    class: 'Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineTransport'
-    arguments:
-      $options: [ ]
-
+    exclude:
+      - '../Classes/Domain/Model/*'

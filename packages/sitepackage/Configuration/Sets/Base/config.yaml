@@ -1,5 +1,0 @@
-name: mens-circle/base
-dependencies:
-    - mens-circle/helpers
-    - typo3/seo-sitemap
-    - typo3/form

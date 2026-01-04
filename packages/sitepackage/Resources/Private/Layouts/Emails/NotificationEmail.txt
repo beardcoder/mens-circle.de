@@ -1,7 +1,0 @@
-<f:spaceless><f:render section="Title" optional="true" />
-<f:render section="Main" /></f:spaceless>
-
-Men’s Circle Niederbayern
-Ein Raum für ehrlichen Austausch und persönliches Wachstum.
-Erlebe Offenheit, Vertrauen und Gemeinschaft in einer sicheren Umgebung.
-Webseite: {normalizedParams.siteUrl}
