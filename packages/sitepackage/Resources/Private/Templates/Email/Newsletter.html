@@ -1,0 +1,35 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="Default" />
+
+<f:section name="Content">
+    <f:if condition="{isTest}">
+        <mc:email.alert.alert variant="warning">
+            This is a test email. The unsubscribe link is disabled.
+        </mc:email.alert.alert>
+    </f:if>
+
+    <f:format.html>{content}</f:format.html>
+
+    <mc:email.divider.divider spacing="lg" />
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top: 24px;">
+        <tr>
+            <td style="text-align: center;">
+                <p style="margin: 0 0 8px; font-size: 12px; color: #71717a;">
+                    You're receiving this email because you subscribed to our newsletter.
+                </p>
+                <f:if condition="{!isTest}">
+                    <p style="margin: 0; font-size: 12px;">
+                        <a href="{unsubscribeUrl}" style="color: #71717a; text-decoration: underline;">
+                            Unsubscribe from this list
+                        </a>
+                    </p>
+                </f:if>
+            </td>
+        </tr>
+    </table>
+</f:section>

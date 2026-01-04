@@ -23,6 +23,7 @@ final readonly class FormHandlerService
         private LoggerInterface $logger,
         private ValidationService $validationService,
         private EmailService $emailService,
+        private SubscriptionService $subscriptionService,
     ) {
         $this->handlers = [
             'contact' => $this->handleContactForm(...),
@@ -130,38 +131,8 @@ final readonly class FormHandlerService
      */
     private function handleNewsletterForm(array $data): array
     {
-        $rules = [
-            'email' => ['required', 'email'],
-        ];
+        $email = $data['email'] ?? '';
 
-        $errors = $this->validationService->validate($data, $rules);
-
-        if ($errors !== []) {
-            return [
-                'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $errors,
-            ];
-        }
-
-        // TODO: Generate confirmation token and URL
-        $confirmationUrl = 'https://mens-circle.de/newsletter/confirm?token=xxx';
-
-        // Send double opt-in email
-        $this->emailService->send(
-            template: 'NewsletterSubscription',
-            subject: 'Confirm Your Newsletter Subscription - Mens Circle',
-            to: $data['email'],
-            variables: [
-                'confirmationUrl' => $confirmationUrl,
-            ],
-        );
-
-        $this->logger->info('Newsletter subscription initiated', ['email' => $data['email']]);
-
-        return [
-            'success' => true,
-            'message' => 'Please check your email to confirm your subscription.',
-        ];
+        return $this->subscriptionService->subscribe($email);
     }
 }
