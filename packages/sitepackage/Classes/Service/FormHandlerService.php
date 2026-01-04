@@ -22,6 +22,7 @@ final readonly class FormHandlerService
     public function __construct(
         private LoggerInterface $logger,
         private ValidationService $validationService,
+        private EmailService $emailService,
     ) {
         $this->handlers = [
             'contact' => $this->handleContactForm(...),
@@ -90,6 +91,30 @@ final readonly class FormHandlerService
             ];
         }
 
+        // Send notification email to admin
+        $this->emailService->send(
+            template: 'Contact',
+            subject: 'New Contact Form Submission',
+            to: $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] ?? 'info@mens-circle.de',
+            variables: [
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'message' => $data['message'],
+            ],
+            replyTo: $data['email'],
+        );
+
+        // Send confirmation email to user
+        $this->emailService->send(
+            template: 'ContactConfirmation',
+            subject: 'Thank You for Your Message - Mens Circle',
+            to: $data['email'],
+            variables: [
+                'name' => $data['name'],
+                'message' => $data['message'],
+            ],
+        );
+
         $this->logger->info('Contact form submitted', ['email' => $data['email']]);
 
         return [
@@ -119,11 +144,24 @@ final readonly class FormHandlerService
             ];
         }
 
-        $this->logger->info('Newsletter subscription', ['email' => $data['email']]);
+        // TODO: Generate confirmation token and URL
+        $confirmationUrl = 'https://mens-circle.de/newsletter/confirm?token=xxx';
+
+        // Send double opt-in email
+        $this->emailService->send(
+            template: 'NewsletterSubscription',
+            subject: 'Confirm Your Newsletter Subscription - Mens Circle',
+            to: $data['email'],
+            variables: [
+                'confirmationUrl' => $confirmationUrl,
+            ],
+        );
+
+        $this->logger->info('Newsletter subscription initiated', ['email' => $data['email']]);
 
         return [
             'success' => true,
-            'message' => 'Thank you for subscribing to our newsletter.',
+            'message' => 'Please check your email to confirm your subscription.',
         ];
     }
 }

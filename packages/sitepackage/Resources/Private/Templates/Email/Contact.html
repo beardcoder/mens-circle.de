@@ -1,0 +1,43 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="Default" />
+
+<f:section name="Content">
+    <mc:email.text.text variant="heading">New Contact Form Submission</mc:email.text.text>
+
+    <mc:email.text.text>
+        You have received a new message from the contact form on your website.
+    </mc:email.text.text>
+
+    <mc:email.divider.divider />
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 16px 0;">
+        <tr>
+            <td style="padding: 8px 0;">
+                <strong style="color: #71717a; font-size: 14px;">Name</strong><br>
+                <span style="color: #27272a; font-size: 16px;">{name}</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0;">
+                <strong style="color: #71717a; font-size: 14px;">Email</strong><br>
+                <a href="mailto:{email}" style="color: #2563eb; font-size: 16px;">{email}</a>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0;">
+                <strong style="color: #71717a; font-size: 14px;">Message</strong><br>
+                <span style="color: #27272a; font-size: 16px; white-space: pre-wrap;">{message}</span>
+            </td>
+        </tr>
+    </table>
+
+    <mc:email.divider.divider />
+
+    <mc:email.text.text variant="muted">
+        This message was sent on {f:format.date(format: 'd.m.Y')} at {f:format.date(format: 'H:i')}.
+    </mc:email.text.text>
+</f:section>

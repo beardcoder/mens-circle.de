@@ -1,5 +1,6 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
     data-namespace-typo3-fluid="true"
 >
 <!DOCTYPE html>
@@ -14,15 +15,13 @@
     <a class="SkipLink" href="#main-content">Skip to content</a>
 
     <header class="Header">
-        <f:render partial="Navigation/Main" arguments="{mainMenu: mainMenu, site: site}" />
+        <mc:organism.navigation items="{mainMenu}" />
     </header>
 
     <main class="Main" id="main-content">
         <f:render section="Main" />
     </main>
 
-    <footer class="Footer">
-        <f:render partial="Footer" arguments="{footerMenu: footerMenu, currentYear: currentYear}" />
-    </footer>
+    <mc:organism.footer menuItems="{footerMenu}" year="{currentYear}" />
 </body>
 </html>

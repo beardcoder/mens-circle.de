@@ -1,0 +1,38 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="Default" />
+
+<f:section name="Content">
+    <mc:email.text.text variant="heading">Welcome to Mens Circle</mc:email.text.text>
+
+    <mc:email.text.text>
+        Your subscription has been confirmed. You're now part of our community!
+    </mc:email.text.text>
+
+    <mc:email.alert.alert variant="success">
+        You will receive our newsletter with updates about events, articles, and community news.
+    </mc:email.alert.alert>
+
+    <mc:email.divider.divider />
+
+    <mc:email.text.text variant="subheading">What's Next?</mc:email.text.text>
+
+    <mc:email.text.text>
+        • Stay tuned for upcoming events in your area<br>
+        • Read our latest articles on personal growth<br>
+        • Connect with like-minded individuals
+    </mc:email.text.text>
+
+    <mc:email.button.button href="{settings.baseUrl}" variant="secondary" align="center">
+        Visit Our Website
+    </mc:email.button.button>
+
+    <mc:email.divider.divider spacing="lg" />
+
+    <mc:email.text.text variant="muted" align="center">
+        You can <a href="{unsubscribeUrl}" style="color: #71717a;">unsubscribe</a> at any time.
+    </mc:email.text.text>
+</f:section>

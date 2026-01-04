@@ -1,0 +1,16 @@
+<f:argument name="action" type="string" description="Form action URL" />
+<f:argument name="method" type="string" optional="true" default="POST" description="Form method" />
+<f:argument name="ajax" type="boolean" optional="true" default="false" description="Enable AJAX submission" />
+<f:argument name="id" type="string" optional="true" description="Form ID" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+
+<form
+    action="{action}"
+    method="{method}"
+    class="Form{f:if(condition: class, then: ' {class}')}"
+    {f:if(condition: id, then: 'id="{id}"')}
+    {f:if(condition: ajax, then: 'data-ajax-form="{action}"')}
+    novalidate
+>
+    <f:slot />
+</form>

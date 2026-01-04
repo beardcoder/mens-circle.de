@@ -1,0 +1,28 @@
+<f:argument name="menuItems" type="array" optional="true" description="Footer menu items" />
+<f:argument name="year" type="string" optional="true" description="Current year" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+
+<footer class="Footer{f:if(condition: class, then: ' {class}')}">
+    <div class="Footer__inner Container">
+        <div class="Footer__brand">
+            <span class="Footer__logo">Mens Circle</span>
+            <p class="Footer__copyright">&copy; {year} Mens Circle. All rights reserved.</p>
+        </div>
+
+        <nav class="Footer__nav" aria-label="Footer navigation">
+            <ul class="Footer__list" role="list">
+                <f:for each="{menuItems}" as="item">
+                    <li>
+                        <mc:atom.link pageUid="{item.data.uid}" class="Footer__link">
+                            {item.title}
+                        </mc:atom.link>
+                    </li>
+                </f:for>
+                <f:if condition="{menuItems -> f:count()} == 0">
+                    <li><a href="/privacy" class="Footer__link">Privacy Policy</a></li>
+                    <li><a href="/imprint" class="Footer__link">Imprint</a></li>
+                </f:if>
+            </ul>
+        </nav>
+    </div>
+</footer>

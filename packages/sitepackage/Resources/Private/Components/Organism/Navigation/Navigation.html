@@ -1,0 +1,28 @@
+<f:argument name="items" type="array" description="Menu items" />
+<f:argument name="logoText" type="string" optional="true" default="Mens Circle" description="Logo text" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+
+<nav class="Navigation Container{f:if(condition: class, then: ' {class}')}" aria-label="Main navigation">
+    <mc:atom.link href="/" class="Navigation__logo" variant="nav">
+        <span class="Navigation__logoText">{logoText}</span>
+    </mc:atom.link>
+
+    <button
+        class="Navigation__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="main-nav"
+        aria-label="Toggle navigation"
+        data-nav-toggle
+    >
+        <span class="Navigation__toggleBar"></span>
+        <span class="Navigation__toggleBar"></span>
+        <span class="Navigation__toggleBar"></span>
+    </button>
+
+    <ul class="Navigation__list" id="main-nav" role="list" data-nav-list>
+        <f:for each="{items}" as="item">
+            <mc:molecule.navItem item="{item}" />
+        </f:for>
+    </ul>
+</nav>

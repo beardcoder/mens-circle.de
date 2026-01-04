@@ -1,0 +1,31 @@
+<f:argument name="name" type="string" description="Input name attribute" />
+<f:argument name="type" type="string" optional="true" default="text" description="Input type" />
+<f:argument name="value" type="string" optional="true" description="Input value" />
+<f:argument name="placeholder" type="string" optional="true" description="Placeholder text" />
+<f:argument name="required" type="boolean" optional="true" default="false" description="Required field" />
+<f:argument name="disabled" type="boolean" optional="true" default="false" description="Disabled state" />
+<f:argument name="readonly" type="boolean" optional="true" default="false" description="Readonly state" />
+<f:argument name="autocomplete" type="string" optional="true" description="Autocomplete attribute" />
+<f:argument name="pattern" type="string" optional="true" description="Validation pattern" />
+<f:argument name="minlength" type="int" optional="true" description="Minimum length" />
+<f:argument name="maxlength" type="int" optional="true" description="Maximum length" />
+<f:argument name="error" type="boolean" optional="true" default="false" description="Error state" />
+<f:argument name="id" type="string" optional="true" description="Input ID" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+
+<input
+    type="{type}"
+    name="{name}"
+    id="{f:if(condition: id, then: id, else: name)}"
+    class="Input{f:if(condition: error, then: ' is-invalid')}{f:if(condition: class, then: ' {class}')}"
+    {f:if(condition: value, then: 'value="{value}"')}
+    {f:if(condition: placeholder, then: 'placeholder="{placeholder}"')}
+    {f:if(condition: required, then: 'required aria-required="true"')}
+    {f:if(condition: disabled, then: 'disabled')}
+    {f:if(condition: readonly, then: 'readonly')}
+    {f:if(condition: autocomplete, then: 'autocomplete="{autocomplete}"')}
+    {f:if(condition: pattern, then: 'pattern="{pattern}"')}
+    {f:if(condition: minlength, then: 'minlength="{minlength}"')}
+    {f:if(condition: maxlength, then: 'maxlength="{maxlength}"')}
+    {f:if(condition: error, then: 'aria-invalid="true"')}
+/>

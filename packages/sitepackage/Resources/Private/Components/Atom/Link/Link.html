@@ -1,0 +1,24 @@
+<f:argument name="href" type="string" optional="true" description="Link URL" />
+<f:argument name="pageUid" type="int" optional="true" description="TYPO3 page UID" />
+<f:argument name="external" type="boolean" optional="true" default="false" description="External link" />
+<f:argument name="variant" type="string" optional="true" default="default" description="Link variant: default, button, nav" />
+<f:argument name="active" type="boolean" optional="true" default="false" description="Active state" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+
+<f:if condition="{pageUid}">
+    <f:then>
+        <f:link.page
+            pageUid="{pageUid}"
+            class="Link Link--{variant}{f:if(condition: active, then: ' is-active')}{f:if(condition: class, then: ' {class}')}"
+            additionalAttributes="{f:if(condition: active, then: '{aria-current: \'page\'}')}"
+        ><f:slot /></f:link.page>
+    </f:then>
+    <f:else>
+        <a
+            href="{href}"
+            class="Link Link--{variant}{f:if(condition: active, then: ' is-active')}{f:if(condition: class, then: ' {class}')}"
+            {f:if(condition: external, then: 'target="_blank" rel="noopener noreferrer"')}
+            {f:if(condition: active, then: 'aria-current="page"')}
+        ><f:slot /></a>
+    </f:else>
+</f:if>

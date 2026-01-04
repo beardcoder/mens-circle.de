@@ -1,0 +1,32 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="Default" />
+
+<f:section name="Content">
+    <mc:email.text.text variant="heading">Confirm Your Subscription</mc:email.text.text>
+
+    <mc:email.text.text>
+        Thank you for your interest in the Mens Circle newsletter!
+    </mc:email.text.text>
+
+    <mc:email.text.text>
+        Please confirm your email address by clicking the button below:
+    </mc:email.text.text>
+
+    <mc:email.button.button href="{confirmationUrl}" align="center">
+        Confirm Subscription
+    </mc:email.button.button>
+
+    <mc:email.divider.divider />
+
+    <mc:email.text.text variant="small">
+        If you didn't sign up for our newsletter, you can safely ignore this email.
+    </mc:email.text.text>
+
+    <mc:email.text.text variant="muted">
+        This confirmation link will expire in 24 hours.
+    </mc:email.text.text>
+</f:section>

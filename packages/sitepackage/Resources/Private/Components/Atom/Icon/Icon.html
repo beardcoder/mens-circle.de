@@ -1,0 +1,13 @@
+<f:argument name="name" type="string" description="Icon name" />
+<f:argument name="size" type="string" optional="true" default="md" description="Icon size: sm, md, lg, xl" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+<f:argument name="label" type="string" optional="true" description="Accessible label" />
+
+<svg
+    class="Icon Icon--{size}{f:if(condition: class, then: ' {class}')}"
+    aria-hidden="{f:if(condition: label, then: 'false', else: 'true')}"
+    {f:if(condition: label, then: 'aria-label="{label}"')}
+    {f:if(condition: label, then: 'role="img"')}
+>
+    <use href="/assets/icons.svg#{name}" />
+</svg>

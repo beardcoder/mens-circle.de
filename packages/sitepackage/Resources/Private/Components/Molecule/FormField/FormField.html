@@ -1,0 +1,53 @@
+<f:argument name="name" type="string" description="Field name" />
+<f:argument name="label" type="string" description="Field label" />
+<f:argument name="type" type="string" optional="true" default="text" description="Input type" />
+<f:argument name="value" type="string" optional="true" description="Field value" />
+<f:argument name="placeholder" type="string" optional="true" description="Placeholder text" />
+<f:argument name="required" type="boolean" optional="true" default="false" description="Required field" />
+<f:argument name="error" type="string" optional="true" description="Error message" />
+<f:argument name="hint" type="string" optional="true" description="Help text" />
+<f:argument name="autocomplete" type="string" optional="true" description="Autocomplete attribute" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+
+<div class="FormField{f:if(condition: error, then: ' has-error')}{f:if(condition: class, then: ' {class}')}">
+    <label class="FormField__label" for="{name}">
+        {label}
+        <f:if condition="{required}">
+            <span class="FormField__required" aria-hidden="true">*</span>
+        </f:if>
+    </label>
+
+    <f:if condition="{type} == 'textarea'">
+        <f:then>
+            <textarea
+                name="{name}"
+                id="{name}"
+                class="FormField__textarea{f:if(condition: error, then: ' is-invalid')}"
+                placeholder="{placeholder}"
+                {f:if(condition: required, then: 'required aria-required="true"')}
+                {f:if(condition: error, then: 'aria-invalid="true" aria-describedby="{name}-error"')}
+                {f:if(condition: hint, then: 'aria-describedby="{name}-hint"')}
+            >{value}</textarea>
+        </f:then>
+        <f:else>
+            <mc:atom.input
+                name="{name}"
+                type="{type}"
+                value="{value}"
+                placeholder="{placeholder}"
+                required="{required}"
+                error="{error -> f:spaceless() -> f:count() > 0}"
+                autocomplete="{autocomplete}"
+                class="FormField__input"
+            />
+        </f:else>
+    </f:if>
+
+    <f:if condition="{hint} && !{error}">
+        <p class="FormField__hint" id="{name}-hint">{hint}</p>
+    </f:if>
+
+    <f:if condition="{error}">
+        <p class="FormField__error" id="{name}-error" role="alert">{error}</p>
+    </f:if>
+</div>

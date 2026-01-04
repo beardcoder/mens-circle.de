@@ -1,0 +1,22 @@
+<f:argument name="item" type="array" description="Menu item data" />
+<f:argument name="level" type="int" optional="true" default="1" description="Navigation level" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+
+<li class="NavItem NavItem--level-{level}{f:if(condition: item.children, then: ' has-children')}{f:if(condition: class, then: ' {class}')}">
+    <mc:atom.link
+        pageUid="{item.data.uid}"
+        variant="nav"
+        active="{item.active}"
+        class="NavItem__link"
+    >
+        {item.title}
+    </mc:atom.link>
+
+    <f:if condition="{item.children}">
+        <ul class="NavItem__submenu" role="list">
+            <f:for each="{item.children}" as="child">
+                <mc:molecule.navItem item="{child}" level="{level + 1}" />
+            </f:for>
+        </ul>
+    </f:if>
+</li>
