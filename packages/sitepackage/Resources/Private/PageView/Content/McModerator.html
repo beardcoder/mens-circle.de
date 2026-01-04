@@ -1,0 +1,63 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="Main">
+    <section class="section moderator-section" id="moderator">
+        <div class="container">
+            <div class="moderator__layout">
+                <div class="moderator__photo-wrapper fade-in">
+                    <div class="moderator__photo">
+                        <f:if condition="{images}">
+                            <f:then>
+                                <f:for each="{images}" as="image" iteration="i">
+                                    <f:if condition="{i.isFirst}">
+                                        <f:image image="{image}"
+                                                 alt="{settings.name}"
+                                                 class="moderator__image"
+                                                 loading="lazy" />
+                                    </f:if>
+                                </f:for>
+                            </f:then>
+                            <f:else>
+                                <div class="moderator__photo-placeholder">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <circle cx="12" cy="8" r="4" />
+                                        <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+                                    </svg>
+                                    <span>Photo</span>
+                                </div>
+                            </f:else>
+                        </f:if>
+                    </div>
+                    <div class="moderator__photo-accent"></div>
+                </div>
+
+                <div class="moderator__content fade-in fade-in-delay-1">
+                    <f:if condition="{settings.eyebrow}">
+                        <p class="eyebrow">{settings.eyebrow}</p>
+                    </f:if>
+
+                    <f:if condition="{settings.name}">
+                        <h2 class="moderator__name">{settings.name -> f:format.raw()}</h2>
+                    </f:if>
+
+                    <f:if condition="{settings.bio}">
+                        <div class="moderator__bio">
+                            {settings.bio -> f:format.html()}
+                        </div>
+                    </f:if>
+
+                    <f:if condition="{settings.quote}">
+                        <blockquote class="moderator__quote">
+                            <p>{settings.quote}</p>
+                        </blockquote>
+                    </f:if>
+                </div>
+            </div>
+        </div>
+    </section>
+</f:section>
+
+</html>

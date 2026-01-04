@@ -92,3 +92,111 @@ lib.contentElement {
         20 = EXT:sitepackage/Resources/Private/PageView/Layouts/
     }
 }
+
+tt_content {
+    mc_hero =< lib.contentElement
+    mc_hero {
+        templateName = McHero
+        dataProcessing {
+            10 = files
+            10 {
+                references.fieldName = image
+                as = images
+            }
+            20 = flex-form
+            20 {
+                fieldName = pi_flexform
+                as = settings
+            }
+        }
+    }
+
+    mc_intro =< lib.contentElement
+    mc_intro {
+        templateName = McIntro
+        dataProcessing {
+            10 = flex-form
+            10 {
+                fieldName = pi_flexform
+                as = settings
+            }
+        }
+    }
+
+    mc_cta =< lib.contentElement
+    mc_cta {
+        templateName = McCta
+        dataProcessing {
+            10 = flex-form
+            10 {
+                fieldName = pi_flexform
+                as = settings
+            }
+        }
+    }
+
+    mc_faq =< lib.contentElement
+    mc_faq {
+        templateName = McFaq
+        dataProcessing {
+            10 = flex-form
+            10 {
+                fieldName = pi_flexform
+                as = settings
+            }
+        }
+    }
+
+    mc_journey =< lib.contentElement
+    mc_journey {
+        templateName = McJourney
+        dataProcessing {
+            10 = flex-form
+            10 {
+                fieldName = pi_flexform
+                as = settings
+            }
+        }
+    }
+
+    mc_testimonials =< lib.contentElement
+    mc_testimonials {
+        templateName = McTestimonials
+        dataProcessing {
+            10 = flex-form
+            10 {
+                fieldName = pi_flexform
+                as = settings
+            }
+        }
+    }
+
+    mc_moderator =< lib.contentElement
+    mc_moderator {
+        templateName = McModerator
+        dataProcessing {
+            10 = files
+            10 {
+                references.fieldName = image
+                as = images
+            }
+            20 = flex-form
+            20 {
+                fieldName = pi_flexform
+                as = settings
+            }
+        }
+    }
+
+    mc_newsletter =< lib.contentElement
+    mc_newsletter {
+        templateName = McNewsletter
+        dataProcessing {
+            10 = flex-form
+            10 {
+                fieldName = pi_flexform
+                as = settings
+            }
+        }
+    }
+}

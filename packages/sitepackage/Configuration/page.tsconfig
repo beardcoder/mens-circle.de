@@ -17,4 +17,78 @@ mod.wizards.newContentElement.wizardItems {
         text.iconIdentifier = content-text
         textmedia.iconIdentifier = content-textmedia
     }
+
+    sitepackage {
+        header = Mens Circle
+        after = common
+
+        elements {
+            mc_hero {
+                iconIdentifier = content-header
+                title = Hero Section
+                description = Hero section with background image, title, and CTA
+                tt_content_defValues {
+                    CType = mc_hero
+                }
+            }
+            mc_intro {
+                iconIdentifier = content-text
+                title = Intro Section
+                description = Introduction section with values and quote
+                tt_content_defValues {
+                    CType = mc_intro
+                }
+            }
+            mc_cta {
+                iconIdentifier = actions-play
+                title = Call to Action
+                description = Call to action section with button
+                tt_content_defValues {
+                    CType = mc_cta
+                }
+            }
+            mc_faq {
+                iconIdentifier = content-menu-abstract
+                title = FAQ Accordion
+                description = Frequently asked questions with accordion
+                tt_content_defValues {
+                    CType = mc_faq
+                }
+            }
+            mc_journey {
+                iconIdentifier = content-timeline
+                title = Journey Steps
+                description = Step-by-step journey visualization
+                tt_content_defValues {
+                    CType = mc_journey
+                }
+            }
+            mc_testimonials {
+                iconIdentifier = content-quote
+                title = Testimonials
+                description = Testimonials grid
+                tt_content_defValues {
+                    CType = mc_testimonials
+                }
+            }
+            mc_moderator {
+                iconIdentifier = content-user
+                title = Moderator Profile
+                description = Moderator section with photo and bio
+                tt_content_defValues {
+                    CType = mc_moderator
+                }
+            }
+            mc_newsletter {
+                iconIdentifier = content-form
+                title = Newsletter Signup
+                description = Newsletter subscription form
+                tt_content_defValues {
+                    CType = mc_newsletter
+                }
+            }
+        }
+
+        show = mc_hero,mc_intro,mc_cta,mc_faq,mc_journey,mc_testimonials,mc_moderator,mc_newsletter
+    }
 }

@@ -1,0 +1,49 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:mc="http://typo3.org/ns/Vendor/Sitepackage/Components"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="Main">
+    <section class="section newsletter-section" id="newsletter">
+        <div class="container">
+            <div class="newsletter__layout fade-in">
+                <div class="newsletter__content">
+                    <f:if condition="{settings.eyebrow}">
+                        <p class="eyebrow eyebrow--secondary">{settings.eyebrow}</p>
+                    </f:if>
+
+                    <f:if condition="{data.header}">
+                        <h2 class="section-title newsletter__title">{data.header -> f:format.raw()}</h2>
+                    </f:if>
+
+                    <f:if condition="{data.bodytext}">
+                        <div class="newsletter__text">
+                            {data.bodytext -> f:format.html()}
+                        </div>
+                    </f:if>
+                </div>
+
+                <div class="newsletter__form-wrapper">
+                    <form id="newsletterForm-{data.uid}" class="newsletter__form" data-newsletter-form>
+                        <mc:Atom.Input
+                            type="email"
+                            name="email"
+                            placeholder="{settings.placeholder -> f:or(alternative: 'Your email address')}"
+                            required="1"
+                            class="newsletter__input"
+                            aria-label="Email address" />
+
+                        <mc:Atom.Button type="submit" variant="primary">
+                            {settings.buttonText -> f:or(alternative: 'Subscribe')}
+                        </mc:Atom.Button>
+
+                        <div class="newsletter__message" data-newsletter-message></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</f:section>
+
+</html>

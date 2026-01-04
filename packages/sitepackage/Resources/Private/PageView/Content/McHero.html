@@ -1,0 +1,51 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:mc="http://typo3.org/ns/Vendor/Sitepackage/Components"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="Main">
+    <section class="hero" id="hero">
+        <f:if condition="{images}">
+            <div class="hero__background">
+                <f:for each="{images}" as="image" iteration="i">
+                    <f:if condition="{i.isFirst}">
+                        <f:image image="{image}" alt="{data.header}" class="hero__image" loading="eager" />
+                    </f:if>
+                </f:for>
+                <div class="hero__overlay"></div>
+            </div>
+        </f:if>
+
+        <div class="hero__content container">
+            <div class="hero__text fade-in{f:if(condition: '{settings.variant} == \"centered\"', then: ' hero__text--centered')}">
+                <f:if condition="{settings.eyebrow}">
+                    <p class="eyebrow eyebrow--light">{settings.eyebrow}</p>
+                </f:if>
+
+                <f:if condition="{data.header}">
+                    <h1 class="hero__title">{data.header -> f:format.raw()}</h1>
+                </f:if>
+
+                <f:if condition="{data.subheader}">
+                    <p class="hero__subtitle">{data.subheader}</p>
+                </f:if>
+
+                <f:if condition="{settings.buttonText}">
+                    <div class="hero__actions">
+                        <mc:Atom.Button href="{settings.buttonLink}" variant="primary" size="large">
+                            {settings.buttonText}
+                        </mc:Atom.Button>
+                    </div>
+                </f:if>
+            </div>
+        </div>
+
+        <div class="hero__scroll-indicator">
+            <span class="hero__scroll-text">Scroll</span>
+            <span class="hero__scroll-line"></span>
+        </div>
+    </section>
+</f:section>
+
+</html>

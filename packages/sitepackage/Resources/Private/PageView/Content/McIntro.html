@@ -1,0 +1,52 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="Main">
+    <section class="section section--large intro-section" id="intro">
+        <div class="container">
+            <div class="intro__layout">
+                <div class="intro__content fade-in">
+                    <f:if condition="{settings.eyebrow}">
+                        <p class="eyebrow">{settings.eyebrow}</p>
+                    </f:if>
+
+                    <f:if condition="{data.header}">
+                        <h2 class="section-title intro__title">{data.header -> f:format.raw()}</h2>
+                    </f:if>
+
+                    <f:if condition="{data.bodytext}">
+                        <div class="intro__text">
+                            {data.bodytext -> f:format.html()}
+                        </div>
+                    </f:if>
+                </div>
+
+                <div class="intro__values fade-in fade-in-delay-1">
+                    <f:if condition="{settings.values}">
+                        <div class="values-grid">
+                            <f:for each="{settings.values}" as="value">
+                                <div class="value-card">
+                                    <h3 class="value-card__title">{value.title}</h3>
+                                    <p class="value-card__text">{value.description}</p>
+                                </div>
+                            </f:for>
+                        </div>
+                    </f:if>
+
+                    <f:if condition="{settings.quote}">
+                        <blockquote class="intro__quote">
+                            <p>{settings.quote}</p>
+                            <f:if condition="{settings.quoteAuthor}">
+                                <cite>{settings.quoteAuthor}</cite>
+                            </f:if>
+                        </blockquote>
+                    </f:if>
+                </div>
+            </div>
+        </div>
+    </section>
+</f:section>
+
+</html>

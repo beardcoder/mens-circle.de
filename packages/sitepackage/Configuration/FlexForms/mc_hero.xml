@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <sheetTitle>Settings</sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.eyebrow>
+                        <label>Eyebrow Text</label>
+                        <config>
+                            <type>input</type>
+                            <size>50</size>
+                            <max>100</max>
+                        </config>
+                    </settings.eyebrow>
+                    <settings.buttonText>
+                        <label>Button Text</label>
+                        <config>
+                            <type>input</type>
+                            <size>30</size>
+                            <max>50</max>
+                        </config>
+                    </settings.buttonText>
+                    <settings.buttonLink>
+                        <label>Button Link</label>
+                        <config>
+                            <type>link</type>
+                        </config>
+                    </settings.buttonLink>
+                    <settings.variant>
+                        <label>Variant</label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items>
+                                <numIndex index="0">
+                                    <label>Default</label>
+                                    <value>default</value>
+                                </numIndex>
+                                <numIndex index="1">
+                                    <label>Centered</label>
+                                    <value>centered</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.variant>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>
