@@ -91,7 +91,7 @@ COPY --from=composer-build --chown=www-data:www-data /app/vendor/ ./vendor/
 COPY --from=composer-build --chown=www-data:www-data /app/public/ ./public/
 
 # Copy built assets
-COPY --from=node-build --chown=www-data:www-data /app/packages/sitepackage/Resources/Public/ ./packages/sitepackage/Resources/Public/
+COPY --from=assets --chown=www-data:www-data /app/public/_assets ./public/_assets
 
 # Set permissions
 RUN chown -R www-data:www-data \
