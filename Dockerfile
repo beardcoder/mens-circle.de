@@ -6,7 +6,25 @@
 # -----------------------------------------------------------------------------
 # Stage 1: Composer Dependencies
 # -----------------------------------------------------------------------------
-FROM composer:2.8 AS composer-build
+FROM serversideup/php:8.5-fpm-nginx-alpine AS build
+
+USER root
+
+# Install additional PHP extensions required by TYPO3
+RUN install-php-extensions \
+    intl \
+    gd \
+    apcu \
+    bcmath \
+    exif \
+    imagick
+
+# Install image processing tools
+RUN apk add --no-cache \
+    imagemagick \
+    graphicsmagick \
+    ghostscript \
+    poppler-utils
 
 WORKDIR /app
 
@@ -37,29 +55,11 @@ RUN bun run build
 # -----------------------------------------------------------------------------
 # Stage 3: Production Image
 # -----------------------------------------------------------------------------
-FROM serversideup/php:8.5-fpm-nginx-alpine AS production
+FROM build AS production
 
 LABEL maintainer="Mens Circle <info@mens-circle.de>"
 LABEL org.opencontainers.image.source="https://github.com/beardcoder/mens-circle.de"
 LABEL org.opencontainers.image.description="TYPO3 v14 production image for mens-circle.de"
-
-USER root
-
-# Install additional PHP extensions required by TYPO3
-RUN install-php-extensions \
-    intl \
-    gd \
-    apcu \
-    bcmath \
-    exif \
-    imagick
-
-# Install image processing tools
-RUN apk add --no-cache \
-    imagemagick \
-    graphicsmagick \
-    ghostscript \
-    poppler-utils
 
 # Create TYPO3 directories
 RUN mkdir -p \
