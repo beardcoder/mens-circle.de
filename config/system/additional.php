@@ -23,7 +23,7 @@ $dbConfig = Helpers::databaseConfig();
 if (!empty($dbConfig['host'])) {
     $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default'] = [
         'charset' => 'utf8mb4',
-        'driver' => 'mysqli',
+        'driver' => 'pdo_pgsql',
         'host' => $dbConfig['host'],
         'port' => $dbConfig['port'],
         'dbname' => $dbConfig['database'],
