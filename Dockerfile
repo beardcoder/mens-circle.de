@@ -28,14 +28,9 @@ RUN composer install \
 FROM oven/bun:1-slim AS assets
 WORKDIR /app
 
-COPY package.json bun.lock ./
-
+COPY . .
 RUN --mount=type=cache,target=/root/.bun/install/cache bun install --frozen-lockfile
-
 COPY --from=composer-build --chown=www-data:www-data /app/vendor/ ./vendor/
-COPY composer.json composer.lock ./
-COPY vite.config.ts tsconfig.json ./
-COPY packages/ packages/
 
 RUN bun run build
 
