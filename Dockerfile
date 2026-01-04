@@ -18,6 +18,7 @@ RUN composer install \
     --no-scripts \
     --no-interaction \
     --prefer-dist \
+    --ignore-platform-reqs \
     --optimize-autoloader \
     --classmap-authoritative
 
