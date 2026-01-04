@@ -30,10 +30,10 @@ WORKDIR /app
 
 COPY package.json bun.lock ./
 
-RUN --mount=type=cache,target=/root/.bun/install/cache \
-    bun install --frozen-lockfile
+RUN --mount=type=cache,target=/root/.bun/install/cache bun install --frozen-lockfile
 
 COPY --from=composer-build --chown=www-data:www-data /app/vendor/ ./vendor/
+COPY composer.json composer.lock ./
 COPY vite.config.ts tsconfig.json ./
 COPY packages/ packages/
 
@@ -54,9 +54,6 @@ USER root
 RUN install-php-extensions \
     intl \
     gd \
-    zip \
-    pdo_mysql \
-    redis \
     apcu \
     bcmath \
     exif \
@@ -134,9 +131,3 @@ ENV APP_ENV=production \
     PHP_FPM_PM_START_SERVERS=5 \
     PHP_FPM_PM_MIN_SPARE_SERVERS=5 \
     PHP_FPM_PM_MAX_SPARE_SERVERS=35
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:8080/ || exit 1
-
-EXPOSE 8080
