@@ -52,33 +52,6 @@ page {
         robots = index, follow
         theme-color = #1a1a2e
     }
-
-    headerData {
-        10 = TEXT
-        10.value (
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-)
-        20 = VITE_ASSET_COLLECTOR
-        20 {
-            devServerUri = https://mens-circle.ddev.site:5173
-            manifest = EXT:sitepackage/Resources/Public/.vite/manifest.json
-            entry = main
-            css = 1
-            js = 0
-        }
-    }
-
-    includeJSFooter {
-        vite = VITE_ASSET_COLLECTOR
-        vite {
-            devServerUri = https://mens-circle.ddev.site:5173
-            manifest = EXT:sitepackage/Resources/Public/.vite/manifest.json
-            entry = main
-            css = 0
-            js = 1
-        }
-    }
 }
 
 lib.contentElement {

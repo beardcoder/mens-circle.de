@@ -1,6 +1,7 @@
 # TYPO3
 /public/fileadmin/
 /public/typo3/
+/public/_assets/
 /public/typo3conf/
 /public/typo3temp/
 /public/uploads/

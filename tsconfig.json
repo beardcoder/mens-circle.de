@@ -13,5 +13,5 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "types": ["bun"]
   },
-  "include": ["packages/*/Resources/Private/PageView/Assets/**/*"]
+  "include": ["packages/*/Resources/Private/Assets/**/*", "vite.config.ts"]
 }

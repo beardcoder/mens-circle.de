@@ -1,0 +1,83 @@
+/**
+ * Newsletter Section
+ * Email signup section
+ */
+
+/* ============================================
+   Newsletter Section Base
+   ============================================ */
+.newsletter-section {
+  position: relative;
+  overflow: hidden;
+  color: var(--text-on-dark);
+  background: var(--bg-section-alt);
+}
+
+/* Noise texture */
+.newsletter-section::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+}
+
+/* Gradient glow */
+.newsletter-section::after {
+  position: absolute;
+  inset-block-start: -30%;
+  inset-inline-end: -20%;
+  inline-size: 70%;
+  block-size: 160%;
+  pointer-events: none;
+  content: '';
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklch, var(--accent-primary) 15%, transparent) 0%,
+    transparent 50%
+  );
+}
+
+/* ============================================
+   Newsletter Layout
+   ============================================ */
+.newsletter__layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+@media (width <= 800px) {
+  .newsletter__layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+}
+
+/* ============================================
+   Newsletter Content
+   ============================================ */
+
+/* Uses .eyebrow.eyebrow--secondary from typography.css */
+
+.newsletter__title {
+  margin-block-end: var(--space-md);
+  color: var(--text-on-dark);
+}
+
+.newsletter__text {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--color-sand);
+}
+
+/* ============================================
+   Newsletter Form
+   ============================================ */
+.newsletter__form-wrapper {
+  position: relative;
+}

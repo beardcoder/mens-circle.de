@@ -1,0 +1,345 @@
+/**
+ * Animation Utilities
+ * Modern CSS animations
+ */
+
+/* ============================================
+   Transition Utilities
+   ============================================ */
+.transition {
+  transition-timing-function: var(--ease-out);
+  transition-duration: var(--duration-normal);
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter;
+}
+
+.transition-fast {
+  transition-duration: var(--duration-fast);
+}
+
+.transition-slow {
+  transition-duration: var(--duration-slow);
+}
+
+.transition-none {
+  transition: none;
+}
+
+.transition-colors {
+  transition-timing-function: var(--ease-out);
+  transition-duration: var(--duration-normal);
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke;
+}
+
+.transition-transform {
+  transition-timing-function: var(--ease-out);
+  transition-duration: var(--duration-normal);
+  transition-property: transform;
+}
+
+.transition-opacity {
+  transition-timing-function: var(--ease-out);
+  transition-duration: var(--duration-normal);
+  transition-property: opacity;
+}
+
+.transition-shadow {
+  transition-timing-function: var(--ease-out);
+  transition-duration: var(--duration-normal);
+  transition-property: box-shadow;
+}
+
+/* ============================================
+   Fade In Animations
+   ============================================ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.fade-in-down {
+  opacity: 0;
+  transform: translateY(-40px);
+}
+
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+.fade-in-scale {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* ============================================
+   Animation Delays
+   ============================================ */
+.delay-1 {
+  transition-delay: 100ms;
+  animation-delay: 100ms;
+}
+
+.delay-2 {
+  transition-delay: 200ms;
+  animation-delay: 200ms;
+}
+
+.delay-3 {
+  transition-delay: 300ms;
+  animation-delay: 300ms;
+}
+
+.delay-4 {
+  transition-delay: 400ms;
+  animation-delay: 400ms;
+}
+
+.delay-5 {
+  transition-delay: 500ms;
+  animation-delay: 500ms;
+}
+
+/* ============================================
+   Stagger Children Animation
+   ============================================ */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(25px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+
+.stagger-children.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-children.visible > *:nth-child(1) {
+  transition-delay: 80ms;
+}
+
+.stagger-children.visible > *:nth-child(2) {
+  transition-delay: 160ms;
+}
+
+.stagger-children.visible > *:nth-child(3) {
+  transition-delay: 240ms;
+}
+
+.stagger-children.visible > *:nth-child(4) {
+  transition-delay: 320ms;
+}
+
+.stagger-children.visible > *:nth-child(5) {
+  transition-delay: 400ms;
+}
+
+.stagger-children.visible > *:nth-child(6) {
+  transition-delay: 480ms;
+}
+
+.stagger-children.visible > *:nth-child(7) {
+  transition-delay: 560ms;
+}
+
+.stagger-children.visible > *:nth-child(8) {
+  transition-delay: 640ms;
+}
+
+/* ============================================
+   Keyframe Animations
+   ============================================ */
+
+/* Breathing / Pulsing animation */
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(1.3);
+  }
+}
+
+.animate-breathe {
+  animation: breathe 15s ease-in-out infinite;
+}
+
+/* Subtle pulse */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Scroll indicator pulse */
+@keyframes scroll-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  50% {
+    opacity: 0.3;
+    transform: scaleY(0.3);
+  }
+}
+
+.animate-scroll-pulse {
+  animation: scroll-pulse 2.5s ease-in-out infinite;
+}
+
+/* Spin */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Bounce */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+/* Float */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ============================================
+   Hover Animations
+   ============================================ */
+.hover-lift {
+  transition: transform var(--transition-fast);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+.hover-scale {
+  transition: transform var(--transition-fast);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  transition: box-shadow var(--transition-medium);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 30px
+    color-mix(in oklch, var(--accent-primary) 30%, transparent);
+}
+
+/* ============================================
+   Interactive States
+   ============================================ */
+.active-scale {
+  transition: transform var(--transition-fast);
+}
+
+.active-scale:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   Reduced Motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .fade-in-up,
+  .fade-in-down,
+  .fade-in-left,
+  .fade-in-right,
+  .fade-in-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .stagger-children > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .animate-breathe,
+  .animate-pulse,
+  .animate-scroll-pulse,
+  .animate-spin,
+  .animate-bounce,
+  .animate-float {
+    animation: none;
+  }
+
+  .hover-lift:hover,
+  .hover-scale:hover {
+    transform: none;
+  }
+}

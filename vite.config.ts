@@ -6,11 +6,6 @@ export default defineConfig({
   build: {
     target: 'esnext',
     cssMinify: 'lightningcss',
-    rollupOptions: {
-      input: {
-        main: 'packages/sitepackage/Resources/Private/PageView/Assets/main.ts',
-      },
-    },
   },
   css: {
     transformer: 'lightningcss',

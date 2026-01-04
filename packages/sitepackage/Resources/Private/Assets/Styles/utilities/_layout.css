@@ -1,0 +1,594 @@
+/**
+ * Layout Utilities
+ * Modern CSS Layout with Logical Properties
+ */
+
+/* ============================================
+   Container System
+   ============================================ */
+.container {
+  inline-size: 100%;
+  max-inline-size: var(--container-width);
+  padding-inline: var(--space-md);
+  margin-inline: auto;
+}
+
+.container--narrow {
+  max-inline-size: var(--container-narrow);
+}
+
+.container--wide {
+  max-inline-size: var(--container-wide);
+}
+
+.container--fluid {
+  max-inline-size: none;
+}
+
+/* Full bleed layout */
+.full-bleed {
+  inline-size: 100vw;
+  margin-inline-start: calc(-50vw + 50%);
+}
+
+/* ============================================
+   Section System
+   ============================================ */
+.section {
+  position: relative;
+  padding-block: var(--space-xl);
+}
+
+.section--sm {
+  padding-block: var(--space-lg);
+}
+
+.section--lg {
+  padding-block: var(--space-2xl);
+}
+
+.section--full {
+  display: flex;
+  align-items: center;
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+}
+
+/* ============================================
+   Grid System (Modern CSS Grid)
+   ============================================ */
+.grid {
+  display: grid;
+  gap: var(--grid-gap, var(--space-md));
+}
+
+/* Auto-fit responsive grid */
+.grid--auto {
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min, 280px), 1fr));
+}
+
+/* Fixed column grids */
+.grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (width <= 768px) {
+  .grid--2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (width <= 900px) {
+  .grid--3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width <= 600px) {
+  .grid--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (width <= 1000px) {
+  .grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width <= 600px) {
+  .grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Asymmetric grids */
+.grid--sidebar {
+  grid-template-columns: 1fr 320px;
+}
+
+@media (width <= 900px) {
+  .grid--sidebar {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid--sidebar-left {
+  grid-template-columns: 320px 1fr;
+}
+
+@media (width <= 900px) {
+  .grid--sidebar-left {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid--content {
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
+@media (width <= 1000px) {
+  .grid--content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   Flexbox Utilities
+   ============================================ */
+.flex {
+  display: flex;
+}
+
+.flex--inline {
+  display: inline-flex;
+}
+
+.flex--col {
+  flex-direction: column;
+}
+
+.flex--wrap {
+  flex-wrap: wrap;
+}
+
+/* Justify Content */
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+/* Align Items */
+.items-start {
+  align-items: flex-start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+.items-baseline {
+  align-items: baseline;
+}
+
+/* Align Self */
+.self-start {
+  align-self: flex-start;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
+.self-stretch {
+  align-self: stretch;
+}
+
+/* Flex children */
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.flex-none {
+  flex: none;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-shrink {
+  flex-shrink: 1;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Gap Utilities
+   ============================================ */
+.gap-0 {
+  gap: 0;
+}
+
+.gap-xs {
+  gap: var(--space-xs);
+}
+
+.gap-sm {
+  gap: var(--space-sm);
+}
+
+.gap-md {
+  gap: var(--space-md);
+}
+
+.gap-lg {
+  gap: var(--space-lg);
+}
+
+.gap-xl {
+  gap: var(--space-xl);
+}
+
+/* ============================================
+   Spacing Utilities (using logical properties)
+   ============================================ */
+
+/* Margin */
+.m-0 {
+  margin: 0;
+}
+
+.m-auto {
+  margin: auto;
+}
+
+.mx-auto {
+  margin-inline: auto;
+}
+
+.my-auto {
+  margin-block: auto;
+}
+
+.mt-sm {
+  margin-block-start: var(--space-sm);
+}
+
+.mt-md {
+  margin-block-start: var(--space-md);
+}
+
+.mt-lg {
+  margin-block-start: var(--space-lg);
+}
+
+.mt-xl {
+  margin-block-start: var(--space-xl);
+}
+
+.mb-sm {
+  margin-block-end: var(--space-sm);
+}
+
+.mb-md {
+  margin-block-end: var(--space-md);
+}
+
+.mb-lg {
+  margin-block-end: var(--space-lg);
+}
+
+.mb-xl {
+  margin-block-end: var(--space-xl);
+}
+
+/* Padding */
+.p-0 {
+  padding: 0;
+}
+
+.p-sm {
+  padding: var(--space-sm);
+}
+
+.p-md {
+  padding: var(--space-md);
+}
+
+.p-lg {
+  padding: var(--space-lg);
+}
+
+.p-xl {
+  padding: var(--space-xl);
+}
+
+.px-sm {
+  padding-inline: var(--space-sm);
+}
+
+.px-md {
+  padding-inline: var(--space-md);
+}
+
+.px-lg {
+  padding-inline: var(--space-lg);
+}
+
+.py-sm {
+  padding-block: var(--space-sm);
+}
+
+.py-md {
+  padding-block: var(--space-md);
+}
+
+.py-lg {
+  padding-block: var(--space-lg);
+}
+
+/* ============================================
+   Position Utilities
+   ============================================ */
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.inset-0 {
+  inset: 0;
+}
+
+.top-0 {
+  inset-block-start: 0;
+}
+
+.bottom-0 {
+  inset-block-end: 0;
+}
+
+.left-0 {
+  inset-inline-start: 0;
+}
+
+.right-0 {
+  inset-inline-end: 0;
+}
+
+/* ============================================
+   Z-Index Utilities
+   ============================================ */
+.z-0 {
+  z-index: var(--z-base);
+}
+
+.z-10 {
+  z-index: var(--z-elevated);
+}
+
+.z-sticky {
+  z-index: var(--z-sticky);
+}
+
+.z-header {
+  z-index: var(--z-header);
+}
+
+.z-modal {
+  z-index: var(--z-modal);
+}
+
+/* ============================================
+   Display Utilities
+   ============================================ */
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Responsive visibility */
+@media (width <= 600px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+@media (width >= 600px) and (width <= 900px) {
+  .hide-tablet {
+    display: none !important;
+  }
+}
+
+@media (width >= 900px) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+@media (width <= 900px) {
+  .show-desktop-only {
+    display: none !important;
+  }
+}
+
+@media (width >= 900px) {
+  .show-mobile-only {
+    display: none !important;
+  }
+}
+
+/* ============================================
+   Width / Height Utilities
+   ============================================ */
+.w-full {
+  inline-size: 100%;
+}
+
+.w-screen {
+  inline-size: 100vw;
+}
+
+.w-auto {
+  inline-size: auto;
+}
+
+.w-fit {
+  inline-size: fit-content;
+}
+
+.max-w-none {
+  max-inline-size: none;
+}
+
+.max-w-full {
+  max-inline-size: 100%;
+}
+
+.max-w-prose {
+  max-inline-size: 75ch;
+}
+
+.h-full {
+  block-size: 100%;
+}
+
+.h-screen {
+  block-size: 100vh;
+}
+
+.h-dvh {
+  block-size: 100dvh;
+}
+
+.min-h-screen {
+  min-block-size: 100vh;
+}
+
+.min-h-dvh {
+  min-block-size: 100dvh;
+}
+
+/* ============================================
+   Overflow Utilities
+   ============================================ */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+/* ============================================
+   Aspect Ratio
+   ============================================ */
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-portrait {
+  aspect-ratio: 3 / 4;
+}
+
+/* ============================================
+   Object Fit (for images)
+   ============================================ */
+.object-cover {
+  object-fit: cover;
+}
+
+.object-contain {
+  object-fit: contain;
+}
+
+.object-fill {
+  object-fit: fill;
+}
+
+.object-center {
+  object-position: center;
+}

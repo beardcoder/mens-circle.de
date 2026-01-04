@@ -1,0 +1,295 @@
+/**
+ * Card Components
+ * Modern card patterns
+ */
+
+/* ============================================
+   Base Card
+   ============================================ */
+.card {
+  --card-padding: var(--space-md);
+  --card-bg: var(--bg-elevated);
+  --card-border: var(--border-light);
+  --card-radius: var(--radius-lg);
+
+  position: relative;
+  padding: var(--card-padding);
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  transition:
+    transform var(--transition-medium),
+    box-shadow var(--transition-medium);
+}
+
+.card.card--bordered {
+  border: 1px solid var(--card-border);
+}
+
+.card.card--hover:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
+}
+
+/* ============================================
+   Card Variants
+   ============================================ */
+.card--dark {
+  --card-bg: var(--bg-dark);
+  --card-border: var(--border-on-dark);
+
+  color: var(--text-on-dark);
+}
+
+.card--glass {
+  --card-bg: color-mix(in oklch, var(--bg-primary) 85%, transparent);
+
+  backdrop-filter: blur(20px);
+}
+
+.card--accent {
+  --card-bg: var(--bg-section-alt);
+
+  color: var(--text-on-dark);
+}
+
+.card--accent::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  border-radius: inherit;
+  opacity: 0.03;
+}
+
+/* ============================================
+   Card Sizes
+   ============================================ */
+.card--sm {
+  --card-padding: var(--space-sm);
+}
+
+.card--lg {
+  --card-padding: var(--space-lg);
+}
+
+/* ============================================
+   Event Info Card
+   ============================================ */
+.event__card {
+  padding: var(--space-lg);
+  margin-block-end: var(--space-md);
+  background: var(--bg-elevated);
+}
+
+.event__card-title {
+  margin-block-end: var(--space-md);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+
+/* ============================================
+   Event Info Item
+   ============================================ */
+.event__info-item {
+  display: flex;
+  gap: var(--space-sm);
+  padding-block: var(--space-sm);
+  border-block-end: 1px solid var(--border-light);
+}
+
+.event__info-item:last-of-type {
+  border-block-end: none;
+}
+
+.event__info-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  color: var(--text-on-dark);
+  background: var(--bg-section-alt);
+  border-radius: var(--radius-full);
+}
+
+.event__info-icon svg {
+  inline-size: 18px;
+  block-size: 18px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.5;
+}
+
+.event__info-content h4 {
+  margin-block-end: 0.25rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.event__info-content p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.event__info-content small {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   Value Item Card
+   ============================================ */
+.value-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: var(--space-md);
+  align-items: start;
+  padding-block: var(--space-md);
+  border-block-start: 1px solid var(--border-light);
+}
+
+.value-item:last-child {
+  border-block-end: 1px solid var(--border-light);
+}
+
+.value-item__number {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 0.85;
+  color: var(--accent-primary);
+  letter-spacing: -0.04em;
+  opacity: 0.75;
+}
+
+.value-item__content h4 {
+  margin-block-end: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.value-item__content p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   FAQ Item (Accordion Card)
+   ============================================ */
+.faq-item {
+  border-block-end: 1px solid var(--border-light);
+}
+
+.faq-item__question {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+  justify-content: space-between;
+  inline-size: 100%;
+  padding-block: var(--space-md);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  text-align: start;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color var(--transition-fast);
+}
+
+.faq-item__question:hover {
+  color: var(--accent-primary);
+}
+
+.faq-item__icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: 28px;
+  block-size: 28px;
+  border: 1px solid var(--color-earth-warm);
+  border-radius: var(--radius-full);
+  transition:
+    background-color var(--transition-medium),
+    border-color var(--transition-medium);
+}
+
+.faq-item__icon::before,
+.faq-item__icon::after {
+  position: absolute;
+  content: '';
+  background: var(--color-earth-warm);
+  transition:
+    background-color var(--transition-medium),
+    transform var(--transition-medium);
+}
+
+.faq-item__icon::before {
+  inline-size: 10px;
+  block-size: 1px;
+}
+
+.faq-item__icon::after {
+  inline-size: 1px;
+  block-size: 10px;
+}
+
+.faq-item.active .faq-item__icon {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.faq-item.active .faq-item__icon::before,
+.faq-item.active .faq-item__icon::after {
+  background: var(--color-bone);
+}
+
+.faq-item.active .faq-item__icon::after {
+  transform: rotate(90deg);
+}
+
+.faq-item__answer {
+  max-block-size: 0;
+  overflow: hidden;
+  transition: max-block-size var(--transition-medium);
+}
+
+.faq-item.active .faq-item__answer {
+  max-block-size: 500px;
+}
+
+.faq-item__answer-inner {
+  padding-block-end: var(--space-md);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.faq-item__answer-inner p:last-child {
+  margin-block-end: 0;
+}
+
+.faq-item__answer-inner a {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

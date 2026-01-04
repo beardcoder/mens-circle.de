@@ -1,27 +1,37 @@
 <html
-    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
-    data-namespace-typo3-fluid="true"
+  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+  xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+  xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
+  data-namespace-typo3-fluid="true"
 >
-<!DOCTYPE html>
-<html lang="{language.twoLetterIsoCode}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{page.title} | Mens Circle</title>
-    <f:render section="Meta" optional="1" />
-</head>
-<body class="Page Page--{page.backendLayout -> f:format.case(mode: 'lower')}">
-    <a class="SkipLink" href="#main-content">Skip to content</a>
+  <!doctype html>
+  <html lang="{language.twoLetterIsoCode}">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>{page.title} | Mens Circle</title>
+      <f:render section="Meta" optional="1" />
+      <vite:asset
+        entry="EXT:sitepackage/Resources/Private/Assets/Scripts/app.entry.ts"
+      />
+      <vite:asset
+        entry="EXT:sitepackage/Resources/Private/Assets/Styles/app.entry.css"
+      />
+    </head>
+    <body
+      class="Page Page--{page.backendLayout -> f:format.case(mode: 'lower')}"
+    >
+      <a class="SkipLink" href="#main-content">Skip to content</a>
 
-    <header class="Header">
+      <header class="Header">
         <mc:organism.navigation items="{mainMenu}" />
-    </header>
+      </header>
 
-    <main class="Main" id="main-content">
+      <main class="Main" id="main-content">
         <f:render section="Main" />
-    </main>
+      </main>
 
-    <mc:organism.footer menuItems="{footerMenu}" year="{currentYear}" />
-</body>
+      <mc:organism.footer menuItems="{footerMenu}" year="{currentYear}" />
+    </body>
+  </html>
 </html>

@@ -1,0 +1,259 @@
+/**
+ * Button Components
+ * Modern, accessible buttons
+ */
+
+/* ============================================
+   Base Button Styles
+   ============================================ */
+.btn {
+  --btn-bg: var(--accent-primary);
+  --btn-color: var(--color-bone);
+  --btn-border: transparent;
+  --btn-hover-bg: var(--bg-dark);
+  --btn-hover-color: var(--color-bone);
+
+  display: inline-flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  padding-block: 1rem;
+  padding-inline: 2rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--btn-color);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--btn-bg);
+  border: 1.5px solid var(--btn-border);
+  border-radius: var(--radius-full);
+  transition:
+    background-color var(--transition-medium),
+    color var(--transition-medium),
+    border-color var(--transition-medium),
+    transform var(--transition-fast),
+    box-shadow var(--transition-medium);
+}
+
+.btn:hover {
+  color: var(--btn-hover-color);
+  background: var(--btn-hover-bg);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn svg {
+  flex-shrink: 0;
+  inline-size: 1em;
+  block-size: 1em;
+}
+
+/* ============================================
+   Button Variants
+   ============================================ */
+
+/* Primary (default) */
+.btn--primary {
+  --btn-bg: var(--accent-primary);
+  --btn-color: var(--color-bone);
+  --btn-hover-bg: var(--bg-dark);
+  --btn-hover-color: var(--color-bone);
+}
+
+/* Secondary (outlined) */
+.btn--secondary {
+  --btn-bg: transparent;
+  --btn-color: var(--text-primary);
+  --btn-border: var(--text-primary);
+  --btn-hover-bg: var(--text-primary);
+  --btn-hover-color: var(--bg-primary);
+}
+
+/* Outline Light (for dark backgrounds) */
+.btn--outline-light {
+  --btn-bg: transparent;
+  --btn-color: var(--text-on-dark);
+  --btn-border: var(--color-sand);
+  --btn-hover-bg: var(--color-parchment);
+  --btn-hover-color: var(--color-ink);
+}
+
+.btn--outline-light:hover {
+  border-color: var(--color-parchment);
+}
+
+/* Ghost Button */
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-color: var(--text-primary);
+  --btn-hover-bg: transparent;
+  --btn-hover-color: var(--accent-primary);
+
+  padding: 0.5rem 0;
+  letter-spacing: 0.05em;
+  box-shadow: none;
+}
+
+.btn--ghost::after {
+  display: inline-block;
+  content: ' →';
+  transition: transform var(--transition-fast);
+}
+
+.btn--ghost:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.btn--ghost:hover::after {
+  transform: translateX(6px);
+}
+
+/* ============================================
+   Button Sizes
+   ============================================ */
+.btn--sm {
+  padding-block: 0.625rem;
+  padding-inline: 1.25rem;
+  font-size: 0.7rem;
+}
+
+.btn--lg {
+  padding-block: 1.25rem;
+  padding-inline: 2.5rem;
+  font-size: 0.85rem;
+}
+
+.btn--xl {
+  padding-block: 1.5rem;
+  padding-inline: 3rem;
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   Button States
+   ============================================ */
+.btn--loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.btn--loading::after {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: 1.25em;
+  block-size: 1.25em;
+  margin-block-start: -0.625em;
+  margin-inline-start: -0.625em;
+  content: '';
+  border: 2px solid currentcolor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+/* Full width button */
+.btn--full {
+  inline-size: 100%;
+}
+
+/* ============================================
+   Icon-only Button
+   ============================================ */
+.btn--icon {
+  padding: 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.btn--icon svg {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+}
+
+/* ============================================
+   Button Group
+   ============================================ */
+.btn-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.btn-group--stacked {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* ============================================
+   Social / Icon Buttons
+   ============================================ */
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  color: var(--color-sand);
+  background: color-mix(in oklch, var(--color-sand) 10%, transparent);
+  border-radius: var(--radius-full);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.social-icon:hover {
+  color: var(--text-on-dark);
+  background: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+.social-icon svg {
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+/* ============================================
+   Link-style Button
+   ============================================ */
+.btn-link {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0;
+  font-size: inherit;
+  font-weight: 500;
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color var(--transition-fast);
+}
+
+.btn-link:hover {
+  color: var(--color-earth-warm);
+}

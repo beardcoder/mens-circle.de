@@ -24,17 +24,19 @@ RUN composer install \
 # -----------------------------------------------------------------------------
 # Stage 2: Node.js Build (Vite)
 # -----------------------------------------------------------------------------
-FROM node:22-alpine AS node-build
-
+FROM oven/bun:1-slim AS assets
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci --ignore-scripts
+COPY package.json bun.lock ./
 
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    bun install --frozen-lockfile
+
+COPY --from=composer-build --chown=www-data:www-data /app/vendor/ ./vendor/
 COPY vite.config.ts tsconfig.json ./
-COPY packages/sitepackage/Resources/Private/PageView/Assets/ packages/sitepackage/Resources/Private/PageView/Assets/
+COPY packages/ packages/
 
-RUN npm run build
+RUN bun run build
 
 # -----------------------------------------------------------------------------
 # Stage 3: Production Image

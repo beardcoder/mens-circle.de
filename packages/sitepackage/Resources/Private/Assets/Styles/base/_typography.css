@@ -1,0 +1,334 @@
+/**
+ * Typography System
+ * Modern fluid typography with CSS clamp()
+ */
+
+/* ============================================
+   Heading Styles
+   ============================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text-primary);
+  letter-spacing: -0.04em;
+}
+
+h1 {
+  font-size: var(--text-5xl);
+  line-height: 0.9;
+}
+
+h2 {
+  font-size: var(--text-4xl);
+  line-height: 0.95;
+}
+
+h3 {
+  font-size: var(--text-2xl);
+}
+
+h4 {
+  font-size: var(--text-xl);
+}
+
+h5 {
+  font-size: var(--text-lg);
+}
+
+h6 {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+/* ============================================
+   Body Text
+   ============================================ */
+p {
+  margin-block-end: 1.5em;
+}
+
+p:last-child {
+  margin-block-end: 0;
+}
+
+/* ============================================
+   Display Text Classes
+   ============================================ */
+.text-massive {
+  font-family: var(--font-display);
+  font-size: var(--text-massive);
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+}
+
+.text-display {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.text-headline {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.text-title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.text-large {
+  font-size: var(--text-xl);
+  line-height: 1.4;
+}
+
+.text-body-large {
+  font-size: var(--text-lg);
+  line-height: 1.8;
+}
+
+/* ============================================
+   Small Text Classes
+   ============================================ */
+.text-small {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.text-micro {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+}
+
+.text-caption {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   Font Style Modifiers
+   ============================================ */
+.text-italic {
+  font-family: var(--font-accent);
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+.text-serif {
+  font-family: var(--font-display);
+}
+
+.text-light {
+  font-weight: 300;
+  letter-spacing: 0;
+}
+
+.text-medium {
+  font-weight: 500;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+/* ============================================
+   Text Colors
+   ============================================ */
+.text-terracotta {
+  color: var(--color-terracotta);
+}
+
+.text-earth {
+  color: var(--color-earth-warm);
+}
+
+.text-sand {
+  color: var(--color-sand);
+}
+
+.text-muted {
+  color: var(--text-secondary);
+}
+
+.text-accent {
+  color: var(--accent-primary);
+}
+
+.text-on-dark {
+  color: var(--text-on-dark);
+}
+
+/* ============================================
+   Text Alignment (using logical properties)
+   ============================================ */
+.text-start {
+  text-align: start;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-end {
+  text-align: end;
+}
+
+/* ============================================
+   Mixed Typography - Expressive Headlines
+   ============================================ */
+.mixed-headline {
+  display: block;
+}
+
+.mixed-headline .italic {
+  font-family: var(--font-accent);
+  font-size: 1.2em;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.mixed-headline .light {
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+.mixed-headline .outlined {
+  -webkit-text-stroke: 1px var(--color-ink);
+  -webkit-text-fill-color: transparent;
+}
+
+.mixed-headline .accent {
+  color: var(--accent-primary);
+}
+
+/* ============================================
+   Eyebrow / Label Style
+   Reusable component for section labels
+   ============================================ */
+.eyebrow {
+  display: block;
+  margin-block-end: var(--space-sm);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+}
+
+.eyebrow--secondary {
+  color: var(--accent-secondary);
+}
+
+.eyebrow--muted {
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   Section Title Pattern
+   Large display titles with italic accent
+   ============================================ */
+.section-title {
+  margin-block-end: var(--space-md);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+}
+
+.section-title--lg {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1;
+}
+
+.section-title--xl {
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.95;
+}
+
+.section-title .text-italic,
+.section-title .highlight {
+  font-family: var(--font-accent);
+  font-size: 1.2em;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-earth-warm);
+}
+
+.section-title--light .text-italic,
+.section-title--light .highlight {
+  color: var(--accent-secondary);
+}
+
+/* ============================================
+   Links
+   ============================================ */
+.link {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+.link:hover {
+  color: var(--color-earth-warm);
+}
+
+.link--subtle {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link--subtle:hover {
+  color: var(--accent-primary);
+}
+
+/* ============================================
+   Text Truncation
+   ============================================ */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* ============================================
+   Text Wrap Control
+   ============================================ */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}

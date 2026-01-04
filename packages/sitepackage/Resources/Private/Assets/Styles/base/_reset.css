@@ -1,0 +1,184 @@
+/**
+ * Modern CSS Reset (2025)
+ * Based on Josh Comeau's Reset + Modern Best Practices
+ */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Prevent font size inflation */
+html {
+  /* Base font size for rem calculations */
+  font-size: 16px;
+  text-rendering: optimizelegibility;
+  text-size-adjust: none;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (width >= 1600px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+/* Set core body defaults */
+body {
+  min-block-size: 100vh;
+  min-block-size: 100dvh; /* Use dynamic viewport height */
+  overflow-x: hidden;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+/* Remove list styles on ul, ol with a list role */
+:where(ul, ol)[role='list'] {
+  list-style: none;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* Improve paragraph readability */
+p {
+  max-inline-size: 75ch;
+  text-wrap: pretty;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  color: currentcolor;
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Textarea without rows attribute should be tall */
+textarea:not([rows]) {
+  min-block-size: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/* Remove default button styles */
+button {
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Remove default fieldset styles */
+fieldset {
+  border: none;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Selection styles */
+::selection {
+  color: var(--color-bone);
+  background-color: var(--accent-primary);
+}
+
+/* Ensure tables inherit font */
+table {
+  font: inherit;
+  border-collapse: collapse;
+}
+
+/* Hidden attribute support */
+[hidden] {
+  display: none !important;
+}
+
+/* Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  *,
+  *::before,
+  *::after {
+    color: #000 !important;
+    text-shadow: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}
