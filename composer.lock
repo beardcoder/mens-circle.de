@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5a864bb63db0c89d84dbf02daba1db8",
+    "content-hash": "2bb8a87f3326ec9e345d6f276e83b804",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1266,6 +1266,47 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.10.0"
             },
             "time": "2025-07-25T09:04:22+00:00"
+        },
+        {
+            "name": "menscircle/sitepackage",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "./packages/sitepackage",
+                "reference": "e2d21742e02674bdc7eea9cefa125a65ce0a9b90"
+            },
+            "require": {
+                "php": "^8.5",
+                "typo3/cms-core": "^14.0"
+            },
+            "type": "typo3-cms-extension",
+            "extra": {
+                "typo3/cms": {
+                    "extension-key": "sitepackage"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MensCircle\\Sitepackage\\": "Classes/"
+                },
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Markus Sommer",
+                    "email": "markus@beardcoder.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Site configuration and templates for mens-circle.de",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "nikic/php-parser",
@@ -8673,15 +8714,17 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "menscircle/sitepackage": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.4"
+        "php": "^8.5"
     },
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.4.0"
+        "php": "8.5.0"
     },
     "plugin-api-version": "2.9.0"
 }

@@ -11,7 +11,8 @@
     }
   ],
   "require": {
-    "php": "^8.4",
+    "php": "^8.5",
+    "menscircle/sitepackage": "dev-main",
     "typo3/cms-backend": "^14.0",
     "typo3/cms-belog": "^14.0",
     "typo3/cms-beuser": "^14.0",
@@ -39,16 +40,12 @@
     "phpstan/phpstan": "*",
     "phpstan/extension-installer": "*"
   },
-  "autoload": {
-    "psr-4": {
-      "MensCircle\\Sitepackage\\": "packages/sitepackage/Classes/"
+  "repositories": [
+    {
+      "type": "path",
+      "url": "./packages/*/"
     }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "MensCircle\\Sitepackage\\Tests\\": "packages/sitepackage/Tests/"
-    }
-  },
+  ],
   "config": {
     "allow-plugins": {
       "typo3/class-alias-loader": true,
@@ -57,14 +54,9 @@
     },
     "optimize-autoloader": true,
     "platform": {
-      "php": "8.4.0"
+      "php": "8.5.0"
     },
     "sort-packages": true
-  },
-  "extra": {
-    "typo3/cms": {
-      "web-dir": "public"
-    }
   },
   "scripts": {
     "fix": "php-cs-fixer fix",
