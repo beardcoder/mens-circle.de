@@ -17,7 +17,10 @@
     "autoload": {
         "psr-4": {
             "MensCircle\\Sitepackage\\": "Classes/"
-        }
+        },
+        "files": [
+            "helpers.php"
+        ]
     },
     "extra": {
         "typo3/cms": {
