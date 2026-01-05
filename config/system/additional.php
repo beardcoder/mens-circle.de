@@ -21,19 +21,32 @@ $isProduction = Helpers::isProduction();
 // =============================================================================
 $dbConfig = Helpers::databaseConfig();
 if (!empty($dbConfig['host'])) {
-    $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default'] = [
-        'charset' => 'utf8mb4',
-        'driver' => 'pdo_pgsql',
+    $dbDriver = $env('DB_DRIVER', 'pdo_mysql');
+
+    // Base configuration
+    $dbConnection = [
+        'driver' => $dbDriver,
         'host' => $dbConfig['host'],
         'port' => $dbConfig['port'],
         'dbname' => $dbConfig['database'],
         'user' => $dbConfig['username'],
         'password' => $dbConfig['password'],
-        'tableoptions' => [
+    ];
+
+    // Driver-specific settings
+    if (str_contains($dbDriver, 'pgsql')) {
+        // PostgreSQL
+        $dbConnection['charset'] = 'UTF8';
+    } else {
+        // MySQL/MariaDB
+        $dbConnection['charset'] = 'utf8mb4';
+        $dbConnection['tableoptions'] = [
             'charset' => 'utf8mb4',
             'collate' => 'utf8mb4_unicode_ci',
-        ],
-    ];
+        ];
+    }
+
+    $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default'] = $dbConnection;
 }
 
 // =============================================================================
