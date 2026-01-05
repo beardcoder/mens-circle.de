@@ -162,14 +162,20 @@ if ($isProduction) {
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['reverseProxyHeaderMultiValue'] = 'first';
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['reverseProxySSL'] = '*';
 
-    // Trusted hosts
-    $appHost = Helpers::appHost();
-    if (!empty($appHost) && $appHost !== 'localhost') {
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = sprintf(
-            '.*\.%s$|^%s$',
-            preg_quote($appHost, '/'),
-            preg_quote($appHost, '/')
-        );
+    // Trusted hosts - allow main domain and all subdomains
+    $trustedHosts = $env('TRUSTED_HOSTS', '');
+    if (!empty($trustedHosts)) {
+        // Use custom pattern from environment
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = $trustedHosts;
+    } else {
+        $appHost = Helpers::appHost();
+        if (!empty($appHost) && $appHost !== 'localhost') {
+            // Pattern: match domain and all subdomains (e.g., mens-circle.de, staging.mens-circle.de, www.mens-circle.de)
+            $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = sprintf(
+                '^(.+\.)?%s$',
+                preg_quote($appHost, '/')
+            );
+        }
     }
 
     // Performance
