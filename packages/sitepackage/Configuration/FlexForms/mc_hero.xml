@@ -7,7 +7,7 @@
                 <type>array</type>
                 <el>
                     <settings.eyebrow>
-                        <label>Eyebrow Text</label>
+                        <label>Label</label>
                         <config>
                             <type>input</type>
                             <size>50</size>

@@ -1,7 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<f:layout name="Default" />
+<f:layout name="ContentElement" />
 
 <f:section name="Main">
     <section class="section moderator-section" id="moderator">
@@ -14,9 +14,9 @@
                                 <f:for each="{images}" as="image" iteration="i">
                                     <f:if condition="{i.isFirst}">
                                         <f:image image="{image}"
-                                                 alt="{settings.name}"
-                                                 class="moderator__image"
-                                                 loading="lazy" />
+                                                 alt="{settings.name -> f:format.stripTags()}"
+                                                 loading="lazy"
+                                                 additionalAttributes="{decoding: 'async'}" />
                                     </f:if>
                                 </f:for>
                             </f:then>
@@ -26,7 +26,7 @@
                                         <circle cx="12" cy="8" r="4" />
                                         <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
                                     </svg>
-                                    <span>Photo</span>
+                                    <span>Foto</span>
                                 </div>
                             </f:else>
                         </f:if>

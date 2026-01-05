@@ -1,22 +1,39 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<f:layout name="Default" />
+<f:layout name="ContentElement" />
 
 <f:section name="Main">
-    <section class="section section--large testimonials-section" id="testimonials">
+    <section class="section section--large testimonials-section" id="stimmen">
         <div class="container">
             <div class="testimonials__header fade-in">
-                <f:if condition="{settings.eyebrow}">
-                    <p class="eyebrow">{settings.eyebrow}</p>
-                </f:if>
+                <p class="eyebrow">
+                    <f:if condition="{settings.eyebrow}">
+                        <f:then>{settings.eyebrow}</f:then>
+                        <f:else>Community Stimmen</f:else>
+                    </f:if>
+                </p>
 
                 <f:if condition="{data.header}">
-                    <h2 class="section-title testimonials__title">{data.header -> f:format.raw()}</h2>
+                    <f:then>
+                        <h2 class="section-title testimonials__title">{data.header -> f:format.raw()}</h2>
+                    </f:then>
+                    <f:else>
+                        <h2 class="section-title testimonials__title">
+                            Was <span class="highlight">Teilnehmer</span> sagen
+                        </h2>
+                    </f:else>
                 </f:if>
 
                 <f:if condition="{data.subheader}">
-                    <p class="testimonials__subtitle">{data.subheader}</p>
+                    <f:then>
+                        <p class="testimonials__subtitle">{data.subheader}</p>
+                    </f:then>
+                    <f:else>
+                        <p class="testimonials__subtitle">
+                            Authentische Einblicke von Männern, die den Kreis erleben
+                        </p>
+                    </f:else>
                 </f:if>
             </div>
 

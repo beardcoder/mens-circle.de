@@ -14,15 +14,6 @@ page {
             10 = page-content
             10 {
                 as = content
-                contentType = main
-                colPos = 0
-            }
-
-            20 = page-content
-            20 {
-                as = sidebar
-                contentType = aside
-                colPos = 1
             }
 
             30 = menu
@@ -69,7 +60,7 @@ lib.contentElement {
 tt_content {
     mc_hero =< lib.contentElement
     mc_hero {
-        templateName = McHero
+        templateName = Hero
         dataProcessing {
             10 = files
             10 {
@@ -86,7 +77,7 @@ tt_content {
 
     mc_intro =< lib.contentElement
     mc_intro {
-        templateName = McIntro
+        templateName = Intro
         dataProcessing {
             10 = flex-form
             10 {
@@ -98,7 +89,7 @@ tt_content {
 
     mc_cta =< lib.contentElement
     mc_cta {
-        templateName = McCta
+        templateName = CallToAction
         dataProcessing {
             10 = flex-form
             10 {
@@ -110,7 +101,7 @@ tt_content {
 
     mc_faq =< lib.contentElement
     mc_faq {
-        templateName = McFaq
+        templateName = Faq
         dataProcessing {
             10 = flex-form
             10 {
@@ -122,7 +113,7 @@ tt_content {
 
     mc_journey =< lib.contentElement
     mc_journey {
-        templateName = McJourney
+        templateName = JourneySteps
         dataProcessing {
             10 = flex-form
             10 {
@@ -134,7 +125,7 @@ tt_content {
 
     mc_testimonials =< lib.contentElement
     mc_testimonials {
-        templateName = McTestimonials
+        templateName = Testimonials
         dataProcessing {
             10 = flex-form
             10 {
@@ -146,7 +137,7 @@ tt_content {
 
     mc_moderator =< lib.contentElement
     mc_moderator {
-        templateName = McModerator
+        templateName = Moderator
         dataProcessing {
             10 = files
             10 {
@@ -163,7 +154,43 @@ tt_content {
 
     mc_newsletter =< lib.contentElement
     mc_newsletter {
-        templateName = McNewsletter
+        templateName = Newsletter
+        dataProcessing {
+            10 = flex-form
+            10 {
+                fieldName = pi_flexform
+                as = settings
+            }
+        }
+    }
+
+    mc_text_section =< lib.contentElement
+    mc_text_section {
+        templateName = TextSection
+        dataProcessing {
+            10 = flex-form
+            10 {
+                fieldName = pi_flexform
+                as = settings
+            }
+        }
+    }
+
+    mc_values =< lib.contentElement
+    mc_values {
+        templateName = ValueItems
+        dataProcessing {
+            10 = flex-form
+            10 {
+                fieldName = pi_flexform
+                as = settings
+            }
+        }
+    }
+
+    mc_whatsapp =< lib.contentElement
+    mc_whatsapp {
+        templateName = WhatsappCommunity
         dataProcessing {
             10 = flex-form
             10 {

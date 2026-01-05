@@ -3,7 +3,7 @@
     data-namespace-typo3-fluid="true"
 >
 
-<f:layout name="Default" />
+<f:layout name="Site" />
 
 <f:section name="Meta">
     <f:if condition="{page.description}">
@@ -12,19 +12,20 @@
 </f:section>
 
 <f:section name="Main">
-    <div class="Container">
-        <f:for each="{content}" as="element">
-            <f:render
-                partial="Content/{element.type -> f:format.case(mode: 'capital')}"
-                arguments="{element: element}"
-                optional="1"
-            />
-        </f:for>
-
-        <f:if condition="{content -> f:count()} == 0">
-            <f:render section="main" />
-        </f:if>
-    </div>
+    <f:if condition="{content.main.records -> f:count()} > 0">
+        <f:then>
+            <f:for each="{content.main.records}" as="record">
+                <f:cObject
+                    typoscriptObjectPath="tt_content"
+                    data="{record}"
+                    table="tt_content"
+                />
+            </f:for>
+        </f:then>
+        <f:else>
+            <f:render section="main" optional="1" />
+        </f:else>
+    </f:if>
 </f:section>
 
 </html>

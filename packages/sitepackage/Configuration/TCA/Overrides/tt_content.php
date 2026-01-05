@@ -47,6 +47,21 @@ $contentElements = [
         'description' => 'Newsletter subscription form',
         'icon' => 'content-form',
     ],
+    'mc_text_section' => [
+        'title' => 'Text Section',
+        'description' => 'Text section with eyebrow and rich content',
+        'icon' => 'content-text',
+    ],
+    'mc_values' => [
+        'title' => 'Value Items',
+        'description' => 'Value items list with numbers and descriptions',
+        'icon' => 'content-list',
+    ],
+    'mc_whatsapp' => [
+        'title' => 'WhatsApp Community',
+        'description' => 'WhatsApp community call-to-action section',
+        'icon' => 'content-link',
+    ],
 ];
 
 foreach ($contentElements as $cType => $config) {

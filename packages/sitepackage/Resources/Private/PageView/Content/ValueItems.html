@@ -1,0 +1,44 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="ContentElement" />
+
+<f:section name="Main">
+    <section class="section values-section">
+        <div class="container">
+            <div class="section__header fade-in">
+                <f:if condition="{settings.eyebrow}">
+                    <p class="eyebrow">{settings.eyebrow}</p>
+                </f:if>
+
+                <f:if condition="{data.header}">
+                    <h2 class="section-title">{data.header -> f:format.raw()}</h2>
+                </f:if>
+            </div>
+
+            <f:if condition="{settings.items}">
+                <div class="intro__values stagger-children">
+                    <f:for each="{settings.items}" as="item">
+                        <div class="value-item">
+                            <f:if condition="{item.number}">
+                                <span class="value-item__number">{item.number}</span>
+                            </f:if>
+
+                            <div class="value-item__content">
+                                <f:if condition="{item.title}">
+                                    <h4>{item.title}</h4>
+                                </f:if>
+
+                                <f:if condition="{item.description}">
+                                    <p>{item.description}</p>
+                                </f:if>
+                            </div>
+                        </div>
+                    </f:for>
+                </div>
+            </f:if>
+        </div>
+    </section>
+</f:section>
+
+</html>

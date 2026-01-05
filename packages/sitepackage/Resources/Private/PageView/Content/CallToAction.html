@@ -1,0 +1,38 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="ContentElement" />
+
+<f:section name="Main">
+    <section class="section section--large cta-section">
+        <div class="container">
+            <div class="cta__content fade-in">
+                <f:if condition="{settings.eyebrow}">
+                    <p class="eyebrow">{settings.eyebrow}</p>
+                </f:if>
+
+                <f:if condition="{data.header}">
+                    <h2 class="section-title cta__title">{data.header -> f:format.raw()}</h2>
+                </f:if>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="cta__text">
+                        {data.bodytext -> f:format.html()}
+                    </div>
+                </f:if>
+
+                <f:if condition="{settings.buttonText} && {settings.buttonLink}">
+                    <f:link.typolink
+                        parameter="{settings.buttonLink}"
+                        class="btn btn--primary btn--large"
+                        additionalAttributes="{'data-m:click': 'action=cta_click;element=button;target=cta_section;location=page_cta'}"
+                    >
+                        {settings.buttonText}
+                    </f:link.typolink>
+                </f:if>
+            </div>
+        </div>
+    </section>
+</f:section>
+
+</html>

@@ -3,7 +3,7 @@
     data-namespace-typo3-fluid="true"
 >
 
-<f:layout name="Default" />
+<f:layout name="Site" />
 
 <f:section name="Meta">
     <f:if condition="{page.description}">
@@ -12,33 +12,39 @@
 </f:section>
 
 <f:section name="Main">
-    <div class="Container">
-        <div class="Grid Grid--twoColumns">
-            <div class="Grid__main">
-                <f:for each="{content}" as="element">
-                    <f:render
-                        partial="Content/{element.type -> f:format.case(mode: 'capital')}"
-                        arguments="{element: element}"
-                        optional="1"
-                    />
-                </f:for>
-
-                <f:if condition="{content -> f:count()} == 0">
-                    <f:render section="main" />
+    <div class="container">
+        <div class="grid grid--sidebar">
+            <div>
+                <f:if condition="{content.main.records -> f:count()} > 0">
+                    <f:then>
+                        <f:for each="{content.main.records}" as="record">
+                            <f:cObject
+                                typoscriptObjectPath="tt_content"
+                                data="{record}"
+                                table="tt_content"
+                            />
+                        </f:for>
+                    </f:then>
+                    <f:else>
+                        <f:render section="main" optional="1" />
+                    </f:else>
                 </f:if>
             </div>
 
-            <aside class="Grid__sidebar">
-                <f:for each="{sidebar}" as="element">
-                    <f:render
-                        partial="Content/{element.type -> f:format.case(mode: 'capital')}"
-                        arguments="{element: element}"
-                        optional="1"
-                    />
-                </f:for>
-
-                <f:if condition="{sidebar -> f:count()} == 0">
-                    <f:render section="aside" />
+            <aside>
+                <f:if condition="{content.aside.records -> f:count()} > 0">
+                    <f:then>
+                        <f:for each="{content.aside.records}" as="record">
+                            <f:cObject
+                                typoscriptObjectPath="tt_content"
+                                data="{record}"
+                                table="tt_content"
+                            />
+                        </f:for>
+                    </f:then>
+                    <f:else>
+                        <f:render section="aside" optional="1" />
+                    </f:else>
                 </f:if>
             </aside>
         </div>

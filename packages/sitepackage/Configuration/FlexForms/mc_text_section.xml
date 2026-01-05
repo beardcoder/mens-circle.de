@@ -14,24 +14,14 @@
                             <max>100</max>
                         </config>
                     </settings.eyebrow>
-                    <settings.buttonText>
-                        <label>Button Text</label>
+                    <settings.anchorId>
+                        <label>Anchor ID (optional)</label>
                         <config>
                             <type>input</type>
                             <size>30</size>
-                            <max>50</max>
-                            <default>Anmelden</default>
-                        </config>
-                    </settings.buttonText>
-                    <settings.placeholder>
-                        <label>Email Placeholder</label>
-                        <config>
-                            <type>input</type>
-                            <size>40</size>
                             <max>100</max>
-                            <default>Deine E-Mail-Adresse</default>
                         </config>
-                    </settings.placeholder>
+                    </settings.anchorId>
                 </el>
             </ROOT>
         </sDEF>

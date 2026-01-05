@@ -1,8 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:mc="http://typo3.org/ns/Vendor/Sitepackage/Components"
       data-namespace-typo3-fluid="true">
 
-<f:layout name="Default" />
+<f:layout name="ContentElement" />
 
 <f:section name="Main">
     <section class="section newsletter-section" id="newsletter">
@@ -25,20 +24,18 @@
                 </div>
 
                 <div class="newsletter__form-wrapper">
-                    <form id="newsletterForm-{data.uid}" class="newsletter__form" data-newsletter-form>
-                        <mc:Atom.Input
+                    <form id="newsletterForm" class="newsletter__form">
+                        <input
                             type="email"
                             name="email"
-                            placeholder="{settings.placeholder -> f:or(alternative: 'Your email address')}"
-                            required="1"
+                            placeholder="{settings.placeholder -> f:or(alternative: 'Deine E-Mail-Adresse')}"
+                            required
                             class="newsletter__input"
-                            aria-label="Email address" />
-
-                        <mc:Atom.Button type="submit" variant="primary">
-                            {settings.buttonText -> f:or(alternative: 'Subscribe')}
-                        </mc:Atom.Button>
-
-                        <div class="newsletter__message" data-newsletter-message></div>
+                            aria-label="E-Mail-Adresse">
+                        <button type="submit" class="btn btn--primary" data-m:click="action=form_submit;element=button;target=newsletter_subscription;location=newsletter_section">
+                            {settings.buttonText -> f:or(alternative: 'Anmelden')}
+                        </button>
+                        <div id="newsletterMessage"></div>
                     </form>
                 </div>
             </div>
