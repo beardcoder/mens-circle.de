@@ -50,6 +50,21 @@ final class Helpers
     }
 
     /**
+     * Get the first defined environment variable value from a list of keys
+     */
+    private static function firstEnvValue(array $keys): ?string
+    {
+        foreach ($keys as $key) {
+            $value = getenv($key);
+            if ($value !== false) {
+                return $value;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Check if application is in production mode
      */
     public static function isProduction(): bool
@@ -96,12 +111,35 @@ final class Helpers
      */
     public static function databaseConfig(): array
     {
+        $map = [
+            'host' => ['DB_HOST', 'TYPO3_DB_HOST'],
+            'port' => ['DB_PORT', 'TYPO3_DB_PORT'],
+            'database' => ['DB_DATABASE', 'TYPO3_DB_NAME'],
+            'username' => ['DB_USERNAME', 'TYPO3_DB_USER'],
+            'password' => ['DB_PASSWORD', 'TYPO3_DB_PASSWORD'],
+        ];
+
+        $config = [];
+        $hasConfig = false;
+
+        foreach ($map as $key => $keys) {
+            $value = self::firstEnvValue($keys);
+            if ($value !== null) {
+                $hasConfig = true;
+            }
+            $config[$key] = $value;
+        }
+
+        if (!$hasConfig) {
+            return [];
+        }
+
         return [
-            'host' => self::env('DB_HOST', 'localhost'),
-            'port' => self::env('DB_PORT', 3306),
-            'database' => self::env('DB_DATABASE', 'typo3'),
-            'username' => self::env('DB_USERNAME', 'typo3'),
-            'password' => self::env('DB_PASSWORD', ''),
+            'host' => $config['host'] ?? 'localhost',
+            'port' => $config['port'],
+            'database' => $config['database'] ?? 'typo3',
+            'username' => $config['username'] ?? 'typo3',
+            'password' => $config['password'] ?? '',
         ];
     }
 

@@ -21,16 +21,20 @@ $isProduction = Helpers::isProduction();
 // =============================================================================
 $dbConfig = Helpers::databaseConfig();
 if (!empty($dbConfig['host'])) {
-    $dbDriver = $env('DB_DRIVER', 'pdo_mysql');
+    $dbDriver = $env('DB_DRIVER', $env('TYPO3_DB_DRIVER', 'pdo_mysql'));
+    $dbPort = $dbConfig['port'];
+    if ($dbPort === null || $dbPort === '') {
+        $dbPort = str_contains($dbDriver, 'pgsql') ? 5432 : 3306;
+    }
 
     // Base configuration
     $dbConnection = [
         'driver' => $dbDriver,
         'host' => $dbConfig['host'],
-        'port' => $dbConfig['port'],
-        'dbname' => $dbConfig['database'],
-        'user' => $dbConfig['username'],
-        'password' => $dbConfig['password'],
+        'port' => (int) $dbPort,
+        'dbname' => $dbConfig['database'] ?? 'typo3',
+        'user' => $dbConfig['username'] ?? 'typo3',
+        'password' => $dbConfig['password'] ?? '',
     ];
 
     // Driver-specific settings

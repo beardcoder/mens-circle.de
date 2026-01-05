@@ -17,7 +17,9 @@ RUN install-php-extensions \
     apcu \
     bcmath \
     exif \
-    imagick
+    imagick \
+    pdo_pgsql \
+    pgsql
 
 # Install image processing tools
 RUN apk add --no-cache \

@@ -15,30 +15,16 @@
         <div class="Grid Grid--twoColumns">
             <div class="Grid__main">
                 <f:for each="{content}" as="element">
-                    <f:render
-                        partial="Content/{element.type -> f:format.case(mode: 'capital')}"
-                        arguments="{element: element}"
-                        optional="1"
-                    />
+                    <f:cObject typoscriptObjectPath="tt_content.{element.type}" data="{element.data}" />
                 </f:for>
 
-                <f:if condition="{content -> f:count()} == 0">
-                    <f:render contentType="main" />
-                </f:if>
             </div>
 
             <aside class="Grid__sidebar">
                 <f:for each="{sidebar}" as="element">
-                    <f:render
-                        partial="Content/{element.type -> f:format.case(mode: 'capital')}"
-                        arguments="{element: element}"
-                        optional="1"
-                    />
+                    <f:cObject typoscriptObjectPath="tt_content.{element.type}" data="{element.data}" />
                 </f:for>
 
-                <f:if condition="{sidebar -> f:count()} == 0">
-                    <f:render contentType="aside" />
-                </f:if>
             </aside>
         </div>
     </div>

@@ -13,15 +13,8 @@
 <f:section name="Main">
     <div class="Container">
         <f:for each="{content}" as="element">
-            <f:render
-                partial="Content/{element.type -> f:format.case(mode: 'capital')}"
-                arguments="{element: element}"
-                optional="1"
-            />
+            <f:cObject typoscriptObjectPath="tt_content.{element.type}" data="{element.data}" />
         </f:for>
 
-        <f:if condition="{content -> f:count()} == 0">
-            <f:render contentType="main" />
-        </f:if>
     </div>
 </f:section>
