@@ -1,6 +1,5 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
     xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
     data-namespace-typo3-fluid="true"
 >
@@ -11,9 +10,9 @@
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Subscribers ({stats.total})</h3>
-                <be:link.route route="menscircle_newsletter" class="btn btn-default btn-sm">
+                <f:link.action action="index" class="btn btn-default btn-sm">
                     <core:icon identifier="actions-arrow-left" /> Back to Newsletters
-                </be:link.route>
+                </f:link.action>
             </div>
         </div>
         <div class="card-body">
