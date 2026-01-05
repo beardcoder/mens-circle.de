@@ -69,13 +69,8 @@ tt_content {
     mc_hero {
         templateName = Hero
         dataProcessing {
-            10 = files
+            10 = flex-form
             10 {
-                references.fieldName = image
-                as = images
-            }
-            20 = flex-form
-            20 {
                 fieldName = pi_flexform
                 as = settings
             }
@@ -146,13 +141,8 @@ tt_content {
     mc_moderator {
         templateName = Moderator
         dataProcessing {
-            10 = files
+            10 = flex-form
             10 {
-                references.fieldName = image
-                as = images
-            }
-            20 = flex-form
-            20 {
                 fieldName = pi_flexform
                 as = settings
             }

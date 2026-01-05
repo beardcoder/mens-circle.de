@@ -6,8 +6,8 @@
 <f:section name="Main">
     <section class="hero">
         <div class="hero__bg">
-            <f:if condition="{images}">
-                <f:for each="{images}" as="image" iteration="i">
+            <f:if condition="{record.image -> f:count()} > 0">
+                <f:for each="{record.image}" as="image" iteration="i">
                     <f:if condition="{i.isFirst}">
                         <f:image
                             image="{image}"

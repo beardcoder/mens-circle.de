@@ -9,9 +9,9 @@
             <div class="moderator__layout">
                 <div class="moderator__photo-wrapper fade-in">
                     <div class="moderator__photo">
-                        <f:if condition="{images}">
+                        <f:if condition="{record.image -> f:count()} > 0">
                             <f:then>
-                                <f:for each="{images}" as="image" iteration="i">
+                                <f:for each="{record.image}" as="image" iteration="i">
                                     <f:if condition="{i.isFirst}">
                                         <f:image image="{image}"
                                                  alt="{settings.name -> f:format.stripTags()}"
