@@ -14,9 +14,9 @@
                     </f:if>
                 </p>
 
-                <f:if condition="{data.header}">
+                <f:if condition="{record.header}">
                     <f:then>
-                        <h2 class="section-title testimonials__title">{data.header -> f:format.raw()}</h2>
+                        <h2 class="section-title testimonials__title">{record.header -> f:format.raw()}</h2>
                     </f:then>
                     <f:else>
                         <h2 class="section-title testimonials__title">
@@ -25,9 +25,9 @@
                     </f:else>
                 </f:if>
 
-                <f:if condition="{data.subheader}">
+                <f:if condition="{record.subheader}">
                     <f:then>
-                        <p class="testimonials__subtitle">{data.subheader}</p>
+                        <p class="testimonials__subtitle">{record.subheader}</p>
                     </f:then>
                     <f:else>
                         <p class="testimonials__subtitle">

@@ -11,15 +11,15 @@
                     <p class="eyebrow fade-in">{settings.eyebrow}</p>
                 </f:if>
 
-                <f:if condition="{data.header}">
+                <f:if condition="{record.header}">
                     <h2 class="section-title intro__title fade-in fade-in-delay-1">
-                        {data.header -> f:format.raw()}
+                        {record.header -> f:format.raw()}
                     </h2>
                 </f:if>
 
-                <f:if condition="{data.bodytext}">
+                <f:if condition="{record.bodytext}">
                     <div class="intro__text fade-in fade-in-delay-2">
-                        {data.bodytext -> f:format.html()}
+                        {record.bodytext -> f:format.html()}
                     </div>
                 </f:if>
 

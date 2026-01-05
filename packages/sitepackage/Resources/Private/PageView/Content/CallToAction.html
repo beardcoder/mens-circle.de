@@ -11,13 +11,13 @@
                     <p class="eyebrow">{settings.eyebrow}</p>
                 </f:if>
 
-                <f:if condition="{data.header}">
-                    <h2 class="section-title cta__title">{data.header -> f:format.raw()}</h2>
+                <f:if condition="{record.header}">
+                    <h2 class="section-title cta__title">{record.header -> f:format.raw()}</h2>
                 </f:if>
 
-                <f:if condition="{data.bodytext}">
+                <f:if condition="{record.bodytext}">
                     <div class="cta__text">
-                        {data.bodytext -> f:format.html()}
+                        {record.bodytext -> f:format.html()}
                     </div>
                 </f:if>
 

@@ -11,12 +11,12 @@
                     <p class="eyebrow">{settings.eyebrow}</p>
                 </f:if>
 
-                <f:if condition="{data.header}">
-                    <h2 class="section-title journey__title">{data.header -> f:format.raw()}</h2>
+                <f:if condition="{record.header}">
+                    <h2 class="section-title journey__title">{record.header -> f:format.raw()}</h2>
                 </f:if>
 
-                <f:if condition="{data.subheader}">
-                    <p class="journey__subtitle">{data.subheader}</p>
+                <f:if condition="{record.subheader}">
+                    <p class="journey__subtitle">{record.subheader}</p>
                 </f:if>
             </div>
 

@@ -13,9 +13,9 @@
                             {settings.eyebrow -> f:or(alternative: 'Community')}
                         </p>
 
-                        <f:if condition="{data.header}">
+                        <f:if condition="{record.header}">
                             <f:then>
-                                <h2 class="section-title whatsapp__title">{data.header -> f:format.raw()}</h2>
+                                <h2 class="section-title whatsapp__title">{record.header -> f:format.raw()}</h2>
                             </f:then>
                             <f:else>
                                 <h2 class="section-title whatsapp__title">
@@ -24,10 +24,10 @@
                             </f:else>
                         </f:if>
 
-                        <f:if condition="{data.bodytext}">
+                        <f:if condition="{record.bodytext}">
                             <f:then>
                                 <p class="whatsapp__text">
-                                    {data.bodytext -> f:format.html()}
+                                    {record.bodytext -> f:format.html()}
                                 </p>
                             </f:then>
                             <f:else>

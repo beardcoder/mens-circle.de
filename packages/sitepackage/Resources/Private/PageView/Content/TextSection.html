@@ -5,7 +5,7 @@
 
 <f:variable
     name="defaultAnchor"
-    value="{data.header -> f:format.stripTags() -> f:format.case(mode: 'lower') -> f:format.replace(substring: ' ', replacement: '-')}"
+    value="{record.header -> f:format.stripTags() -> f:format.case(mode: 'lower') -> f:format.replace(substring: ' ', replacement: '-')}"
 />
 <f:variable name="sectionId" value="{settings.anchorId -> f:or(alternative: defaultAnchor)}" />
 
@@ -16,14 +16,14 @@
                 <p class="eyebrow">{settings.eyebrow}</p>
             </f:if>
 
-            <f:if condition="{data.header}">
-                <h2 class="section-title">{data.header -> f:format.raw()}</h2>
+            <f:if condition="{record.header}">
+                <h2 class="section-title">{record.header -> f:format.raw()}</h2>
             </f:if>
         </div>
 
-        <f:if condition="{data.bodytext}">
+        <f:if condition="{record.bodytext}">
             <div class="section__content fade-in fade-in-delay-1">
-                {data.bodytext -> f:format.html()}
+                {record.bodytext -> f:format.html()}
             </div>
         </f:if>
     </div>

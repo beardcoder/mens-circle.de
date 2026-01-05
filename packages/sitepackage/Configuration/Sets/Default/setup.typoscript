@@ -55,6 +55,13 @@ lib.contentElement {
     layoutRootPaths {
         20 = EXT:sitepackage/Resources/Private/PageView/Layouts/
     }
+
+    dataProcessing {
+        5 = record-transformation
+        5 {
+            as = record
+        }
+    }
 }
 
 tt_content {

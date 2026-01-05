@@ -33,16 +33,16 @@
                     <p class="hero__label">{settings.eyebrow}</p>
                 </f:if>
 
-                <f:if condition="{data.header}">
+                <f:if condition="{record.header}">
                     <h1 class="hero__title">
-                        {data.header -> f:format.raw()}
+                        {record.header -> f:format.raw()}
                     </h1>
                 </f:if>
 
                 <div class="hero__bottom">
-                    <f:if condition="{data.subheader}">
+                    <f:if condition="{record.subheader}">
                         <p class="hero__description">
-                            {data.subheader}
+                            {record.subheader}
                         </p>
                     </f:if>
 
