@@ -6,7 +6,7 @@
 # -----------------------------------------------------------------------------
 # Stage 1: Composer Dependencies
 # -----------------------------------------------------------------------------
-FROM serversideup/php:8.5-fpm-nginx-alpine AS build
+FROM serversideup/php:8.5-fpm-nginx-alpine AS composer-build
 
 USER root
 
@@ -55,7 +55,7 @@ RUN bun run build
 # -----------------------------------------------------------------------------
 # Stage 3: Production Image
 # -----------------------------------------------------------------------------
-FROM build AS production
+FROM composer-build AS production
 
 LABEL maintainer="Mens Circle <info@mens-circle.de>"
 LABEL org.opencontainers.image.source="https://github.com/beardcoder/mens-circle.de"
