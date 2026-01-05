@@ -2,52 +2,31 @@
 
 declare(strict_types=1);
 
-use MensCircle\Sitepackage\Controller\Backend\NewsletterController;
+use MensCircle\Sitepackage\Controller\Backend\EventModuleController;
 
+/**
+ * Backend module registration for TYPO3 v14
+ */
 return [
-    'menscircle_newsletter' => [
-        'parent' => 'web',
-        'position' => ['after' => 'web_info'],
-        'access' => 'admin',
-        'workspaces' => 'live',
-        'path' => '/module/menscircle/newsletter',
-        'iconIdentifier' => 'module-newsletter',
-        'labels' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_mod_newsletter.xlf',
-        'routes' => [
-            '_default' => [
-                'target' => NewsletterController::class . '::indexAction',
-            ],
-            'subscribers' => [
-                'path' => '/subscribers',
-                'target' => NewsletterController::class . '::subscribersAction',
-            ],
-            'create' => [
-                'path' => '/create',
-                'target' => NewsletterController::class . '::createAction',
-            ],
-            'edit' => [
-                'path' => '/edit/{newsletter}',
-                'target' => NewsletterController::class . '::editAction',
-            ],
-            'save' => [
-                'path' => '/save',
-                'methods' => ['POST'],
-                'target' => NewsletterController::class . '::saveAction',
-            ],
-            'send' => [
-                'path' => '/send/{newsletter}',
-                'methods' => ['POST'],
-                'target' => NewsletterController::class . '::sendAction',
-            ],
-            'sendTest' => [
-                'path' => '/send-test/{newsletter}',
-                'methods' => ['POST'],
-                'target' => NewsletterController::class . '::sendTestAction',
-            ],
-            'delete' => [
-                'path' => '/delete/{newsletter}',
-                'methods' => ['POST'],
-                'target' => NewsletterController::class . '::deleteAction',
+    'menscircle' => [
+        'labels' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_mod.xlf:mlang_tabs_tab',
+        'iconIdentifier' => 'module-menscircle',
+        'position' => ['after' => 'web'],
+    ],
+    'menscircle_events' => [
+        'parent' => 'menscircle',
+        'position' => ['before' => '*'],
+        'access' => 'user',
+        'iconIdentifier' => 'module-menscircle-events',
+        'labels' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_mod_events.xlf',
+        'extensionName' => 'Sitepackage',
+        'controllerActions' => [
+            EventModuleController::class => [
+                'index',
+                'list',
+                'show',
+                'togglePublish',
+                'exportRegistrations',
             ],
         ],
     ],
