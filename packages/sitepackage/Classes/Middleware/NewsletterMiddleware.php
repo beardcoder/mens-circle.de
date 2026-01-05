@@ -18,7 +18,8 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Core\Http\HtmlResponse;
 use TYPO3\CMS\Core\Http\JsonResponse;
-use TYPO3Fluid\Fluid\View\TemplateView;
+use TYPO3\CMS\Core\View\ViewFactoryData;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
 
 final readonly class NewsletterMiddleware implements MiddlewareInterface
 {
@@ -30,7 +31,7 @@ final readonly class NewsletterMiddleware implements MiddlewareInterface
 
     public function __construct(
         private SubscriptionService $subscriptionService,
-        private TemplateView $view,
+        private ViewFactoryInterface $viewFactory,
     ) {}
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -112,18 +113,15 @@ final readonly class NewsletterMiddleware implements MiddlewareInterface
 
     private function renderPage(string $template, array $variables): HtmlResponse
     {
-        $this->view->setTemplatePathAndFilename(
-            'EXT:sitepackage/Resources/Private/Templates/Newsletter/' . $template . '.html',
+        $viewFactoryData = new ViewFactoryData(
+            templateRootPaths: ['EXT:sitepackage/Resources/Private/Templates/Newsletter/'],
+            layoutRootPaths: ['EXT:sitepackage/Resources/Private/PageView/Layouts/'],
+            partialRootPaths: ['EXT:sitepackage/Resources/Private/Components/'],
         );
-        $this->view->setLayoutRootPaths([
-            'EXT:sitepackage/Resources/Private/PageView/Layouts/',
-        ]);
-        $this->view->setPartialRootPaths([
-            'EXT:sitepackage/Resources/Private/Components/',
-        ]);
-        $this->view->assignMultiple($variables);
+        $view = $this->viewFactory->create($viewFactoryData);
+        $view->assignMultiple($variables);
 
-        return new HtmlResponse($this->view->render());
+        return new HtmlResponse($view->render($template));
     }
 
     /**
