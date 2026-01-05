@@ -15,8 +15,12 @@ errorHandling:
   - errorCode: 404
     errorHandler: Fluid
     errorFluidTemplate: 'EXT:sitepackage/Resources/Private/Templates/Error/404.html'
-    errorContentSource: ''
+    errorFluidTemplatesRootPath: 'EXT:sitepackage/Resources/Private/Templates/Error/'
+    errorFluidLayoutsRootPath: 'EXT:sitepackage/Resources/Private/Layouts/'
+    errorFluidPartialsRootPath: 'EXT:sitepackage/Resources/Private/Partials/'
   - errorCode: 500
     errorHandler: Fluid
     errorFluidTemplate: 'EXT:sitepackage/Resources/Private/Templates/Error/500.html'
-    errorContentSource: ''
+    errorFluidTemplatesRootPath: 'EXT:sitepackage/Resources/Private/Templates/Error/'
+    errorFluidLayoutsRootPath: 'EXT:sitepackage/Resources/Private/Layouts/'
+    errorFluidPartialsRootPath: 'EXT:sitepackage/Resources/Private/Partials/'
