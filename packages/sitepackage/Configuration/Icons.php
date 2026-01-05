@@ -13,6 +13,10 @@ return [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:sitepackage/Resources/Public/Icons/module-menscircle-events.svg',
     ],
+    'module-menscircle-newsletter' => [
+        'provider' => SvgIconProvider::class,
+        'source' => 'EXT:sitepackage/Resources/Public/Icons/newsletter.svg',
+    ],
     'tx-sitepackage-event' => [
         'provider' => SvgIconProvider::class,
         'source' => 'EXT:sitepackage/Resources/Public/Icons/tx_sitepackage_domain_model_event.svg',
