@@ -13,8 +13,9 @@
 <f:section name="Main">
     <div class="Container">
         <f:for each="{content}" as="element">
-            <f:cObject typoscriptObjectPath="tt_content.{element.type}" data="{element.data}" />
+            <f:if condition="{element.data.CType}">
+                <f:cObject typoscriptObjectPath="tt_content.{element.data.CType}" data="{element.data}" />
+            </f:if>
         </f:for>
-
     </div>
 </f:section>

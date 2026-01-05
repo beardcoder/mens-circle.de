@@ -1,16 +1,6 @@
-rootPageId: 1
 base: /
-languages:
-  - title: Deutsch
-    enabled: true
-    languageId: 0
-    base: /
-    locale: de_DE.UTF-8
-    navigationTitle: DE
-    flag: de
-    direction: ltr
-settings:
-  menscircle/default: []
+dependencies:
+  - menscircle/default
 errorHandling:
   - errorCode: 404
     errorHandler: Fluid
@@ -24,3 +14,16 @@ errorHandling:
     errorFluidTemplatesRootPath: 'EXT:sitepackage/Resources/Private/Templates/Error/'
     errorFluidLayoutsRootPath: 'EXT:sitepackage/Resources/Private/Layouts/'
     errorFluidPartialsRootPath: 'EXT:sitepackage/Resources/Private/Partials/'
+languages:
+  - title: Deutsch
+    enabled: true
+    languageId: 0
+    base: /
+    locale: de_DE.UTF-8
+    navigationTitle: DE
+    flag: de
+    direction: ltr
+rootPageId: 1
+settings:
+  menscircle/default: {}
+websiteTitle: 'Männerkreis Niederbayern'

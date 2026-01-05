@@ -15,16 +15,18 @@
         <div class="Grid Grid--twoColumns">
             <div class="Grid__main">
                 <f:for each="{content}" as="element">
-                    <f:cObject typoscriptObjectPath="tt_content.{element.type}" data="{element.data}" />
+                    <f:if condition="{element.data.CType}">
+                        <f:cObject typoscriptObjectPath="tt_content.{element.data.CType}" data="{element.data}" />
+                    </f:if>
                 </f:for>
-
             </div>
 
             <aside class="Grid__sidebar">
                 <f:for each="{sidebar}" as="element">
-                    <f:cObject typoscriptObjectPath="tt_content.{element.type}" data="{element.data}" />
+                    <f:if condition="{element.data.CType}">
+                        <f:cObject typoscriptObjectPath="tt_content.{element.data.CType}" data="{element.data}" />
+                    </f:if>
                 </f:for>
-
             </aside>
         </div>
     </div>
