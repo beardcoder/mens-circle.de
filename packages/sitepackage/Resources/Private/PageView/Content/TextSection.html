@@ -7,13 +7,13 @@
     name="defaultAnchor"
     value="{record.header -> f:format.stripTags() -> f:format.case(mode: 'lower') -> f:format.replace(substring: ' ', replacement: '-')}"
 />
-<f:variable name="sectionId" value="{settings.anchorId -> f:or(alternative: defaultAnchor)}" />
+<f:variable name="sectionId" value="{record.pi_flexform.sDEF/settings.anchorId -> f:or(alternative: defaultAnchor)}" />
 
 <f:section name="ContentBlock">
     <div class="container container--narrow">
         <div class="section__header fade-in">
-            <f:if condition="{settings.eyebrow}">
-                <p class="eyebrow">{settings.eyebrow}</p>
+            <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
+                <p class="eyebrow">{record.pi_flexform.sDEF/settings.eyebrow}</p>
             </f:if>
 
             <f:if condition="{record.header}">

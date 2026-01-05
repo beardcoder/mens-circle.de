@@ -7,8 +7,8 @@
     <section class="section section--large journey-section" id="reise">
         <div class="container">
             <div class="journey__header fade-in">
-                <f:if condition="{settings.eyebrow}">
-                    <p class="eyebrow">{settings.eyebrow}</p>
+                <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
+                    <p class="eyebrow">{record.pi_flexform.sDEF/settings.eyebrow}</p>
                 </f:if>
 
                 <f:if condition="{record.header}">
@@ -20,9 +20,9 @@
                 </f:if>
             </div>
 
-            <f:if condition="{settings.steps}">
+            <f:if condition="{record.pi_flexform.sSteps/settings.steps}">
                 <div class="journey__steps stagger-children">
-                    <f:for each="{settings.steps}" as="step">
+                    <f:for each="{record.pi_flexform.sSteps/settings.steps}" as="step">
                         <div class="journey__step">
                             <f:if condition="{step.number}">
                                 <div class="journey__step-number">{step.number}</div>

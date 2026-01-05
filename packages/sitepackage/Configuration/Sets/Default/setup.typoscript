@@ -68,132 +68,55 @@ tt_content {
     mc_hero =< lib.contentElement
     mc_hero {
         templateName = Hero
-        dataProcessing {
-            10 = flex-form
-            10 {
-                fieldName = pi_flexform
-                as = settings
-            }
-        }
     }
 
     mc_intro =< lib.contentElement
     mc_intro {
         templateName = Intro
-        dataProcessing {
-            10 = flex-form
-            10 {
-                fieldName = pi_flexform
-                as = settings
-            }
-        }
     }
 
     mc_cta =< lib.contentElement
     mc_cta {
         templateName = CallToAction
-        dataProcessing {
-            10 = flex-form
-            10 {
-                fieldName = pi_flexform
-                as = settings
-            }
-        }
     }
 
     mc_faq =< lib.contentElement
     mc_faq {
         templateName = Faq
-        dataProcessing {
-            10 = flex-form
-            10 {
-                fieldName = pi_flexform
-                as = settings
-            }
-        }
     }
 
     mc_journey =< lib.contentElement
     mc_journey {
         templateName = JourneySteps
-        dataProcessing {
-            10 = flex-form
-            10 {
-                fieldName = pi_flexform
-                as = settings
-            }
-        }
     }
 
     mc_testimonials =< lib.contentElement
     mc_testimonials {
         templateName = Testimonials
-        dataProcessing {
-            10 = flex-form
-            10 {
-                fieldName = pi_flexform
-                as = settings
-            }
-        }
     }
 
     mc_moderator =< lib.contentElement
     mc_moderator {
         templateName = Moderator
-        dataProcessing {
-            10 = flex-form
-            10 {
-                fieldName = pi_flexform
-                as = settings
-            }
-        }
     }
 
     mc_newsletter =< lib.contentElement
     mc_newsletter {
         templateName = Newsletter
-        dataProcessing {
-            10 = flex-form
-            10 {
-                fieldName = pi_flexform
-                as = settings
-            }
-        }
     }
 
     mc_text_section =< lib.contentElement
     mc_text_section {
         templateName = TextSection
-        dataProcessing {
-            10 = flex-form
-            10 {
-                fieldName = pi_flexform
-                as = settings
-            }
-        }
     }
 
     mc_values =< lib.contentElement
     mc_values {
         templateName = ValueItems
-        dataProcessing {
-            10 = flex-form
-            10 {
-                fieldName = pi_flexform
-                as = settings
-            }
-        }
     }
 
     mc_whatsapp =< lib.contentElement
     mc_whatsapp {
         templateName = WhatsappCommunity
-        dataProcessing {
-            10 = flex-form
-            10 {
-                fieldName = pi_flexform
-                as = settings
-            }
-        }
     }
 }

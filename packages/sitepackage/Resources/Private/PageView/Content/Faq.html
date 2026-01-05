@@ -8,8 +8,8 @@
         <div class="container">
             <div class="faq__layout">
                 <div class="faq__header fade-in">
-                    <f:if condition="{settings.eyebrow}">
-                        <p class="eyebrow">{settings.eyebrow}</p>
+                    <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
+                        <p class="eyebrow">{record.pi_flexform.sDEF/settings.eyebrow}</p>
                     </f:if>
 
                     <f:if condition="{record.header}">
@@ -23,9 +23,9 @@
                     </f:if>
                 </div>
 
-                <f:if condition="{settings.items}">
+                <f:if condition="{record.pi_flexform.sItems/settings.items}">
                     <div class="faq__list fade-in fade-in-delay-1">
-                        <f:for each="{settings.items}" as="item">
+                        <f:for each="{record.pi_flexform.sItems/settings.items}" as="item">
                             <div class="faq-item">
                                 <f:if condition="{item.question}">
                                     <button class="faq-item__question" aria-expanded="false" data-m:click="action=faq_click;element=button;target=question;location=faq_section">

@@ -29,8 +29,8 @@
 
         <div class="container">
             <div class="hero__content">
-                <f:if condition="{settings.eyebrow}">
-                    <p class="hero__label">{settings.eyebrow}</p>
+                <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
+                    <p class="hero__label">{record.pi_flexform.sDEF/settings.eyebrow}</p>
                 </f:if>
 
                 <f:if condition="{record.header}">
@@ -46,10 +46,10 @@
                         </p>
                     </f:if>
 
-                    <f:if condition="{settings.buttonText} && {settings.buttonLink}">
+                    <f:if condition="{record.pi_flexform.sDEF/settings.buttonText} && {record.pi_flexform.sDEF/settings.buttonLink}">
                         <div class="hero__cta">
-                            <f:link.typolink parameter="{settings.buttonLink}" class="btn btn--primary btn--large">
-                                {settings.buttonText}
+                            <f:link.typolink parameter="{record.pi_flexform.sDEF/settings.buttonLink}" class="btn btn--primary btn--large">
+                                {record.pi_flexform.sDEF/settings.buttonText}
                             </f:link.typolink>
                             <div class="hero__scroll">
                                 <span>Entdecken</span>

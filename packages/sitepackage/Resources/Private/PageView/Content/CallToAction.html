@@ -7,8 +7,8 @@
     <section class="section section--large cta-section">
         <div class="container">
             <div class="cta__content fade-in">
-                <f:if condition="{settings.eyebrow}">
-                    <p class="eyebrow">{settings.eyebrow}</p>
+                <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
+                    <p class="eyebrow">{record.pi_flexform.sDEF/settings.eyebrow}</p>
                 </f:if>
 
                 <f:if condition="{record.header}">
@@ -21,13 +21,13 @@
                     </div>
                 </f:if>
 
-                <f:if condition="{settings.buttonText} && {settings.buttonLink}">
+                <f:if condition="{record.pi_flexform.sDEF/settings.buttonText} && {record.pi_flexform.sDEF/settings.buttonLink}">
                     <f:link.typolink
-                        parameter="{settings.buttonLink}"
+                        parameter="{record.pi_flexform.sDEF/settings.buttonLink}"
                         class="btn btn--primary btn--large"
                         additionalAttributes="{'data-m:click': 'action=cta_click;element=button;target=cta_section;location=page_cta'}"
                     >
-                        {settings.buttonText}
+                        {record.pi_flexform.sDEF/settings.buttonText}
                     </f:link.typolink>
                 </f:if>
             </div>

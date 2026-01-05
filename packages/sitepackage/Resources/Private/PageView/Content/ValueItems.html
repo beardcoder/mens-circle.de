@@ -7,8 +7,8 @@
     <section class="section values-section">
         <div class="container">
             <div class="section__header fade-in">
-                <f:if condition="{settings.eyebrow}">
-                    <p class="eyebrow">{settings.eyebrow}</p>
+                <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
+                    <p class="eyebrow">{record.pi_flexform.sDEF/settings.eyebrow}</p>
                 </f:if>
 
                 <f:if condition="{record.header}">
@@ -16,9 +16,9 @@
                 </f:if>
             </div>
 
-            <f:if condition="{settings.items}">
+            <f:if condition="{record.pi_flexform.sItems/settings.items}">
                 <div class="intro__values stagger-children">
-                    <f:for each="{settings.items}" as="item">
+                    <f:for each="{record.pi_flexform.sItems/settings.items}" as="item">
                         <div class="value-item">
                             <f:if condition="{item.number}">
                                 <span class="value-item__number">{item.number}</span>

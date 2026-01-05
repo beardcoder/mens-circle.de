@@ -14,7 +14,7 @@
                                 <f:for each="{record.image}" as="image" iteration="i">
                                     <f:if condition="{i.isFirst}">
                                         <f:image image="{image}"
-                                                 alt="{settings.name -> f:format.stripTags()}"
+                                                 alt="{record.pi_flexform.sDEF/settings.name -> f:format.stripTags()}"
                                                  loading="lazy"
                                                  additionalAttributes="{decoding: 'async'}" />
                                     </f:if>
@@ -35,23 +35,23 @@
                 </div>
 
                 <div class="moderator__content fade-in fade-in-delay-1">
-                    <f:if condition="{settings.eyebrow}">
-                        <p class="eyebrow">{settings.eyebrow}</p>
+                    <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
+                        <p class="eyebrow">{record.pi_flexform.sDEF/settings.eyebrow}</p>
                     </f:if>
 
-                    <f:if condition="{settings.name}">
-                        <h2 class="moderator__name">{settings.name -> f:format.raw()}</h2>
+                    <f:if condition="{record.pi_flexform.sDEF/settings.name}">
+                        <h2 class="moderator__name">{record.pi_flexform.sDEF/settings.name -> f:format.raw()}</h2>
                     </f:if>
 
-                    <f:if condition="{settings.bio}">
+                    <f:if condition="{record.pi_flexform.sDEF/settings.bio}">
                         <div class="moderator__bio">
-                            {settings.bio -> f:format.html()}
+                            {record.pi_flexform.sDEF/settings.bio -> f:format.html()}
                         </div>
                     </f:if>
 
-                    <f:if condition="{settings.quote}">
+                    <f:if condition="{record.pi_flexform.sDEF/settings.quote}">
                         <blockquote class="moderator__quote">
-                            <p>{settings.quote}</p>
+                            <p>{record.pi_flexform.sDEF/settings.quote}</p>
                         </blockquote>
                     </f:if>
                 </div>

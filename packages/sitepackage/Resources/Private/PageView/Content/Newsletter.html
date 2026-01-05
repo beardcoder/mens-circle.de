@@ -8,8 +8,8 @@
         <div class="container">
             <div class="newsletter__layout fade-in">
                 <div class="newsletter__content">
-                    <f:if condition="{settings.eyebrow}">
-                        <p class="eyebrow eyebrow--secondary">{settings.eyebrow}</p>
+                    <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
+                        <p class="eyebrow eyebrow--secondary">{record.pi_flexform.sDEF/settings.eyebrow}</p>
                     </f:if>
 
                     <f:if condition="{record.header}">
@@ -28,12 +28,12 @@
                         <input
                             type="email"
                             name="email"
-                            placeholder="{settings.placeholder -> f:or(alternative: 'Deine E-Mail-Adresse')}"
+                            placeholder="{record.pi_flexform.sDEF/settings.placeholder -> f:or(alternative: 'Deine E-Mail-Adresse')}"
                             required
                             class="newsletter__input"
                             aria-label="E-Mail-Adresse">
                         <button type="submit" class="btn btn--primary" data-m:click="action=form_submit;element=button;target=newsletter_subscription;location=newsletter_section">
-                            {settings.buttonText -> f:or(alternative: 'Anmelden')}
+                            {record.pi_flexform.sDEF/settings.buttonText -> f:or(alternative: 'Anmelden')}
                         </button>
                         <div id="newsletterMessage"></div>
                     </form>

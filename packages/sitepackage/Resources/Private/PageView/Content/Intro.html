@@ -7,8 +7,8 @@
     <section class="intro-section" id="ueber">
         <div class="intro__layout">
             <div class="intro__left">
-                <f:if condition="{settings.eyebrow}">
-                    <p class="eyebrow fade-in">{settings.eyebrow}</p>
+                <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
+                    <p class="eyebrow fade-in">{record.pi_flexform.sDEF/settings.eyebrow}</p>
                 </f:if>
 
                 <f:if condition="{record.header}">
@@ -23,9 +23,9 @@
                     </div>
                 </f:if>
 
-                <f:if condition="{settings.values}">
+                <f:if condition="{record.pi_flexform.sValues/settings.values}">
                     <div class="intro__values stagger-children">
-                        <f:for each="{settings.values}" as="value">
+                        <f:for each="{record.pi_flexform.sValues/settings.values}" as="value">
                             <div class="value-item">
                                 <f:if condition="{value.number}">
                                     <span class="value-item__number">{value.number}</span>
@@ -47,9 +47,9 @@
             <div class="intro__right">
                 <div class="intro__image-area">
                     <div class="intro__image-circles"></div>
-                    <f:if condition="{settings.quote}">
+                    <f:if condition="{record.pi_flexform.sDEF/settings.quote}">
                         <p class="intro__image-text">
-                            {settings.quote -> f:format.raw()}
+                            {record.pi_flexform.sDEF/settings.quote -> f:format.raw()}
                         </p>
                     </f:if>
                 </div>
