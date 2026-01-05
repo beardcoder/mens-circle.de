@@ -132,6 +132,30 @@ Custom newsletter implementation with:
 - Subscription management via tokens
 - API endpoints at `/newsletter/*` and `/api/newsletter/*`
 
+## Event Management
+
+Custom event management system with backend module:
+
+### Domain Models
+- `Event` - Event with title, slug, description, image, date/time, location, address, max_participants, cost_basis
+- `EventRegistration` - Attendee registration with name, email, phone, status
+
+### Backend Module
+Located in the "Mens Circle" menu:
+- **Dashboard** - Overview with stats (total events, upcoming, registrations)
+- **Event List** - All events with publish toggle, edit, view actions
+- **Event Detail** - Registration list, progress bar, CSV export
+
+### Database Tables
+- `tx_sitepackage_domain_model_event`
+- `tx_sitepackage_domain_model_eventregistration`
+
+### Key Features
+- Unique constraint: one email per event
+- Status tracking: pending, confirmed, cancelled
+- iCal export generation
+- Available spots calculation
+
 ## Docker Deployment
 
 Uses `serversideup/php:8.5-fpm-nginx-alpine` with:
