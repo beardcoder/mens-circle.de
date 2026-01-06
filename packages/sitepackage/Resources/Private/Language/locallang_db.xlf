@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" datatype="plaintext" original="messages" date="2025-01-05T00:00:00Z">
+    <file source-language="en" datatype="plaintext" original="messages" date="2025-01-06T00:00:00Z">
         <header/>
         <body>
             <!-- Event Model -->
@@ -126,18 +126,80 @@
                 <source>Published</source>
             </trans-unit>
 
-            <!-- tt_content custom fields -->
-            <trans-unit id="tt_content.tx_sitepackage_eyebrow" resname="tt_content.tx_sitepackage_eyebrow">
-                <source>Eyebrow</source>
+            <!-- Content Element Labels -->
+            <trans-unit id="tt_content.mc_hero" resname="tt_content.mc_hero">
+                <source>Hero Section</source>
             </trans-unit>
-            <trans-unit id="tt_content.tx_sitepackage_title" resname="tt_content.tx_sitepackage_title">
-                <source>Title</source>
+            <trans-unit id="tt_content.mc_hero.description" resname="tt_content.mc_hero.description">
+                <source>Full-width hero section with background image, heading, and call-to-action button</source>
             </trans-unit>
-            <trans-unit id="tt_content.tx_sitepackage_text" resname="tt_content.tx_sitepackage_text">
-                <source>Text</source>
+            <trans-unit id="tt_content.mc_intro" resname="tt_content.mc_intro">
+                <source>Intro Section</source>
             </trans-unit>
-            <trans-unit id="tt_content.tx_sitepackage_quote" resname="tt_content.tx_sitepackage_quote">
-                <source>Quote</source>
+            <trans-unit id="tt_content.mc_intro.description" resname="tt_content.mc_intro.description">
+                <source>Two-column introduction with heading, text, statistics/values, and quote</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_text_section" resname="tt_content.mc_text_section">
+                <source>Text Section</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_text_section.description" resname="tt_content.mc_text_section.description">
+                <source>Simple text section with optional subheader, heading, and rich text content</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_cta" resname="tt_content.mc_cta">
+                <source>Call to Action</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_cta.description" resname="tt_content.mc_cta.description">
+                <source>Highlighted CTA section with heading, description, and action button</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_faq" resname="tt_content.mc_faq">
+                <source>FAQ Accordion</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_faq.description" resname="tt_content.mc_faq.description">
+                <source>Frequently Asked Questions with expandable accordion sections</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_journey" resname="tt_content.mc_journey">
+                <source>Journey Steps</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_journey.description" resname="tt_content.mc_journey.description">
+                <source>Step-by-step journey visualization with numbered steps and descriptions</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_values" resname="tt_content.mc_values">
+                <source>Value Items</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_values.description" resname="tt_content.mc_values.description">
+                <source>Grid of value/benefit items with numbers and descriptions</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_testimonials" resname="tt_content.mc_testimonials">
+                <source>Testimonials</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_testimonials.description" resname="tt_content.mc_testimonials.description">
+                <source>Testimonials carousel displaying published testimonials from database</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_moderator" resname="tt_content.mc_moderator">
+                <source>Moderator Profile</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_moderator.description" resname="tt_content.mc_moderator.description">
+                <source>Team member profile with photo, name, biography, and optional quote</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_newsletter" resname="tt_content.mc_newsletter">
+                <source>Newsletter Signup</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_newsletter.description" resname="tt_content.mc_newsletter.description">
+                <source>Newsletter subscription form with heading and description</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_whatsapp" resname="tt_content.mc_whatsapp">
+                <source>WhatsApp Community</source>
+            </trans-unit>
+            <trans-unit id="tt_content.mc_whatsapp.description" resname="tt_content.mc_whatsapp.description">
+                <source>WhatsApp community invitation with description and join button</source>
+            </trans-unit>
+
+            <!-- Custom Content Element Fields -->
+            <trans-unit id="tt_content.tx_sitepackage_subheader" resname="tt_content.tx_sitepackage_subheader">
+                <source>Subheader</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tx_sitepackage_subheader.description" resname="tt_content.tx_sitepackage_subheader.description">
+                <source>Small label text displayed above the main heading (eyebrow text)</source>
             </trans-unit>
             <trans-unit id="tt_content.tx_sitepackage_button_text" resname="tt_content.tx_sitepackage_button_text">
                 <source>Button Text</source>
@@ -145,17 +207,78 @@
             <trans-unit id="tt_content.tx_sitepackage_button_link" resname="tt_content.tx_sitepackage_button_link">
                 <source>Button Link</source>
             </trans-unit>
-            <trans-unit id="tt_content.tx_sitepackage_subtitle" resname="tt_content.tx_sitepackage_subtitle">
-                <source>Subtitle</source>
+
+            <!-- Context-specific Field Labels -->
+            <trans-unit id="tt_content.header.hero" resname="tt_content.header.hero">
+                <source>Hero Title</source>
             </trans-unit>
-            <trans-unit id="tt_content.tx_sitepackage_name" resname="tt_content.tx_sitepackage_name">
-                <source>Name</source>
+            <trans-unit id="tt_content.subheader.hero" resname="tt_content.subheader.hero">
+                <source>Hero Label</source>
             </trans-unit>
-            <trans-unit id="tt_content.tx_sitepackage_background_image" resname="tt_content.tx_sitepackage_background_image">
+            <trans-unit id="tt_content.bodytext.hero" resname="tt_content.bodytext.hero">
+                <source>Hero Description</source>
+            </trans-unit>
+            <trans-unit id="tt_content.assets.hero" resname="tt_content.assets.hero">
                 <source>Background Image</source>
             </trans-unit>
-            <trans-unit id="tt_content.tx_sitepackage_photo" resname="tt_content.tx_sitepackage_photo">
-                <source>Photo</source>
+            <trans-unit id="tt_content.assets.hero.description" resname="tt_content.assets.hero.description">
+                <source>Full-width background image for the hero section (recommended: 1920x1080px)</source>
+            </trans-unit>
+            <trans-unit id="tt_content.bodytext.intro" resname="tt_content.bodytext.intro">
+                <source>Intro Text</source>
+            </trans-unit>
+            <trans-unit id="tt_content.header_link.intro" resname="tt_content.header_link.intro">
+                <source>Quote</source>
+            </trans-unit>
+            <trans-unit id="tt_content.header_link.intro.description" resname="tt_content.header_link.intro.description">
+                <source>Optional quote text displayed in the visual area</source>
+            </trans-unit>
+            <trans-unit id="tt_content.bodytext.faq" resname="tt_content.bodytext.faq">
+                <source>Introduction Text</source>
+            </trans-unit>
+            <trans-unit id="tt_content.bodytext.journey" resname="tt_content.bodytext.journey">
+                <source>Subtitle</source>
+            </trans-unit>
+            <trans-unit id="tt_content.header.moderator" resname="tt_content.header.moderator">
+                <source>Moderator Name</source>
+            </trans-unit>
+            <trans-unit id="tt_content.bodytext.moderator" resname="tt_content.bodytext.moderator">
+                <source>Biography</source>
+            </trans-unit>
+            <trans-unit id="tt_content.header_link.moderator" resname="tt_content.header_link.moderator">
+                <source>Quote</source>
+            </trans-unit>
+            <trans-unit id="tt_content.header_link.moderator.description" resname="tt_content.header_link.moderator.description">
+                <source>Optional quote or motto from the moderator</source>
+            </trans-unit>
+            <trans-unit id="tt_content.assets.moderator" resname="tt_content.assets.moderator">
+                <source>Profile Photo</source>
+            </trans-unit>
+            <trans-unit id="tt_content.header_link.whatsapp" resname="tt_content.header_link.whatsapp">
+                <source>Hint Text</source>
+            </trans-unit>
+            <trans-unit id="tt_content.header_link.whatsapp.description" resname="tt_content.header_link.whatsapp.description">
+                <source>Small disclaimer or additional information text below the button</source>
+            </trans-unit>
+
+            <!-- Tab Labels -->
+            <trans-unit id="tt_content.tab.button" resname="tt_content.tab.button">
+                <source>Button</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tab.values" resname="tt_content.tab.values">
+                <source>Values</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tab.faq_items" resname="tt_content.tab.faq_items">
+                <source>FAQ Items</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tab.journey_steps" resname="tt_content.tab.journey_steps">
+                <source>Journey Steps</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tab.value_items" resname="tt_content.tab.value_items">
+                <source>Value Items</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tab.additional" resname="tt_content.tab.additional">
+                <source>Additional</source>
             </trans-unit>
         </body>
     </file>
