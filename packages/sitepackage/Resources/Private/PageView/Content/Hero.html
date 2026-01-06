@@ -1,12 +1,9 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      data-namespace-typo3-fluid="true">
-
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
     <section class="hero">
         <div class="hero__bg">
-            <f:if condition="{record.assets -> f:count()} > 0">
+            <f:if condition="{record.assets}">
                 <f:for each="{record.assets}" as="image" iteration="i">
                     <f:if condition="{i.isFirst}">
                         <f:image
@@ -62,5 +59,3 @@
         </div>
     </section>
 </f:section>
-
-</html>
