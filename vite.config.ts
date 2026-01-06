@@ -1,17 +1,21 @@
-import { defineConfig } from 'vite';
-import typo3 from 'vite-plugin-typo3';
-import { browserslistToTargets } from 'lightningcss';
-import browserslist from 'browserslist';
+import { defineConfig } from 'vite'
+import typo3 from 'vite-plugin-typo3'
 
 export default defineConfig({
-    plugins: [typo3()],
-    css: {
-        transformer: 'lightningcss',
-        lightningcss: {
-            targets: browserslistToTargets(browserslist('>= 1%')),
-        },
+  plugins: [typo3()],
+  build: {
+    target: 'esnext',
+    cssMinify: 'lightningcss',
+  },
+  css: {
+    transformer: 'lightningcss',
+    lightningcss: {
+      drafts: {
+        customMedia: true,
+      },
     },
-    build: {
-        cssMinify: 'lightningcss',
-    },
-});
+  },
+  server: {
+    origin: 'https://mens-circle.ddev.site',
+  },
+})

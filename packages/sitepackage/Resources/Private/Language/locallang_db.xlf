@@ -1,102 +1,161 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" original="" datatype="plaintext" date="2024-11-30T20:35:31+01:00">
+    <file source-language="en" datatype="plaintext" original="messages" date="2025-01-05T00:00:00Z">
+        <header/>
         <body>
-            <trans-unit id="tx_sitepackage_domain_model_event">
+            <!-- Event Model -->
+            <trans-unit id="tx_sitepackage_domain_model_event" resname="tx_sitepackage_domain_model_event">
                 <source>Event</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.address">
-                <source>Adress</source>
+            <trans-unit id="tx_sitepackage_domain_model_event.title" resname="tx_sitepackage_domain_model_event.title">
+                <source>Title</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.attendance_mode.label">
-                <source>Type</source>
+            <trans-unit id="tx_sitepackage_domain_model_event.slug" resname="tx_sitepackage_domain_model_event.slug">
+                <source>URL Slug</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.attendance_mode.options.offline">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.description" resname="tx_sitepackage_domain_model_event.description">
+                <source>Description</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.attendance_mode.options.online">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.image" resname="tx_sitepackage_domain_model_event.image">
+                <source>Image</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.call_url.label">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.event_date" resname="tx_sitepackage_domain_model_event.event_date">
+                <source>Event Date</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.cancelled">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.start_time" resname="tx_sitepackage_domain_model_event.start_time">
+                <source>Start Time</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.city">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.end_time" resname="tx_sitepackage_domain_model_event.end_time">
+                <source>End Time</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.description">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.location" resname="tx_sitepackage_domain_model_event.location">
+                <source>Location Name</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.enddate">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.street" resname="tx_sitepackage_domain_model_event.street">
+                <source>Street</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.hidden">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.postal_code" resname="tx_sitepackage_domain_model_event.postal_code">
+                <source>Postal Code</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.latitude">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.city" resname="tx_sitepackage_domain_model_event.city">
+                <source>City</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.longitude">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.location_details" resname="tx_sitepackage_domain_model_event.location_details">
+                <source>Location Details</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.palettes.access">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.max_participants" resname="tx_sitepackage_domain_model_event.max_participants">
+                <source>Max Participants</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.place">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.cost_basis" resname="tx_sitepackage_domain_model_event.cost_basis">
+                <source>Cost Basis</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.registrations">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.is_published" resname="tx_sitepackage_domain_model_event.is_published">
+                <source>Published</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.startdate">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.registrations" resname="tx_sitepackage_domain_model_event.registrations">
+                <source>Registrations</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.title">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.tab.datetime" resname="tx_sitepackage_domain_model_event.tab.datetime">
+                <source>Date &amp; Time</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_event.zip">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.tab.location" resname="tx_sitepackage_domain_model_event.tab.location">
+                <source>Location</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_eventnotification">
-                <source>Notification</source>
+            <trans-unit id="tx_sitepackage_domain_model_event.tab.settings" resname="tx_sitepackage_domain_model_event.tab.settings">
+                <source>Settings</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_eventnotification.hidden">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_event.tab.registrations" resname="tx_sitepackage_domain_model_event.tab.registrations">
+                <source>Registrations</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_eventnotification.message">
-                <source></source>
+
+            <!-- EventRegistration Model -->
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration" resname="tx_sitepackage_domain_model_eventregistration">
+                <source>Event Registration</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_eventnotification.subject">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.event" resname="tx_sitepackage_domain_model_eventregistration.event">
+                <source>Event</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_newsletter">
-                <source>Newsletter</source>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.first_name" resname="tx_sitepackage_domain_model_eventregistration.first_name">
+                <source>First Name</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_newsletter.message">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.last_name" resname="tx_sitepackage_domain_model_eventregistration.last_name">
+                <source>Last Name</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_newsletter.subject">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.email" resname="tx_sitepackage_domain_model_eventregistration.email">
+                <source>Email</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_newsletter.subscriptions">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.phone_number" resname="tx_sitepackage_domain_model_eventregistration.phone_number">
+                <source>Phone Number</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.privacy_accepted" resname="tx_sitepackage_domain_model_eventregistration.privacy_accepted">
+                <source>Privacy Accepted</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.email">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.status" resname="tx_sitepackage_domain_model_eventregistration.status">
+                <source>Status</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.fe_user">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.status.pending" resname="tx_sitepackage_domain_model_eventregistration.status.pending">
+                <source>Pending</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.first_name">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.status.confirmed" resname="tx_sitepackage_domain_model_eventregistration.status.confirmed">
+                <source>Confirmed</source>
             </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.last_name">
-                <source></source>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.status.cancelled" resname="tx_sitepackage_domain_model_eventregistration.status.cancelled">
+                <source>Cancelled</source>
+            </trans-unit>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.confirmed_at" resname="tx_sitepackage_domain_model_eventregistration.confirmed_at">
+                <source>Confirmed At</source>
+            </trans-unit>
+            <trans-unit id="tx_sitepackage_domain_model_eventregistration.tab.status" resname="tx_sitepackage_domain_model_eventregistration.tab.status">
+                <source>Status</source>
+            </trans-unit>
+
+            <!-- Testimonial Model -->
+            <trans-unit id="tx_sitepackage_domain_model_testimonial" resname="tx_sitepackage_domain_model_testimonial">
+                <source>Testimonial</source>
+            </trans-unit>
+            <trans-unit id="tx_sitepackage_domain_model_testimonial.quote" resname="tx_sitepackage_domain_model_testimonial.quote">
+                <source>Quote</source>
+            </trans-unit>
+            <trans-unit id="tx_sitepackage_domain_model_testimonial.author" resname="tx_sitepackage_domain_model_testimonial.author">
+                <source>Author</source>
+            </trans-unit>
+            <trans-unit id="tx_sitepackage_domain_model_testimonial.role" resname="tx_sitepackage_domain_model_testimonial.role">
+                <source>Role</source>
+            </trans-unit>
+            <trans-unit id="tx_sitepackage_domain_model_testimonial.is_published" resname="tx_sitepackage_domain_model_testimonial.is_published">
+                <source>Published</source>
+            </trans-unit>
+
+            <!-- tt_content custom fields -->
+            <trans-unit id="tt_content.tx_sitepackage_eyebrow" resname="tt_content.tx_sitepackage_eyebrow">
+                <source>Eyebrow</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tx_sitepackage_title" resname="tt_content.tx_sitepackage_title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tx_sitepackage_text" resname="tt_content.tx_sitepackage_text">
+                <source>Text</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tx_sitepackage_quote" resname="tt_content.tx_sitepackage_quote">
+                <source>Quote</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tx_sitepackage_button_text" resname="tt_content.tx_sitepackage_button_text">
+                <source>Button Text</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tx_sitepackage_button_link" resname="tt_content.tx_sitepackage_button_link">
+                <source>Button Link</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tx_sitepackage_subtitle" resname="tt_content.tx_sitepackage_subtitle">
+                <source>Subtitle</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tx_sitepackage_name" resname="tt_content.tx_sitepackage_name">
+                <source>Name</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tx_sitepackage_background_image" resname="tt_content.tx_sitepackage_background_image">
+                <source>Background Image</source>
+            </trans-unit>
+            <trans-unit id="tt_content.tx_sitepackage_photo" resname="tt_content.tx_sitepackage_photo">
+                <source>Photo</source>
             </trans-unit>
         </body>
     </file>

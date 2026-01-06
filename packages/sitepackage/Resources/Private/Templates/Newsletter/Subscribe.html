@@ -1,0 +1,41 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Newsletter Subscription - Mens Circle</title>
+</head>
+<body class="Page">
+    <main class="Main">
+        <div class="Container" style="max-width: 32rem; padding-block: 4rem;">
+            <mc:molecule.card variant="elevated" padding="lg">
+                <h1 style="margin-bottom: 1rem; font-size: 1.5rem;">Newsletter Subscription</h1>
+
+                <f:if condition="{success}">
+                    <f:then>
+                        <div class="FormMessage" style="margin-bottom: 1rem;">
+                            {message}
+                        </div>
+                        <p>
+                            <a href="/" class="Link">Return to homepage</a>
+                        </p>
+                    </f:then>
+                    <f:else>
+                        <div class="FormField__error" style="margin-bottom: 1rem;">
+                            {message}
+                        </div>
+                        <p>
+                            <a href="/" class="Link">Return to homepage</a>
+                        </p>
+                    </f:else>
+                </f:if>
+            </mc:molecule.card>
+        </div>
+    </main>
+</body>
+</html>

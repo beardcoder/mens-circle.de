@@ -1,0 +1,80 @@
+<f:argument name="title" type="string" optional="true" default="Mens Circle" description="Email title" />
+<f:argument name="preheader" type="string" optional="true" description="Preview text" />
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{title}</title>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; width: 100%; background-color: #f4f4f5; }
+        table { border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
+        a { color: #2563eb; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        @media only screen and (max-width: 600px) {
+            .email-container { width: 100% !important; padding: 16px !important; }
+            .stack-column { display: block !important; width: 100% !important; max-width: 100% !important; }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; width: 100%; background-color: #f4f4f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+    <f:if condition="{preheader}">
+        <div style="display: none; max-height: 0; overflow: hidden; mso-hide: all;">
+            {preheader}
+            &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847;
+        </div>
+    </f:if>
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f4f4f5;">
+        <tr>
+            <td align="center" style="padding: 40px 16px;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" class="email-container" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="padding: 32px 40px 24px; text-align: center; border-bottom: 1px solid #e4e4e7;">
+                            <h1 style="margin: 0; font-size: 24px; font-weight: 700; color: #1a1a2e;">
+                                Mens Circle
+                            </h1>
+                        </td>
+                    </tr>
+
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px;">
+                            <f:slot />
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 24px 40px; background-color: #f9fafb; border-top: 1px solid #e4e4e7; border-radius: 0 0 8px 8px;">
+                            <p style="margin: 0 0 8px; font-size: 14px; line-height: 1.5; color: #71717a; text-align: center;">
+                                &copy; {f:format.date(format: 'Y')} Mens Circle. All rights reserved.
+                            </p>
+                            <p style="margin: 0; font-size: 12px; line-height: 1.5; color: #a1a1aa; text-align: center;">
+                                <a href="{settings.baseUrl}/privacy" style="color: #71717a;">Privacy Policy</a>
+                                &nbsp;&bull;&nbsp;
+                                <a href="{settings.baseUrl}/imprint" style="color: #71717a;">Imprint</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,5 +1,0 @@
-<f:layout name="Default" />
-<f:section name="Title">Vielen dank {subscription.firstNane} für deine Anmeldung zum Newsletter</f:section>
-<f:section name="Main">Bitte bestätige deine Anmeldung durch klick auf diesen Link
-
-<f:uri.action action="doubleOptIn" absolute="true" pageUid="13" pluginName="Newsletter" arguments="{token: subscription.doubleOptInToken}" controller="Subscription" extensionName="Sitepackage"></f:uri.action></f:section>

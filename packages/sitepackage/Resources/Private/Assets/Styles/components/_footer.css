@@ -1,0 +1,193 @@
+/**
+ * Footer Component
+ * Modern footer styling
+ */
+
+/* ============================================
+   Footer Base
+   ============================================ */
+.footer {
+  padding-block: var(--space-2xl) var(--space-lg);
+  color: var(--text-on-dark);
+  background: var(--color-ink);
+}
+
+/* ============================================
+   Footer Top Section
+   ============================================ */
+.footer__top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-xl);
+  padding-block-end: var(--space-xl);
+  border-block-end: 1px solid var(--border-on-dark);
+}
+
+@media (width <= 800px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+}
+
+/* ============================================
+   Footer Brand
+   ============================================ */
+.footer__brand {
+  max-inline-size: 380px;
+}
+
+.footer__logo {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  margin-block-end: var(--space-md);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.footer__logo-icon {
+  flex-shrink: 0;
+  inline-size: 40px;
+  block-size: 40px;
+  color: var(--accent-secondary);
+}
+
+.footer__text {
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: var(--color-sand);
+  opacity: 0.85;
+}
+
+/* ============================================
+   Footer Social Links
+   ============================================ */
+.footer__social {
+  display: flex;
+  gap: var(--space-sm);
+  margin-block-start: var(--space-lg);
+}
+
+.footer__social-links {
+  display: grid;
+  gap: 0.5rem;
+  margin-block-start: var(--space-md);
+  list-style: none;
+}
+
+.social-link {
+  display: inline-flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.9375rem;
+  color: var(--color-sand);
+  opacity: 0.85;
+  transition:
+    color var(--transition-fast),
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.social-link:hover {
+  color: var(--text-on-dark);
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+.social-link__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+.social-link__icon svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.social-link__label {
+  line-height: 1.4;
+}
+
+/* ============================================
+   Footer Columns
+   ============================================ */
+.footer__heading {
+  margin-block-end: var(--space-md);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--accent-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+
+.footer__links {
+  list-style: none;
+}
+
+.footer__links li {
+  margin-block-end: 0.625rem;
+}
+
+.footer__links a {
+  font-size: 0.9375rem;
+  color: var(--color-sand);
+  opacity: 0.85;
+  transition:
+    color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.footer__legal a {
+  font-size: 0.8125rem;
+  color: var(--color-sand);
+  opacity: 0.9;
+  transition:
+    color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.footer__links a:hover {
+  color: var(--text-on-dark);
+  opacity: 1;
+}
+
+.footer__legal a:hover {
+  color: var(--accent-secondary);
+  opacity: 1;
+}
+
+/* ============================================
+   Footer Bottom
+   ============================================ */
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+  justify-content: space-between;
+  padding-block-start: var(--space-lg);
+}
+
+@media (width <= 800px) {
+  .footer__bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.footer__copyright {
+  font-size: 0.8125rem;
+  color: var(--color-sand);
+  opacity: 0.9;
+}
+
+.footer__legal {
+  display: flex;
+  gap: var(--space-md);
+}

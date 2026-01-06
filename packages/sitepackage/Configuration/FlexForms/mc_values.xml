@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+    <sheets>
+        <sItems>
+            <ROOT>
+                <sheetTitle>Items</sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.items>
+                        <type>array</type>
+                        <section>1</section>
+                        <el>
+                            <item>
+                                <type>array</type>
+                                <title>Value Item</title>
+                                <el>
+                                    <number>
+                                        <label>Number</label>
+                                        <config>
+                                            <type>input</type>
+                                            <size>10</size>
+                                        </config>
+                                    </number>
+                                    <title>
+                                        <label>Title</label>
+                                        <config>
+                                            <type>input</type>
+                                            <size>40</size>
+                                        </config>
+                                    </title>
+                                    <description>
+                                        <label>Description</label>
+                                        <config>
+                                            <type>text</type>
+                                            <cols>40</cols>
+                                            <rows>3</rows>
+                                        </config>
+                                    </description>
+                                </el>
+                            </item>
+                        </el>
+                    </settings.items>
+                </el>
+            </ROOT>
+        </sItems>
+    </sheets>
+</T3DataStructure>

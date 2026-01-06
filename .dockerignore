@@ -1,0 +1,72 @@
+# =============================================================================
+# Docker Ignore File
+# =============================================================================
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Development
+.ddev
+.idea
+.vscode
+*.code-workspace
+
+# Node.js (built in separate stage)
+node_modules
+.npm
+
+# Composer (built in separate stage)
+vendor
+
+# TYPO3 runtime files
+public/typo3temp/*
+!public/typo3temp/.gitkeep
+public/fileadmin/*
+!public/fileadmin/.gitkeep
+var/*
+!var/.gitkeep
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Documentation
+*.md
+!README.md
+docs
+LICENSE
+
+# Tests
+tests
+phpunit.xml
+phpstan.neon
+.php-cs-fixer.php
+.php-cs-fixer.cache
+
+# CI/CD
+.github
+.gitlab-ci.yml
+Makefile
+
+# IDE
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker (don't include Docker files in the build context itself)
+docker-compose*.yml
+docker-compose*.yaml
+
+# Temporary files
+tmp
+temp
+*.tmp
+*.bak

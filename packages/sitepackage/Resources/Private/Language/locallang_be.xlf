@@ -1,82 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" original="messages" datatype="plaintext" date="2024-11-26T10:00:40+01:00">
-        <header>
-            <authorName>Markus Sommer</authorName>
-            <authorEmail>markus@letsbenow.de</authorEmail>
-        </header>
+    <file source-language="en" datatype="plaintext" original="messages">
+        <header/>
         <body>
-            <trans-unit id="backend_layout.column.normal">
-                <source>Normal</source>
-            </trans-unit>
-            <trans-unit id="backend_layout.default">
-                <source>Default</source>
-            </trans-unit>
-            <trans-unit id="backend_layout.event">
-                <source>Event</source>
-            </trans-unit>
-            <trans-unit id="backend_layout.home">
-                <source>Home</source>
-            </trans-unit>
-            <trans-unit id="extension.title">
-                <source>Sitepackage</source>
-            </trans-unit>
-            <trans-unit id="plugin.event_detail">
-                <source>Event Detail</source>
-            </trans-unit>
-            <trans-unit id="plugin.event_detail.description">
-                <source>Shows an event</source>
-            </trans-unit>
-            <trans-unit id="plugin.event_list">
-                <source>Event list</source>
-            </trans-unit>
-            <trans-unit id="plugin.event_list.description">
-                <source>Shows a list of events</source>
-            </trans-unit>
-            <trans-unit id="plugin.newsletter">
-                <source>Newsletter</source>
-            </trans-unit>
-            <trans-unit id="plugin.newsletter.description">
-                <source>Plugin to register for the newsletter</source>
-            </trans-unit>
-            <trans-unit id="tt_content.CType.I.event_detail">
-                <source>Event Detail</source>
-            </trans-unit>
-            <trans-unit id="tt_content.CType.I.event_list">
-                <source>Event List</source>
-            </trans-unit>
-            <trans-unit id="tt_content.CType.I.features">
-                <source>Features</source>
-            </trans-unit>
-            <trans-unit id="tt_content.CType.I.features.description">
-                <source>Grid element with sub items</source>
-            </trans-unit>
-            <trans-unit id="tt_content.CType.I.stage">
-                <source>Stage</source>
-            </trans-unit>
-            <trans-unit id="tt_content.CType.I.stage.description">
-                <source>Big image with text</source>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.email">
-                <source>Email</source>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.fe_user">
-                <source>User</source>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.first_name">
-                <source>Firstname</source>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_domain_model_participant.last_name">
-                <source>Lastname</source>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_feature.columns.bodytext">
-                <source>Text</source>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_feature.columns.title">
-                <source>Title</source>
-            </trans-unit>
-            <trans-unit id="tx_sitepackage_feature.title">
-                <source>Feature</source>
+            <trans-unit id="content_group.menscircle">
+                <source>Mens Circle</source>
             </trans-unit>
         </body>
     </file>

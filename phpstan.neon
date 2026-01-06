@@ -1,0 +1,8 @@
+parameters:
+  level: 8
+  paths:
+    - packages/sitepackage/Classes
+  excludePaths:
+    - packages/sitepackage/Classes/*/Fixtures/*
+  checkGenericClassInNonGenericObjectType: false
+  reportUnmatchedIgnoredErrors: false

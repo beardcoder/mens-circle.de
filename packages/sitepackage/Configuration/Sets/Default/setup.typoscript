@@ -1,0 +1,132 @@
+@import 'EXT:fluid_styled_content/Configuration/TypoScript/setup.typoscript'
+
+page = PAGE
+page {
+    typeNum = 0
+
+    10 = PAGEVIEW
+    10 {
+        paths {
+            100 = EXT:sitepackage/Resources/Private/PageView/
+        }
+
+        dataProcessing {
+            10 = page-content
+            10 {
+                as = content
+            }
+
+            30 = menu
+            30 {
+                as = mainMenu
+                levels = 2
+            }
+
+            40 = menu
+            40 {
+                as = footerMenu
+                special = directory
+                special.value = {$page.footer.menuPid}
+                levels = 1
+            }
+        }
+
+        variables {
+            currentYear = TEXT
+            currentYear.data = date:U
+            currentYear.strftime = %Y
+        }
+    }
+
+    meta {
+        viewport = width=device-width, initial-scale=1
+        robots = index, follow
+        theme-color = #1a1a2e
+    }
+}
+
+lib.contentElement {
+    templateRootPaths {
+        20 = EXT:sitepackage/Resources/Private/PageView/Content/
+    }
+    partialRootPaths {
+        20 = EXT:sitepackage/Resources/Private/PageView/Partials/
+    }
+    layoutRootPaths {
+        20 = EXT:sitepackage/Resources/Private/PageView/Layouts/
+    }
+
+    dataProcessing {
+        5 = record-transformation
+        5 {
+            as = record
+        }
+    }
+}
+
+tt_content {
+    mc_hero =< lib.contentElement
+    mc_hero {
+        templateName = Hero
+    }
+
+    mc_intro =< lib.contentElement
+    mc_intro {
+        templateName = Intro
+    }
+
+    mc_cta =< lib.contentElement
+    mc_cta {
+        templateName = CallToAction
+    }
+
+    mc_faq =< lib.contentElement
+    mc_faq {
+        templateName = Faq
+    }
+
+    mc_journey =< lib.contentElement
+    mc_journey {
+        templateName = JourneySteps
+    }
+
+    mc_testimonials =< lib.contentElement
+    mc_testimonials {
+        templateName = Testimonials
+        dataProcessing {
+            10 = TYPO3\CMS\Frontend\DataProcessing\DatabaseQueryProcessor
+            10 {
+                table = tx_sitepackage_domain_model_testimonial
+                where = is_published=1
+                orderBy = sorting
+                as = testimonials
+                pidInList = this
+            }
+        }
+    }
+
+    mc_moderator =< lib.contentElement
+    mc_moderator {
+        templateName = Moderator
+    }
+
+    mc_newsletter =< lib.contentElement
+    mc_newsletter {
+        templateName = Newsletter
+    }
+
+    mc_text_section =< lib.contentElement
+    mc_text_section {
+        templateName = TextSection
+    }
+
+    mc_values =< lib.contentElement
+    mc_values {
+        templateName = ValueItems
+    }
+
+    mc_whatsapp =< lib.contentElement
+    mc_whatsapp {
+        templateName = WhatsappCommunity
+    }
+}

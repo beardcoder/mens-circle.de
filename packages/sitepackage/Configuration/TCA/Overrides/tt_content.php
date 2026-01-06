@@ -2,112 +2,121 @@
 
 declare(strict_types=1);
 
-use B13\Container\Tca\ContainerConfiguration;
-use B13\Container\Tca\Registry;
+/*
+ * This file is part of the "sitepackage" extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ */
+
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-call_user_func(static function (): void {
-    $extensionKey = 'sitepackage';
-    $signature = static fn(string $plugin): string => strtolower(
-        sprintf('%s_%s', str_replace('_', '', $extensionKey), $plugin),
-    );
+defined('TYPO3') or die();
 
+/*
+ * Register content element group for Mens Circle
+ */
+(static function (): void {
     ExtensionManagementUtility::addTcaSelectItemGroup(
         'tt_content',
         'CType',
-        $extensionKey,
-        'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:extension.title',
+        'menscircle',
+        'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:content_group.menscircle',
+        'after:default',
     );
 
-    ExtensionUtility::registerPlugin(
-        ucfirst($extensionKey),
-        'EventList',
-        'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:plugin.event_list',
-        'tx-sitepackage-plugin-event-list',
-        $extensionKey,
-        'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:plugin.event_list.description',
-    );
-    ExtensionUtility::registerPlugin(
-        ucfirst($extensionKey),
-        'EventDetail',
-        'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:plugin.event_detail',
-        'tx-sitepackage-plugin-event-list',
-        $extensionKey,
-        'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:plugin.event_detail.description',
-    );
+    $newColumns = [
+        'tx_sitepackage_eyebrow' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_eyebrow',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'max' => 100,
+                'eval' => 'trim',
+            ],
+        ],
+        'tx_sitepackage_title' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_title',
+            'config' => [
+                'type' => 'text',
+                'cols' => 50,
+                'rows' => 2,
+            ],
+        ],
+        'tx_sitepackage_text' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_text',
+            'config' => [
+                'type' => 'text',
+                'cols' => 50,
+                'rows' => 4,
+            ],
+        ],
+        'tx_sitepackage_quote' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_quote',
+            'config' => [
+                'type' => 'text',
+                'cols' => 50,
+                'rows' => 3,
+            ],
+        ],
+        'tx_sitepackage_button_text' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_button_text',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'max' => 255,
+                'eval' => 'trim',
+            ],
+        ],
+        'tx_sitepackage_button_link' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_button_link',
+            'config' => [
+                'type' => 'link',
+            ],
+        ],
+        'tx_sitepackage_subtitle' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_subtitle',
+            'config' => [
+                'type' => 'text',
+                'cols' => 50,
+                'rows' => 2,
+            ],
+        ],
+        'tx_sitepackage_name' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_name',
+            'config' => [
+                'type' => 'text',
+                'cols' => 50,
+                'rows' => 2,
+            ],
+        ],
+        'tx_sitepackage_background_image' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_background_image',
+            'config' => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'allowed' => 'common-image-types',
+            ],
+        ],
+        'tx_sitepackage_photo' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_photo',
+            'config' => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'allowed' => 'common-image-types',
+            ],
+        ],
+    ];
 
-    ExtensionUtility::registerPlugin(
-        ucfirst($extensionKey),
-        'Newsletter',
-        'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:plugin.newsletter',
-        'tx-sitepackage-plugin-newsletter',
-        $extensionKey,
-        'LLL:EXT:sitepackage/Resources/Private/Language/locallang_be.xlf:plugin.newsletter.description',
-    );
-
-    ExtensionManagementUtility::addToAllTCAtypes(
-        'tt_content',
-        'pi_flexform',
-        implode(',', [$signature('EventList')]),
-        'after:header',
-    );
-
-    ExtensionManagementUtility::addPiFlexFormValue(
-        '*',
-        'FILE:EXT:sitepackage/Configuration/FlexForms/flexform_event_list.xml',
-        $signature('EventList'),
-    );
-
-    $GLOBALS['TCA']['tt_content']['types'][$signature('EventList')] = $GLOBALS['TCA']['tt_content']['types']['header'];
-    ExtensionManagementUtility::addToAllTCAtypes(
-        'tt_content',
-        'pi_flexform, pages',
-        $signature('EventList'),
-        'after:subheader',
-    );
-
-    GeneralUtility::makeInstance(Registry::class)->configureContainer(
-        (
-        new ContainerConfiguration(
-            'features', // CType
-            'Features Container', // label
-            '', // description
-            [
-                [
-                    [
-                        'name' => 'Header',
-                        'colPos' => 210,
-                        'colspan' => 3,
-                    ],
-                ],
-                [
-                    [
-                        'name' => 'Features',
-                        'colPos' => 200,
-                    ],
-                ],
-            ], // grid configuration
-        )
-        )->setIcon('container-1col'),
-    );
-
-    GeneralUtility::makeInstance(Registry::class)->configureContainer(
-        (
-        new ContainerConfiguration(
-            'container', // CType
-            'Container', // label
-            '', // description
-            [
-                [
-                    [
-                        'name' => 'Elemente',
-                        'colPos' => 200,
-                    ],
-                ],
-            ], // grid configuration
-        )
-        )->setIcon('container-1col'),
-    );
-});
+    ExtensionManagementUtility::addTCAcolumns('tt_content', $newColumns);
+})();

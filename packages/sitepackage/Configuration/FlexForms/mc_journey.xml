@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+    <sheets>
+        <sSteps>
+            <ROOT>
+                <sheetTitle>Journey Steps</sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.steps>
+                        <type>array</type>
+                        <section>1</section>
+                        <el>
+                            <step>
+                                <type>array</type>
+                                <title>Step</title>
+                                <el>
+                                    <number>
+                                        <label>Step Number</label>
+                                        <config>
+                                            <type>input</type>
+                                            <size>5</size>
+                                            <eval>int</eval>
+                                        </config>
+                                    </number>
+                                    <title>
+                                        <label>Title</label>
+                                        <config>
+                                            <type>input</type>
+                                            <size>40</size>
+                                        </config>
+                                    </title>
+                                    <description>
+                                        <label>Description</label>
+                                        <config>
+                                            <type>text</type>
+                                            <cols>40</cols>
+                                            <rows>3</rows>
+                                        </config>
+                                    </description>
+                                </el>
+                            </step>
+                        </el>
+                    </settings.steps>
+                </el>
+            </ROOT>
+        </sSteps>
+    </sheets>
+</T3DataStructure>

@@ -1,0 +1,66 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Unsubscribe - Mens Circle</title>
+</head>
+<body class="Page">
+    <main class="Main">
+        <div class="Container" style="max-width: 32rem; padding-block: 4rem;">
+            <mc:molecule.card variant="elevated" padding="lg">
+                <f:if condition="{showForm}">
+                    <f:then>
+                        <h1 style="margin-bottom: 1rem; font-size: 1.5rem;">Unsubscribe from Newsletter</h1>
+                        <p style="margin-bottom: 1.5rem; color: var(--color-text-muted);">
+                            Are you sure you want to unsubscribe <strong>{email}</strong> from our newsletter?
+                        </p>
+                        <form method="POST" action="/newsletter/unsubscribe" class="Form">
+                            <input type="hidden" name="email" value="{email}">
+                            <input type="hidden" name="token" value="{token}">
+                            <div style="display: flex; gap: 1rem;">
+                                <mc:atom.button type="submit" variant="danger">
+                                    Yes, Unsubscribe
+                                </mc:atom.button>
+                                <a href="/" class="Button Button--secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </f:then>
+                    <f:else>
+                        <f:if condition="{success}">
+                            <f:then>
+                                <div style="text-align: center;">
+                                    <h1 style="margin-bottom: 1rem; font-size: 1.5rem;">Unsubscribed Successfully</h1>
+                                    <p style="margin-bottom: 1.5rem; color: var(--color-text-muted);">
+                                        {message}
+                                    </p>
+                                    <p style="color: var(--color-text-muted); font-size: 0.875rem;">
+                                        We're sorry to see you go. You can always resubscribe in the future.
+                                    </p>
+                                    <p style="margin-top: 1.5rem;">
+                                        <a href="/" class="Link">Return to homepage</a>
+                                    </p>
+                                </div>
+                            </f:then>
+                            <f:else>
+                                <div style="text-align: center;">
+                                    <h1 style="margin-bottom: 1rem; font-size: 1.5rem;">Unsubscribe Failed</h1>
+                                    <p style="margin-bottom: 1.5rem; color: var(--color-error);">
+                                        {message}
+                                    </p>
+                                    <a href="/" class="Link">Return to homepage</a>
+                                </div>
+                            </f:else>
+                        </f:if>
+                    </f:else>
+                </f:if>
+            </mc:molecule.card>
+        </div>
+    </main>
+</body>
+</html>

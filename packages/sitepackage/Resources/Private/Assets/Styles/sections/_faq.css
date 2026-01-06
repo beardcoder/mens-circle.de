@@ -1,0 +1,63 @@
+/**
+ * FAQ Section
+ * Accordion-style FAQ layout
+ */
+
+/* ============================================
+   FAQ Section Base
+   ============================================ */
+.faq-section {
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+/* ============================================
+   FAQ Layout
+   ============================================ */
+.faq__layout {
+  display: grid;
+  grid-template-columns: 0.35fr 0.65fr;
+  gap: var(--space-xl);
+  align-items: start;
+
+  @media (width < 900px) {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+}
+
+/* ============================================
+   FAQ Header (Sticky Sidebar)
+   ============================================ */
+.faq__header {
+  position: sticky;
+  inset-block-start: 140px;
+
+  @media (width < 900px) {
+    position: relative;
+    inset-block-start: 0;
+  }
+}
+
+/* Uses .eyebrow from typography.css */
+
+.faq__title {
+  margin-block-end: var(--space-sm);
+  line-height: 1;
+}
+
+/* Uses .section-title .text-italic from typography.css */
+
+.faq__intro {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   FAQ List
+   ============================================ */
+.faq__list {
+  display: flex;
+  flex-direction: column;
+}

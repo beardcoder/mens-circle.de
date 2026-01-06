@@ -1,0 +1,29 @@
+<f:argument name="variant" type="string" optional="true" default="primary" description="Button variant: primary, secondary, ghost, danger" />
+<f:argument name="size" type="string" optional="true" default="md" description="Button size: sm, md, lg" />
+<f:argument name="type" type="string" optional="true" default="button" description="Button type: button, submit, reset" />
+<f:argument name="disabled" type="boolean" optional="true" default="false" description="Disable button" />
+<f:argument name="loading" type="boolean" optional="true" default="false" description="Show loading state" />
+<f:argument name="icon" type="string" optional="true" description="Icon name to display" />
+<f:argument name="iconPosition" type="string" optional="true" default="start" description="Icon position: start, end" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+
+<button
+    type="{type}"
+    class="Button Button--{variant} Button--{size}{f:if(condition: loading, then: ' is-loading')}{f:if(condition: class, then: ' {class}')}"
+    {f:if(condition: disabled, then: 'disabled')}
+    {f:if(condition: loading, then: 'aria-busy="true"')}
+>
+    <f:if condition="{icon} && {iconPosition} == 'start'">
+        <mc:atom.icon name="{icon}" class="Button__icon Button__icon--start" />
+    </f:if>
+
+    <span class="Button__text"><f:slot /></span>
+
+    <f:if condition="{icon} && {iconPosition} == 'end'">
+        <mc:atom.icon name="{icon}" class="Button__icon Button__icon--end" />
+    </f:if>
+
+    <f:if condition="{loading}">
+        <span class="Button__spinner" aria-hidden="true"></span>
+    </f:if>
+</button>

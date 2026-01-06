@@ -1,51 +1,109 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tx_sitepackage_domain_model_newsletter',
+        'title' => 'Newsletter',
         'label' => 'subject',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'typeicon_classes' => [
-            'default' => 'tx-sitepackage-domain-model-newsletter',
+        'delete' => 'deleted',
+        'default_sortby' => 'crdate DESC',
+        'searchFields' => 'subject, content',
+        'iconfile' => 'EXT:sitepackage/Resources/Public/Icons/newsletter.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true,
         ],
-        'searchFields' => 'subject',
     ],
     'types' => [
-        1 => [
-            'showitem' => '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,subject, message, subscriptions',
+        '1' => [
+            'showitem' => '
+                --div--;General,
+                    subject, preheader, content,
+                --div--;Delivery,
+                    status, scheduled_at, sent_at,
+                --div--;Statistics,
+                    recipients_count, sent_count, failed_count,
+            ',
         ],
     ],
     'columns' => [
         'subject' => [
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tx_sitepackage_domain_model_newsletter.subject',
+            'label' => 'Subject',
             'config' => [
                 'type' => 'input',
-                'size' => 40,
+                'size' => 50,
                 'max' => 255,
-                'eval' => 'trim',
                 'required' => true,
             ],
         ],
-        'message' => [
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tx_sitepackage_domain_model_newsletter.message',
+        'preheader' => [
+            'label' => 'Preheader',
+            'description' => 'Preview text shown in email clients',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'max' => 255,
+            ],
+        ],
+        'content' => [
+            'label' => 'Content',
             'config' => [
                 'type' => 'text',
                 'enableRichtext' => true,
+                'rows' => 15,
             ],
         ],
-        'subscriptions' => [
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tx_sitepackage_domain_model_newsletter.subscriptions',
-            'exclude' => true,
+        'status' => [
+            'label' => 'Status',
             'config' => [
-                'type' => 'inline',
-                'foreign_table' => 'tx_sitepackage_domain_model_subscription',
-                'MM' => 'tx_sitepackage_domain_model_subscription_rel',
-                'appearance' => [
-                    'showSynchronizationLink' => 1,
-                    'showAllLocalizationLink' => 1,
-                    'showPossibleLocalizationRecords' => 1,
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['label' => 'Draft', 'value' => 0],
+                    ['label' => 'Scheduled', 'value' => 1],
+                    ['label' => 'Sending', 'value' => 2],
+                    ['label' => 'Sent', 'value' => 3],
+                    ['label' => 'Failed', 'value' => 4],
                 ],
+                'default' => 0,
+            ],
+        ],
+        'scheduled_at' => [
+            'label' => 'Scheduled At',
+            'config' => [
+                'type' => 'datetime',
+                'format' => 'datetime',
+            ],
+        ],
+        'sent_at' => [
+            'label' => 'Sent At',
+            'config' => [
+                'type' => 'datetime',
+                'format' => 'datetime',
+                'readOnly' => true,
+            ],
+        ],
+        'recipients_count' => [
+            'label' => 'Total Recipients',
+            'config' => [
+                'type' => 'number',
+                'readOnly' => true,
+            ],
+        ],
+        'sent_count' => [
+            'label' => 'Sent Successfully',
+            'config' => [
+                'type' => 'number',
+                'readOnly' => true,
+            ],
+        ],
+        'failed_count' => [
+            'label' => 'Failed',
+            'config' => [
+                'type' => 'number',
+                'readOnly' => true,
             ],
         ],
     ],

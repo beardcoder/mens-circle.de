@@ -6,3 +6,5 @@ services:
 
   MensCircle\Sitepackage\:
     resource: '../Classes/*'
+    exclude:
+      - '../Classes/Domain/Model/*'

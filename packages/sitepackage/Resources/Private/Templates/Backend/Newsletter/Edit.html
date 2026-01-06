@@ -1,0 +1,137 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="Module" />
+
+<f:section name="Before">
+    <f:be.pageRenderer
+        includeJavaScriptModules="{
+            0: '@typo3/rte-ckeditor/ckeditor5.js'
+        }"
+    />
+</f:section>
+
+<f:section name="Content">
+    <div class="row">
+        <div class="col-md-8">
+            <f:form action="save" method="post" object="{newsletter}" name="newsletter">
+                <div class="card card-default mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <f:if condition="{isNew}">
+                                <f:then>Create Newsletter</f:then>
+                                <f:else>Edit Newsletter</f:else>
+                            </f:if>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label" for="subject">Subject *</label>
+                            <f:form.textfield id="subject" name="subject" value="{newsletter.subject}" class="form-control" required="true" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="preheader">Preheader</label>
+                            <f:form.textfield id="preheader" name="preheader" value="{newsletter.preheader}" class="form-control" />
+                            <small class="form-text text-muted">Preview text shown in email clients (max 255 characters)</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="content">Content *</label>
+                            <f:form.textarea id="content" name="content" value="{newsletter.content}" rows="20" class="form-control" required="true" />
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <f:link.action action="index" class="btn btn-default">
+                                <core:icon identifier="actions-close" /> Cancel
+                            </f:link.action>
+                            <button type="submit" class="btn btn-primary">
+                                <core:icon identifier="actions-save" /> Save Newsletter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </f:form>
+        </div>
+
+        <div class="col-md-4">
+            <f:if condition="{!isNew}">
+                <div class="card card-default mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title">Status</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            <strong>Status:</strong>
+                            <f:switch expression="{newsletter.status.value}">
+                                <f:case value="0">
+                                    <span class="badge bg-secondary">Draft</span>
+                                </f:case>
+                                <f:case value="1">
+                                    <span class="badge bg-info">Scheduled</span>
+                                </f:case>
+                                <f:case value="2">
+                                    <span class="badge bg-warning">Sending</span>
+                                </f:case>
+                                <f:case value="3">
+                                    <span class="badge bg-success">Sent</span>
+                                </f:case>
+                                <f:case value="4">
+                                    <span class="badge bg-danger">Failed</span>
+                                </f:case>
+                            </f:switch>
+                        </p>
+                        <f:if condition="{newsletter.sentAt}">
+                            <p>
+                                <strong>Sent:</strong>
+                                <f:format.date format="d.m.Y H:i">{newsletter.sentAt}</f:format.date>
+                            </p>
+                        </f:if>
+                        <f:if condition="{newsletter.recipientsCount} > 0">
+                            <p>
+                                <strong>Recipients:</strong> {newsletter.recipientsCount}<br>
+                                <strong>Sent:</strong> {newsletter.sentCount}<br>
+                                <strong>Failed:</strong> {newsletter.failedCount}
+                            </p>
+                        </f:if>
+                    </div>
+                </div>
+
+                <div class="card card-default mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title">Send Test Email</h3>
+                    </div>
+                    <div class="card-body">
+                        <f:form action="sendTest" method="post" arguments="{newsletter: newsletter}">
+                            <div class="mb-3">
+                                <input type="email" class="form-control" name="email" placeholder="test@example.com" required>
+                            </div>
+                            <button type="submit" class="btn btn-info btn-sm w-100">
+                                <core:icon identifier="actions-envelope" /> Send Test
+                            </button>
+                        </f:form>
+                    </div>
+                </div>
+
+                <f:if condition="{newsletter.canSend()}">
+                    <div class="card card-default">
+                        <div class="card-header bg-success text-white">
+                            <h3 class="card-title">Send Newsletter</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">Send this newsletter to all active subscribers.</p>
+                            <f:form action="send" method="post" arguments="{newsletter: newsletter}">
+                                <button type="submit" class="btn btn-success w-100" onclick="return confirm('Are you sure you want to send this newsletter to all active subscribers?')">
+                                    <core:icon identifier="actions-envelope" /> Send to All Subscribers
+                                </button>
+                            </f:form>
+                        </div>
+                    </div>
+                </f:if>
+            </f:if>
+        </div>
+    </div>
+</f:section>

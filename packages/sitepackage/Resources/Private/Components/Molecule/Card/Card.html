@@ -1,0 +1,7 @@
+<f:argument name="variant" type="string" optional="true" default="default" description="Card variant: default, elevated, outlined" />
+<f:argument name="padding" type="string" optional="true" default="md" description="Card padding: none, sm, md, lg" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+
+<article class="Card Card--{variant} Card--padding-{padding}{f:if(condition: class, then: ' {class}')}">
+    <f:slot />
+</article>

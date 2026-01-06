@@ -1,0 +1,72 @@
+/**
+ * MÄNNERKREIS STRAUBING - Main Stylesheet
+ * =========================================
+ *
+ * Modern CSS Architecture (2025)
+ *
+ * Features:
+ * - CSS Custom Properties with @property for animations
+ * - OKLCH color space for perceptually uniform colors
+ * - Logical properties for internationalization
+ * - Native CSS nesting
+ * - Container queries ready
+ * - Scroll-driven animations support
+ * - Reduced motion support
+ * - Dark mode with prefers-color-scheme
+ *
+ * Structure:
+ * 1. Base (variables, reset, typography)
+ * 2. Utilities (layout, animations, visual)
+ * 3. Components (buttons, header, footer, cards, forms, modal)
+ * 4. Sections (hero, intro, moderator, journey, faq, newsletter, cta, event, legal)
+ */
+
+/* ============================================
+   BASE
+   ============================================ */
+@import url('@fontsource-variable/playfair-display');
+@import url('@fontsource-variable/dm-sans');
+@import url('@fontsource-variable/cormorant');
+@import url('base/_variables.css');
+@import url('base/_reset.css');
+@import url('base/_typography.css');
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+@import url('utilities/_layout.css');
+@import url('utilities/_animations.css');
+@import url('utilities/_visual.css');
+@import url('utilities/_view-transitions.css');
+
+/* ============================================
+   COMPONENTS
+   ============================================ */
+@import url('components/_buttons.css');
+@import url('components/_header.css');
+@import url('components/_footer.css');
+@import url('components/_cards.css');
+@import url('components/_forms.css');
+@import url('components/_modal.css');
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+@import url('sections/_hero.css');
+@import url('sections/_intro.css');
+@import url('sections/_moderator.css');
+@import url('sections/_journey.css');
+@import url('sections/_testimonials.css');
+@import url('sections/_testimonial-form.css');
+@import url('sections/_faq.css');
+@import url('sections/_newsletter.css');
+@import url('sections/_whatsapp.css');
+@import url('sections/_cta.css');
+@import url('sections/_event.css');
+@import url('sections/_no-event.css');
+@import url('sections/_legal.css');
+
+/* ============================================
+   PRINT
+   ============================================ */
+@import url('utilities/_print.css');

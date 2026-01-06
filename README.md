@@ -1,60 +1,70 @@
-# TYPO3 CMS Base Distribution
+# Mens Circle Website
 
-Get going quickly with TYPO3 CMS.
+TYPO3 v14 project for mens-circle.de
 
-## Prerequisites
+## Requirements
 
-* PHP 8.1
-* [Composer](https://getcomposer.org/download/)
+- PHP 8.4+
+- Bun 1.2+ or Node 22+
+- MariaDB 11.4+ or MySQL 8+
+- DDEV (for local development)
 
-## Quickstart
-
-* `composer create-project typo3/cms-base-distribution project-name ^12`
-* `cd project-name`
-
-### Setup
-
-To start an interactive installation, you can do so by executing the following
-command and then follow the wizard:
+## Local Development
 
 ```bash
-composer exec typo3 setup
+# Start DDEV
+ddev start
+
+# Install dependencies
+ddev composer install
+ddev bun install
+
+# Start Vite dev server
+ddev bun run dev
+
+# Build for production
+ddev bun run build
 ```
 
-### Setup unattended (optional)
+## Project Structure
 
-If you're a more advanced user, you might want to leverage the unattended installation.
-To do this, you need to execute the following command and substitute the arguments
-with your own environment configuration.
+```
+├── config/             # TYPO3 configuration
+├── packages/
+│   └── sitepackage/    # Main extension
+│       ├── Classes/    # PHP classes
+│       ├── Configuration/
+│       └── Resources/
+├── public/             # Web root
+└── var/                # Cache, logs
+```
+
+## Code Quality
 
 ```bash
-composer exec -- typo3 setup \
-    --no-interaction \
-    --driver=mysqli \
-    --username=typo3 \
-    --password=typo3 \
-    --host=127.0.0.1 \
-    --port=3306 \
-    --dbname=typo3 \
-    --admin-username=admin \
-    --admin-email="info@typo3.org" \
-    --admin-user-password=password \
-    --project-name="My TYPO3 Project" \
-    --create-site="https://localhost/"
+# PHP
+ddev composer lint      # Check code style
+ddev composer fix       # Fix code style
+ddev composer phpstan   # Static analysis
+
+# TypeScript/CSS
+ddev bun run lint       # ESLint
+ddev bun run stylelint  # Stylelint
 ```
 
-### Development server
+## AJAX Forms
 
-While it's advised to use a more sophisticated web server such as
-Apache 2 or Nginx, you can instantly run the project by using PHPs` built-in
-[web server](https://secure.php.net/manual/en/features.commandline.webserver.php).
+Forms can be submitted via AJAX using the `data-ajax-form` attribute:
 
-* `TYPO3_CONTEXT=Development php -S localhost:8000 -t public`
-* open your browser at "http://localhost:8000"
+```html
+<form data-ajax-form="/api/form/contact">
+  <input type="text" name="name" required>
+  <input type="email" name="email" required>
+  <textarea name="message" required></textarea>
+  <button type="submit">Send</button>
+</form>
+```
 
-Please be aware that the built-in web server is single threaded and only meant
-to be used for development.
-
-## License
-
-GPL-2.0 or later
+Available endpoints:
+- `/api/form/contact` - Contact form
+- `/api/form/newsletter` - Newsletter subscription

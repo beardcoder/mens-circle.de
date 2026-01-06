@@ -1,8 +1,0 @@
-name: mens-circle/header
-typeName: menscircle_header
-group: common
-prefixFields: true
-prefixType: full
-fields:
-  - identifier: TYPO3/Header
-    type: Basic

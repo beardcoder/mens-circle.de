@@ -1,8 +1,0 @@
-<f:spaceless><f:render section="Title" optional="true" />
-<f:render section="Main" /></f:spaceless>
-
------
-Männerkreis Niederbayern
-
-Betreiber und Veranstalter: Markus Sommer | Ahornstraße 15, 94369 Rain
-© 2024 Männerkreis Niederbayern alle Rechte vorbehalten.

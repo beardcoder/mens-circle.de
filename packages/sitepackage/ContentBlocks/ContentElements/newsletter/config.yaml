@@ -1,8 +1,0 @@
-name: mens-circle/newsletter
-typeName: menscircle_newsletter
-group: common
-prefixFields: true
-prefixType: full
-fields:
-  - identifier: TYPO3/Header
-    type: Basic

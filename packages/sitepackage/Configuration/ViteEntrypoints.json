@@ -1,4 +1,1 @@
-[
-	"../Resources/Private/**/*.entry.{ts,css}",
-	"../ContentBlocks/ContentElements/*/assets/*.entry.{ts,css}"
-]
+["../Resources/Private/**/*.entry.{ts,css}"]

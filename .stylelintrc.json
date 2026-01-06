@@ -1,44 +1,11 @@
 {
-	"extends": [
-		"stylelint-config-standard"
-	],
-	"plugins": [
-		"stylelint-selector-bem-pattern",
-		"stylelint-order",
-		"stylelint-plugin-logical-css"
-	],
-	"rules": {
-		"import-notation": null,
-		"at-rule-no-unknown": [
-			true,
-			{
-				"ignoreAtRules": [
-					"tailwind"
-				]
-			}
-		],
-		"selector-class-pattern": null,
-		"custom-property-pattern": null,
-		"order/properties-alphabetical-order": true,
-		"plugin/selector-bem-pattern": {
-			"componentName": "[A-Z]+",
-			"componentSelectors": {
-				"initial": "^\\.{componentName}(?:-[a-z]+)?$",
-				"combined": "^\\.combined-{componentName}-[a-z]+$"
-			},
-			"utilitySelectors": "^\\.util-[a-z]+$"
-		},
-		"plugin/use-logical-properties-and-values": [
-			true,
-			{
-				"severity": "warning"
-			}
-		],
-		"plugin/use-logical-units": [
-			true,
-			{
-				"severity": "warning"
-			}
-		]
-	}
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "selector-class-pattern": null,
+    "custom-property-pattern": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "no-descending-specificity": null,
+    "property-no-vendor-prefix": true,
+    "value-no-vendor-prefix": true
+  }
 }

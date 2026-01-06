@@ -1,9 +1,0 @@
-name: mens-circle/faq
-typeName: menscircle_faq
-group: common
-prefixFields: true
-prefixType: full
-fields:
-  -
-    identifier: header
-    useExistingField: true

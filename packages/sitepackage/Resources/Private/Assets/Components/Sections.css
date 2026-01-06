@@ -1,6 +1,0 @@
-.section--dark {
-    background-color: var(--bg-color);
-    color: var(--font-color);
-    max-inline-size: 100vi;
-    overflow: hidden;
-}

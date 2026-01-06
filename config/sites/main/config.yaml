@@ -1,39 +1,29 @@
-base: 'https://mens-circle.de/'
-baseVariants:
-  -
-    base: 'https://mens-circle.ddev.site/'
-    condition: 'applicationContext == "Development/Local"'
-  -
-    base: 'https://mens-circle.ddev.site/'
-    condition: 'applicationContext == "Production/Local"'
+base: /
 dependencies:
-  - typo3/redirects
-  - b13/picture
-  - mens-circle/base
-  - mens-circle/container
-  - mens-circle/events
-  - mens-circle/newsletter
-disableStaticFileCache: false
+  - menscircle/default
+errorHandling:
+  - errorCode: 404
+    errorHandler: Fluid
+    errorFluidTemplate: 'EXT:sitepackage/Resources/Private/Templates/Error/404.html'
+    errorFluidTemplatesRootPath: 'EXT:sitepackage/Resources/Private/Templates/Error/'
+    errorFluidLayoutsRootPath: 'EXT:sitepackage/Resources/Private/Layouts/'
+    errorFluidPartialsRootPath: 'EXT:sitepackage/Resources/Private/Partials/'
+  - errorCode: 500
+    errorHandler: Fluid
+    errorFluidTemplate: 'EXT:sitepackage/Resources/Private/Templates/Error/500.html'
+    errorFluidTemplatesRootPath: 'EXT:sitepackage/Resources/Private/Templates/Error/'
+    errorFluidLayoutsRootPath: 'EXT:sitepackage/Resources/Private/Layouts/'
+    errorFluidPartialsRootPath: 'EXT:sitepackage/Resources/Private/Partials/'
 languages:
-  -
-    title: Deutsch
+  - title: Deutsch
     enabled: true
     languageId: 0
     base: /
     locale: de_DE.UTF-8
-    navigationTitle: Deutsch
+    navigationTitle: DE
     flag: de
+    direction: ltr
 rootPageId: 1
-routes:
-  -
-    route: robots.txt
-    type: staticText
-    content: "User-agent: *\r\nDisallow:\r\nSitemap: https://mens-circle.de/sitemap.xml\r\n"
-  -
-    route: newsletter/unsubscribe
-    type: uri
-    source: 't3://page?uid=1'
-websiteTitle: 'Men’s Circle Niederbayern'
-imports:
-  -
-    resource: 'EXT:sitepackage/Configuration/Routes/Events.yaml'
+settings:
+  menscircle/default: {}
+websiteTitle: 'Männerkreis Niederbayern'

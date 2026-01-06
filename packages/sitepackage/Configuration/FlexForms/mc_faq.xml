@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+    <sheets>
+        <sItems>
+            <ROOT>
+                <sheetTitle>FAQ Items</sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.items>
+                        <type>array</type>
+                        <section>1</section>
+                        <el>
+                            <item>
+                                <type>array</type>
+                                <title>FAQ Item</title>
+                                <el>
+                                    <question>
+                                        <label>Question</label>
+                                        <config>
+                                            <type>input</type>
+                                            <size>60</size>
+                                        </config>
+                                    </question>
+                                    <answer>
+                                        <label>Answer</label>
+                                        <config>
+                                            <type>text</type>
+                                            <cols>60</cols>
+                                            <rows>5</rows>
+                                            <enableRichtext>true</enableRichtext>
+                                        </config>
+                                    </answer>
+                                </el>
+                            </item>
+                        </el>
+                    </settings.items>
+                </el>
+            </ROOT>
+        </sItems>
+    </sheets>
+</T3DataStructure>

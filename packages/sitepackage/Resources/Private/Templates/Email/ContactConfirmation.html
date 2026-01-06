@@ -1,0 +1,41 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="Email" />
+
+<f:section name="Content">
+    <mc:email.text.text variant="heading">Thank You for Your Message</mc:email.text.text>
+
+    <mc:email.text.text>
+        Hi {name},
+    </mc:email.text.text>
+
+    <mc:email.text.text>
+        Thank you for reaching out to us. We have received your message and will get back to you as soon as possible.
+    </mc:email.text.text>
+
+    <mc:email.alert.alert variant="info">
+        We typically respond within 24-48 hours during business days.
+    </mc:email.alert.alert>
+
+    <mc:email.divider.divider />
+
+    <mc:email.text.text variant="subheading">Your Message</mc:email.text.text>
+
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f9fafb; border-radius: 6px; padding: 16px; margin: 16px 0;">
+        <tr>
+            <td style="padding: 16px;">
+                <p style="margin: 0; color: #52525b; font-size: 14px; font-style: italic; white-space: pre-wrap;">
+                    "{message}"
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    <mc:email.text.text>
+        Warm regards,<br>
+        The Mens Circle Team
+    </mc:email.text.text>
+</f:section>

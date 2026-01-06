@@ -2,39 +2,53 @@
 
 declare(strict_types=1);
 
-use MensCircle\Sitepackage\Backend\Controller\EventNotificationController;
-use MensCircle\Sitepackage\Backend\Controller\NewsletterController;
+use MensCircle\Sitepackage\Controller\Backend\EventModuleController;
+use MensCircle\Sitepackage\Controller\Backend\NewsletterController;
 
+/**
+ * Backend module registration for TYPO3 v14
+ */
 return [
-    'events' => [
+    'menscircle' => [
+        'labels' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_mod.xlf:mlang_tabs_tab',
+        'iconIdentifier' => 'module-menscircle',
+        'position' => ['after' => 'web'],
+    ],
+    'menscircle_events' => [
+        'parent' => 'menscircle',
+        'position' => ['before' => '*'],
+        'access' => 'user',
+        'iconIdentifier' => 'module-menscircle-events',
         'labels' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_mod_events.xlf',
-        'iconIdentifier' => 'event-module',
-        'position' => [
-            'after' => 'web',
-        ],
-    ],
-    'events_notification' => [
-        'parent' => 'events',
-        'access' => 'user',
-        'workspaces' => 'live',
-        'path' => '/sitepackage/eventNotification',
-        'labels' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_mod_notifications.xlf',
         'extensionName' => 'Sitepackage',
-        'iconIdentifier' => 'event-notification-module',
         'controllerActions' => [
-            EventNotificationController::class => ['list', 'new', 'send'],
+            EventModuleController::class => [
+                'index',
+                'list',
+                'show',
+                'togglePublish',
+                'exportRegistrations',
+            ],
         ],
     ],
-    'newsletter' => [
-        'parent' => 'events',
+    'menscircle_newsletter' => [
+        'parent' => 'menscircle',
+        'position' => ['after' => 'menscircle_events'],
         'access' => 'user',
-        'workspaces' => 'live',
-        'path' => '/sitepackage/newsletter',
+        'iconIdentifier' => 'module-menscircle-newsletter',
         'labels' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_mod_newsletter.xlf',
         'extensionName' => 'Sitepackage',
-        'iconIdentifier' => 'newsletter-module',
         'controllerActions' => [
-            NewsletterController::class => ['new', 'send'],
+            NewsletterController::class => [
+                'index',
+                'subscribers',
+                'create',
+                'edit',
+                'save',
+                'send',
+                'sendTest',
+                'delete',
+            ],
         ],
     ],
 ];

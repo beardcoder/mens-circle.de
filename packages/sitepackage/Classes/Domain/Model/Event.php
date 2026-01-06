@@ -4,207 +4,378 @@ declare(strict_types=1);
 
 namespace MensCircle\Sitepackage\Domain\Model;
 
-use MensCircle\Sitepackage\Enum\EventAttendanceModeEnum;
-use MensCircle\Sitepackage\Enum\EventStatusEnum;
-use Spatie\SchemaOrg\Event as EventSchema;
-use Spatie\SchemaOrg\ItemAvailability;
-use Spatie\SchemaOrg\Schema;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Extbase\Service\ImageService;
 
+/**
+ * Event model for men's circle events
+ */
 class Event extends AbstractEntity
 {
-    public string $slug;
+    protected string $title = '';
 
-    public string $title;
+    protected string $slug = '';
 
-    public string $description;
+    protected string $description = '';
 
-    public ?\DateTime $startDate = null;
+    protected ?FileReference $image = null;
 
-    public ?\DateTime $endDate = null;
+    protected ?\DateTime $eventDate = null;
 
-    public ?\DateTime $crdate = null;
+    protected ?int $startTime = null;
 
-    public string $place;
+    protected ?int $endTime = null;
 
-    public string $address;
+    protected string $location = 'Straubing';
 
-    public string $zip;
+    protected string $street = '';
 
-    public string $city;
+    protected string $postalCode = '';
 
-    public string $callUrl = '';
+    protected string $city = '';
 
-    public bool $cancelled = false;
+    protected string $locationDetails = '';
 
-    public int $attendanceMode = 0;
+    protected int $maxParticipants = 8;
 
-    public float $longitude = 0.0;
+    protected string $costBasis = 'Auf Spendenbasis';
 
-    public float $latitude = 0.0;
+    protected bool $isPublished = false;
 
-    #[Extbase\ORM\Lazy()]
-    protected FileReference|LazyLoadingProxy $image;
-
-    /**
-     * @var ObjectStorage<Participant>
-     */
-    #[Extbase\ORM\Lazy()]
-    #[Extbase\ORM\Cascade([
-        'value' => 'remove',
-    ])]
-    protected ObjectStorage $registration;
+    protected bool $deleted = false;
 
     /**
-     * @var ObjectStorage<Participant>
+     * @var ObjectStorage<EventRegistration>
      */
-    #[Extbase\ORM\Lazy()]
-    #[Extbase\ORM\Cascade([
-        'value' => 'remove',
-    ])]
-    protected ObjectStorage $participants;
+    #[Cascade(['value' => 'remove'])]
+    protected ObjectStorage $registrations;
 
     public function __construct()
     {
-        $this->registration = new ObjectStorage();
-        $this->participants = new ObjectStorage();
+        $this->initializeObject();
     }
 
-    public function getRegistration(): ObjectStorage
+    public function initializeObject(): void
     {
-        return $this->registration;
+        $this->registrations = new ObjectStorage();
     }
 
-    public function setRegistration(ObjectStorage $objectStorage): void
+    public function getTitle(): string
     {
-        $this->registration = $objectStorage;
+        return $this->title;
     }
 
-    public function isOnline(): bool
+    public function setTitle(string $title): self
     {
-        return $this->getRealAttendanceMode() === EventAttendanceModeEnum::ONLINE;
+        $this->title = $title;
+        return $this;
     }
 
-    public function getRealAttendanceMode(): EventAttendanceModeEnum
+    public function getSlug(): string
     {
-        return EventAttendanceModeEnum::from($this->attendanceMode);
+        return $this->slug;
     }
 
-    public function isCancelled(): bool
+    public function setSlug(string $slug): self
     {
-        return $this->cancelled;
+        $this->slug = $slug;
+        return $this;
     }
 
-    public function getLongTitle(): string
+    public function getDescription(): string
     {
-        return $this->title . ' am ' . $this->startDate->format('d.m.Y');
+        return $this->description;
     }
 
-    public function buildSchema(UriBuilder $uriBuilder): EventSchema
+    public function setDescription(string $description): self
     {
-        $thisUrl = $uriBuilder->reset()
-            ->setCreateAbsoluteUri(true)
-            ->setTargetPageUid(3)
-            ->uriFor('detail', [
-                'event' => $this->uid,
-            ]);
-
-        $imageService = GeneralUtility::makeInstance(ImageService::class);
-        \assert($imageService instanceof ImageService);
-
-        $processedFile = $imageService->applyProcessingInstructions(
-            $this->getImage()
-                ->getOriginalResource(),
-            [
-                'width' => '600c',
-                'height' => '600c',
-            ],
-        );
-
-        $place = $this->isOffline() ? Schema::place()
-            ->name($this->place)
-            ->address(
-                Schema::postalAddress()
-                    ->streetAddress($this->address)
-                    ->addressLocality($this->city)
-                    ->postalCode($this->zip)
-                    ->addressCountry('DE'),
-            ) : Schema::place()->url($this->callUrl);
-
-        $imageUri = $imageService->getImageUri($processedFile, true);
-        $baseUrl = $uriBuilder->reset()
-            ->setCreateAbsoluteUri(true)
-            ->setTargetPageUid(1)
-            ->buildFrontendUri();
-
-        return Schema::event()
-            ->name(\sprintf('%s am %s', $this->title, $this->startDate->format('d.m.Y')))
-            ->description($this->description)
-            ->image($imageUri)
-            ->startDate($this->startDate)
-            ->endDate($this->endDate)
-            ->eventAttendanceMode($this->getRealAttendanceMode()->getDescription())
-            ->eventStatus(EventStatusEnum::EventScheduled->value)
-            ->location($place)
-            ->offers(
-                Schema::offer()
-                    ->validFrom($this->crdate)
-                    ->price(0)
-                    ->availability(ItemAvailability::InStock)
-                    ->url($thisUrl)
-                    ->priceCurrency('EUR'),
-            )
-            ->organizer(Schema::person()->name('Markus Sommer')->url($baseUrl))
-            ->performer(Schema::person()->name('Markus Sommer')->url($baseUrl));
+        $this->description = $description;
+        return $this;
     }
 
     public function getImage(): ?FileReference
     {
-        if ($this->image instanceof LazyLoadingProxy) {
-            /** @var FileReference $image */
-            $image = $this->image->_loadRealInstance();
-            $this->image = $image;
-        }
-
         return $this->image;
     }
 
-    public function isOffline(): bool
+    public function setImage(?FileReference $image): self
     {
-        return $this->getRealAttendanceMode() === EventAttendanceModeEnum::OFFLINE;
+        $this->image = $image;
+        return $this;
+    }
+
+    public function getEventDate(): ?\DateTime
+    {
+        return $this->eventDate;
+    }
+
+    public function setEventDate(?\DateTime $eventDate): self
+    {
+        $this->eventDate = $eventDate;
+        return $this;
+    }
+
+    public function getStartTime(): ?int
+    {
+        return $this->startTime;
+    }
+
+    public function setStartTime(?int $startTime): self
+    {
+        $this->startTime = $startTime;
+        return $this;
+    }
+
+    public function getEndTime(): ?int
+    {
+        return $this->endTime;
+    }
+
+    public function setEndTime(?int $endTime): self
+    {
+        $this->endTime = $endTime;
+        return $this;
+    }
+
+    public function getStartTimeFormatted(): string
+    {
+        if ($this->startTime === null) {
+            return '';
+        }
+        $hours = floor($this->startTime / 3600);
+        $minutes = floor(($this->startTime % 3600) / 60);
+        return sprintf('%02d:%02d', $hours, $minutes);
+    }
+
+    public function getEndTimeFormatted(): string
+    {
+        if ($this->endTime === null) {
+            return '';
+        }
+        $hours = floor($this->endTime / 3600);
+        $minutes = floor(($this->endTime % 3600) / 60);
+        return sprintf('%02d:%02d', $hours, $minutes);
+    }
+
+    public function getLocation(): string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): self
+    {
+        $this->location = $location;
+        return $this;
+    }
+
+    public function getStreet(): string
+    {
+        return $this->street;
+    }
+
+    public function setStreet(string $street): self
+    {
+        $this->street = $street;
+        return $this;
+    }
+
+    public function getPostalCode(): string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): self
+    {
+        $this->postalCode = $postalCode;
+        return $this;
+    }
+
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    public function getLocationDetails(): string
+    {
+        return $this->locationDetails;
+    }
+
+    public function setLocationDetails(string $locationDetails): self
+    {
+        $this->locationDetails = $locationDetails;
+        return $this;
     }
 
     public function getFullAddress(): string
     {
-        return "{$this->address}, {$this->zip} {$this->city}, Deutschland";
+        $parts = array_filter([
+            $this->street,
+            trim($this->postalCode . ' ' . $this->city),
+        ]);
+        return implode(', ', $parts);
     }
 
-    public function setParticipants(ObjectStorage $objectStorage): void
+    public function getMaxParticipants(): int
     {
-        $this->participants = $objectStorage;
+        return $this->maxParticipants;
     }
 
-    public function getParticipants(): ObjectStorage
+    public function setMaxParticipants(int $maxParticipants): self
     {
-        return $this->participants ?? $this->registration;
+        $this->maxParticipants = $maxParticipants;
+        return $this;
     }
 
-    public function addParticipant(Participant $participant): void
+    public function getCostBasis(): string
     {
-        $this->participants->attach($participant);
-        $this->registration->attach($participant);
+        return $this->costBasis;
     }
 
-    public function removeParticipant(Participant $participant): void
+    public function setCostBasis(string $costBasis): self
     {
-        $this->participants->detach($participant);
-        $this->registration->detach($participant);
+        $this->costBasis = $costBasis;
+        return $this;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
+        return $this;
+    }
+
+    public function isDeleted(): bool
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @return ObjectStorage<EventRegistration>
+     */
+    public function getRegistrations(): ObjectStorage
+    {
+        return $this->registrations;
+    }
+
+    /**
+     * @param ObjectStorage<EventRegistration> $registrations
+     */
+    public function setRegistrations(ObjectStorage $registrations): self
+    {
+        $this->registrations = $registrations;
+        return $this;
+    }
+
+    public function addRegistration(EventRegistration $registration): self
+    {
+        $this->registrations->attach($registration);
+        return $this;
+    }
+
+    public function removeRegistration(EventRegistration $registration): self
+    {
+        $this->registrations->detach($registration);
+        return $this;
+    }
+
+    /**
+     * Get only confirmed registrations
+     *
+     * @return array<EventRegistration>
+     */
+    public function getConfirmedRegistrations(): array
+    {
+        $confirmed = [];
+        foreach ($this->registrations as $registration) {
+            if ($registration->getStatus() === 'confirmed') {
+                $confirmed[] = $registration;
+            }
+        }
+        return $confirmed;
+    }
+
+    public function getConfirmedRegistrationsCount(): int
+    {
+        return count($this->getConfirmedRegistrations());
+    }
+
+    public function getAvailableSpots(): int
+    {
+        return max(0, $this->maxParticipants - $this->getConfirmedRegistrationsCount());
+    }
+
+    public function isFull(): bool
+    {
+        return $this->getAvailableSpots() <= 0;
+    }
+
+    public function isPast(): bool
+    {
+        if ($this->eventDate === null) {
+            return false;
+        }
+        return $this->eventDate < new \DateTime('today');
+    }
+
+    /**
+     * Generate iCal content for calendar export
+     */
+    public function generateICalContent(): string
+    {
+        $uid = sprintf('event-%d@mens-circle.de', $this->uid);
+        $now = new \DateTime();
+        $dtstamp = $now->format('Ymd\THis\Z');
+
+        $dtstart = $this->eventDate?->format('Ymd');
+        if ($this->startTime !== null && $dtstart) {
+            $hours = floor($this->startTime / 3600);
+            $minutes = floor(($this->startTime % 3600) / 60);
+            $dtstart .= sprintf('T%02d%02d00', $hours, $minutes);
+        }
+
+        $dtend = $this->eventDate?->format('Ymd');
+        if ($this->endTime !== null && $dtend) {
+            $hours = floor($this->endTime / 3600);
+            $minutes = floor(($this->endTime % 3600) / 60);
+            $dtend .= sprintf('T%02d%02d00', $hours, $minutes);
+        }
+
+        $location = $this->location;
+        if ($this->getFullAddress()) {
+            $location .= ', ' . $this->getFullAddress();
+        }
+
+        $description = strip_tags($this->description);
+        $description = str_replace(["\r\n", "\n", "\r"], '\n', $description);
+
+        $lines = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//Mens Circle//Event//DE',
+            'BEGIN:VEVENT',
+            'UID:' . $uid,
+            'DTSTAMP:' . $dtstamp,
+            'DTSTART:' . $dtstart,
+            'DTEND:' . $dtend,
+            'SUMMARY:' . $this->title,
+            'DESCRIPTION:' . $description,
+            'LOCATION:' . $location,
+            'END:VEVENT',
+            'END:VCALENDAR',
+        ];
+
+        return implode("\r\n", $lines);
     }
 }
