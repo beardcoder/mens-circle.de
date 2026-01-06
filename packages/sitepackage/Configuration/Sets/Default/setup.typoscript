@@ -93,6 +93,16 @@ tt_content {
     mc_testimonials =< lib.contentElement
     mc_testimonials {
         templateName = Testimonials
+        dataProcessing {
+            10 = TYPO3\CMS\Frontend\DataProcessing\DatabaseQueryProcessor
+            10 {
+                table = tx_sitepackage_domain_model_testimonial
+                where = is_published=1
+                orderBy = sorting
+                as = testimonials
+                pidInList = this
+            }
+        }
     }
 
     mc_moderator =< lib.contentElement

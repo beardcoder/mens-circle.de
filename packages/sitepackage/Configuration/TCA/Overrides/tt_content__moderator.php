@@ -19,20 +19,16 @@ defined('TYPO3') or die();
     $GLOBALS['TCA']['tt_content']['types'][$cType] = [
         'showitem' => '
             --div--;General,
-                header,
+                tx_sitepackage_eyebrow,
+                tx_sitepackage_name,
                 bodytext,
-                assets,
-            --div--;Settings,
-                pi_flexform,
+                tx_sitepackage_quote,
+                tx_sitepackage_photo,
             --div--;Access,
                 --palette--;;hidden,
         ',
         'columnsOverrides' => [
-            'header' => ['label' => 'Name'],
             'bodytext' => ['config' => ['enableRichtext' => true], 'label' => 'Bio'],
-            'assets' => ['config' => ['maxitems' => 1], 'label' => 'Photo'],
         ],
     ];
-
-    ExtensionManagementUtility::addPiFlexFormValue('*', 'FILE:EXT:sitepackage/Configuration/FlexForms/mc_moderator.xml', $cType);
 })();

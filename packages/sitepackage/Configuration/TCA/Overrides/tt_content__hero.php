@@ -23,20 +23,17 @@ defined('TYPO3') or die();
     $GLOBALS['TCA']['tt_content']['types'][$cType] = [
         'showitem' => '
             --div--;General,
-                header,
-                bodytext,
-                assets,
-            --div--;Settings,
-                pi_flexform,
+                tx_sitepackage_eyebrow,
+                tx_sitepackage_title,
+                tx_sitepackage_text,
+                tx_sitepackage_button_text,
+                tx_sitepackage_button_link,
+                tx_sitepackage_background_image,
             --div--;Access,
                 --palette--;;hidden,
         ',
         'columnsOverrides' => [
-            'header' => ['label' => 'Title'],
-            'bodytext' => ['config' => ['enableRichtext' => true], 'label' => 'Text'],
-            'assets' => ['config' => ['maxitems' => 1], 'label' => 'Background Image'],
+            'tx_sitepackage_text' => ['label' => 'Description'],
         ],
     ];
-
-    ExtensionManagementUtility::addPiFlexFormValue('*', 'FILE:EXT:sitepackage/Configuration/FlexForms/mc_hero.xml', $cType);
 })();

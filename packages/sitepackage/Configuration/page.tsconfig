@@ -87,8 +87,32 @@ mod.wizards.newContentElement.wizardItems {
                     CType = mc_newsletter
                 }
             }
+            mc_text_section {
+                iconIdentifier = content-text
+                title = Text Section
+                description = Text section with rich text content
+                tt_content_defValues {
+                    CType = mc_text_section
+                }
+            }
+            mc_values {
+                iconIdentifier = content-bullets
+                title = Value Items
+                description = Value items list
+                tt_content_defValues {
+                    CType = mc_values
+                }
+            }
+            mc_whatsapp {
+                iconIdentifier = content-link
+                title = WhatsApp Community
+                description = WhatsApp community callout
+                tt_content_defValues {
+                    CType = mc_whatsapp
+                }
+            }
         }
 
-        show = mc_hero,mc_intro,mc_cta,mc_faq,mc_journey,mc_testimonials,mc_moderator,mc_newsletter
+        show = mc_hero,mc_intro,mc_text_section,mc_values,mc_cta,mc_faq,mc_journey,mc_testimonials,mc_moderator,mc_newsletter,mc_whatsapp
     }
 }

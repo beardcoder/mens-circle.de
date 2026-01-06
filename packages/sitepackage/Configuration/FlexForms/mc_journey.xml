@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <T3DataStructure>
     <sheets>
-        <sDEF>
-            <ROOT>
-                <sheetTitle>Settings</sheetTitle>
-                <type>array</type>
-                <el>
-                    <settings.eyebrow>
-                        <label>Eyebrow Text</label>
-                        <config>
-                            <type>input</type>
-                            <size>50</size>
-                            <max>100</max>
-                        </config>
-                    </settings.eyebrow>
-                </el>
-            </ROOT>
-        </sDEF>
         <sSteps>
             <ROOT>
                 <sheetTitle>Journey Steps</sheetTitle>

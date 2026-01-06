@@ -7,19 +7,19 @@
     <section class="intro-section" id="ueber">
         <div class="intro__layout">
             <div class="intro__left">
-                <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
-                    <p class="eyebrow fade-in">{record.pi_flexform.sDEF/settings.eyebrow}</p>
+                <f:if condition="{record.tx_sitepackage_eyebrow}">
+                    <p class="eyebrow fade-in">{record.tx_sitepackage_eyebrow}</p>
                 </f:if>
 
-                <f:if condition="{record.header}">
+                <f:if condition="{record.tx_sitepackage_title}">
                     <h2 class="section-title intro__title fade-in fade-in-delay-1">
-                        {record.header -> f:format.raw()}
+                        {record.tx_sitepackage_title -> f:format.raw()}
                     </h2>
                 </f:if>
 
-                <f:if condition="{record.bodytext}">
+                <f:if condition="{record.tx_sitepackage_text}">
                     <div class="intro__text fade-in fade-in-delay-2">
-                        {record.bodytext -> f:format.html()}
+                        {record.tx_sitepackage_text -> f:format.nl2br()}
                     </div>
                 </f:if>
 
@@ -47,9 +47,9 @@
             <div class="intro__right">
                 <div class="intro__image-area">
                     <div class="intro__image-circles"></div>
-                    <f:if condition="{record.pi_flexform.sDEF/settings.quote}">
+                    <f:if condition="{record.tx_sitepackage_quote}">
                         <p class="intro__image-text">
-                            {record.pi_flexform.sDEF/settings.quote -> f:format.raw()}
+                            {record.tx_sitepackage_quote -> f:format.raw()}
                         </p>
                     </f:if>
                 </div>

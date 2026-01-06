@@ -19,13 +19,8 @@ defined('TYPO3') or die();
     $GLOBALS['TCA']['tt_content']['types'][$cType] = [
         'showitem' => '
             --div--;General,
-                header,
-            --div--;Settings,
-                pi_flexform,
             --div--;Access,
                 --palette--;;hidden,
         ',
     ];
-
-    ExtensionManagementUtility::addPiFlexFormValue('*', 'FILE:EXT:sitepackage/Configuration/FlexForms/mc_testimonials.xml', $cType);
 })();

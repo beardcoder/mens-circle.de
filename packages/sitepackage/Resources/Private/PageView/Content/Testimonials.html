@@ -7,39 +7,18 @@
     <section class="section section--large testimonials-section" id="stimmen">
         <div class="container">
             <div class="testimonials__header fade-in">
-                <p class="eyebrow">
-                    <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
-                        <f:then>{record.pi_flexform.sDEF/settings.eyebrow}</f:then>
-                        <f:else>Community Stimmen</f:else>
-                    </f:if>
+                <p class="eyebrow">Community Stimmen</p>
+                <h2 class="section-title testimonials__title">
+                    Was <span class="highlight">Teilnehmer</span> sagen
+                </h2>
+                <p class="testimonials__subtitle">
+                    Authentische Einblicke von Männern, die den Kreis erleben
                 </p>
-
-                <f:if condition="{record.header}">
-                    <f:then>
-                        <h2 class="section-title testimonials__title">{record.header -> f:format.raw()}</h2>
-                    </f:then>
-                    <f:else>
-                        <h2 class="section-title testimonials__title">
-                            Was <span class="highlight">Teilnehmer</span> sagen
-                        </h2>
-                    </f:else>
-                </f:if>
-
-                <f:if condition="{record.subheader}">
-                    <f:then>
-                        <p class="testimonials__subtitle">{record.subheader}</p>
-                    </f:then>
-                    <f:else>
-                        <p class="testimonials__subtitle">
-                            Authentische Einblicke von Männern, die den Kreis erleben
-                        </p>
-                    </f:else>
-                </f:if>
             </div>
 
-            <f:if condition="{record.pi_flexform.sItems/settings.items}">
+            <f:if condition="{testimonials -> f:count()} > 0">
                 <div class="testimonials__grid stagger-children">
-                    <f:for each="{record.pi_flexform.sItems/settings.items}" as="item">
+                    <f:for each="{testimonials}" as="item">
                         <div class="testimonial-card">
                             <div class="testimonial-card__quote-icon">
                                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +27,7 @@
                             </div>
 
                             <blockquote class="testimonial-card__quote">
-                                {item.quote}
+                                {item.quote -> f:format.nl2br()}
                             </blockquote>
 
                             <f:if condition="{item.author} || {item.role}">

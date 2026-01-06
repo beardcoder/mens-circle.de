@@ -19,17 +19,11 @@ defined('TYPO3') or die();
     $GLOBALS['TCA']['tt_content']['types'][$cType] = [
         'showitem' => '
             --div--;General,
-                header,
-                bodytext,
-            --div--;Settings,
-                pi_flexform,
+                tx_sitepackage_eyebrow,
+                tx_sitepackage_title,
+                tx_sitepackage_text,
             --div--;Access,
                 --palette--;;hidden,
         ',
-        'columnsOverrides' => [
-            'bodytext' => ['config' => ['enableRichtext' => true]],
-        ],
     ];
-
-    ExtensionManagementUtility::addPiFlexFormValue('*', 'FILE:EXT:sitepackage/Configuration/FlexForms/mc_newsletter.xml', $cType);
 })();

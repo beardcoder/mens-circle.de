@@ -19,20 +19,13 @@ defined('TYPO3') or die();
     $GLOBALS['TCA']['tt_content']['types'][$cType] = [
         'showitem' => '
             --div--;General,
-                header,
-                subheader,
-                bodytext,
-            --div--;Settings,
-                pi_flexform,
+                tx_sitepackage_eyebrow,
+                tx_sitepackage_title,
+                tx_sitepackage_text,
+                tx_sitepackage_button_text,
+                tx_sitepackage_button_link,
             --div--;Access,
                 --palette--;;hidden,
         ',
-        'columnsOverrides' => [
-            'header' => ['label' => 'Title'],
-            'subheader' => ['label' => 'Eyebrow'],
-            'bodytext' => ['config' => ['enableRichtext' => true]],
-        ],
     ];
-
-    ExtensionManagementUtility::addPiFlexFormValue('*', 'FILE:EXT:sitepackage/Configuration/FlexForms/mc_cta.xml', $cType);
 })();

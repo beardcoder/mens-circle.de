@@ -6,8 +6,8 @@
 <f:section name="Main">
     <section class="hero">
         <div class="hero__bg">
-            <f:if condition="{record.image -> f:count()} > 0">
-                <f:for each="{record.image}" as="image" iteration="i">
+            <f:if condition="{record.tx_sitepackage_background_image -> f:count()} > 0">
+                <f:for each="{record.tx_sitepackage_background_image}" as="image" iteration="i">
                     <f:if condition="{i.isFirst}">
                         <f:image
                             image="{image}"
@@ -29,27 +29,27 @@
 
         <div class="container">
             <div class="hero__content">
-                <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
-                    <p class="hero__label">{record.pi_flexform.sDEF/settings.eyebrow}</p>
+                <f:if condition="{record.tx_sitepackage_eyebrow}">
+                    <p class="hero__label">{record.tx_sitepackage_eyebrow}</p>
                 </f:if>
 
-                <f:if condition="{record.header}">
+                <f:if condition="{record.tx_sitepackage_title}">
                     <h1 class="hero__title">
-                        {record.header -> f:format.raw()}
+                        {record.tx_sitepackage_title -> f:format.raw()}
                     </h1>
                 </f:if>
 
                 <div class="hero__bottom">
-                    <f:if condition="{record.subheader}">
+                    <f:if condition="{record.tx_sitepackage_text}">
                         <p class="hero__description">
-                            {record.subheader}
+                            {record.tx_sitepackage_text -> f:format.nl2br()}
                         </p>
                     </f:if>
 
-                    <f:if condition="{record.pi_flexform.sDEF/settings.buttonText} && {record.pi_flexform.sDEF/settings.buttonLink}">
+                    <f:if condition="{record.tx_sitepackage_button_text} && {record.tx_sitepackage_button_link}">
                         <div class="hero__cta">
-                            <f:link.typolink parameter="{record.pi_flexform.sDEF/settings.buttonLink}" class="btn btn--primary btn--large">
-                                {record.pi_flexform.sDEF/settings.buttonText}
+                            <f:link.typolink parameter="{record.tx_sitepackage_button_link}" class="btn btn--primary btn--large">
+                                {record.tx_sitepackage_button_text}
                             </f:link.typolink>
                             <div class="hero__scroll">
                                 <span>Entdecken</span>

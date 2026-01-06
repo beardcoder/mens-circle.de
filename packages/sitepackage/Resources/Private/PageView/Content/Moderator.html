@@ -9,12 +9,12 @@
             <div class="moderator__layout">
                 <div class="moderator__photo-wrapper fade-in">
                     <div class="moderator__photo">
-                        <f:if condition="{record.image -> f:count()} > 0">
+                        <f:if condition="{record.tx_sitepackage_photo -> f:count()} > 0">
                             <f:then>
-                                <f:for each="{record.image}" as="image" iteration="i">
+                                <f:for each="{record.tx_sitepackage_photo}" as="image" iteration="i">
                                     <f:if condition="{i.isFirst}">
                                         <f:image image="{image}"
-                                                 alt="{record.pi_flexform.sDEF/settings.name -> f:format.stripTags()}"
+                                                 alt="{record.tx_sitepackage_name -> f:format.stripTags()}"
                                                  loading="lazy"
                                                  additionalAttributes="{decoding: 'async'}" />
                                     </f:if>
@@ -35,23 +35,23 @@
                 </div>
 
                 <div class="moderator__content fade-in fade-in-delay-1">
-                    <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
-                        <p class="eyebrow">{record.pi_flexform.sDEF/settings.eyebrow}</p>
+                    <f:if condition="{record.tx_sitepackage_eyebrow}">
+                        <p class="eyebrow">{record.tx_sitepackage_eyebrow}</p>
                     </f:if>
 
-                    <f:if condition="{record.pi_flexform.sDEF/settings.name}">
-                        <h2 class="moderator__name">{record.pi_flexform.sDEF/settings.name -> f:format.raw()}</h2>
+                    <f:if condition="{record.tx_sitepackage_name}">
+                        <h2 class="moderator__name">{record.tx_sitepackage_name -> f:format.raw()}</h2>
                     </f:if>
 
-                    <f:if condition="{record.pi_flexform.sDEF/settings.bio}">
+                    <f:if condition="{record.bodytext}">
                         <div class="moderator__bio">
-                            {record.pi_flexform.sDEF/settings.bio -> f:format.html()}
+                            {record.bodytext -> f:format.html()}
                         </div>
                     </f:if>
 
-                    <f:if condition="{record.pi_flexform.sDEF/settings.quote}">
+                    <f:if condition="{record.tx_sitepackage_quote}">
                         <blockquote class="moderator__quote">
-                            <p>{record.pi_flexform.sDEF/settings.quote}</p>
+                            <p>{record.tx_sitepackage_quote}</p>
                         </blockquote>
                     </f:if>
                 </div>

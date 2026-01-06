@@ -19,17 +19,18 @@ defined('TYPO3') or die();
     $GLOBALS['TCA']['tt_content']['types'][$cType] = [
         'showitem' => '
             --div--;General,
-                header,
+                tx_sitepackage_eyebrow,
+                tx_sitepackage_title,
                 bodytext,
-            --div--;Settings,
-                pi_flexform,
+                tx_sitepackage_button_text,
+                tx_sitepackage_button_link,
+                tx_sitepackage_text,
             --div--;Access,
                 --palette--;;hidden,
         ',
         'columnsOverrides' => [
             'bodytext' => ['config' => ['enableRichtext' => true]],
+            'tx_sitepackage_text' => ['label' => 'Hint'],
         ],
     ];
-
-    ExtensionManagementUtility::addPiFlexFormValue('*', 'FILE:EXT:sitepackage/Configuration/FlexForms/mc_whatsapp.xml', $cType);
 })();

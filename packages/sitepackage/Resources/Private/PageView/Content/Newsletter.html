@@ -8,17 +8,17 @@
         <div class="container">
             <div class="newsletter__layout fade-in">
                 <div class="newsletter__content">
-                    <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
-                        <p class="eyebrow eyebrow--secondary">{record.pi_flexform.sDEF/settings.eyebrow}</p>
+                    <f:if condition="{record.tx_sitepackage_eyebrow}">
+                        <p class="eyebrow eyebrow--secondary">{record.tx_sitepackage_eyebrow}</p>
                     </f:if>
 
-                    <f:if condition="{record.header}">
-                        <h2 class="section-title newsletter__title">{record.header -> f:format.raw()}</h2>
+                    <f:if condition="{record.tx_sitepackage_title}">
+                        <h2 class="section-title newsletter__title">{record.tx_sitepackage_title -> f:format.raw()}</h2>
                     </f:if>
 
-                    <f:if condition="{record.bodytext}">
+                    <f:if condition="{record.tx_sitepackage_text}">
                         <div class="newsletter__text">
-                            {record.bodytext -> f:format.html()}
+                            {record.tx_sitepackage_text -> f:format.nl2br()}
                         </div>
                     </f:if>
                 </div>
@@ -28,12 +28,12 @@
                         <input
                             type="email"
                             name="email"
-                            placeholder="{record.pi_flexform.sDEF/settings.placeholder -> f:or(alternative: 'Deine E-Mail-Adresse')}"
+                            placeholder="Deine E-Mail-Adresse"
                             required
                             class="newsletter__input"
                             aria-label="E-Mail-Adresse">
                         <button type="submit" class="btn btn--primary" data-m:click="action=form_submit;element=button;target=newsletter_subscription;location=newsletter_section">
-                            {record.pi_flexform.sDEF/settings.buttonText -> f:or(alternative: 'Anmelden')}
+                            Anmelden
                         </button>
                         <div id="newsletterMessage"></div>
                     </form>

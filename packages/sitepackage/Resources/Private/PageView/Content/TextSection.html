@@ -3,45 +3,26 @@
 
 <f:layout name="ContentElement" />
 
-<f:variable
-    name="defaultAnchor"
-    value="{record.header -> f:format.stripTags() -> f:format.case(mode: 'lower') -> f:format.replace(substring: ' ', replacement: '-')}"
-/>
-<f:variable name="sectionId" value="{record.pi_flexform.sDEF/settings.anchorId -> f:or(alternative: defaultAnchor)}" />
+<f:section name="Main">
+    <section class="section">
+        <div class="container container--narrow">
+            <div class="section__header fade-in">
+                <f:if condition="{record.tx_sitepackage_eyebrow}">
+                    <p class="eyebrow">{record.tx_sitepackage_eyebrow}</p>
+                </f:if>
 
-<f:section name="ContentBlock">
-    <div class="container container--narrow">
-        <div class="section__header fade-in">
-            <f:if condition="{record.pi_flexform.sDEF/settings.eyebrow}">
-                <p class="eyebrow">{record.pi_flexform.sDEF/settings.eyebrow}</p>
-            </f:if>
+                <f:if condition="{record.tx_sitepackage_title}">
+                    <h2 class="section-title">{record.tx_sitepackage_title -> f:format.raw()}</h2>
+                </f:if>
+            </div>
 
-            <f:if condition="{record.header}">
-                <h2 class="section-title">{record.header -> f:format.raw()}</h2>
+            <f:if condition="{record.bodytext}">
+                <div class="section__content fade-in fade-in-delay-1">
+                    {record.bodytext -> f:format.html()}
+                </div>
             </f:if>
         </div>
-
-        <f:if condition="{record.bodytext}">
-            <div class="section__content fade-in fade-in-delay-1">
-                {record.bodytext -> f:format.html()}
-            </div>
-        </f:if>
-    </div>
-</f:section>
-
-<f:section name="Main">
-    <f:if condition="{sectionId}">
-        <f:then>
-            <section class="section" id="{sectionId}">
-                <f:render section="ContentBlock" />
-            </section>
-        </f:then>
-        <f:else>
-            <section class="section">
-                <f:render section="ContentBlock" />
-            </section>
-        </f:else>
-    </f:if>
+    </section>
 </f:section>
 
 </html>
