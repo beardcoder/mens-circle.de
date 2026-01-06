@@ -5,6 +5,7 @@
 
 import { validateEmail } from '../../utils/validation'
 import { showMessage } from '../../utils/message'
+import { getCsrfToken, getApiEndpoint } from '../../utils/config'
 import type { EventRegistrationData, FormSubmitResponse } from '../../types'
 
 export function initRegistrationForm(): void {
@@ -77,12 +78,27 @@ function handleRegistrationSubmit(form: HTMLFormElement): void {
     privacy: privacy ? 1 : 0,
   }
 
+  // Get API endpoint and CSRF token
+  const apiUrl = getApiEndpoint('eventRegister')
+  const csrfToken = getCsrfToken()
+
+  if (!apiUrl) {
+    showMessage(
+      messageContainer,
+      'Konfigurationsfehler. Bitte kontaktiere den Administrator.',
+      'error',
+    )
+    submitButton.disabled = false
+    submitButton.textContent = 'Verbindlich anmelden'
+    return
+  }
+
   // Send to backend
-  fetch(window.routes.eventRegister, {
+  fetch(apiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': window.routes.csrfToken,
+      'X-CSRF-TOKEN': csrfToken,
       Accept: 'application/json',
     },
     body: JSON.stringify(data),

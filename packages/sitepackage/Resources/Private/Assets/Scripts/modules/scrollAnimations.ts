@@ -12,25 +12,26 @@ export function initScrollAnimations(): void {
   if (!allAnimatedElements.length) return
 
   // Check if IntersectionObserver is supported
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px',
-      },
-    )
-
-    allAnimatedElements.forEach((el) => observer.observe(el))
-  } else {
+  if (!('IntersectionObserver' in window)) {
     // Fallback: show all elements immediately
     allAnimatedElements.forEach((el) => el.classList.add('visible'))
+    return
   }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px',
+    },
+  )
+
+  allAnimatedElements.forEach((el) => observer.observe(el))
 }

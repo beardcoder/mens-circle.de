@@ -5,6 +5,63 @@
 
 import type { EventData } from '../types'
 
+/**
+ * Gets event data from data attributes or falls back to window object
+ * @returns EventData object
+ */
+function getEventData(): EventData {
+  const button = document.getElementById('addToCalendar')
+
+  if (button) {
+    const title = button.dataset.eventTitle
+    const description = button.dataset.eventDescription
+    const location = button.dataset.eventLocation
+    const startDate = button.dataset.eventStartDate
+    const startTime = button.dataset.eventStartTime
+    const endDate = button.dataset.eventEndDate
+    const endTime = button.dataset.eventEndTime
+
+    if (
+      title &&
+      description &&
+      location &&
+      startDate &&
+      startTime &&
+      endDate &&
+      endTime
+    ) {
+      return {
+        title,
+        description,
+        location,
+        startDate,
+        startTime,
+        endDate,
+        endTime,
+      }
+    }
+  }
+
+  // Fallback to window object for backwards compatibility
+  if (typeof window !== 'undefined' && 'eventData' in window) {
+    const data = window.eventData as EventData
+
+    return data
+  }
+
+  // Default fallback
+  return {
+    title: 'Männerkreis Straubing',
+    description:
+      'Treffen des Männerkreis Straubing. Ein Raum für echte Begegnung unter Männern.',
+    location: 'Straubing (genaue Adresse nach Anmeldung)',
+    startDate: '2025-01-24',
+    startTime: '19:00',
+    endDate: '2025-01-24',
+    endTime: '21:30',
+  }
+}
+
 export function initCalendarIntegration(): void {
   const addToCalendarBtn = document.getElementById('addToCalendar')
   const calendarModal = document.getElementById('calendarModal')
@@ -17,23 +74,13 @@ export function initCalendarIntegration(): void {
 
   if (!addToCalendarBtn) return
 
-  // Get event data from window object (set in blade template)
-  const eventData = window.eventData || {
-    title: 'Männerkreis Straubing',
-    description:
-      'Treffen des Männerkreis Straubing. Ein Raum für echte Begegnung unter Männern.',
-    location: 'Straubing (genaue Adresse nach Anmeldung)',
-    startDate: '2025-01-24',
-    startTime: '19:00',
-    endDate: '2025-01-24',
-    endTime: '21:30',
-  }
-
   addToCalendarBtn.addEventListener('click', () => {
     if (!calendarModal) {
       return
     }
     calendarModal.classList.add('open')
+
+    const eventData = getEventData()
 
     // Generate ICS file
     if (calendarICS) {

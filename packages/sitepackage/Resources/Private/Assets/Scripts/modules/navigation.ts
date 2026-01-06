@@ -13,7 +13,7 @@ export function initNavigation(): void {
   let scrollPosition = 0
 
   const openNav = (): void => {
-    scrollPosition = window.pageYOffset
+    scrollPosition = window.scrollY
     nav.classList.add('open')
     navToggle.classList.add('active')
     document.body.classList.add('nav-open')
@@ -32,7 +32,7 @@ export function initNavigation(): void {
     navToggle.setAttribute('aria-label', 'Menü öffnen')
   }
 
-  navToggle.addEventListener('click', () => {
+  const toggleNav = (): void => {
     const isOpen = nav.classList.contains('open')
 
     if (isOpen) {
@@ -40,22 +40,24 @@ export function initNavigation(): void {
     } else {
       openNav()
     }
-  })
+  }
+
+  navToggle.addEventListener('click', toggleNav)
 
   // Close nav when clicking on a link
   const navLinks = nav.querySelectorAll('.nav__link, .nav__cta')
 
   navLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      closeNav()
-    })
+    link.addEventListener('click', closeNav)
   })
 
   // Close nav when clicking outside
   document.addEventListener('click', (e: MouseEvent) => {
+    const target = e.target as Node
+
     if (
-      !nav.contains(e.target as Node) &&
-      !navToggle.contains(e.target as Node) &&
+      !nav.contains(target) &&
+      !navToggle.contains(target) &&
       nav.classList.contains('open')
     ) {
       closeNav()

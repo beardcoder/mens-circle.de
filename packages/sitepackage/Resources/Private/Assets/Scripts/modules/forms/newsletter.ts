@@ -5,6 +5,7 @@
 
 import { validateEmail } from '../../utils/validation'
 import { showMessage } from '../../utils/message'
+import { getCsrfToken, getApiEndpoint } from '../../utils/config'
 import type { NewsletterData, FormSubmitResponse } from '../../types'
 
 export function initNewsletterForm(): void {
@@ -45,12 +46,27 @@ function handleNewsletterSubmit(form: HTMLFormElement): void {
 
   const data: NewsletterData = { email }
 
+  // Get API endpoint and CSRF token
+  const apiUrl = getApiEndpoint('newsletter')
+  const csrfToken = getCsrfToken()
+
+  if (!apiUrl) {
+    showMessage(
+      messageContainer,
+      'Konfigurationsfehler. Bitte kontaktiere den Administrator.',
+      'error',
+    )
+    submitButton.disabled = false
+    submitButton.textContent = 'Anmelden'
+    return
+  }
+
   // Send to backend
-  fetch(window.routes.newsletter, {
+  fetch(apiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': window.routes.csrfToken,
+      'X-CSRF-TOKEN': csrfToken,
       Accept: 'application/json',
     },
     body: JSON.stringify(data),

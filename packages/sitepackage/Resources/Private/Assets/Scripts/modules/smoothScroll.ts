@@ -26,7 +26,7 @@ export function initSmoothScroll(): void {
             document.getElementById('header')?.offsetHeight || 0
           const targetPosition =
             target.getBoundingClientRect().top +
-            window.pageYOffset -
+            window.scrollY -
             headerHeight -
             20
 
