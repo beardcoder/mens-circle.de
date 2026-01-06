@@ -33,8 +33,7 @@ page {
 
         variables {
             currentYear = TEXT
-            currentYear.data = date:U
-            currentYear.strftime = %Y
+            currentYear.data = date:Y
         }
     }
 
@@ -94,7 +93,7 @@ tt_content {
     mc_testimonials {
         templateName = Testimonials
         dataProcessing {
-            10 = TYPO3\CMS\Frontend\DataProcessing\DatabaseQueryProcessor
+            10 = database-query
             10 {
                 table = tx_sitepackage_domain_model_testimonial
                 where = is_published=1
