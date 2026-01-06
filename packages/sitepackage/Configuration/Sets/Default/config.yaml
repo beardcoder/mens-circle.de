@@ -6,5 +6,6 @@ name: menscircle/default
 label: Mens Circle Default Set
 
 # Dependencies on TYPO3 core extensions
-# fluid_styled_content is imported in setup.typoscript
+# Note: fluid_styled_content is imported via @import in setup.typoscript
+# It doesn't need to be declared here as a dependency since it's a core extension
 dependencies: []

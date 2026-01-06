@@ -78,7 +78,7 @@ lib.contentElement {
         20 = EXT:sitepackage/Resources/Private/PageView/Layouts/
     }
 
-    # Transform database records to proper Record objects (TYPO3 v13+)
+    # Transform database records to proper Record objects (TYPO3 v14)
     dataProcessing {
         5 = record-transformation
         5 {
