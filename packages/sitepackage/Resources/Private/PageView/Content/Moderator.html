@@ -9,12 +9,12 @@
             <div class="moderator__layout">
                 <div class="moderator__photo-wrapper fade-in">
                     <div class="moderator__photo">
-                        <f:if condition="{record.tx_sitepackage_photo -> f:count()} > 0">
+                        <f:if condition="{record.assets -> f:count()} > 0">
                             <f:then>
-                                <f:for each="{record.tx_sitepackage_photo}" as="image" iteration="i">
+                                <f:for each="{record.assets}" as="image" iteration="i">
                                     <f:if condition="{i.isFirst}">
                                         <f:image image="{image}"
-                                                 alt="{record.tx_sitepackage_name -> f:format.stripTags()}"
+                                                 alt="{record.header -> f:format.stripTags()}"
                                                  loading="lazy"
                                                  additionalAttributes="{decoding: 'async'}" />
                                     </f:if>
@@ -35,12 +35,12 @@
                 </div>
 
                 <div class="moderator__content fade-in fade-in-delay-1">
-                    <f:if condition="{record.tx_sitepackage_eyebrow}">
-                        <p class="eyebrow">{record.tx_sitepackage_eyebrow}</p>
+                    <f:if condition="{record.tx_sitepackage_subheader}">
+                        <p class="eyebrow">{record.tx_sitepackage_subheader}</p>
                     </f:if>
 
-                    <f:if condition="{record.tx_sitepackage_name}">
-                        <h2 class="moderator__name">{record.tx_sitepackage_name -> f:format.raw()}</h2>
+                    <f:if condition="{record.header}">
+                        <h2 class="moderator__name">{record.header -> f:format.raw()}</h2>
                     </f:if>
 
                     <f:if condition="{record.bodytext}">
@@ -49,9 +49,9 @@
                         </div>
                     </f:if>
 
-                    <f:if condition="{record.tx_sitepackage_quote}">
+                    <f:if condition="{record.header_link}">
                         <blockquote class="moderator__quote">
-                            <p>{record.tx_sitepackage_quote}</p>
+                            <p>{record.header_link}</p>
                         </blockquote>
                     </f:if>
                 </div>

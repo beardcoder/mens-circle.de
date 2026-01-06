@@ -3,20 +3,23 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the "sitepackage" extension for TYPO3 CMS.
+ * This file is part of TYPO3 CMS-based extension "sitepackage" by Markus Sommer.
  *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  */
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 defined('TYPO3') or die();
 
-/*
- * Register content element group for Mens Circle
+/**
+ * Register custom content element group and fields for Mens Circle
+ * TYPO3 v14 - Modern TCA configuration with PHP 8.5
  */
 (static function (): void {
+    // Register content element group
     ExtensionManagementUtility::addTcaSelectItemGroup(
         'tt_content',
         'CType',
@@ -25,42 +28,20 @@ defined('TYPO3') or die();
         'after:default',
     );
 
-    $newColumns = [
-        'tx_sitepackage_eyebrow' => [
+    // Define custom fields
+    // Note: Using standard 'header' and 'bodytext' fields wherever possible
+    // Only adding truly custom fields that don't overlap with TYPO3 core
+    $customColumns = [
+        'tx_sitepackage_subheader' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_eyebrow',
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_subheader',
+            'description' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_subheader.description',
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'max' => 100,
+                'max' => 255,
                 'eval' => 'trim',
-            ],
-        ],
-        'tx_sitepackage_title' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_title',
-            'config' => [
-                'type' => 'text',
-                'cols' => 50,
-                'rows' => 2,
-            ],
-        ],
-        'tx_sitepackage_text' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_text',
-            'config' => [
-                'type' => 'text',
-                'cols' => 50,
-                'rows' => 4,
-            ],
-        ],
-        'tx_sitepackage_quote' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_quote',
-            'config' => [
-                'type' => 'text',
-                'cols' => 50,
-                'rows' => 3,
+                'required' => false,
             ],
         ],
         'tx_sitepackage_button_text' => [
@@ -71,6 +52,7 @@ defined('TYPO3') or die();
                 'size' => 30,
                 'max' => 255,
                 'eval' => 'trim',
+                'required' => false,
             ],
         ],
         'tx_sitepackage_button_link' => [
@@ -78,45 +60,10 @@ defined('TYPO3') or die();
             'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_button_link',
             'config' => [
                 'type' => 'link',
-            ],
-        ],
-        'tx_sitepackage_subtitle' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_subtitle',
-            'config' => [
-                'type' => 'text',
-                'cols' => 50,
-                'rows' => 2,
-            ],
-        ],
-        'tx_sitepackage_name' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_name',
-            'config' => [
-                'type' => 'text',
-                'cols' => 50,
-                'rows' => 2,
-            ],
-        ],
-        'tx_sitepackage_background_image' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_background_image',
-            'config' => [
-                'type' => 'file',
-                'maxitems' => 1,
-                'allowed' => 'common-image-types',
-            ],
-        ],
-        'tx_sitepackage_photo' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_photo',
-            'config' => [
-                'type' => 'file',
-                'maxitems' => 1,
-                'allowed' => 'common-image-types',
+                'required' => false,
             ],
         ],
     ];
 
-    ExtensionManagementUtility::addTCAcolumns('tt_content', $newColumns);
+    ExtensionManagementUtility::addTCAcolumns('tt_content', $customColumns);
 })();

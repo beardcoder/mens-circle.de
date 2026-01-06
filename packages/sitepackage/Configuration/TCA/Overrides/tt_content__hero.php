@@ -2,38 +2,103 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of TYPO3 CMS-based extension "sitepackage" by Markus Sommer.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ */
+
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 defined('TYPO3') or die();
 
+/**
+ * Hero Section Content Element
+ * 
+ * Full-width hero section with background image, heading, description, and CTA button.
+ * Uses standard TYPO3 fields for maximum compatibility.
+ */
 (static function (): void {
     $cType = 'mc_hero';
 
+    // Register content element
     ExtensionManagementUtility::addTcaSelectItem(
         'tt_content',
         'CType',
         [
-            'label' => 'Hero',
+            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.mc_hero',
             'value' => $cType,
             'icon' => 'content-header',
             'group' => 'menscircle',
+            'description' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.mc_hero.description',
         ],
     );
 
+    // Define TCA configuration
     $GLOBALS['TCA']['tt_content']['types'][$cType] = [
         'showitem' => '
-            --div--;General,
-                tx_sitepackage_eyebrow,
-                tx_sitepackage_title,
-                tx_sitepackage_text,
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
+                --palette--;;general,
+                header;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.header.hero,
+                tx_sitepackage_subheader;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.subheader.hero,
+                bodytext;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.bodytext.hero,
+            --div--;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tab.button,
                 tx_sitepackage_button_text,
                 tx_sitepackage_button_link,
-                tx_sitepackage_background_image,
-            --div--;Access,
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:images,
+                assets,
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:appearance,
+                --palette--;;frames,
+                --palette--;;appearanceLinks,
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
                 --palette--;;hidden,
+                --palette--;;access,
         ',
         'columnsOverrides' => [
-            'tx_sitepackage_text' => ['label' => 'Description'],
+            'header' => [
+                'config' => [
+                    'required' => true,
+                    'max' => 150,
+                ],
+            ],
+            'tx_sitepackage_subheader' => [
+                'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.subheader.hero',
+            ],
+            'bodytext' => [
+                'config' => [
+                    'enableRichtext' => false,
+                    'rows' => 3,
+                ],
+            ],
+            'assets' => [
+                'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.assets.hero',
+                'description' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.assets.hero.description',
+                'config' => [
+                    'maxitems' => 1,
+                    'overrideChildTca' => [
+                        'columns' => [
+                            'crop' => [
+                                'config' => [
+                                    'cropVariants' => [
+                                        'default' => [
+                                            'title' => 'LLL:EXT:core/Resources/Private/Language/locallang_wizards.xlf:imwizard.crop_variant.default',
+                                            'allowedAspectRatios' => [
+                                                '16_9' => [
+                                                    'title' => 'LLL:EXT:core/Resources/Private/Language/locallang_wizards.xlf:imwizard.ratio.16_9',
+                                                    'value' => 16 / 9,
+                                                ],
+                                            ],
+                                            'selectedRatio' => '16_9',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ],
     ];
 })();

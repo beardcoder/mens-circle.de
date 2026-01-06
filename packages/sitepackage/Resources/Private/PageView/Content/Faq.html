@@ -8,17 +8,17 @@
         <div class="container">
             <div class="faq__layout">
                 <div class="faq__header fade-in">
-                    <f:if condition="{record.tx_sitepackage_eyebrow}">
-                        <p class="eyebrow">{record.tx_sitepackage_eyebrow}</p>
+                    <f:if condition="{record.tx_sitepackage_subheader}">
+                        <p class="eyebrow">{record.tx_sitepackage_subheader}</p>
                     </f:if>
 
-                    <f:if condition="{record.tx_sitepackage_title}">
-                        <h2 class="section-title faq__title">{record.tx_sitepackage_title -> f:format.raw()}</h2>
+                    <f:if condition="{record.header}">
+                        <h2 class="section-title faq__title">{record.header -> f:format.raw()}</h2>
                     </f:if>
 
-                    <f:if condition="{record.tx_sitepackage_text}">
+                    <f:if condition="{record.bodytext}">
                         <div class="faq__intro">
-                            {record.tx_sitepackage_text -> f:format.nl2br()}
+                            {record.bodytext -> f:format.nl2br()}
                         </div>
                     </f:if>
                 </div>
