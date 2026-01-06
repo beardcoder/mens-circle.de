@@ -1,4 +1,12 @@
+# =============================================================================
+# Backend Layouts Configuration (Part of Set)
+# TYPO3 v14 - Page TSconfig
+# =============================================================================
+
+# Backend Layout Definitions
+# These layouts control the structure of content areas in the page module
 mod.web_layout.BackendLayouts {
+    # Default single column layout
     default {
         title = Default
         icon = EXT:sitepackage/Resources/Public/Icons/BackendLayouts/default.svg
@@ -21,6 +29,7 @@ mod.web_layout.BackendLayouts {
         }
     }
 
+    # Two column layout with main content and sidebar
     twoColumns {
         title = Two Columns
         icon = EXT:sitepackage/Resources/Public/Icons/BackendLayouts/two-columns.svg
@@ -49,6 +58,7 @@ mod.web_layout.BackendLayouts {
         }
     }
 
+    # Full width layout for landing pages
     fullWidth {
         title = Full Width
         icon = EXT:sitepackage/Resources/Public/Icons/BackendLayouts/full-width.svg

@@ -1,2 +1,10 @@
+# =============================================================================
+# Site Set Configuration for Mens Circle
+# TYPO3 v14 - Sets API
+# =============================================================================
 name: menscircle/default
 label: Mens Circle Default Set
+
+# Dependencies on TYPO3 core extensions
+# fluid_styled_content is imported in setup.typoscript
+dependencies: []
