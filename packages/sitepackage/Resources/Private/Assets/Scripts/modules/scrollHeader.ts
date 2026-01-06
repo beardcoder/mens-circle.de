@@ -11,7 +11,7 @@ export function initScrollHeader(): void {
   window.addEventListener(
     'scroll',
     () => {
-      const currentScroll = window.pageYOffset
+      const currentScroll = window.scrollY
 
       if (currentScroll > 50) {
         header.classList.add('scrolled')

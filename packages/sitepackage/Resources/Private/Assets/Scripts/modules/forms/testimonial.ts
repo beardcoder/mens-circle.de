@@ -5,6 +5,7 @@
 
 import { validateEmail } from '../../utils/validation'
 import { showMessage } from '../../utils/message'
+import { getCsrfToken } from '../../utils/config'
 import type { TestimonialData, FormSubmitResponse } from '../../types'
 
 export function initTestimonialForm(): void {
@@ -93,6 +94,26 @@ function handleTestimonialSubmit(form: HTMLFormElement): void {
   }
 
   const submitUrl = form.getAttribute('data-submit-url') || ''
+  const csrfToken = getCsrfToken()
+
+  if (!submitUrl) {
+    showMessage(
+      messageContainer,
+      'Konfigurationsfehler. Bitte kontaktiere den Administrator.',
+      'error',
+    )
+    submitButton.disabled = false
+
+    if (submitText) {
+      submitText.style.display = 'inline'
+    }
+
+    if (submitLoader) {
+      submitLoader.style.display = 'none'
+    }
+
+    return
+  }
 
   const data: TestimonialData = {
     quote,
@@ -107,10 +128,7 @@ function handleTestimonialSubmit(form: HTMLFormElement): void {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'X-CSRF-TOKEN':
-        document
-          .querySelector('meta[name="csrf-token"]')
-          ?.getAttribute('content') || '',
+      'X-CSRF-TOKEN': csrfToken,
       Accept: 'application/json',
     },
     body: JSON.stringify(data),
