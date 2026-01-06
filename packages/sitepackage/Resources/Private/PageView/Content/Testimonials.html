@@ -1,6 +1,3 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      data-namespace-typo3-fluid="true">
-
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
@@ -16,7 +13,7 @@
                 </p>
             </div>
 
-            <f:if condition="{testimonials -> f:count()} > 0">
+            <f:if condition="{testimonials}">
                 <div class="testimonials__grid stagger-children">
                     <f:for each="{testimonials}" as="item">
                         <div class="testimonial-card">
@@ -47,5 +44,3 @@
         </div>
     </section>
 </f:section>
-
-</html>

@@ -1,6 +1,3 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      data-namespace-typo3-fluid="true">
-
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
@@ -10,12 +7,12 @@
                 <div class="whatsapp__layout fade-in">
                     <div class="whatsapp__content">
                         <p class="eyebrow whatsapp__eyebrow">
-                            {record.tx_sitepackage_eyebrow -> f:or(alternative: 'Community')}
+                            {record.subheader -> f:or(alternative: 'Community')}
                         </p>
 
-                        <f:if condition="{record.tx_sitepackage_title}">
+                        <f:if condition="{record.header}">
                             <f:then>
-                                <h2 class="section-title whatsapp__title">{record.tx_sitepackage_title -> f:format.raw()}</h2>
+                                <h2 class="section-title whatsapp__title">{record.header -> f:format.raw()}</h2>
                             </f:then>
                             <f:else>
                                 <h2 class="section-title whatsapp__title">
@@ -51,12 +48,10 @@
                             </svg>
                             <span>{record.tx_sitepackage_button_text -> f:or(alternative: 'Community beitreten')}</span>
                         </f:link.typolink>
-                        <p class="whatsapp__hint">{record.tx_sitepackage_text -> f:or(alternative: 'Kostenlos und unverbindlich')}</p>
+                        <p class="whatsapp__hint">{record.header_link -> f:or(alternative: 'Kostenlos und unverbindlich')}</p>
                     </div>
                 </div>
             </div>
         </section>
     </f:if>
 </f:section>
-
-</html>

@@ -1,22 +1,19 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      data-namespace-typo3-fluid="true">
-
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
     <section class="section section--large journey-section" id="reise">
         <div class="container">
             <div class="journey__header fade-in">
-                <f:if condition="{record.tx_sitepackage_eyebrow}">
-                    <p class="eyebrow">{record.tx_sitepackage_eyebrow}</p>
+                <f:if condition="{record.subheader}">
+                    <p class="eyebrow">{record.subheader}</p>
                 </f:if>
 
-                <f:if condition="{record.tx_sitepackage_title}">
-                    <h2 class="section-title journey__title">{record.tx_sitepackage_title -> f:format.raw()}</h2>
+                <f:if condition="{record.header}">
+                    <h2 class="section-title journey__title">{record.header -> f:format.raw()}</h2>
                 </f:if>
 
-                <f:if condition="{record.tx_sitepackage_subtitle}">
-                    <p class="journey__subtitle">{record.tx_sitepackage_subtitle}</p>
+                <f:if condition="{record.bodytext}">
+                    <p class="journey__subtitle">{record.bodytext}</p>
                 </f:if>
             </div>
 
@@ -42,5 +39,3 @@
         </div>
     </section>
 </f:section>
-
-</html>

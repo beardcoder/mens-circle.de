@@ -1,13 +1,10 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      data-namespace-typo3-fluid="true">
-
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
     <section class="hero">
         <div class="hero__bg">
-            <f:if condition="{record.tx_sitepackage_background_image -> f:count()} > 0">
-                <f:for each="{record.tx_sitepackage_background_image}" as="image" iteration="i">
+            <f:if condition="{record.assets}">
+                <f:for each="{record.assets}" as="image" iteration="i">
                     <f:if condition="{i.isFirst}">
                         <f:image
                             image="{image}"
@@ -29,20 +26,20 @@
 
         <div class="container">
             <div class="hero__content">
-                <f:if condition="{record.tx_sitepackage_eyebrow}">
-                    <p class="hero__label">{record.tx_sitepackage_eyebrow}</p>
+                <f:if condition="{record.subheader}">
+                    <p class="hero__label">{record.subheader}</p>
                 </f:if>
 
-                <f:if condition="{record.tx_sitepackage_title}">
+                <f:if condition="{record.header}">
                     <h1 class="hero__title">
-                        {record.tx_sitepackage_title -> f:format.raw()}
+                        {record.header -> f:format.raw()}
                     </h1>
                 </f:if>
 
                 <div class="hero__bottom">
-                    <f:if condition="{record.tx_sitepackage_text}">
+                    <f:if condition="{record.bodytext}">
                         <p class="hero__description">
-                            {record.tx_sitepackage_text -> f:format.nl2br()}
+                            {record.bodytext -> f:format.nl2br()}
                         </p>
                     </f:if>
 
@@ -62,5 +59,3 @@
         </div>
     </section>
 </f:section>
-
-</html>
