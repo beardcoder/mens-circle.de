@@ -54,10 +54,10 @@ This update modernizes all custom content elements in the Mens Circle TYPO3 v14 
 
 All content elements now use standard TYPO3 fields:
 - `header` instead of `tx_sitepackage_title`
+- `subheader` instead of `tx_sitepackage_eyebrow`
 - `bodytext` instead of `tx_sitepackage_text`
 - `assets` instead of custom image fields
 - `header_link` for additional text fields
-- `tx_sitepackage_subheader` instead of `tx_sitepackage_eyebrow`
 
 ### 2. Modern TCA Structure
 

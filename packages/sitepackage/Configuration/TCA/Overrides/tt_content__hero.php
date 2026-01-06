@@ -42,7 +42,7 @@ defined('TYPO3') or die();
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
                 --palette--;;general,
                 header;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.header.hero,
-                tx_sitepackage_subheader;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.subheader.hero,
+                subheader;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.subheader.hero,
                 bodytext;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.bodytext.hero,
             --div--;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tab.button,
                 tx_sitepackage_button_text,
@@ -63,7 +63,7 @@ defined('TYPO3') or die();
                     'max' => 150,
                 ],
             ],
-            'tx_sitepackage_subheader' => [
+            'subheader' => [
                 'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.subheader.hero',
             ],
             'bodytext' => [

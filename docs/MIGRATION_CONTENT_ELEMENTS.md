@@ -12,7 +12,7 @@ All custom content elements have been modernized to use standard TYPO3 fields in
 
 | Old Field | New Field | Notes |
 |-----------|-----------|-------|
-| `tx_sitepackage_eyebrow` | `tx_sitepackage_subheader` | Renamed for clarity |
+| `tx_sitepackage_eyebrow` | `subheader` | Standard TYPO3 field |
 | `tx_sitepackage_title` | `header` | Standard TYPO3 field |
 | `tx_sitepackage_text` | `bodytext` | Standard TYPO3 field |
 | `tx_sitepackage_background_image` | `assets` | Standard TYPO3 field |
@@ -21,55 +21,55 @@ All custom content elements have been modernized to use standard TYPO3 fields in
 ### Content Element Specific Changes
 
 #### Hero (mc_hero)
-- `tx_sitepackage_eyebrow` → `tx_sitepackage_subheader`
+- `tx_sitepackage_eyebrow` → `subheader`
 - `tx_sitepackage_title` → `header`
 - `tx_sitepackage_text` → `bodytext` (description)
 - `tx_sitepackage_background_image` → `assets`
 
 #### Text Section (mc_text_section)
-- `tx_sitepackage_eyebrow` → `tx_sitepackage_subheader`
+- `tx_sitepackage_eyebrow` → `subheader`
 - `tx_sitepackage_title` → `header`
 - `bodytext` → `bodytext` (unchanged, but now with rich text)
 
 #### Call to Action (mc_cta)
-- `tx_sitepackage_eyebrow` → `tx_sitepackage_subheader`
+- `tx_sitepackage_eyebrow` → `subheader`
 - `tx_sitepackage_title` → `header`
 - `tx_sitepackage_text` → `bodytext`
 
 #### Intro Section (mc_intro)
-- `tx_sitepackage_eyebrow` → `tx_sitepackage_subheader`
+- `tx_sitepackage_eyebrow` → `subheader`
 - `tx_sitepackage_title` → `header`
 - `tx_sitepackage_text` → `bodytext` (intro text)
 - `tx_sitepackage_quote` → `header_link` (quote)
 
 #### FAQ (mc_faq)
-- `tx_sitepackage_eyebrow` → `tx_sitepackage_subheader`
+- `tx_sitepackage_eyebrow` → `subheader`
 - `tx_sitepackage_title` → `header`
 - `tx_sitepackage_text` → `bodytext` (intro)
 
 #### Journey Steps (mc_journey)
-- `tx_sitepackage_eyebrow` → `tx_sitepackage_subheader`
+- `tx_sitepackage_eyebrow` → `subheader`
 - `tx_sitepackage_title` → `header`
 - `tx_sitepackage_subtitle` → `bodytext`
 
 #### Value Items (mc_values)
-- `tx_sitepackage_eyebrow` → `tx_sitepackage_subheader`
+- `tx_sitepackage_eyebrow` → `subheader`
 - `tx_sitepackage_title` → `header`
 
 #### Moderator (mc_moderator)
-- `tx_sitepackage_eyebrow` → `tx_sitepackage_subheader`
+- `tx_sitepackage_eyebrow` → `subheader`
 - `tx_sitepackage_name` → `header` (moderator name)
 - `bodytext` → `bodytext` (biography, now with rich text)
 - `tx_sitepackage_quote` → `header_link` (quote)
 - `tx_sitepackage_photo` → `assets`
 
 #### Newsletter (mc_newsletter)
-- `tx_sitepackage_eyebrow` → `tx_sitepackage_subheader`
+- `tx_sitepackage_eyebrow` → `subheader`
 - `tx_sitepackage_title` → `header`
 - `tx_sitepackage_text` → `bodytext`
 
 #### WhatsApp Community (mc_whatsapp)
-- `tx_sitepackage_eyebrow` → `tx_sitepackage_subheader`
+- `tx_sitepackage_eyebrow` → `subheader`
 - `tx_sitepackage_title` → `header`
 - `bodytext` → `bodytext` (unchanged, now with rich text)
 - `tx_sitepackage_text` (hint) → `header_link` (disclaimer text)
@@ -99,7 +99,7 @@ Run this SQL to migrate existing content element data:
 -- Migrate hero elements
 UPDATE tt_content SET 
     header = tx_sitepackage_title,
-    tx_sitepackage_subheader = tx_sitepackage_eyebrow,
+    subheader = tx_sitepackage_eyebrow,
     bodytext = tx_sitepackage_text
 WHERE CType = 'mc_hero' AND header = '';
 
@@ -114,20 +114,20 @@ WHERE t.CType = 'mc_hero';
 -- Migrate text section elements
 UPDATE tt_content SET 
     header = tx_sitepackage_title,
-    tx_sitepackage_subheader = tx_sitepackage_eyebrow
+    subheader = tx_sitepackage_eyebrow
 WHERE CType = 'mc_text_section' AND header = '';
 
 -- Migrate CTA elements
 UPDATE tt_content SET 
     header = tx_sitepackage_title,
-    tx_sitepackage_subheader = tx_sitepackage_eyebrow,
+    subheader = tx_sitepackage_eyebrow,
     bodytext = tx_sitepackage_text
 WHERE CType = 'mc_cta' AND header = '';
 
 -- Migrate intro elements
 UPDATE tt_content SET 
     header = tx_sitepackage_title,
-    tx_sitepackage_subheader = tx_sitepackage_eyebrow,
+    subheader = tx_sitepackage_eyebrow,
     bodytext = tx_sitepackage_text,
     header_link = tx_sitepackage_quote
 WHERE CType = 'mc_intro' AND header = '';
@@ -135,27 +135,27 @@ WHERE CType = 'mc_intro' AND header = '';
 -- Migrate FAQ elements
 UPDATE tt_content SET 
     header = tx_sitepackage_title,
-    tx_sitepackage_subheader = tx_sitepackage_eyebrow,
+    subheader = tx_sitepackage_eyebrow,
     bodytext = tx_sitepackage_text
 WHERE CType = 'mc_faq' AND header = '';
 
 -- Migrate journey elements
 UPDATE tt_content SET 
     header = tx_sitepackage_title,
-    tx_sitepackage_subheader = tx_sitepackage_eyebrow,
+    subheader = tx_sitepackage_eyebrow,
     bodytext = tx_sitepackage_subtitle
 WHERE CType = 'mc_journey' AND header = '';
 
 -- Migrate value elements
 UPDATE tt_content SET 
     header = tx_sitepackage_title,
-    tx_sitepackage_subheader = tx_sitepackage_eyebrow
+    subheader = tx_sitepackage_eyebrow
 WHERE CType = 'mc_values' AND header = '';
 
 -- Migrate moderator elements
 UPDATE tt_content SET 
     header = tx_sitepackage_name,
-    tx_sitepackage_subheader = tx_sitepackage_eyebrow,
+    subheader = tx_sitepackage_eyebrow,
     header_link = tx_sitepackage_quote
 WHERE CType = 'mc_moderator' AND header = '';
 
@@ -170,14 +170,14 @@ WHERE t.CType = 'mc_moderator';
 -- Migrate newsletter elements
 UPDATE tt_content SET 
     header = tx_sitepackage_title,
-    tx_sitepackage_subheader = tx_sitepackage_eyebrow,
+    subheader = tx_sitepackage_eyebrow,
     bodytext = tx_sitepackage_text
 WHERE CType = 'mc_newsletter' AND header = '';
 
 -- Migrate WhatsApp elements
 UPDATE tt_content SET 
     header = tx_sitepackage_title,
-    tx_sitepackage_subheader = tx_sitepackage_eyebrow,
+    subheader = tx_sitepackage_eyebrow,
     header_link = tx_sitepackage_text
 WHERE CType = 'mc_whatsapp' AND header = '';
 ```

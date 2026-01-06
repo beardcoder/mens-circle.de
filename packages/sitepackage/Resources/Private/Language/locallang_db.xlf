@@ -195,12 +195,6 @@
             </trans-unit>
 
             <!-- Custom Content Element Fields -->
-            <trans-unit id="tt_content.tx_sitepackage_subheader" resname="tt_content.tx_sitepackage_subheader">
-                <source>Subheader</source>
-            </trans-unit>
-            <trans-unit id="tt_content.tx_sitepackage_subheader.description" resname="tt_content.tx_sitepackage_subheader.description">
-                <source>Small label text displayed above the main heading (eyebrow text)</source>
-            </trans-unit>
             <trans-unit id="tt_content.tx_sitepackage_button_text" resname="tt_content.tx_sitepackage_button_text">
                 <source>Button Text</source>
             </trans-unit>

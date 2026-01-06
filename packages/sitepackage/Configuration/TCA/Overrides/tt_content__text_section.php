@@ -41,7 +41,7 @@ defined('TYPO3') or die();
         'showitem' => '
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
                 --palette--;;general,
-                tx_sitepackage_subheader,
+                subheader,
                 header,
                 bodytext,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:appearance,

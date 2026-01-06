@@ -10,7 +10,7 @@
                 <div class="whatsapp__layout fade-in">
                     <div class="whatsapp__content">
                         <p class="eyebrow whatsapp__eyebrow">
-                            {record.tx_sitepackage_subheader -> f:or(alternative: 'Community')}
+                            {record.subheader -> f:or(alternative: 'Community')}
                         </p>
 
                         <f:if condition="{record.header}">

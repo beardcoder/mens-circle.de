@@ -29,21 +29,9 @@ defined('TYPO3') or die();
     );
 
     // Define custom fields
-    // Note: Using standard 'header' and 'bodytext' fields wherever possible
+    // Note: Using standard 'header', 'subheader', and 'bodytext' fields wherever possible
     // Only adding truly custom fields that don't overlap with TYPO3 core
     $customColumns = [
-        'tx_sitepackage_subheader' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_subheader',
-            'description' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_subheader.description',
-            'config' => [
-                'type' => 'input',
-                'size' => 50,
-                'max' => 255,
-                'eval' => 'trim',
-                'required' => false,
-            ],
-        ],
         'tx_sitepackage_button_text' => [
             'exclude' => true,
             'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tx_sitepackage_button_text',
