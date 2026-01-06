@@ -1,5 +1,12 @@
+# =============================================================================
+# Page TSconfig for Mens Circle Site
+# TYPO3 v14 - Backend configuration
+# =============================================================================
+
+# Configure available backend layouts for pages
 TCEFORM {
     pages {
+        # Restrict backend layout selection to these layouts
         backend_layout {
             keepItems = default,twoColumns,fullWidth
         }
@@ -9,13 +16,19 @@ TCEFORM {
     }
 }
 
+# =============================================================================
+# Content Element Wizard Configuration
+# Defines custom content elements in the backend "New Content Element" wizard
+# =============================================================================
 mod.wizards.newContentElement.wizardItems {
+    # Standard TYPO3 content elements with custom icons
     common.elements {
         header.iconIdentifier = content-header
         text.iconIdentifier = content-text
         textmedia.iconIdentifier = content-textmedia
     }
 
+    # Custom Mens Circle content elements
     sitepackage {
         header = Mens Circle
         after = common

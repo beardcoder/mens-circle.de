@@ -1,5 +1,12 @@
+# =============================================================================
+# TypoScript Constants for Mens Circle Site
+# TYPO3 v14 - Configuration variables
+# =============================================================================
+
 page {
     footer {
+        # Page ID containing footer menu items
+        # Set to 0 to disable, or specify the parent page UID
         menuPid = 0
     }
 }
