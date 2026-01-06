@@ -1,27 +1,43 @@
+# =============================================================================
+# Main TypoScript Setup for Mens Circle Site
+# TYPO3 v14 - Modern configuration using Sets API
+# =============================================================================
+
+# Import base content element configuration from fluid_styled_content
 @import 'EXT:fluid_styled_content/Configuration/TypoScript/setup.typoscript'
 
+# =============================================================================
+# PAGE Object - Main page rendering using PAGEVIEW (TYPO3 v14+)
+# =============================================================================
 page = PAGE
 page {
     typeNum = 0
 
+    # PAGEVIEW is the modern TYPO3 v14 content object for page rendering
+    # It replaces the older FLUIDTEMPLATE approach
     10 = PAGEVIEW
     10 {
         paths {
             100 = EXT:sitepackage/Resources/Private/PageView/
         }
 
+        # Data Processors - prepare data for Fluid templates
+        # Using short syntax (TYPO3 v14 best practice)
         dataProcessing {
+            # Fetch page content from the database
             10 = page-content
             10 {
                 as = content
             }
 
+            # Main navigation menu
             30 = menu
             30 {
                 as = mainMenu
                 levels = 2
             }
 
+            # Footer menu from specific page directory
             40 = menu
             40 {
                 as = footerMenu
@@ -31,13 +47,15 @@ page {
             }
         }
 
+        # Template variables
         variables {
+            # Modern date formatting (replaces deprecated strftime)
             currentYear = TEXT
-            currentYear.data = date:U
-            currentYear.strftime = %Y
+            currentYear.data = date:Y
         }
     }
 
+    # HTML meta tags
     meta {
         viewport = width=device-width, initial-scale=1
         robots = index, follow
@@ -45,6 +63,10 @@ page {
     }
 }
 
+# =============================================================================
+# Base Content Element Configuration
+# Shared configuration for all custom content elements
+# =============================================================================
 lib.contentElement {
     templateRootPaths {
         20 = EXT:sitepackage/Resources/Private/PageView/Content/
@@ -56,6 +78,7 @@ lib.contentElement {
         20 = EXT:sitepackage/Resources/Private/PageView/Layouts/
     }
 
+    # Transform database records to proper Record objects (TYPO3 v14)
     dataProcessing {
         5 = record-transformation
         5 {
@@ -64,37 +87,48 @@ lib.contentElement {
     }
 }
 
+# =============================================================================
+# Custom Content Elements (mc_* prefix = Mens Circle)
+# Each element extends lib.contentElement with specific templates
+# =============================================================================
 tt_content {
+    # Hero section with background image, title, and CTA
     mc_hero =< lib.contentElement
     mc_hero {
         templateName = Hero
     }
 
+    # Introduction section with values and quote
     mc_intro =< lib.contentElement
     mc_intro {
         templateName = Intro
     }
 
+    # Call to action section
     mc_cta =< lib.contentElement
     mc_cta {
         templateName = CallToAction
     }
 
+    # FAQ accordion
     mc_faq =< lib.contentElement
     mc_faq {
         templateName = Faq
     }
 
+    # Journey/process steps visualization
     mc_journey =< lib.contentElement
     mc_journey {
         templateName = JourneySteps
     }
 
+    # Testimonials grid with dynamic content from database
     mc_testimonials =< lib.contentElement
     mc_testimonials {
         templateName = Testimonials
         dataProcessing {
-            10 = TYPO3\CMS\Frontend\DataProcessing\DatabaseQueryProcessor
+            # Fetch published testimonials using short syntax (TYPO3 v14)
+            10 = database-query
             10 {
                 table = tx_sitepackage_domain_model_testimonial
                 where = is_published=1
@@ -105,26 +139,31 @@ tt_content {
         }
     }
 
+    # Moderator profile section
     mc_moderator =< lib.contentElement
     mc_moderator {
         templateName = Moderator
     }
 
+    # Newsletter subscription form
     mc_newsletter =< lib.contentElement
     mc_newsletter {
         templateName = Newsletter
     }
 
+    # Rich text section
     mc_text_section =< lib.contentElement
     mc_text_section {
         templateName = TextSection
     }
 
+    # Value items list
     mc_values =< lib.contentElement
     mc_values {
         templateName = ValueItems
     }
 
+    # WhatsApp community callout
     mc_whatsapp =< lib.contentElement
     mc_whatsapp {
         templateName = WhatsappCommunity
