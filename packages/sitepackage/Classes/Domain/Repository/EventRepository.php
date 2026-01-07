@@ -2,9 +2,18 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the "sitepackage" extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ */
+
 namespace MensCircle\Sitepackage\Domain\Repository;
 
+use DateTime;
 use MensCircle\Sitepackage\Domain\Model\Event;
+use Override;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -14,22 +23,29 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *
  * @extends Repository<Event>
  */
-class EventRepository extends Repository
+final class EventRepository extends Repository
 {
     protected $defaultOrderings = [
         'eventDate' => QueryInterface::ORDER_DESCENDING,
     ];
 
+    public function initializeObject(): void
+    {
+        $querySettings = $this->createQuery()->getQuerySettings();
+        $querySettings->setRespectStoragePage(false);
+        $this->setDefaultQuerySettings($querySettings);
+    }
+
     /**
      * Find all published events
      *
-     * @return QueryResultInterface<Event>
+     * @return QueryResultInterface<int, Event>
      */
     public function findPublished(): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->matching(
-            $query->equals('isPublished', true)
+            $query->equals('isPublished', true),
         );
         $query->setOrderings([
             'eventDate' => QueryInterface::ORDER_ASCENDING,
@@ -49,8 +65,8 @@ class EventRepository extends Repository
         $query->matching(
             $query->logicalAnd(
                 $query->equals('isPublished', true),
-                $query->greaterThanOrEqual('eventDate', new \DateTime('today')->getTimestamp())
-            )
+                $query->greaterThanOrEqual('eventDate', new DateTime('today')->getTimestamp()),
+            ),
         );
         $query->setOrderings([
             'eventDate' => QueryInterface::ORDER_ASCENDING,
@@ -74,8 +90,8 @@ class EventRepository extends Repository
         $query->matching(
             $query->logicalAnd(
                 $query->equals('isPublished', true),
-                $query->lessThan('eventDate', new \DateTime('today')->getTimestamp())
-            )
+                $query->lessThan('eventDate', new DateTime('today')->getTimestamp()),
+            ),
         );
         $query->setOrderings([
             'eventDate' => QueryInterface::ORDER_DESCENDING,
@@ -95,11 +111,12 @@ class EventRepository extends Repository
     {
         $query = $this->createQuery();
         $query->matching(
-            $query->equals('slug', $slug)
+            $query->equals('slug', $slug),
         );
 
         /** @var Event|null $result */
         $result = $query->execute()->getFirst();
+
         return $result;
     }
 
@@ -112,12 +129,13 @@ class EventRepository extends Repository
         $query->matching(
             $query->logicalAnd(
                 $query->equals('slug', $slug),
-                $query->equals('isPublished', true)
-            )
+                $query->equals('isPublished', true),
+            ),
         );
 
         /** @var Event|null $result */
         $result = $query->execute()->getFirst();
+
         return $result;
     }
 
@@ -140,7 +158,7 @@ class EventRepository extends Repository
     /**
      * Count all events
      */
-    #[\Override]
+    #[Override]
     public function countAll(): int
     {
         $query = $this->createQuery();
@@ -159,8 +177,8 @@ class EventRepository extends Repository
         $query->matching(
             $query->logicalAnd(
                 $query->equals('isPublished', true),
-                $query->greaterThanOrEqual('eventDate', new \DateTime('today')->getTimestamp())
-            )
+                $query->greaterThanOrEqual('eventDate', new DateTime('today')->getTimestamp()),
+            ),
         );
 
         return $query->count();
@@ -176,8 +194,8 @@ class EventRepository extends Repository
         $query->matching(
             $query->logicalAnd(
                 $query->equals('isPublished', true),
-                $query->lessThan('eventDate', new \DateTime('today')->getTimestamp())
-            )
+                $query->lessThan('eventDate', new DateTime('today')->getTimestamp()),
+            ),
         );
 
         return $query->count();

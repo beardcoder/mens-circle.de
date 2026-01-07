@@ -21,6 +21,13 @@ class EventRegistrationRepository extends Repository
         'crdate' => QueryInterface::ORDER_DESCENDING,
     ];
 
+    public function initializeObject(): void
+    {
+        $querySettings = $this->createQuery()->getQuerySettings();
+        $querySettings->setRespectStoragePage(false);
+        $this->setDefaultQuerySettings($querySettings);
+    }
+
     /**
      * Find registrations by event
      *
