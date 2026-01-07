@@ -35,13 +35,13 @@ final class EventModuleController extends ActionController
         $allEvents = $this->eventRepository->findAllForBackend();
         $upcomingEvents = $this->eventRepository->findUpcoming();
         $pastEvents = $this->eventRepository->findPast(5);
-        
+
         // Calculate statistics
         $totalEvents = $allEvents->count();
         $upcomingCount = $upcomingEvents->count();
         $pastCount = $this->eventRepository->countPast();
         $totalRegistrations = $this->eventRegistrationRepository->countAll();
-        
+
         // Find next event with available spots
         $nextEvent = null;
         $nextEventSpots = 0;
@@ -115,11 +115,11 @@ final class EventModuleController extends ActionController
 
     public function togglePublishAction(Event $event): ResponseInterface
     {
-        $event->setIsPublished(!$event->isPublished());
+        $event->setIsPublished(!$event->getIsPublished());
         $this->eventRepository->update($event);
         $this->persistenceManager->persistAll();
 
-        $status = $event->isPublished() ? 'veröffentlicht' : 'als Entwurf gespeichert';
+        $status = $event->getIsPublished() ? 'veröffentlicht' : 'als Entwurf gespeichert';
         $this->addFlashMessage(
             sprintf('Event "%s" wurde %s.', $event->getTitle(), $status),
             'Event aktualisiert',

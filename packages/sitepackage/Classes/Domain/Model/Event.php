@@ -42,7 +42,7 @@ class Event extends AbstractEntity
 
     protected string $costBasis = 'Auf Spendenbasis';
 
-    public bool $isPublished = false;
+    protected bool $isPublished = false;
 
     /**
      * @var ObjectStorage<EventRegistration>
@@ -243,16 +243,17 @@ class Event extends AbstractEntity
         return $this;
     }
 
+    public function getIsPublished(): bool
+    {
+        return $this->isPublished;
+    }
+
     public function setIsPublished(bool $isPublished): self
     {
         $this->isPublished = $isPublished;
         return $this;
     }
 
-    public function isDeleted(): bool
-    {
-        return $this->deleted;
-    }
 
     /**
      * @return ObjectStorage<EventRegistration>
