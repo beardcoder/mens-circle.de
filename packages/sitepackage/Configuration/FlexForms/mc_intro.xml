@@ -6,7 +6,7 @@
                 <sheetTitle>Values</sheetTitle>
                 <type>array</type>
                 <el>
-                    <settings.values>
+                    <values>
                         <type>array</type>
                         <section>1</section>
                         <el>
@@ -39,7 +39,7 @@
                                 </el>
                             </value>
                         </el>
-                    </settings.values>
+                    </values>
                 </el>
             </ROOT>
         </sValues>

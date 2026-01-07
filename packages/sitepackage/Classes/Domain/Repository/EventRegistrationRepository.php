@@ -24,15 +24,13 @@ class EventRegistrationRepository extends Repository
     /**
      * Find registrations by event
      *
-     * @return QueryResultInterface<EventRegistration>
+     * @return QueryResultInterface<int, EventRegistration>
      */
     public function findByEvent(Event $event): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
-        $query->matching(
-            $query->equals('event', $event)
-        );
+        $query->matching($query->equals('event', $event));
 
         return $query->execute();
     }
@@ -40,7 +38,7 @@ class EventRegistrationRepository extends Repository
     /**
      * Find confirmed registrations by event
      *
-     * @return QueryResultInterface<EventRegistration>
+     * @return QueryResultInterface<int, EventRegistration>
      */
     public function findConfirmedByEvent(Event $event): QueryResultInterface
     {
@@ -109,6 +107,7 @@ class EventRegistrationRepository extends Repository
     /**
      * Count all registrations
      */
+    #[\Override]
     public function countAll(): int
     {
         $query = $this->createQuery();
@@ -120,7 +119,7 @@ class EventRegistrationRepository extends Repository
     /**
      * Find all registrations for backend
      *
-     * @return QueryResultInterface<EventRegistration>
+     * @return QueryResultInterface<int, EventRegistration>
      */
     public function findAllForBackend(): QueryResultInterface
     {

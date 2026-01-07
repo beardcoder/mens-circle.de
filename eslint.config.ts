@@ -1,28 +1,47 @@
-import eslint from '@eslint/js'
-import prettier from 'eslint-config-prettier'
-import tseslint from 'typescript-eslint'
+import eslint from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import { defineConfig } from 'eslint/config';
+import { includeIgnoreFile } from '@eslint/compat';
+import { fileURLToPath } from 'node:url';
+import prettierPlugin from 'eslint-plugin-prettier';
+import prettierConfig from 'eslint-config-prettier';
+import stylistic from '@stylistic/eslint-plugin';
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.strict,
-  prettier,
+const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
+
+export default defineConfig([
+  includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
+  stylistic.configs.recommended,
   {
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    plugins: { eslint, prettier: prettierPlugin, stylistic },
+    extends: ['eslint/recommended'],
+    languageOptions: { globals: globals.browser },
+    rules: {
+      ...prettierConfig.rules,
+      '@typescript-eslint/no-unused-vars': 'warn',
+      'no-console': 'warn',
+      semi: ['error', 'always'],
+      quotes: ['error', 'single'],
+      'prettier/prettier': 'error',
+      '@stylistic/one-var-declaration-per-line': ['error', 'always'],
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: '*', next: 'return' },
+        { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+        {
+          blankLine: 'any',
+          prev: ['const', 'let', 'var'],
+          next: ['const', 'let', 'var'],
+        },
+      ],
+    },
+    settings: {
+      react: {
+        version: 'detect',
       },
     },
-    rules: {
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_' },
-      ],
-      '@typescript-eslint/explicit-function-return-type': 'error',
-      '@typescript-eslint/no-explicit-any': 'error',
-    },
   },
-  {
-    ignores: ['node_modules/', 'public/', 'var/', 'vendor/'],
-  },
-)
+  tseslint.configs.recommended,
+]);

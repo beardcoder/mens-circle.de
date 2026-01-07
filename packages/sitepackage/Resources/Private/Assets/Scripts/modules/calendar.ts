@@ -3,33 +3,25 @@
  * Handles "Add to Calendar" functionality for events
  */
 
-import type { EventData } from '../types'
+import type { EventData } from '../types';
 
 /**
  * Gets event data from data attributes or falls back to window object
  * @returns EventData object
  */
 function getEventData(): EventData {
-  const button = document.getElementById('addToCalendar')
+  const button = document.getElementById('addToCalendar');
 
   if (button) {
-    const title = button.dataset.eventTitle
-    const description = button.dataset.eventDescription
-    const location = button.dataset.eventLocation
-    const startDate = button.dataset.eventStartDate
-    const startTime = button.dataset.eventStartTime
-    const endDate = button.dataset.eventEndDate
-    const endTime = button.dataset.eventEndTime
+    const title = button.dataset.eventTitle;
+    const description = button.dataset.eventDescription;
+    const location = button.dataset.eventLocation;
+    const startDate = button.dataset.eventStartDate;
+    const startTime = button.dataset.eventStartTime;
+    const endDate = button.dataset.eventEndDate;
+    const endTime = button.dataset.eventEndTime;
 
-    if (
-      title &&
-      description &&
-      location &&
-      startDate &&
-      startTime &&
-      endDate &&
-      endTime
-    ) {
+    if (title && description && location && startDate && startTime && endDate && endTime) {
       return {
         title,
         description,
@@ -38,92 +30,87 @@ function getEventData(): EventData {
         startTime,
         endDate,
         endTime,
-      }
+      };
     }
   }
 
   // Fallback to window object for backwards compatibility
   if (typeof window !== 'undefined' && 'eventData' in window) {
-    const data = window.eventData as EventData
+    const data = window.eventData as EventData;
 
-    return data
+    return data;
   }
 
   // Default fallback
   return {
     title: 'Männerkreis Straubing',
-    description:
-      'Treffen des Männerkreis Straubing. Ein Raum für echte Begegnung unter Männern.',
+    description: 'Treffen des Männerkreis Straubing. Ein Raum für echte Begegnung unter Männern.',
     location: 'Straubing (genaue Adresse nach Anmeldung)',
     startDate: '2025-01-24',
     startTime: '19:00',
     endDate: '2025-01-24',
     endTime: '21:30',
-  }
+  };
 }
 
 export function initCalendarIntegration(): void {
-  const addToCalendarBtn = document.getElementById('addToCalendar')
-  const calendarModal = document.getElementById('calendarModal')
-  const calendarICS = document.getElementById(
-    'calendarICS',
-  ) as HTMLAnchorElement | null
-  const calendarGoogle = document.getElementById(
-    'calendarGoogle',
-  ) as HTMLAnchorElement | null
+  const addToCalendarBtn = document.getElementById('addToCalendar');
+  const calendarModal = document.getElementById('calendarModal');
+  const calendarICS = document.getElementById('calendarICS') as HTMLAnchorElement | null;
+  const calendarGoogle = document.getElementById('calendarGoogle') as HTMLAnchorElement | null;
 
-  if (!addToCalendarBtn) return
+  if (!addToCalendarBtn) return;
 
   addToCalendarBtn.addEventListener('click', () => {
     if (!calendarModal) {
-      return
+      return;
     }
-    calendarModal.classList.add('open')
+    calendarModal.classList.add('open');
 
-    const eventData = getEventData()
+    const eventData = getEventData();
 
     // Generate ICS file
     if (calendarICS) {
-      const icsContent = generateICS(eventData)
+      const icsContent = generateICS(eventData);
       const blob = new Blob([icsContent], {
         type: 'text/calendar;charset=utf-8',
-      })
+      });
 
-      calendarICS.href = URL.createObjectURL(blob)
+      calendarICS.href = URL.createObjectURL(blob);
     }
 
     // Generate Google Calendar link
     if (calendarGoogle) {
-      calendarGoogle.href = generateGoogleCalendarUrl(eventData)
+      calendarGoogle.href = generateGoogleCalendarUrl(eventData);
     }
-  })
+  });
 
   // Close modal when clicking outside
   if (calendarModal) {
     calendarModal.addEventListener('click', (e: MouseEvent) => {
       if (e.target === calendarModal) {
-        calendarModal.classList.remove('open')
+        calendarModal.classList.remove('open');
       }
-    })
+    });
   }
 }
 
 function generateICS(event: EventData): string {
   const formatDate = (date: string, time: string): string => {
-    const d = new Date(`${date}T${time}:00`)
+    const d = new Date(`${date}T${time}:00`);
 
     return d
       .toISOString()
       .replace(/[-:]/g, '')
-      .replace(/\.\d{3}/, '')
-  }
+      .replace(/\.\d{3}/, '');
+  };
 
-  const start = formatDate(event.startDate, event.startTime)
-  const end = formatDate(event.endDate, event.endTime)
+  const start = formatDate(event.startDate, event.startTime);
+  const end = formatDate(event.endDate, event.endTime);
   const now = new Date()
     .toISOString()
     .replace(/[-:]/g, '')
-    .replace(/\.\d{3}/, '')
+    .replace(/\.\d{3}/, '');
 
   return `BEGIN:VCALENDAR
 VERSION:2.0
@@ -140,13 +127,13 @@ DESCRIPTION:${event.description.replace(/\n/g, '\\n')}
 LOCATION:${event.location}
 STATUS:CONFIRMED
 END:VEVENT
-END:VCALENDAR`
+END:VCALENDAR`;
 }
 
 function generateGoogleCalendarUrl(event: EventData): string {
   const formatGoogleDate = (date: string, time: string): string => {
-    return `${date.replace(/-/g, '')}T${time.replace(':', '')}00`
-  }
+    return `${date.replace(/-/g, '')}T${time.replace(':', '')}00`;
+  };
 
   const params = new URLSearchParams({
     action: 'TEMPLATE',
@@ -155,7 +142,7 @@ function generateGoogleCalendarUrl(event: EventData): string {
     details: event.description,
     location: event.location,
     ctz: 'Europe/Berlin',
-  })
+  });
 
-  return `https://calendar.google.com/calendar/render?${params.toString()}`
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }

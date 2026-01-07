@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
+use MensCircle\Sitepackage\Domain\Model\Event;
+use MensCircle\Sitepackage\Domain\Model\EventRegistration;
+
 return [
-    \MensCircle\Sitepackage\Domain\Model\Event::class => [
+    Event::class => [
         'tableName' => 'tx_sitepackage_domain_model_event',
         'properties' => [
             'eventDate' => [
@@ -32,7 +35,7 @@ return [
             ],
         ],
     ],
-    \MensCircle\Sitepackage\Domain\Model\EventRegistration::class => [
+    EventRegistration::class => [
         'tableName' => 'tx_sitepackage_domain_model_eventregistration',
         'properties' => [
             'firstName' => [

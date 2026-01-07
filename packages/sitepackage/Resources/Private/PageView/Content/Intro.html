@@ -1,4 +1,5 @@
-<f:layout name="ContentElement" />
+<f:layout name="ContentElement"/>
+
 
 <f:section name="Main">
     <section class="intro-section" id="ueber">
@@ -20,20 +21,14 @@
                     </div>
                 </f:if>
 
-                <f:if condition="{record.pi_flexform.sValues/settings.values}">
+                <f:if condition="{record.pi_flexform.values}">
                     <div class="intro__values stagger-children">
-                        <f:for each="{record.pi_flexform.sValues/settings.values}" as="value">
+                        <f:for as="item" each="{record.pi_flexform.values}">
                             <div class="value-item">
-                                <f:if condition="{value.number}">
-                                    <span class="value-item__number">{value.number}</span>
-                                </f:if>
+                                <span class="value-item__number">{item.value.number}</span>
                                 <div class="value-item__content">
-                                    <f:if condition="{value.title}">
-                                        <h4>{value.title}</h4>
-                                    </f:if>
-                                    <f:if condition="{value.description}">
-                                        <p>{value.description}</p>
-                                    </f:if>
+                                    <h4>{item.value.title}</h4>
+                                    <p>{item.value.description}</p>
                                 </div>
                             </div>
                         </f:for>
@@ -41,16 +36,16 @@
                 </f:if>
             </div>
 
-            <div class="intro__right">
-                <div class="intro__image-area">
-                    <div class="intro__image-circles"></div>
-                    <f:if condition="{record.header_link}">
+            <f:if condition="{record.tx_sitepackage_quote}">
+                <div class="intro__right">
+                    <div class="intro__image-area">
+                        <div class="intro__image-circles"></div>
                         <p class="intro__image-text">
-                            {record.header_link -> f:format.raw()}
+                            {record.tx_sitepackage_quote -> f:format.nl2br()}
                         </p>
-                    </f:if>
+                    </div>
                 </div>
-            </div>
+            </f:if>
         </div>
     </section>
 </f:section>

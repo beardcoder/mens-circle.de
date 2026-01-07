@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-defined('TYPO3') or die();
+defined('TYPO3') || die();
 
 /**
  * Moderator Profile Content Element
@@ -39,7 +39,7 @@ defined('TYPO3') or die();
     // Define TCA configuration
     $GLOBALS['TCA']['tt_content']['types'][$cType] = [
         'showitem' => '
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
+            --div--;core.form.tabs:general,
                 --palette--;;general,
                 subheader,
                 header;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.header.moderator,
@@ -47,10 +47,10 @@ defined('TYPO3') or die();
                 header_link;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.header_link.moderator,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:images,
                 assets,
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:appearance,
+            --div--;core.form.tabs:appearance,
                 --palette--;;frames,
                 --palette--;;appearanceLinks,
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
+            --div--;core.form.tabs:access,
                 --palette--;;hidden,
                 --palette--;;access,
         ',

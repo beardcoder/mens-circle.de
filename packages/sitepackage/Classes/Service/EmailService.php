@@ -11,20 +11,21 @@ declare(strict_types=1);
 
 namespace MensCircle\Sitepackage\Service;
 
-use MensCircle\Sitepackage\Components\ComponentCollection;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mime\Address;
+use Throwable;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\MailerInterface;
+use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\View\TemplatePaths;
 
 final readonly class EmailService
 {
-    private const DEFAULT_TEMPLATE_ROOT = 'EXT:sitepackage/Resources/Private/Templates/Email/';
-    private const DEFAULT_PARTIAL_ROOT = 'EXT:sitepackage/Resources/Private/Components/Email/';
-    private const DEFAULT_LAYOUT_ROOT = 'EXT:sitepackage/Resources/Private/Layouts/Email/';
+    private const string DEFAULT_TEMPLATE_ROOT = 'EXT:sitepackage/Resources/Private/Templates/Email/';
+    private const string DEFAULT_PARTIAL_ROOT = 'EXT:sitepackage/Resources/Private/Components/Email/';
+    private const string DEFAULT_LAYOUT_ROOT = 'EXT:sitepackage/Resources/Private/Layouts/Email/';
 
     public function __construct(
         private MailerInterface $mailer,
@@ -64,7 +65,7 @@ final readonly class EmailService
             ]);
 
             return true;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $this->logger->error('Failed to send email', [
                 'template' => $template,
                 'to' => (string)$to,
@@ -101,7 +102,7 @@ final readonly class EmailService
      */
     private function createEmail(string $template, string $subject, array $variables): FluidEmail
     {
-        $email = GeneralUtility::makeInstance(FluidEmail::class);
+        $email = GeneralUtility::makeInstance(FluidEmail::class, $this->configureTemplatePaths());
 
         $email
             ->setTemplate($template)
@@ -109,13 +110,10 @@ final readonly class EmailService
             ->assignMultiple($this->getDefaultVariables())
             ->assignMultiple($variables);
 
-        $this->configureTemplatePaths($email);
-        $this->registerComponentNamespace($email);
-
         return $email;
     }
 
-    private function configureTemplatePaths(FluidEmail $email): void
+    private function configureTemplatePaths(): TemplatePaths
     {
         $templatePaths = new TemplatePaths();
 
@@ -134,17 +132,7 @@ final readonly class EmailService
             20 => GeneralUtility::getFileAbsFileName(self::DEFAULT_LAYOUT_ROOT),
         ]);
 
-        $email->setTemplatePaths($templatePaths);
-    }
-
-    private function registerComponentNamespace(FluidEmail $email): void
-    {
-        $renderingContext = $email->getRenderingContext();
-
-        $renderingContext->getViewHelperResolver()->addNamespace(
-            'mc',
-            ComponentCollection::class,
-        );
+        return $templatePaths;
     }
 
     /**
@@ -162,13 +150,13 @@ final readonly class EmailService
         ];
     }
 
-    private function getCurrentSite(): ?\TYPO3\CMS\Core\Site\Entity\Site
+    private function getCurrentSite(): ?Site
     {
         try {
             $sites = $this->siteFinder->getAllSites();
 
             return $sites['main'] ?? reset($sites) ?: null;
-        } catch (\Throwable) {
+        } catch (Throwable) {
             return null;
         }
     }

@@ -3,116 +3,91 @@
  * Handles testimonial submission form
  */
 
-import { validateEmail } from '../../utils/validation'
-import { showMessage } from '../../utils/message'
-import { getCsrfToken } from '../../utils/config'
-import type { TestimonialData, FormSubmitResponse } from '../../types'
+import { validateEmail } from '../../utils/validation';
+import { showMessage } from '../../utils/message';
+import { getCsrfToken } from '../../utils/config';
+import type { TestimonialData, FormSubmitResponse } from '../../types';
 
 export function initTestimonialForm(): void {
-  const testimonialForm = document.getElementById(
-    'testimonialForm',
-  ) as HTMLFormElement | null
+  const testimonialForm = document.getElementById('testimonialForm') as HTMLFormElement | null;
 
-  if (!testimonialForm) return
+  if (!testimonialForm) return;
 
   // Character counter
-  const quoteTextarea = testimonialForm.querySelector(
-    '#quote',
-  ) as HTMLTextAreaElement | null
-  const charCount = document.getElementById('charCount')
+  const quoteTextarea = testimonialForm.querySelector('#quote') as HTMLTextAreaElement | null;
+  const charCount = document.getElementById('charCount');
 
   if (quoteTextarea && charCount) {
     quoteTextarea.addEventListener('input', function () {
-      charCount.textContent = this.value.length.toString()
-    })
+      charCount.textContent = this.value.length.toString();
+    });
   }
 
   testimonialForm.addEventListener('submit', function (e) {
-    e.preventDefault()
-    handleTestimonialSubmit(this)
-  })
+    e.preventDefault();
+    handleTestimonialSubmit(this);
+  });
 }
 
 function handleTestimonialSubmit(form: HTMLFormElement): void {
-  const messageContainer = document.getElementById('formMessage')
-  const formData = new FormData(form)
-  const submitButton = form.querySelector(
-    'button[type="submit"]',
-  ) as HTMLButtonElement
-  const submitText = submitButton.querySelector(
-    '.btn__text',
-  ) as HTMLElement | null
-  const submitLoader = submitButton.querySelector(
-    '.btn__loader',
-  ) as HTMLElement | null
+  const messageContainer = document.getElementById('formMessage');
+  const formData = new FormData(form);
+  const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const submitText = submitButton.querySelector('.btn__text') as HTMLElement | null;
+  const submitLoader = submitButton.querySelector('.btn__loader') as HTMLElement | null;
 
-  const quote = formData.get('quote')?.toString().trim()
-  const authorName = formData.get('author_name')?.toString().trim() || null
-  const role = formData.get('role')?.toString().trim() || null
-  const email = formData.get('email')?.toString().trim()
-  const privacy = (
-    form.querySelector('input[name="privacy"]') as HTMLInputElement
-  )?.checked
+  const quote = formData.get('quote')?.toString().trim();
+  const authorName = formData.get('author_name')?.toString().trim() || null;
+  const role = formData.get('role')?.toString().trim() || null;
+  const email = formData.get('email')?.toString().trim();
+  const privacy = (form.querySelector('input[name="privacy"]') as HTMLInputElement)?.checked;
 
   // Validation
   if (!quote || quote.length < 10) {
-    showMessage(
-      messageContainer,
-      'Bitte teile deine Erfahrung mit uns (mindestens 10 Zeichen).',
-      'error',
-    )
-    return
+    showMessage(messageContainer, 'Bitte teile deine Erfahrung mit uns (mindestens 10 Zeichen).', 'error');
+
+    return;
   }
 
   if (!email || !validateEmail(email)) {
-    showMessage(
-      messageContainer,
-      'Bitte gib eine gültige E-Mail-Adresse ein.',
-      'error',
-    )
-    return
+    showMessage(messageContainer, 'Bitte gib eine gültige E-Mail-Adresse ein.', 'error');
+
+    return;
   }
 
   if (!privacy) {
-    showMessage(
-      messageContainer,
-      'Bitte bestätige die Datenschutzerklärung.',
-      'error',
-    )
-    return
+    showMessage(messageContainer, 'Bitte bestätige die Datenschutzerklärung.', 'error');
+
+    return;
   }
 
   // Disable button during submission
-  submitButton.disabled = true
+  submitButton.disabled = true;
 
   if (submitText) {
-    submitText.style.display = 'none'
+    submitText.style.display = 'none';
   }
 
   if (submitLoader) {
-    submitLoader.style.display = 'inline-block'
+    submitLoader.style.display = 'inline-block';
   }
 
-  const submitUrl = form.getAttribute('data-submit-url') || ''
-  const csrfToken = getCsrfToken()
+  const submitUrl = form.getAttribute('data-submit-url') || '';
+  const csrfToken = getCsrfToken();
 
   if (!submitUrl) {
-    showMessage(
-      messageContainer,
-      'Konfigurationsfehler. Bitte kontaktiere den Administrator.',
-      'error',
-    )
-    submitButton.disabled = false
+    showMessage(messageContainer, 'Konfigurationsfehler. Bitte kontaktiere den Administrator.', 'error');
+    submitButton.disabled = false;
 
     if (submitText) {
-      submitText.style.display = 'inline'
+      submitText.style.display = 'inline';
     }
 
     if (submitLoader) {
-      submitLoader.style.display = 'none'
+      submitLoader.style.display = 'none';
     }
 
-    return
+    return;
   }
 
   const data: TestimonialData = {
@@ -121,7 +96,7 @@ function handleTestimonialSubmit(form: HTMLFormElement): void {
     role,
     email,
     privacy: privacy ? 1 : 0,
-  }
+  };
 
   // Send to backend
   fetch(submitUrl, {
@@ -136,39 +111,31 @@ function handleTestimonialSubmit(form: HTMLFormElement): void {
     .then((response) => response.json())
     .then((data: FormSubmitResponse) => {
       if (data.success) {
-        showMessage(messageContainer, data.message, 'success')
-        form.reset()
+        showMessage(messageContainer, data.message, 'success');
+        form.reset();
 
         // Reset character counter
-        const charCount = document.getElementById('charCount')
+        const charCount = document.getElementById('charCount');
 
         if (charCount) {
-          charCount.textContent = '0'
+          charCount.textContent = '0';
         }
       } else {
-        showMessage(
-          messageContainer,
-          data.message || 'Ein Fehler ist aufgetreten.',
-          'error',
-        )
+        showMessage(messageContainer, data.message || 'Ein Fehler ist aufgetreten.', 'error');
       }
     })
     .catch(() => {
-      showMessage(
-        messageContainer,
-        'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.',
-        'error',
-      )
+      showMessage(messageContainer, 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.', 'error');
     })
     .finally(() => {
-      submitButton.disabled = false
+      submitButton.disabled = false;
 
       if (submitText) {
-        submitText.style.display = 'inline'
+        submitText.style.display = 'inline';
       }
 
       if (submitLoader) {
-        submitLoader.style.display = 'none'
+        submitLoader.style.display = 'none';
       }
-    })
+    });
 }

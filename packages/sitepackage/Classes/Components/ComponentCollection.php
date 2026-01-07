@@ -31,6 +31,7 @@ final class ComponentCollection extends AbstractComponentCollection
     /**
      * @return array<string, mixed>
      */
+    #[\Override]
     public function getAdditionalVariables(string $viewHelperName): array
     {
         return [
@@ -38,6 +39,7 @@ final class ComponentCollection extends AbstractComponentCollection
         ];
     }
 
+    #[\Override]
     protected function additionalArgumentsAllowed(string $viewHelperName): bool
     {
         return true;

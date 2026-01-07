@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
+use MensCircle\Sitepackage\Middleware\NewsletterMiddleware;
+use MensCircle\Sitepackage\Middleware\AjaxFormMiddleware;
+
 return [
     'frontend' => [
         'menscircle/newsletter-handler' => [
-            'target' => \MensCircle\Sitepackage\Middleware\NewsletterMiddleware::class,
+            'target' => NewsletterMiddleware::class,
             'before' => [
                 'typo3/cms-frontend/page-resolver',
             ],
@@ -14,7 +17,7 @@ return [
             ],
         ],
         'menscircle/ajax-form-handler' => [
-            'target' => \MensCircle\Sitepackage\Middleware\AjaxFormMiddleware::class,
+            'target' => AjaxFormMiddleware::class,
             'before' => [
                 'typo3/cms-frontend/page-resolver',
             ],

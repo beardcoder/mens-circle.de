@@ -38,7 +38,7 @@ final readonly class FormHandlerService
     {
         if (!isset($this->handlers[$formType])) {
             throw new \InvalidArgumentException(
-                sprintf('Unknown form type: %s', $formType),
+                sprintf('Unknown form type: %s', $formType), 8677843831,
             );
         }
 
@@ -58,7 +58,7 @@ final readonly class FormHandlerService
         if (str_contains($contentType, 'application/json')) {
             $data = json_decode($body, true);
             if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new \InvalidArgumentException('Invalid JSON payload');
+                throw new \InvalidArgumentException('Invalid JSON payload', 3150782598);
             }
 
             return is_array($data) ? $data : [];

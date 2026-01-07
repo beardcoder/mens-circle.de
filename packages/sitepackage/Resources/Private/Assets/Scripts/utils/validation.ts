@@ -5,7 +5,7 @@
 /**
  * Email validation regex pattern (RFC 5322 simplified)
  */
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
  * Validates an email address
@@ -14,10 +14,10 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
  */
 export function validateEmail(email: string): boolean {
   if (!email || typeof email !== 'string') {
-    return false
+    return false;
   }
 
-  return EMAIL_PATTERN.test(email.trim())
+  return EMAIL_PATTERN.test(email.trim());
 }
 
 /**
@@ -27,10 +27,10 @@ export function validateEmail(email: string): boolean {
  */
 export function validateRequired(value: string | null | undefined): boolean {
   if (value === null || value === undefined) {
-    return false
+    return false;
   }
 
-  return value.toString().trim().length > 0
+  return value.toString().trim().length > 0;
 }
 
 /**
@@ -39,15 +39,12 @@ export function validateRequired(value: string | null | undefined): boolean {
  * @param minLength - Minimum required length
  * @returns True if meets minimum length, false otherwise
  */
-export function validateMinLength(
-  value: string | null | undefined,
-  minLength: number,
-): boolean {
+export function validateMinLength(value: string | null | undefined, minLength: number): boolean {
   if (!validateRequired(value)) {
-    return false
+    return false;
   }
 
-  return value.toString().trim().length >= minLength
+  return value.toString().trim().length >= minLength;
 }
 
 /**
@@ -56,13 +53,10 @@ export function validateMinLength(
  * @param maxLength - Maximum allowed length
  * @returns True if within maximum length, false otherwise
  */
-export function validateMaxLength(
-  value: string | null | undefined,
-  maxLength: number,
-): boolean {
+export function validateMaxLength(value: string | null | undefined, maxLength: number): boolean {
   if (value === null || value === undefined) {
-    return true
+    return true;
   }
 
-  return value.toString().trim().length <= maxLength
+  return value.toString().trim().length <= maxLength;
 }

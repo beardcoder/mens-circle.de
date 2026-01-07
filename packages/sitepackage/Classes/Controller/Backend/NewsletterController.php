@@ -82,7 +82,7 @@ final class NewsletterController extends ActionController
 
     public function editAction(?Newsletter $newsletter = null): ResponseInterface
     {
-        if ($newsletter === null) {
+        if (!$newsletter instanceof Newsletter) {
             $this->addFlashMessage('Newsletter not found.', '', ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index');
         }
@@ -100,7 +100,7 @@ final class NewsletterController extends ActionController
 
     public function saveAction(?Newsletter $newsletter = null): ResponseInterface
     {
-        if ($newsletter === null) {
+        if (!$newsletter instanceof Newsletter) {
             $this->addFlashMessage('Newsletter not found.', '', ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index');
         }
@@ -126,7 +126,7 @@ final class NewsletterController extends ActionController
 
     public function sendAction(?Newsletter $newsletter = null): ResponseInterface
     {
-        if ($newsletter === null) {
+        if (!$newsletter instanceof Newsletter) {
             $this->addFlashMessage('Newsletter not found.', '', ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index');
         }
@@ -144,7 +144,7 @@ final class NewsletterController extends ActionController
 
     public function sendTestAction(?Newsletter $newsletter = null): ResponseInterface
     {
-        if ($newsletter === null) {
+        if (!$newsletter instanceof Newsletter) {
             $this->addFlashMessage('Newsletter not found.', '', ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index');
         }
@@ -169,7 +169,7 @@ final class NewsletterController extends ActionController
 
     public function deleteAction(?Newsletter $newsletter = null): ResponseInterface
     {
-        if ($newsletter === null) {
+        if (!$newsletter instanceof Newsletter) {
             $this->addFlashMessage('Newsletter not found.', '', ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index');
         }

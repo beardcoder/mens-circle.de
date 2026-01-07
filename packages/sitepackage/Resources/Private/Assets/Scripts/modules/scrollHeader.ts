@@ -4,21 +4,21 @@
  */
 
 export function initScrollHeader(): void {
-  const header = document.getElementById('header')
+  const header = document.getElementById('header');
 
-  if (!header) return
+  if (!header) return;
 
   window.addEventListener(
     'scroll',
     () => {
-      const currentScroll = window.scrollY
+      const currentScroll = window.scrollY;
 
       if (currentScroll > 50) {
-        header.classList.add('scrolled')
+        header.classList.add('scrolled');
       } else {
-        header.classList.remove('scrolled')
+        header.classList.remove('scrolled');
       }
     },
     { passive: true },
-  )
+  );
 }

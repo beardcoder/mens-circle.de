@@ -15,7 +15,10 @@ use MensCircle\Sitepackage\Domain\Model\Subscriber;
 use MensCircle\Sitepackage\Domain\Repository\SubscriberRepository;
 use MensCircle\Sitepackage\Enum\SubscriberStatus;
 use Psr\Log\LoggerInterface;
+use Throwable;
 use TYPO3\CMS\Core\Site\SiteFinder;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 
 final readonly class SubscriptionService
@@ -27,10 +30,15 @@ final readonly class SubscriptionService
         private TokenService $tokenService,
         private SiteFinder $siteFinder,
         private LoggerInterface $logger,
-    ) {}
+    )
+    {
+    }
 
     /**
      * @return array{success: bool, message: string}
+     *
+     * @throws IllegalObjectTypeException
+     * @throws UnknownObjectException
      */
     public function subscribe(string $email): array
     {
@@ -45,7 +53,7 @@ final readonly class SubscriptionService
 
         $existing = $this->subscriberRepository->findByEmail($email);
 
-        if ($existing !== null) {
+        if ($existing instanceof Subscriber) {
             if ($existing->getStatus() === SubscriberStatus::Confirmed) {
                 return [
                     'success' => false,
@@ -102,12 +110,15 @@ final readonly class SubscriptionService
 
     /**
      * @return array{success: bool, message: string}
+     *
+     * @throws IllegalObjectTypeException
+     * @throws UnknownObjectException
      */
     public function confirm(string $token): array
     {
         $subscriber = $this->subscriberRepository->findByToken($token);
 
-        if ($subscriber === null) {
+        if (!$subscriber instanceof Subscriber) {
             return [
                 'success' => false,
                 'message' => 'Invalid or expired confirmation link.',
@@ -138,12 +149,15 @@ final readonly class SubscriptionService
 
     /**
      * @return array{success: bool, message: string}
+     *
+     * @throws IllegalObjectTypeException
+     * @throws UnknownObjectException
      */
     public function unsubscribe(string $email, string $token): array
     {
         $subscriber = $this->subscriberRepository->findByEmail($email);
 
-        if ($subscriber === null) {
+        if (!$subscriber instanceof Subscriber) {
             return [
                 'success' => false,
                 'message' => 'Email address not found.',
@@ -205,7 +219,7 @@ final readonly class SubscriptionService
     {
         $secret = $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] ?? 'default-key';
 
-        return hash_hmac('sha256', $subscriber->getEmail() . $subscriber->getUid(), $secret);
+        return hash_hmac('sha256', $subscriber->getEmail() . $subscriber->getUid(), (string)$secret);
     }
 
     private function getBaseUrl(): string
@@ -214,8 +228,8 @@ final readonly class SubscriptionService
             $sites = $this->siteFinder->getAllSites();
             $site = $sites['main'] ?? reset($sites);
 
-            return rtrim($site?->getBase()->__toString() ?? 'https://mens-circle.de', '/');
-        } catch (\Throwable) {
+            return rtrim((string)$site->getBase());
+        } catch (Throwable) {
             return 'https://mens-circle.de';
         }
     }

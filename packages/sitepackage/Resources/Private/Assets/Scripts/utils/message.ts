@@ -1,9 +1,9 @@
-import type { MessageType } from '../types'
+import type { MessageType } from '../types';
 
 /**
  * Default duration for auto-hiding messages (in milliseconds)
  */
-const DEFAULT_HIDE_DURATION = 5000
+const DEFAULT_HIDE_DURATION = 5000;
 
 /**
  * Displays a message to the user
@@ -20,26 +20,26 @@ export function showMessage(
   autohide = true,
   duration = DEFAULT_HIDE_DURATION,
 ): void {
-  if (!container) return
+  if (!container) return;
 
   // Create message element
-  const messageElement = document.createElement('div')
+  const messageElement = document.createElement('div');
 
-  messageElement.className = `form-message form-message--${type}`
-  messageElement.textContent = message
-  messageElement.setAttribute('role', type === 'error' ? 'alert' : 'status')
-  messageElement.setAttribute('aria-live', 'polite')
+  messageElement.className = `form-message form-message--${type}`;
+  messageElement.textContent = message;
+  messageElement.setAttribute('role', type === 'error' ? 'alert' : 'status');
+  messageElement.setAttribute('aria-live', 'polite');
 
   // Clear existing messages and add new one
-  container.innerHTML = ''
-  container.style.display = 'block'
-  container.appendChild(messageElement)
+  container.innerHTML = '';
+  container.style.display = 'block';
+  container.appendChild(messageElement);
 
   // Auto-hide after duration if enabled
   if (autohide) {
     setTimeout(() => {
-      hideMessage(container)
-    }, duration)
+      hideMessage(container);
+    }, duration);
   }
 }
 
@@ -48,8 +48,8 @@ export function showMessage(
  * @param container - The container element to hide
  */
 export function hideMessage(container: HTMLElement | null): void {
-  if (!container) return
+  if (!container) return;
 
-  container.innerHTML = ''
-  container.style.display = 'none'
+  container.innerHTML = '';
+  container.style.display = 'none';
 }

@@ -19,13 +19,13 @@
  * - Data attributes for configuration
  */
 
-import { initNavigation } from './modules/navigation'
-import { initScrollHeader } from './modules/scrollHeader'
-import { initFAQ } from './modules/faq'
-import { initForms } from './modules/forms'
-import { initScrollAnimations } from './modules/scrollAnimations'
-import { initCalendarIntegration } from './modules/calendar'
-import { initSmoothScroll } from './modules/smoothScroll'
+import { initNavigation } from './modules/navigation';
+import { initScrollHeader } from './modules/scrollHeader';
+import { initFAQ } from './modules/faq';
+import { initForms } from './modules/forms';
+import { initScrollAnimations } from './modules/scrollAnimations';
+import { initCalendarIntegration } from './modules/calendar';
+import { initSmoothScroll } from './modules/smoothScroll';
 
 /**
  * Initialize all application modules
@@ -33,31 +33,31 @@ import { initSmoothScroll } from './modules/smoothScroll'
 function initApp(): void {
   try {
     // Initialize core navigation and UI components
-    initNavigation()
-    initScrollHeader()
-    initFAQ()
+    initNavigation();
+    initScrollHeader();
+    initFAQ();
 
     // Initialize form handlers
-    initForms()
+    initForms();
 
     // Initialize visual enhancements
-    initScrollAnimations()
-    initSmoothScroll()
+    initScrollAnimations();
+    initSmoothScroll();
 
     // Initialize calendar features
-    initCalendarIntegration()
+    initCalendarIntegration();
   } catch (error) {
     // Log errors in development, fail silently in production
     if (import.meta.env.DEV) {
-      console.error('Error initializing application:', error)
+      console.error('Error initializing application:', error);
     }
   }
 }
 
 // Wait for DOM to be fully loaded before initializing
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initApp)
+  document.addEventListener('DOMContentLoaded', initApp);
 } else {
   // DOM is already loaded, initialize immediately
-  initApp()
+  initApp();
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MensCircle\Sitepackage\Utility;
 
+use TYPO3\CMS\Core\Core\Environment;
+
 /**
  * Helper functions for TYPO3 v14
  * Inspired by Laravel/Symfony helper patterns
@@ -209,7 +211,7 @@ final class Helpers
     public static function hash(string $value): string
     {
         $key = $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] ?? '';
-        return hash_hmac('sha256', $value, $key);
+        return hash_hmac('sha256', $value, (string) $key);
     }
 
     /**
@@ -217,8 +219,8 @@ final class Helpers
      */
     public static function resourcePath(string $path = ''): string
     {
-        $basePath = \TYPO3\CMS\Core\Core\Environment::getPublicPath();
-        return $basePath . ($path ? '/' . ltrim($path, '/') : '');
+        $basePath = Environment::getPublicPath();
+        return $basePath . ($path !== '' && $path !== '0' ? '/' . ltrim($path, '/') : '');
     }
 
     /**
@@ -226,8 +228,8 @@ final class Helpers
      */
     public static function varPath(string $path = ''): string
     {
-        $basePath = \TYPO3\CMS\Core\Core\Environment::getVarPath();
-        return $basePath . ($path ? '/' . ltrim($path, '/') : '');
+        $basePath = Environment::getVarPath();
+        return $basePath . ($path !== '' && $path !== '0' ? '/' . ltrim($path, '/') : '');
     }
 
     /**
@@ -267,7 +269,7 @@ final class Helpers
 
         foreach ($headers as $header) {
             if (!empty($_SERVER[$header])) {
-                $ips = explode(',', $_SERVER[$header]);
+                $ips = explode(',', (string) $_SERVER[$header]);
                 return trim($ips[0]);
             }
         }

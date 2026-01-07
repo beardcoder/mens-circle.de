@@ -323,7 +323,7 @@ class Event extends AbstractEntity
 
     public function isPast(): bool
     {
-        if ($this->eventDate === null) {
+        if (!$this->eventDate instanceof \DateTime) {
             return false;
         }
         return $this->eventDate < new \DateTime('today');
@@ -353,7 +353,7 @@ class Event extends AbstractEntity
         }
 
         $location = $this->location;
-        if ($this->getFullAddress()) {
+        if ($this->getFullAddress() !== '' && $this->getFullAddress() !== '0') {
             $location .= ', ' . $this->getFullAddress();
         }
 

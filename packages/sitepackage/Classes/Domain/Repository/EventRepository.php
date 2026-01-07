@@ -49,7 +49,7 @@ class EventRepository extends Repository
         $query->matching(
             $query->logicalAnd(
                 $query->equals('isPublished', true),
-                $query->greaterThanOrEqual('eventDate', (new \DateTime('today'))->getTimestamp())
+                $query->greaterThanOrEqual('eventDate', new \DateTime('today')->getTimestamp())
             )
         );
         $query->setOrderings([
@@ -74,7 +74,7 @@ class EventRepository extends Repository
         $query->matching(
             $query->logicalAnd(
                 $query->equals('isPublished', true),
-                $query->lessThan('eventDate', (new \DateTime('today'))->getTimestamp())
+                $query->lessThan('eventDate', new \DateTime('today')->getTimestamp())
             )
         );
         $query->setOrderings([
@@ -140,6 +140,7 @@ class EventRepository extends Repository
     /**
      * Count all events
      */
+    #[\Override]
     public function countAll(): int
     {
         $query = $this->createQuery();
@@ -158,7 +159,7 @@ class EventRepository extends Repository
         $query->matching(
             $query->logicalAnd(
                 $query->equals('isPublished', true),
-                $query->greaterThanOrEqual('eventDate', (new \DateTime('today'))->getTimestamp())
+                $query->greaterThanOrEqual('eventDate', new \DateTime('today')->getTimestamp())
             )
         );
 

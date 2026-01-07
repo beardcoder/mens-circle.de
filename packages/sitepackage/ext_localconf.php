@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use MensCircle\Sitepackage\Components\ComponentCollection;
 
-defined('TYPO3') or die();
+defined('TYPO3') || die();
 
 (static function (): void {
     // Register Fluid Component namespace globally

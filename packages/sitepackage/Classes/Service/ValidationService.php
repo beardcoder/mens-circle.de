@@ -55,7 +55,7 @@ final class ValidationService
 
     private function validateRequired(string $field, mixed $value): ?string
     {
-        if ($value === null || $value === '' || $value === []) {
+        if (in_array($value, [null, '', []], true)) {
             return sprintf('The %s field is required.', $field);
         }
 

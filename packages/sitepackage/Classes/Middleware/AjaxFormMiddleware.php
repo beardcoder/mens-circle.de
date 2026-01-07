@@ -20,7 +20,7 @@ use TYPO3\CMS\Core\Http\JsonResponse;
 
 final readonly class AjaxFormMiddleware implements MiddlewareInterface
 {
-    private const API_PREFIX = '/api/form/';
+    private const string API_PREFIX = '/api/form/';
 
     public function __construct(
         private FormHandlerService $formHandlerService,
@@ -52,7 +52,7 @@ final readonly class AjaxFormMiddleware implements MiddlewareInterface
                 ['error' => $e->getMessage()],
                 400,
             );
-        } catch (\Throwable $e) {
+        } catch (\Throwable) {
             return new JsonResponse(
                 ['error' => 'Internal server error'],
                 500,

@@ -2,6 +2,13 @@
 
 declare(strict_types=1);
 
+use TYPO3\CMS\Core\Cache\Backend\RedisBackend;
+use TYPO3\CMS\Core\Session\Backend\RedisSessionBackend;
+use TYPO3\CMS\Core\Crypto\PasswordHashing\Argon2idPasswordHash;
+use Psr\Log\LogLevel;
+use TYPO3\CMS\Core\Log\Writer\FileWriter;
+use TYPO3\CMS\Core\Cache\Backend\NullBackend;
+
 /**
  * TYPO3 v14 Additional Configuration
  * Handles both Development (DDEV) and Production (Docker/Coolify) environments
@@ -24,7 +31,7 @@ if (!empty($dbConfig['host'])) {
     $dbDriver = $env('DB_DRIVER', $env('TYPO3_DB_DRIVER', 'pdo_mysql'));
     $dbPort = $dbConfig['port'];
     if ($dbPort === null || $dbPort === '') {
-        $dbPort = str_contains($dbDriver, 'pgsql') ? 5432 : 3306;
+        $dbPort = str_contains((string) $dbDriver, 'pgsql') ? 5432 : 3306;
     }
 
     // Base configuration
@@ -38,7 +45,7 @@ if (!empty($dbConfig['host'])) {
     ];
 
     // Driver-specific settings
-    if (str_contains($dbDriver, 'pgsql')) {
+    if (str_contains((string) $dbDriver, 'pgsql')) {
         // PostgreSQL
         $dbConnection['charset'] = 'UTF8';
     } else {
@@ -96,7 +103,7 @@ if (!empty($installToolPassword)) {
 $redisConfig = Helpers::redisConfig();
 if ($redisConfig !== null) {
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['backend'] =
-        \TYPO3\CMS\Core\Cache\Backend\RedisBackend::class;
+        RedisBackend::class;
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['hash']['options'] = [
         'hostname' => $redisConfig['host'],
         'port' => $redisConfig['port'],
@@ -105,7 +112,7 @@ if ($redisConfig !== null) {
     ];
 
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['backend'] =
-        \TYPO3\CMS\Core\Cache\Backend\RedisBackend::class;
+        RedisBackend::class;
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['options'] = [
         'hostname' => $redisConfig['host'],
         'port' => $redisConfig['port'],
@@ -114,7 +121,7 @@ if ($redisConfig !== null) {
     ];
 
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['backend'] =
-        \TYPO3\CMS\Core\Cache\Backend\RedisBackend::class;
+        RedisBackend::class;
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['rootline']['options'] = [
         'hostname' => $redisConfig['host'],
         'port' => $redisConfig['port'],
@@ -123,7 +130,7 @@ if ($redisConfig !== null) {
     ];
 
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['session']['BE']['backend'] =
-        \TYPO3\CMS\Core\Session\Backend\RedisSessionBackend::class;
+        RedisSessionBackend::class;
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['session']['BE']['options'] = [
         'hostname' => $redisConfig['host'],
         'port' => $redisConfig['port'],
@@ -132,7 +139,7 @@ if ($redisConfig !== null) {
     ];
 
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['session']['FE']['backend'] =
-        \TYPO3\CMS\Core\Session\Backend\RedisSessionBackend::class;
+        RedisSessionBackend::class;
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['session']['FE']['options'] = [
         'hostname' => $redisConfig['host'],
         'port' => $redisConfig['port'],
@@ -157,8 +164,8 @@ if ($isProduction) {
     // Security
     $GLOBALS['TYPO3_CONF_VARS']['BE']['lockSSL'] = Helpers::forcesSsl();
     $GLOBALS['TYPO3_CONF_VARS']['FE']['lockSSL'] = Helpers::forcesSsl();
-    $GLOBALS['TYPO3_CONF_VARS']['BE']['passwordHashing']['className'] = \TYPO3\CMS\Core\Crypto\PasswordHashing\Argon2idPasswordHash::class;
-    $GLOBALS['TYPO3_CONF_VARS']['FE']['passwordHashing']['className'] = \TYPO3\CMS\Core\Crypto\PasswordHashing\Argon2idPasswordHash::class;
+    $GLOBALS['TYPO3_CONF_VARS']['BE']['passwordHashing']['className'] = Argon2idPasswordHash::class;
+    $GLOBALS['TYPO3_CONF_VARS']['FE']['passwordHashing']['className'] = Argon2idPasswordHash::class;
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['security.backend.enforceContentSecurityPolicy'] = true;
 
     // Reverse Proxy (Coolify)
@@ -173,7 +180,7 @@ if ($isProduction) {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = $trustedHosts;
     } else {
         $appHost = Helpers::appHost();
-        if (!empty($appHost) && $appHost !== 'localhost') {
+        if (!in_array($appHost, ['', '0', 'localhost'], true)) {
             // Pattern: match domain and all subdomains (e.g., mens-circle.de, staging.mens-circle.de, www.mens-circle.de)
             $GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = sprintf(
                 '^(.+\.)?%s$',
@@ -181,9 +188,6 @@ if ($isProduction) {
             );
         }
     }
-
-    // Performance
-    $GLOBALS['TYPO3_CONF_VARS']['FE']['compressionLevel'] = 0;
     $GLOBALS['TYPO3_CONF_VARS']['FE']['disableNoCacheParameter'] = true;
     $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['enforceValidation'] = true;
 
@@ -195,13 +199,13 @@ if ($isProduction) {
 
     // Logging
     $GLOBALS['TYPO3_CONF_VARS']['LOG']['writerConfiguration'] = [
-        \Psr\Log\LogLevel::WARNING => [
-            \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
+        LogLevel::WARNING => [
+            FileWriter::class => [
                 'logFileInfix' => 'warning',
             ],
         ],
-        \Psr\Log\LogLevel::ERROR => [
-            \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
+        LogLevel::ERROR => [
+            FileWriter::class => [
                 'logFileInfix' => 'error',
             ],
         ],
@@ -222,7 +226,7 @@ if (!$isProduction) {
     if (!Helpers::hasRedis()) {
         foreach ($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'] ?? [] as $key => $_) {
             $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'][$key]['backend'] =
-                \TYPO3\CMS\Core\Cache\Backend\NullBackend::class;
+                NullBackend::class;
         }
     }
 }

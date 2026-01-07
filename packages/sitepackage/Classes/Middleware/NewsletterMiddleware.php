@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\View\ViewFactoryInterface;
 
 final readonly class NewsletterMiddleware implements MiddlewareInterface
 {
-    private const ROUTES = [
+    private const array ROUTES = [
         '/newsletter/subscribe' => 'subscribe',
         '/newsletter/confirm' => 'confirm',
         '/newsletter/unsubscribe' => 'unsubscribe',
@@ -115,8 +115,8 @@ final readonly class NewsletterMiddleware implements MiddlewareInterface
     {
         $viewFactoryData = new ViewFactoryData(
             templateRootPaths: ['EXT:sitepackage/Resources/Private/Templates/Newsletter/'],
-            layoutRootPaths: ['EXT:sitepackage/Resources/Private/PageView/Layouts/'],
             partialRootPaths: ['EXT:sitepackage/Resources/Private/Components/'],
+            layoutRootPaths: ['EXT:sitepackage/Resources/Private/PageView/Layouts/'],
         );
         $view = $this->viewFactory->create($viewFactoryData);
         $view->assignMultiple($variables);

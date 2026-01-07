@@ -12,11 +12,11 @@ declare(strict_types=1);
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-defined('TYPO3') or die();
+defined('TYPO3') || die();
 
 /**
  * Intro Section Content Element
- * 
+ *
  * Two-column introduction section with heading, text, statistics/values, and quote.
  * Uses FlexForm for repeatable value items with numbers and descriptions.
  */
@@ -36,21 +36,30 @@ defined('TYPO3') or die();
         ],
     );
 
+
+    $GLOBALS['TCA']['tt_content']['columns']['tx_sitepackage_quote'] = [
+        'exclude' => true,
+        'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.header_link.intro',
+        'config' => [
+            'type' => 'text',
+        ],
+    ];
+
     // Define TCA configuration
     $GLOBALS['TCA']['tt_content']['types'][$cType] = [
         'showitem' => '
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
+            --div--;core.form.tabs:general,
                 --palette--;;general,
                 subheader,
                 header,
                 bodytext;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.bodytext.intro,
-                header_link;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.header_link.intro,
+                tx_sitepackage_quote,
             --div--;LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.tab.values,
                 pi_flexform,
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:appearance,
+            --div--;core.form.tabs:appearance,
                 --palette--;;frames,
                 --palette--;;appearanceLinks,
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
+            --div--;core.form.tabs:access,
                 --palette--;;hidden,
                 --palette--;;access,
         ',
@@ -65,10 +74,6 @@ defined('TYPO3') or die();
                     'enableRichtext' => false,
                     'rows' => 4,
                 ],
-            ],
-            'header_link' => [
-                'label' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.header_link.intro',
-                'description' => 'LLL:EXT:sitepackage/Resources/Private/Language/locallang_db.xlf:tt_content.header_link.intro.description',
             ],
         ],
     ];

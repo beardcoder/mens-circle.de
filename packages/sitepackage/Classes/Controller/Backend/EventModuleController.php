@@ -18,7 +18,7 @@ use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
  * Backend module controller for event management
  */
 #[AsController]
-class EventModuleController extends ActionController
+final class EventModuleController extends ActionController
 {
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
@@ -27,9 +27,6 @@ class EventModuleController extends ActionController
         protected readonly PersistenceManagerInterface $persistenceManager,
     ) {}
 
-    /**
-     * Dashboard / Overview
-     */
     public function indexAction(): ResponseInterface
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
@@ -48,9 +45,6 @@ class EventModuleController extends ActionController
         return $moduleTemplate->renderResponse('Backend/EventModule/Index');
     }
 
-    /**
-     * List all events
-     */
     public function listAction(): ResponseInterface
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
@@ -62,9 +56,6 @@ class EventModuleController extends ActionController
         return $moduleTemplate->renderResponse('Backend/EventModule/List');
     }
 
-    /**
-     * Show event details with registrations
-     */
     public function showAction(Event $event): ResponseInterface
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
@@ -81,9 +72,6 @@ class EventModuleController extends ActionController
         return $moduleTemplate->renderResponse('Backend/EventModule/Show');
     }
 
-    /**
-     * Toggle event publication status
-     */
     public function togglePublishAction(Event $event): ResponseInterface
     {
         $event->setIsPublished(!$event->isPublished());
@@ -94,15 +82,12 @@ class EventModuleController extends ActionController
         $this->addFlashMessage(
             sprintf('Event "%s" wurde %s.', $event->getTitle(), $status),
             'Event aktualisiert',
-            ContextualFeedbackSeverity::OK
+            ContextualFeedbackSeverity::OK,
         );
 
         return $this->redirect('list');
     }
 
-    /**
-     * Export registrations as CSV
-     */
     public function exportRegistrationsAction(Event $event): ResponseInterface
     {
         $registrations = $this->eventRegistrationRepository->findByEvent($event);
@@ -111,20 +96,19 @@ class EventModuleController extends ActionController
 
         foreach ($registrations as $registration) {
             $csvContent .= sprintf(
-                "%s;%s;%s;%s;%s;%s\n",
+                "%s;%s;%s;%s;%s\n",
                 $registration->getFirstName(),
                 $registration->getLastName(),
                 $registration->getEmail(),
                 $registration->getPhoneNumber(),
                 $registration->getStatus(),
-                $registration->getCrdate()?->format('d.m.Y H:i') ?? ''
             );
         }
 
         $filename = sprintf(
             'anmeldungen-%s-%s.csv',
             $event->getSlug(),
-            date('Y-m-d')
+            date('Y-m-d'),
         );
 
         return $this->responseFactory->createResponse()
