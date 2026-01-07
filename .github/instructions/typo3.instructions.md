@@ -3,7 +3,7 @@ description: 'GitHub Copilot Custom Instructions for TYPO3 v14 LTS & PHP 8.2/8.4
 applyTo: '**'
 ---
 
-# GitHub Copilot Custom Instructions for TYPO3 v14 LTS & PHP 8.2/8.4
+# GitHub Copilot Custom Instructions for TYPO3 v14 LTS & PHP 8.5
 
 These instructions guide Copilot to generate code that aligns with the **official TYPO3 v14 LTS documentation** (https://docs.typo3.org), modern PHP 8.2/8.4 features, TYPO3 best practices, and industry standards to ensure quality, maintainability, and security.
 
