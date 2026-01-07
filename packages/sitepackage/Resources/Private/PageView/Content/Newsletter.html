@@ -1,3 +1,8 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
@@ -5,19 +10,11 @@
         <div class="container">
             <div class="newsletter__layout fade-in">
                 <div class="newsletter__content">
-                    <f:if condition="{record.subheader}">
-                        <p class="eyebrow eyebrow--secondary">{record.subheader}</p>
-                    </f:if>
-
-                    <f:if condition="{record.header}">
-                        <h2 class="section-title newsletter__title">{record.header -> f:format.raw()}</h2>
-                    </f:if>
-
-                    <f:if condition="{record.bodytext}">
-                        <div class="newsletter__text">
-                            {record.bodytext -> f:format.nl2br()}
-                        </div>
-                    </f:if>
+                    <mc:molecule.sectionHeader
+                        eyebrow="{record.subheader}"
+                        title="{record.header}"
+                        subtitle="{record.bodytext}"
+                    />
                 </div>
 
                 <div class="newsletter__form-wrapper">

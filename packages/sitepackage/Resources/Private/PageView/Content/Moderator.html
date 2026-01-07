@@ -1,3 +1,8 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
@@ -28,29 +33,27 @@
                             </f:else>
                         </f:if>
                     </div>
-                    <div class="moderator__photo-accent"></div>
+                    <div class="moderator__photo-accent" aria-hidden="true"></div>
                 </div>
 
                 <div class="moderator__content fade-in fade-in-delay-1">
-                    <f:if condition="{record.subheader}">
-                        <p class="eyebrow">{record.subheader}</p>
-                    </f:if>
+                    <mc:molecule.sectionHeader
+                        eyebrow="{record.subheader}"
+                        title="{record.header}"
+                        titleTag="h2"
+                    >
+                        <f:if condition="{record.bodytext}">
+                            <div class="moderator__bio">
+                                {record.bodytext -> f:format.html()}
+                            </div>
+                        </f:if>
 
-                    <f:if condition="{record.header}">
-                        <h2 class="moderator__name">{record.header -> f:format.raw()}</h2>
-                    </f:if>
-
-                    <f:if condition="{record.bodytext}">
-                        <div class="moderator__bio">
-                            {record.bodytext -> f:format.html()}
-                        </div>
-                    </f:if>
-
-                    <f:if condition="{record.header_link}">
-                        <blockquote class="moderator__quote">
-                            <p>{record.header_link}</p>
-                        </blockquote>
-                    </f:if>
+                        <f:if condition="{record.header_link}">
+                            <blockquote class="moderator__quote">
+                                <p>{record.header_link}</p>
+                            </blockquote>
+                        </f:if>
+                    </mc:molecule.sectionHeader>
                 </div>
             </div>
         </div>
