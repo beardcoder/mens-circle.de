@@ -1,17 +1,18 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
     <section class="section">
         <div class="container container--narrow">
-            <div class="section__header fade-in">
-                <f:if condition="{record.subheader}">
-                    <p class="eyebrow">{record.subheader}</p>
-                </f:if>
-
-                <f:if condition="{record.header}">
-                    <h2 class="section-title">{record.header -> f:format.raw()}</h2>
-                </f:if>
-            </div>
+            <mc:molecule.sectionHeader
+                eyebrow="{record.subheader}"
+                title="{record.header}"
+                class="section__header fade-in"
+            />
 
             <f:if condition="{record.bodytext}">
                 <div class="section__content fade-in fade-in-delay-1">

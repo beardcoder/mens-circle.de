@@ -1,0 +1,35 @@
+<f:argument name="eyebrow" type="string" optional="true" description="Small label text above the title" />
+<f:argument name="title" type="string" optional="true" description="Main section heading" />
+<f:argument name="subtitle" type="string" optional="true" description="Subtitle or description below title" />
+<f:argument name="titleTag" type="string" optional="true" default="h2" description="HTML tag for title: h1, h2, h3, h4" />
+<f:argument name="align" type="string" optional="true" default="left" description="Text alignment: left, center, right" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+
+<div class="SectionHeader SectionHeader--align-{align}{f:if(condition: class, then: ' {class}')}">
+    <f:if condition="{eyebrow}">
+        <p class="eyebrow">{eyebrow}</p>
+    </f:if>
+
+    <f:if condition="{title}">
+        <f:switch expression="{titleTag}">
+            <f:case value="h1">
+                <h1 class="section-title">{title -> f:format.raw()}</h1>
+            </f:case>
+            <f:case value="h3">
+                <h3 class="section-title">{title -> f:format.raw()}</h3>
+            </f:case>
+            <f:case value="h4">
+                <h4 class="section-title">{title -> f:format.raw()}</h4>
+            </f:case>
+            <f:defaultCase>
+                <h2 class="section-title">{title -> f:format.raw()}</h2>
+            </f:defaultCase>
+        </f:switch>
+    </f:if>
+
+    <f:if condition="{subtitle}">
+        <p class="SectionHeader__subtitle">{subtitle -> f:format.nl2br()}</p>
+    </f:if>
+
+    <f:slot />
+</div>

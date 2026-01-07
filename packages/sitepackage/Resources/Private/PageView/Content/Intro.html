@@ -1,19 +1,19 @@
-<f:layout name="ContentElement"/>
-
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="ContentElement" />
 
 <f:section name="Main">
     <section class="intro-section" id="ueber">
         <div class="intro__layout">
             <div class="intro__left">
-                <f:if condition="{record.subheader}">
-                    <p class="eyebrow fade-in">{record.subheader}</p>
-                </f:if>
-
-                <f:if condition="{record.header}">
-                    <h2 class="section-title intro__title fade-in fade-in-delay-1">
-                        {record.header -> f:format.raw()}
-                    </h2>
-                </f:if>
+                <mc:molecule.sectionHeader
+                    eyebrow="{record.subheader}"
+                    title="{record.header}"
+                    class="fade-in"
+                />
 
                 <f:if condition="{record.bodytext}">
                     <div class="intro__text fade-in fade-in-delay-2">
@@ -24,13 +24,11 @@
                 <f:if condition="{record.pi_flexform.values}">
                     <div class="intro__values stagger-children">
                         <f:for as="item" each="{record.pi_flexform.values}">
-                            <div class="value-item">
-                                <span class="value-item__number">{item.value.number}</span>
-                                <div class="value-item__content">
-                                    <h4>{item.value.title}</h4>
-                                    <p>{item.value.description}</p>
-                                </div>
-                            </div>
+                            <mc:molecule.valueItem
+                                number="{item.value.number}"
+                                title="{item.value.title}"
+                                description="{item.value.description}"
+                            />
                         </f:for>
                     </div>
                 </f:if>
@@ -39,7 +37,7 @@
             <f:if condition="{record.tx_sitepackage_quote}">
                 <div class="intro__right">
                     <div class="intro__image-area">
-                        <div class="intro__image-circles"></div>
+                        <div class="intro__image-circles" aria-hidden="true"></div>
                         <p class="intro__image-text">
                             {record.tx_sitepackage_quote -> f:format.nl2br()}
                         </p>

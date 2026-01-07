@@ -1,0 +1,16 @@
+<f:argument name="question" type="string" description="FAQ question text" />
+<f:argument name="answer" type="string" description="FAQ answer text (can contain HTML)" />
+<f:argument name="class" type="string" optional="true" description="Additional CSS classes" />
+
+<div class="faq-item{f:if(condition: class, then: ' {class}')}">
+    <button class="faq-item__question" aria-expanded="false" data-m:click="action=faq_click;element=button;target=question;location=faq_section">
+        <span>{question}</span>
+        <span class="faq-item__icon" aria-hidden="true"></span>
+    </button>
+
+    <div class="faq-item__answer">
+        <div class="faq-item__answer-inner">
+            {answer -> f:format.html()}
+        </div>
+    </div>
+</div>
