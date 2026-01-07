@@ -30,28 +30,63 @@ final class EventModuleController extends ActionController
     public function indexAction(): ResponseInterface
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->setTitle('Events Übersicht');
 
-        $events = $this->eventRepository->findAllForBackend();
-        $upcomingCount = $this->eventRepository->countUpcoming();
+        $allEvents = $this->eventRepository->findAllForBackend();
+        $upcomingEvents = $this->eventRepository->findUpcoming();
+        $pastEvents = $this->eventRepository->findPast(5);
+        
+        // Calculate statistics
+        $totalEvents = $allEvents->count();
+        $upcomingCount = $upcomingEvents->count();
+        $pastCount = $this->eventRepository->countPast();
         $totalRegistrations = $this->eventRegistrationRepository->countAll();
+        
+        // Find next event with available spots
+        $nextEvent = null;
+        $nextEventSpots = 0;
+        foreach ($upcomingEvents as $event) {
+            if (!$event->isPast()) {
+                $nextEvent = $event;
+                $nextEventSpots = $event->getAvailableSpots();
+                break;
+            }
+        }
 
         $moduleTemplate->assignMultiple([
-            'events' => $events,
-            'eventsCount' => $events->count(),
+            'upcomingEvents' => $upcomingEvents,
+            'pastEvents' => $pastEvents,
+            'totalEvents' => $totalEvents,
             'upcomingCount' => $upcomingCount,
+            'pastCount' => $pastCount,
             'totalRegistrations' => $totalRegistrations,
+            'nextEvent' => $nextEvent,
+            'nextEventSpots' => $nextEventSpots,
         ]);
 
         return $moduleTemplate->renderResponse('Backend/EventModule/Index');
     }
 
-    public function listAction(): ResponseInterface
+    public function listAction(string $filter = 'all'): ResponseInterface
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->setTitle('Alle Events');
 
-        $events = $this->eventRepository->findAllForBackend();
+        // Filter events based on selection
+        $events = match ($filter) {
+            'upcoming' => $this->eventRepository->findUpcoming(),
+            'past' => $this->eventRepository->findPast(),
+            'published' => $this->eventRepository->findPublished(),
+            default => $this->eventRepository->findAllForBackend(),
+        };
 
-        $moduleTemplate->assign('events', $events);
+        $moduleTemplate->assignMultiple([
+            'events' => $events,
+            'currentFilter' => $filter,
+            'upcomingCount' => $this->eventRepository->countUpcoming(),
+            'pastCount' => $this->eventRepository->countPast(),
+            'totalCount' => $this->eventRepository->countAll(),
+        ]);
 
         return $moduleTemplate->renderResponse('Backend/EventModule/List');
     }
@@ -59,14 +94,20 @@ final class EventModuleController extends ActionController
     public function showAction(Event $event): ResponseInterface
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->setTitle('Event: ' . $event->getTitle());
 
         $registrations = $this->eventRegistrationRepository->findByEvent($event);
+        $confirmedRegistrations = $this->eventRegistrationRepository->findConfirmedByEvent($event);
 
         $moduleTemplate->assignMultiple([
             'event' => $event,
             'registrations' => $registrations,
-            'confirmedCount' => $event->getConfirmedRegistrationsCount(),
+            'confirmedRegistrations' => $confirmedRegistrations,
+            'registrationsCount' => $registrations->count(),
+            'confirmedCount' => $confirmedRegistrations->count(),
             'availableSpots' => $event->getAvailableSpots(),
+            'isFull' => $event->isFull(),
+            'isPast' => $event->isPast(),
         ]);
 
         return $moduleTemplate->renderResponse('Backend/EventModule/Show');

@@ -8,71 +8,145 @@
     <div class="module-body">
         <h1>Events Dashboard</h1>
 
+        <!-- Statistics Cards -->
         <div class="row mb-4">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Alle Events</h5>
-                        <p class="display-4">{eventsCount}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
+            <div class="col-md-3">
+                <div class="card bg-primary text-white">
                     <div class="card-body">
                         <h5 class="card-title">Kommende Events</h5>
-                        <p class="display-4">{upcomingCount}</p>
+                        <p class="display-4 mb-0">{upcomingCount}</p>
+                        <small>Events geplant</small>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card">
+            <div class="col-md-3">
+                <div class="card bg-success text-white">
                     <div class="card-body">
                         <h5 class="card-title">Anmeldungen gesamt</h5>
-                        <p class="display-4">{totalRegistrations}</p>
+                        <p class="display-4 mb-0">{totalRegistrations}</p>
+                        <small>Teilnehmer</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Vergangene Events</h5>
+                        <p class="display-4 mb-0">{pastCount}</p>
+                        <small>Events durchgeführt</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-secondary text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Gesamt</h5>
+                        <p class="display-4 mb-0">{totalEvents}</p>
+                        <small>Alle Events</small>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="mb-3">
-            <f:link.action action="list" class="btn btn-primary">
-                Alle Events anzeigen
-            </f:link.action>
-            <be:link.newRecord table="tx_sitepackage_domain_model_event" pid="1" class="btn btn-success">
-                Neues Event erstellen
+        <!-- Next Event Info -->
+        <f:if condition="{nextEvent}">
+            <div class="alert alert-info mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="alert-heading mb-1">
+                            <f:be.icon identifier="actions-calendar" /> Nächstes Event: {nextEvent.title}
+                        </h5>
+                        <p class="mb-0">
+                            <f:format.date format="d.m.Y">{nextEvent.eventDate}</f:format.date> um {nextEvent.startTimeFormatted} Uhr
+                            - <strong>
+                                <f:if condition="{nextEventSpots} > 0">
+                                    <f:then>
+                                        <span class="text-success">{nextEventSpots} Plätze frei</span>
+                                    </f:then>
+                                    <f:else>
+                                        <span class="text-danger">Ausgebucht</span>
+                                    </f:else>
+                                </f:if>
+                            </strong>
+                        </p>
+                    </div>
+                    <div>
+                        <f:link.action action="show" arguments="{event: nextEvent}" class="btn btn-light">
+                            Details anzeigen
+                        </f:link.action>
+                    </div>
+                </div>
+            </div>
+        </f:if>
+
+        <!-- Quick Actions -->
+        <div class="mb-4">
+            <div class="btn-group" role="group">
+                <f:link.action action="list" class="btn btn-primary">
+                    <f:be.icon identifier="actions-list" /> Alle Events anzeigen
+                </f:link.action>
+                <f:link.action action="list" arguments="{filter: 'upcoming'}" class="btn btn-outline-primary">
+                    <f:be.icon identifier="actions-clock" /> Kommende Events
+                </f:link.action>
+                <f:link.action action="list" arguments="{filter: 'past'}" class="btn btn-outline-secondary">
+                    <f:be.icon identifier="actions-check" /> Vergangene Events
+                </f:link.action>
+            </div>
+            <be:link.newRecord table="tx_sitepackage_domain_model_event" pid="1" class="btn btn-success ms-2">
+                <f:be.icon identifier="actions-add" /> Neues Event erstellen
             </be:link.newRecord>
         </div>
 
-        <f:if condition="{events -> f:count()} > 0">
-            <f:then>
-                <h2>Aktuelle Events</h2>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Titel</th>
-                            <th>Datum</th>
-                            <th>Ort</th>
-                            <th>Anmeldungen</th>
-                            <th>Status</th>
-                            <th>Aktionen</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <f:for each="{events}" as="event" iteration="i">
-                            <f:if condition="{i.index} < 5">
+        <!-- Upcoming Events Table -->
+        <f:if condition="{upcomingEvents -> f:count()} > 0">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Kommende Events</h3>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Titel</th>
+                                <th>Datum</th>
+                                <th>Uhrzeit</th>
+                                <th>Ort</th>
+                                <th>Anmeldungen</th>
+                                <th>Freie Plätze</th>
+                                <th>Status</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <f:for each="{upcomingEvents}" as="event">
                                 <tr>
                                     <td>
-                                        <be:link.editRecord uid="{event.uid}" table="tx_sitepackage_domain_model_event">
-                                            {event.title}
-                                        </be:link.editRecord>
+                                        <strong>{event.title}</strong>
                                     </td>
                                     <td>
                                         <f:format.date format="d.m.Y">{event.eventDate}</f:format.date>
                                     </td>
+                                    <td>
+                                        {event.startTimeFormatted}
+                                        <f:if condition="{event.endTimeFormatted}">
+                                            - {event.endTimeFormatted}
+                                        </f:if>
+                                    </td>
                                     <td>{event.location}</td>
                                     <td>
-                                        {event.confirmedRegistrationsCount} / {event.maxParticipants}
+                                        <span class="badge bg-primary">
+                                            {event.confirmedRegistrationsCount}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <f:if condition="{event.availableSpots} > 0">
+                                            <f:then>
+                                                <span class="badge bg-success">{event.availableSpots}</span>
+                                            </f:then>
+                                            <f:else>
+                                                <span class="badge bg-danger">Voll</span>
+                                            </f:else>
+                                        </f:if>
                                     </td>
                                     <td>
                                         <f:if condition="{event.isPublished}">
@@ -85,21 +159,71 @@
                                         </f:if>
                                     </td>
                                     <td>
-                                        <f:link.action action="show" arguments="{event: event}" class="btn btn-sm btn-info">
+                                        <div class="btn-group btn-group-sm">
+                                            <f:link.action action="show" arguments="{event: event}" class="btn btn-info" title="Details">
+                                                <f:be.icon identifier="actions-eye" />
+                                            </f:link.action>
+                                            <be:link.editRecord uid="{event.uid}" table="tx_sitepackage_domain_model_event" class="btn btn-warning" title="Bearbeiten">
+                                                <f:be.icon identifier="actions-open" />
+                                            </be:link.editRecord>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </f:for>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </f:if>
+
+        <!-- Recent Past Events -->
+        <f:if condition="{pastEvents -> f:count()} > 0">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Kürzlich vergangene Events</h3>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th>Titel</th>
+                                <th>Datum</th>
+                                <th>Anmeldungen</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <f:for each="{pastEvents}" as="event">
+                                <tr class="text-muted">
+                                    <td>{event.title}</td>
+                                    <td>
+                                        <f:format.date format="d.m.Y">{event.eventDate}</f:format.date>
+                                    </td>
+                                    <td>
+                                        {event.confirmedRegistrationsCount} / {event.maxParticipants}
+                                    </td>
+                                    <td>
+                                        <f:link.action action="show" arguments="{event: event}" class="btn btn-sm btn-outline-secondary">
                                             Details
                                         </f:link.action>
                                     </td>
                                 </tr>
-                            </f:if>
-                        </f:for>
-                    </tbody>
-                </table>
-            </f:then>
-            <f:else>
-                <div class="alert alert-info">
-                    Noch keine Events vorhanden.
+                            </f:for>
+                        </tbody>
+                    </table>
                 </div>
-            </f:else>
+            </div>
+        </f:if>
+
+        <f:if condition="{upcomingEvents -> f:count()} == 0 && {pastEvents -> f:count()} == 0">
+            <div class="alert alert-info">
+                <h4 class="alert-heading">Noch keine Events vorhanden</h4>
+                <p>Beginnen Sie mit der Erstellung Ihres ersten Events.</p>
+                <hr>
+                <be:link.newRecord table="tx_sitepackage_domain_model_event" pid="1" class="btn btn-primary">
+                    <f:be.icon identifier="actions-add" /> Erstes Event erstellen
+                </be:link.newRecord>
+            </div>
         </f:if>
     </div>
 </f:section>
