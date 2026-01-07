@@ -8,6 +8,7 @@ use MensCircle\Sitepackage\Domain\Model\Event;
 use MensCircle\Sitepackage\Domain\Repository\EventRegistrationRepository;
 use MensCircle\Sitepackage\Domain\Repository\EventRepository;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
@@ -27,9 +28,9 @@ final class EventModuleController extends ActionController
         protected readonly PersistenceManagerInterface $persistenceManager,
     ) {}
 
-    public function indexAction(): ResponseInterface
+    public function indexAction(ServerRequestInterface $request): ResponseInterface
     {
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate = $this->moduleTemplateFactory->create($request);
         $moduleTemplate->setTitle('Events Übersicht');
 
         $allEvents = $this->eventRepository->findAllForBackend();
@@ -67,10 +68,14 @@ final class EventModuleController extends ActionController
         return $moduleTemplate->renderResponse('Backend/EventModule/Index');
     }
 
-    public function listAction(string $filter = 'all'): ResponseInterface
+    public function listAction(ServerRequestInterface $request): ResponseInterface
     {
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate = $this->moduleTemplateFactory->create($request);
         $moduleTemplate->setTitle('Alle Events');
+
+        // Get filter from query parameters
+        $queryParams = $request->getQueryParams();
+        $filter = $queryParams['filter'] ?? 'all';
 
         // Filter events based on selection
         $events = match ($filter) {
@@ -91,9 +96,24 @@ final class EventModuleController extends ActionController
         return $moduleTemplate->renderResponse('Backend/EventModule/List');
     }
 
-    public function showAction(Event $event): ResponseInterface
+    public function showAction(ServerRequestInterface $request): ResponseInterface
     {
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        // Get event from query parameters
+        $queryParams = $request->getQueryParams();
+        $eventUid = (int)($queryParams['event'] ?? 0);
+
+        $event = $this->eventRepository->findByUid($eventUid);
+
+        if (!$event instanceof Event) {
+            $this->addFlashMessage(
+                'Event nicht gefunden.',
+                'Fehler',
+                ContextualFeedbackSeverity::ERROR
+            );
+            return $this->redirect('list');
+        }
+
+        $moduleTemplate = $this->moduleTemplateFactory->create($request);
         $moduleTemplate->setTitle('Event: ' . $event->getTitle());
 
         $registrations = $this->eventRegistrationRepository->findByEvent($event);
@@ -113,8 +133,23 @@ final class EventModuleController extends ActionController
         return $moduleTemplate->renderResponse('Backend/EventModule/Show');
     }
 
-    public function togglePublishAction(Event $event): ResponseInterface
+    public function togglePublishAction(ServerRequestInterface $request): ResponseInterface
     {
+        // Get event from query parameters
+        $queryParams = $request->getQueryParams();
+        $eventUid = (int)($queryParams['event'] ?? 0);
+
+        $event = $this->eventRepository->findByUid($eventUid);
+
+        if (!$event instanceof Event) {
+            $this->addFlashMessage(
+                'Event nicht gefunden.',
+                'Fehler',
+                ContextualFeedbackSeverity::ERROR
+            );
+            return $this->redirect('list');
+        }
+
         $event->setIsPublished(!$event->getIsPublished());
         $this->eventRepository->update($event);
         $this->persistenceManager->persistAll();
@@ -129,8 +164,23 @@ final class EventModuleController extends ActionController
         return $this->redirect('list');
     }
 
-    public function exportRegistrationsAction(Event $event): ResponseInterface
+    public function exportRegistrationsAction(ServerRequestInterface $request): ResponseInterface
     {
+        // Get event from query parameters
+        $queryParams = $request->getQueryParams();
+        $eventUid = (int)($queryParams['event'] ?? 0);
+
+        $event = $this->eventRepository->findByUid($eventUid);
+
+        if (!$event instanceof Event) {
+            $this->addFlashMessage(
+                'Event nicht gefunden.',
+                'Fehler',
+                ContextualFeedbackSeverity::ERROR
+            );
+            return $this->redirect('list');
+        }
+
         $registrations = $this->eventRegistrationRepository->findByEvent($event);
 
         $csvContent = "Vorname;Nachname;E-Mail;Telefon;Status;Angemeldet am\n";

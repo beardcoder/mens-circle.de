@@ -16,6 +16,7 @@ use MensCircle\Sitepackage\Domain\Repository\NewsletterRepository;
 use MensCircle\Sitepackage\Domain\Repository\SubscriberRepository;
 use MensCircle\Sitepackage\Service\NewsletterService;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
@@ -33,9 +34,9 @@ final class NewsletterController extends ActionController
         protected readonly PersistenceManagerInterface $persistenceManager,
     ) {}
 
-    public function indexAction(): ResponseInterface
+    public function indexAction(ServerRequestInterface $request): ResponseInterface
     {
-        $view = $this->moduleTemplateFactory->create($this->request);
+        $view = $this->moduleTemplateFactory->create($request);
 
         $newsletters = $this->newsletterRepository->findAll();
         $subscriberStats = $this->subscriberRepository->getStatistics();
@@ -52,9 +53,9 @@ final class NewsletterController extends ActionController
         return $view->renderResponse('Backend/Newsletter/Index');
     }
 
-    public function subscribersAction(): ResponseInterface
+    public function subscribersAction(ServerRequestInterface $request): ResponseInterface
     {
-        $view = $this->moduleTemplateFactory->create($this->request);
+        $view = $this->moduleTemplateFactory->create($request);
 
         $subscribers = $this->subscriberRepository->findAll();
         $stats = $this->subscriberRepository->getStatistics();
@@ -69,9 +70,9 @@ final class NewsletterController extends ActionController
         return $view->renderResponse('Backend/Newsletter/Subscribers');
     }
 
-    public function createAction(): ResponseInterface
+    public function createAction(ServerRequestInterface $request): ResponseInterface
     {
-        $view = $this->moduleTemplateFactory->create($this->request);
+        $view = $this->moduleTemplateFactory->create($request);
 
         $view->assign('newsletter', new Newsletter());
         $view->assign('isNew', true);
@@ -80,14 +81,18 @@ final class NewsletterController extends ActionController
         return $view->renderResponse('Backend/Newsletter/Edit');
     }
 
-    public function editAction(?Newsletter $newsletter = null): ResponseInterface
+    public function editAction(ServerRequestInterface $request): ResponseInterface
     {
+        $queryParams = $request->getQueryParams();
+        $newsletterUid = (int)($queryParams['newsletter'] ?? 0);
+        $newsletter = $newsletterUid > 0 ? $this->newsletterRepository->findByUid($newsletterUid) : null;
+
         if (!$newsletter instanceof Newsletter) {
             $this->addFlashMessage('Newsletter not found.', '', ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index');
         }
 
-        $view = $this->moduleTemplateFactory->create($this->request);
+        $view = $this->moduleTemplateFactory->create($request);
 
         $view->assignMultiple([
             'newsletter' => $newsletter,
@@ -98,8 +103,12 @@ final class NewsletterController extends ActionController
         return $view->renderResponse('Backend/Newsletter/Edit');
     }
 
-    public function saveAction(?Newsletter $newsletter = null): ResponseInterface
+    public function saveAction(ServerRequestInterface $request): ResponseInterface
     {
+        $queryParams = $request->getQueryParams();
+        $newsletterUid = (int)($queryParams['newsletter'] ?? 0);
+        $newsletter = $newsletterUid > 0 ? $this->newsletterRepository->findByUid($newsletterUid) : null;
+
         if (!$newsletter instanceof Newsletter) {
             $this->addFlashMessage('Newsletter not found.', '', ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index');
@@ -124,8 +133,12 @@ final class NewsletterController extends ActionController
         return $this->redirect('index');
     }
 
-    public function sendAction(?Newsletter $newsletter = null): ResponseInterface
+    public function sendAction(ServerRequestInterface $request): ResponseInterface
     {
+        $queryParams = $request->getQueryParams();
+        $newsletterUid = (int)($queryParams['newsletter'] ?? 0);
+        $newsletter = $newsletterUid > 0 ? $this->newsletterRepository->findByUid($newsletterUid) : null;
+
         if (!$newsletter instanceof Newsletter) {
             $this->addFlashMessage('Newsletter not found.', '', ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index');
@@ -142,14 +155,18 @@ final class NewsletterController extends ActionController
         return $this->redirect('index');
     }
 
-    public function sendTestAction(?Newsletter $newsletter = null): ResponseInterface
+    public function sendTestAction(ServerRequestInterface $request): ResponseInterface
     {
+        $queryParams = $request->getQueryParams();
+        $newsletterUid = (int)($queryParams['newsletter'] ?? 0);
+        $newsletter = $newsletterUid > 0 ? $this->newsletterRepository->findByUid($newsletterUid) : null;
+
         if (!$newsletter instanceof Newsletter) {
             $this->addFlashMessage('Newsletter not found.', '', ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index');
         }
 
-        $email = $this->request->hasArgument('email') ? (string)$this->request->getArgument('email') : '';
+        $email = $queryParams['email'] ?? '';
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->addFlashMessage('Please enter a valid email address.', '', ContextualFeedbackSeverity::ERROR);
@@ -167,8 +184,12 @@ final class NewsletterController extends ActionController
         return $this->redirect('edit', null, null, ['newsletter' => $newsletter->getUid()]);
     }
 
-    public function deleteAction(?Newsletter $newsletter = null): ResponseInterface
+    public function deleteAction(ServerRequestInterface $request): ResponseInterface
     {
+        $queryParams = $request->getQueryParams();
+        $newsletterUid = (int)($queryParams['newsletter'] ?? 0);
+        $newsletter = $newsletterUid > 0 ? $this->newsletterRepository->findByUid($newsletterUid) : null;
+
         if (!$newsletter instanceof Newsletter) {
             $this->addFlashMessage('Newsletter not found.', '', ContextualFeedbackSeverity::ERROR);
             return $this->redirect('index');
