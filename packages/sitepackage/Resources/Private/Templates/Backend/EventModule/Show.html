@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
 <f:layout name="Module" />
@@ -13,30 +14,30 @@
                 <div>
                     <f:if condition="{event.isPublished}">
                         <span class="badge bg-success">
-                            <f:be.icon identifier="actions-toggle-on" /> Veröffentlicht
+                            <core:icon identifier="actions-toggle-on" /> Veröffentlicht
                         </span>
                     </f:if>
                     <f:if condition="{isPast}">
                         <span class="badge bg-warning">
-                            <f:be.icon identifier="actions-clock" /> Vergangen
+                            <core:icon identifier="actions-clock" /> Vergangen
                         </span>
                     </f:if>
                     <f:if condition="{isFull}">
                         <span class="badge bg-danger">
-                            <f:be.icon identifier="actions-close" /> Ausgebucht
+                            <core:icon identifier="actions-close" /> Ausgebucht
                         </span>
                     </f:if>
                 </div>
             </div>
             <div>
                 <f:link.action action="list" class="btn btn-secondary">
-                    <f:be.icon identifier="actions-arrow-left" /> Zurück zur Liste
+                    <core:icon identifier="actions-arrow-left" /> Zurück zur Liste
                 </f:link.action>
                 <be:link.editRecord uid="{event.uid}" table="tx_sitepackage_domain_model_event" class="btn btn-warning">
-                    <f:be.icon identifier="actions-open" /> Bearbeiten
+                    <core:icon identifier="actions-open" /> Bearbeiten
                 </be:link.editRecord>
                 <f:link.action action="exportRegistrations" arguments="{event: event}" class="btn btn-primary">
-                    <f:be.icon identifier="actions-download" /> CSV Export
+                    <core:icon identifier="actions-download" /> CSV Export
                 </f:link.action>
             </div>
         </div>
@@ -47,7 +48,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <h3 class="card-title mb-0">
-                            <f:be.icon identifier="actions-calendar" /> Event Details
+                            <core:icon identifier="actions-calendar" /> Event Details
                         </h3>
                     </div>
                     <div class="card-body">
@@ -96,7 +97,7 @@
                 <div class="card mb-4 {f:if(condition: isFull, then: 'border-danger', else: 'border-success')}">
                     <div class="card-header {f:if(condition: isFull, then: 'bg-danger', else: 'bg-success')} text-white">
                         <h3 class="card-title mb-0">
-                            <f:be.icon identifier="actions-user-group" /> Anmeldungen
+                            <core:icon identifier="actions-user-group" /> Anmeldungen
                         </h3>
                     </div>
                     <div class="card-body">
@@ -130,7 +131,7 @@
                         <f:if condition="{isFull}">
                             <div class="alert alert-danger mt-3 mb-0">
                                 <small>
-                                    <f:be.icon identifier="actions-exclamation" /> 
+                                    <core:icon identifier="actions-exclamation" /> 
                                     Event ist ausgebucht
                                 </small>
                             </div>
@@ -142,7 +143,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title mb-0">
-                            <f:be.icon identifier="actions-chart-bar" /> Statistik
+                            <core:icon identifier="actions-chart-bar" /> Statistik
                         </h5>
                     </div>
                     <div class="card-body">
@@ -169,7 +170,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title mb-0">
-                    <f:be.icon identifier="actions-list" /> Anmeldungsliste
+                    <core:icon identifier="actions-list" /> Anmeldungsliste
                 </h3>
                 <div>
                     <span class="badge bg-primary">{registrationsCount} Gesamt</span>
@@ -201,7 +202,7 @@
                                             </td>
                                             <td>
                                                 <a href="mailto:{registration.email}">
-                                                    <f:be.icon identifier="actions-envelope" /> 
+                                                    <core:icon identifier="actions-envelope" /> 
                                                     {registration.email}
                                                 </a>
                                             </td>
@@ -209,7 +210,7 @@
                                                 <f:if condition="{registration.phoneNumber}">
                                                     <f:then>
                                                         <a href="tel:{registration.phoneNumber}">
-                                                            <f:be.icon identifier="actions-phone" /> 
+                                                            <core:icon identifier="actions-phone" /> 
                                                             {registration.phoneNumber}
                                                         </a>
                                                     </f:then>
@@ -222,17 +223,17 @@
                                                 <f:switch expression="{registration.status}">
                                                     <f:case value="confirmed">
                                                         <span class="badge bg-success">
-                                                            <f:be.icon identifier="actions-check" /> Bestätigt
+                                                            <core:icon identifier="actions-check" /> Bestätigt
                                                         </span>
                                                     </f:case>
                                                     <f:case value="pending">
                                                         <span class="badge bg-warning">
-                                                            <f:be.icon identifier="actions-clock" /> Ausstehend
+                                                            <core:icon identifier="actions-clock" /> Ausstehend
                                                         </span>
                                                     </f:case>
                                                     <f:case value="cancelled">
                                                         <span class="badge bg-danger">
-                                                            <f:be.icon identifier="actions-close" /> Storniert
+                                                            <core:icon identifier="actions-close" /> Storniert
                                                         </span>
                                                     </f:case>
                                                     <f:defaultCase>
@@ -249,7 +250,7 @@
                                                     table="tx_sitepackage_domain_model_eventregistration" 
                                                     class="btn btn-sm btn-warning"
                                                     title="Bearbeiten">
-                                                    <f:be.icon identifier="actions-open" />
+                                                    <core:icon identifier="actions-open" />
                                                 </be:link.editRecord>
                                             </td>
                                         </tr>
@@ -261,7 +262,7 @@
                     <f:else>
                         <div class="alert alert-info m-3 mb-0">
                             <h5 class="alert-heading">
-                                <f:be.icon identifier="actions-info" /> Noch keine Anmeldungen
+                                <core:icon identifier="actions-info" /> Noch keine Anmeldungen
                             </h5>
                             <p class="mb-0">Für dieses Event liegen noch keine Anmeldungen vor.</p>
                         </div>

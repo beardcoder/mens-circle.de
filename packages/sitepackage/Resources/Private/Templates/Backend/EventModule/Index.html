@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
 <f:layout name="Module" />
@@ -54,7 +55,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <h5 class="alert-heading mb-1">
-                            <f:be.icon identifier="actions-calendar" /> Nächstes Event: {nextEvent.title}
+                            <core:icon identifier="actions-calendar" /> Nächstes Event: {nextEvent.title}
                         </h5>
                         <p class="mb-0">
                             <f:format.date format="d.m.Y">{nextEvent.eventDate}</f:format.date> um {nextEvent.startTimeFormatted} Uhr
@@ -83,17 +84,17 @@
         <div class="mb-4">
             <div class="btn-group" role="group">
                 <f:link.action action="list" class="btn btn-primary">
-                    <f:be.icon identifier="actions-list" /> Alle Events anzeigen
+                    <core:icon identifier="actions-list" /> Alle Events anzeigen
                 </f:link.action>
                 <f:link.action action="list" arguments="{filter: 'upcoming'}" class="btn btn-outline-primary">
-                    <f:be.icon identifier="actions-clock" /> Kommende Events
+                    <core:icon identifier="actions-clock" /> Kommende Events
                 </f:link.action>
                 <f:link.action action="list" arguments="{filter: 'past'}" class="btn btn-outline-secondary">
-                    <f:be.icon identifier="actions-check" /> Vergangene Events
+                    <core:icon identifier="actions-check" /> Vergangene Events
                 </f:link.action>
             </div>
             <be:link.newRecord table="tx_sitepackage_domain_model_event" pid="1" class="btn btn-success ms-2">
-                <f:be.icon identifier="actions-add" /> Neues Event erstellen
+                <core:icon identifier="actions-add" /> Neues Event erstellen
             </be:link.newRecord>
         </div>
 
@@ -161,10 +162,10 @@
                                     <td>
                                         <div class="btn-group btn-group-sm">
                                             <f:link.action action="show" arguments="{event: event}" class="btn btn-info" title="Details">
-                                                <f:be.icon identifier="actions-eye" />
+                                                <core:icon identifier="actions-eye" />
                                             </f:link.action>
                                             <be:link.editRecord uid="{event.uid}" table="tx_sitepackage_domain_model_event" class="btn btn-warning" title="Bearbeiten">
-                                                <f:be.icon identifier="actions-open" />
+                                                <core:icon identifier="actions-open" />
                                             </be:link.editRecord>
                                         </div>
                                     </td>
@@ -221,7 +222,7 @@
                 <p>Beginnen Sie mit der Erstellung Ihres ersten Events.</p>
                 <hr>
                 <be:link.newRecord table="tx_sitepackage_domain_model_event" pid="1" class="btn btn-primary">
-                    <f:be.icon identifier="actions-add" /> Erstes Event erstellen
+                    <core:icon identifier="actions-add" /> Erstes Event erstellen
                 </be:link.newRecord>
             </div>
         </f:if>
