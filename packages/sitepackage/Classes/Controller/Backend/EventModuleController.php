@@ -10,22 +10,31 @@ use MensCircle\Sitepackage\Domain\Repository\EventRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Http\RedirectResponse;
+use TYPO3\CMS\Core\Http\ResponseFactory;
+use TYPO3\CMS\Core\Http\StreamFactory;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 
 /**
  * Backend module controller for event management
  */
 #[AsController]
-final class EventModuleController extends ActionController
+final class EventModuleController
 {
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
         protected readonly EventRepository $eventRepository,
         protected readonly EventRegistrationRepository $eventRegistrationRepository,
         protected readonly PersistenceManagerInterface $persistenceManager,
+        protected readonly UriBuilder $uriBuilder,
+        protected readonly FlashMessageService $flashMessageService,
+        protected readonly ResponseFactory $responseFactory,
+        protected readonly StreamFactory $streamFactory,
     ) {}
 
     public function indexAction(ServerRequestInterface $request): ResponseInterface
@@ -107,10 +116,9 @@ final class EventModuleController extends ActionController
         if (!$event instanceof Event) {
             $this->addFlashMessage(
                 'Event nicht gefunden.',
-                'Fehler',
                 ContextualFeedbackSeverity::ERROR
             );
-            return $this->redirect('list');
+            return $this->redirectToRoute($request, 'list');
         }
 
         $moduleTemplate = $this->moduleTemplateFactory->create($request);
@@ -144,10 +152,9 @@ final class EventModuleController extends ActionController
         if (!$event instanceof Event) {
             $this->addFlashMessage(
                 'Event nicht gefunden.',
-                'Fehler',
                 ContextualFeedbackSeverity::ERROR
             );
-            return $this->redirect('list');
+            return $this->redirectToRoute($request, 'list');
         }
 
         $event->setIsPublished(!$event->getIsPublished());
@@ -157,11 +164,10 @@ final class EventModuleController extends ActionController
         $status = $event->getIsPublished() ? 'veröffentlicht' : 'als Entwurf gespeichert';
         $this->addFlashMessage(
             sprintf('Event "%s" wurde %s.', $event->getTitle(), $status),
-            'Event aktualisiert',
             ContextualFeedbackSeverity::OK,
         );
 
-        return $this->redirect('list');
+        return $this->redirectToRoute($request, 'list');
     }
 
     public function exportRegistrationsAction(ServerRequestInterface $request): ResponseInterface
@@ -175,10 +181,9 @@ final class EventModuleController extends ActionController
         if (!$event instanceof Event) {
             $this->addFlashMessage(
                 'Event nicht gefunden.',
-                'Fehler',
                 ContextualFeedbackSeverity::ERROR
             );
-            return $this->redirect('list');
+            return $this->redirectToRoute($request, 'list');
         }
 
         $registrations = $this->eventRegistrationRepository->findByEvent($event);
@@ -206,5 +211,34 @@ final class EventModuleController extends ActionController
             ->withHeader('Content-Type', 'text/csv; charset=utf-8')
             ->withHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
             ->withBody($this->streamFactory->createStream($csvContent));
+    }
+
+    /**
+     * Add a flash message to the queue
+     */
+    protected function addFlashMessage(string $message, ContextualFeedbackSeverity $severity = ContextualFeedbackSeverity::INFO): void
+    {
+        $flashMessage = new FlashMessage(
+            $message,
+            '',
+            $severity,
+        );
+        $this->flashMessageService->getMessageQueueByIdentifier()->enqueue($flashMessage);
+    }
+
+    /**
+     * Redirect to a route within the same module
+     */
+    protected function redirectToRoute(ServerRequestInterface $request, string $route, array $parameters = []): ResponseInterface
+    {
+        $routeIdentifier = $request->getAttribute('route');
+        $moduleName = $routeIdentifier?->getOption('moduleName') ?? 'menscircle_events';
+
+        $uri = $this->uriBuilder->buildUriFromRoute(
+            $moduleName . '_' . $route,
+            $parameters
+        );
+
+        return new RedirectResponse($uri);
     }
 }

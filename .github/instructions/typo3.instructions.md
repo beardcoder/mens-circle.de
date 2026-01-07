@@ -1,11 +1,11 @@
 ---
-description: 'GitHub Copilot Custom Instructions for TYPO3 v13 LTS & PHP 8.2/8.4'
+description: 'GitHub Copilot Custom Instructions for TYPO3 v14 LTS & PHP 8.2/8.4'
 applyTo: '**'
 ---
 
-# GitHub Copilot Custom Instructions for TYPO3 v13 LTS & PHP 8.2/8.4
+# GitHub Copilot Custom Instructions for TYPO3 v14 LTS & PHP 8.2/8.4
 
-These instructions guide Copilot to generate code that aligns with the **official TYPO3 v13 LTS documentation** (https://docs.typo3.org), modern PHP 8.2/8.4 features, TYPO3 best practices, and industry standards to ensure quality, maintainability, and security.
+These instructions guide Copilot to generate code that aligns with the **official TYPO3 v14 LTS documentation** (https://docs.typo3.org), modern PHP 8.2/8.4 features, TYPO3 best practices, and industry standards to ensure quality, maintainability, and security.
 
 ## ✅ General Coding Standards
 
@@ -48,7 +48,20 @@ These instructions guide Copilot to generate code that aligns with the **officia
     - Use Fluid templates for rendering HTML output.
 
 - TCA definitions:
-    - Follow official syntax from TYPO3 v13 docs.
+    - Follow official syntax from TYPO3 v14 docs.
+    - Use `renderType` where applicable instead of deprecated types.
+    - Avoid legacy wizards and prefer modern FormEngine features.
+
+## ✅ TYPO3 v14 Backend Module Controllers
+
+- Backend module controllers should **NOT extend ActionController** when using the new routing system.
+- Controllers should be standalone classes that:
+    - Receive `ServerRequestInterface $request` as action parameter
+    - Return `ResponseInterface` directly
+    - Use dependency injection for all services
+    - Use `UriBuilder` for generating backend URLs
+    - Use `FlashMessageService` for flash messages
+    - Use `RedirectResponse` for redirects
     - Use `renderType` where applicable instead of deprecated types.
     - Avoid legacy wizards and prefer modern FormEngine features.
 
