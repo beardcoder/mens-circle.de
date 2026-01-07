@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
 <f:layout name="Module" />
@@ -10,10 +11,10 @@
             <h1>Alle Events</h1>
             <div>
                 <f:link.action action="index" class="btn btn-secondary">
-                    <f:be.icon identifier="actions-home" /> Dashboard
+                    <core:icon identifier="actions-home" /> Dashboard
                 </f:link.action>
                 <be:link.newRecord table="tx_sitepackage_domain_model_event" pid="1" class="btn btn-success">
-                    <f:be.icon identifier="actions-add" /> Neues Event
+                    <core:icon identifier="actions-add" /> Neues Event
                 </be:link.newRecord>
             </div>
         </div>
@@ -33,7 +34,7 @@
                     action="list" 
                     arguments="{filter: 'upcoming'}" 
                     class="nav-link {f:if(condition: '{currentFilter} == \'upcoming\'', then: 'active')}">
-                    <f:be.icon identifier="actions-clock" /> Kommende ({upcomingCount})
+                    <core:icon identifier="actions-clock" /> Kommende ({upcomingCount})
                 </f:link.action>
             </li>
             <li class="nav-item" role="presentation">
@@ -41,7 +42,7 @@
                     action="list" 
                     arguments="{filter: 'past'}" 
                     class="nav-link {f:if(condition: '{currentFilter} == \'past\'', then: 'active')}">
-                    <f:be.icon identifier="actions-check" /> Vergangene ({pastCount})
+                    <core:icon identifier="actions-check" /> Vergangene ({pastCount})
                 </f:link.action>
             </li>
             <li class="nav-item" role="presentation">
@@ -49,7 +50,7 @@
                     action="list" 
                     arguments="{filter: 'published'}" 
                     class="nav-link {f:if(condition: '{currentFilter} == \'published\'', then: 'active')}">
-                    <f:be.icon identifier="actions-toggle-on" /> Veröffentlicht
+                    <core:icon identifier="actions-toggle-on" /> Veröffentlicht
                 </f:link.action>
             </li>
         </ul>
@@ -116,12 +117,12 @@
                                             <f:if condition="{event.isPublished}">
                                                 <f:then>
                                                     <span class="badge bg-success">
-                                                        <f:be.icon identifier="actions-toggle-on" /> Öffentlich
+                                                        <core:icon identifier="actions-toggle-on" /> Öffentlich
                                                     </span>
                                                 </f:then>
                                                 <f:else>
                                                     <span class="badge bg-secondary">
-                                                        <f:be.icon identifier="actions-toggle-off" /> Entwurf
+                                                        <core:icon identifier="actions-toggle-off" /> Entwurf
                                                     </span>
                                                 </f:else>
                                             </f:if>
@@ -129,17 +130,17 @@
                                         <td>
                                             <div class="btn-group btn-group-sm" role="group">
                                                 <f:link.action action="show" arguments="{event: event}" class="btn btn-info" title="Details anzeigen">
-                                                    <f:be.icon identifier="actions-eye" />
+                                                    <core:icon identifier="actions-eye" />
                                                 </f:link.action>
                                                 <be:link.editRecord uid="{event.uid}" table="tx_sitepackage_domain_model_event" class="btn btn-warning" title="Bearbeiten">
-                                                    <f:be.icon identifier="actions-open" />
+                                                    <core:icon identifier="actions-open" />
                                                 </be:link.editRecord>
                                                 <f:link.action 
                                                     action="togglePublish" 
                                                     arguments="{event: event}" 
                                                     class="btn btn-{f:if(condition: event.isPublished, then: 'secondary', else: 'success')}" 
                                                     title="{f:if(condition: event.isPublished, then: 'Veröffentlichung aufheben', else: 'Veröffentlichen')}">
-                                                    <f:be.icon identifier="actions-toggle-{f:if(condition: event.isPublished, then: 'off', else: 'on')}" />
+                                                    <core:icon identifier="actions-toggle-{f:if(condition: event.isPublished, then: 'off', else: 'on')}" />
                                                 </f:link.action>
                                             </div>
                                         </td>
@@ -169,7 +170,7 @@
                         </f:switch>
                     </p>
                     <be:link.newRecord table="tx_sitepackage_domain_model_event" pid="1" class="btn btn-primary">
-                        <f:be.icon identifier="actions-add" /> Neues Event erstellen
+                        <core:icon identifier="actions-add" /> Neues Event erstellen
                     </be:link.newRecord>
                 </div>
             </f:else>
