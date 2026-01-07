@@ -1,21 +1,19 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
     <section class="section section--large journey-section" id="reise">
         <div class="container">
-            <div class="journey__header fade-in">
-                <f:if condition="{record.subheader}">
-                    <p class="eyebrow">{record.subheader}</p>
-                </f:if>
-
-                <f:if condition="{record.header}">
-                    <h2 class="section-title journey__title">{record.header -> f:format.raw()}</h2>
-                </f:if>
-
-                <f:if condition="{record.bodytext}">
-                    <p class="journey__subtitle">{record.bodytext}</p>
-                </f:if>
-            </div>
+            <mc:molecule.sectionHeader
+                eyebrow="{record.subheader}"
+                title="{record.header}"
+                subtitle="{record.bodytext}"
+                class="journey__header fade-in"
+            />
 
             <f:if condition="{record.pi_flexform.sSteps/settings.steps}">
                 <div class="journey__steps stagger-children">

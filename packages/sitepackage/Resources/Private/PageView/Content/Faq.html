@@ -1,44 +1,30 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
     <section class="section section--large faq-section" id="faq">
         <div class="container">
             <div class="faq__layout">
-                <div class="faq__header fade-in">
-                    <f:if condition="{record.subheader}">
-                        <p class="eyebrow">{record.subheader}</p>
-                    </f:if>
-
-                    <f:if condition="{record.header}">
-                        <h2 class="section-title faq__title">{record.header -> f:format.raw()}</h2>
-                    </f:if>
-
-                    <f:if condition="{record.bodytext}">
-                        <div class="faq__intro">
-                            {record.bodytext -> f:format.nl2br()}
-                        </div>
-                    </f:if>
-                </div>
+                <mc:molecule.sectionHeader
+                    eyebrow="{record.subheader}"
+                    title="{record.header}"
+                    subtitle="{record.bodytext}"
+                    class="faq__header fade-in"
+                />
 
                 <f:if condition="{record.pi_flexform.sItems/settings.items}">
                     <div class="faq__list fade-in fade-in-delay-1">
                         <f:for each="{record.pi_flexform.sItems/settings.items}" as="item">
-                            <div class="faq-item">
-                                <f:if condition="{item.question}">
-                                    <button class="faq-item__question" aria-expanded="false" data-m:click="action=faq_click;element=button;target=question;location=faq_section">
-                                        <span>{item.question}</span>
-                                        <span class="faq-item__icon"></span>
-                                    </button>
-                                </f:if>
-
-                                <f:if condition="{item.answer}">
-                                    <div class="faq-item__answer">
-                                        <div class="faq-item__answer-inner">
-                                            {item.answer -> f:format.html()}
-                                        </div>
-                                    </div>
-                                </f:if>
-                            </div>
+                            <f:if condition="{item.question} && {item.answer}">
+                                <mc:molecule.faqItem
+                                    question="{item.question}"
+                                    answer="{item.answer}"
+                                />
+                            </f:if>
                         </f:for>
                     </div>
                 </f:if>

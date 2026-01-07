@@ -1,36 +1,27 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
     <section class="section values-section">
         <div class="container">
-            <div class="section__header fade-in">
-                <f:if condition="{record.subheader}">
-                    <p class="eyebrow">{record.subheader}</p>
-                </f:if>
-
-                <f:if condition="{record.header}">
-                    <h2 class="section-title">{record.header -> f:format.raw()}</h2>
-                </f:if>
-            </div>
+            <mc:molecule.sectionHeader
+                eyebrow="{record.subheader}"
+                title="{record.header}"
+                class="section__header fade-in"
+            />
 
             <f:if condition="{record.pi_flexform.sItems/settings.items}">
                 <div class="intro__values stagger-children">
                     <f:for each="{record.pi_flexform.sItems/settings.items}" as="item">
-                        <div class="value-item">
-                            <f:if condition="{item.number}">
-                                <span class="value-item__number">{item.number}</span>
-                            </f:if>
-
-                            <div class="value-item__content">
-                                <f:if condition="{item.title}">
-                                    <h4>{item.title}</h4>
-                                </f:if>
-
-                                <f:if condition="{item.description}">
-                                    <p>{item.description}</p>
-                                </f:if>
-                            </div>
-                        </div>
+                        <mc:molecule.valueItem
+                            number="{item.number}"
+                            title="{item.title}"
+                            description="{item.description}"
+                        />
                     </f:for>
                 </div>
             </f:if>

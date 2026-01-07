@@ -1,22 +1,20 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:mc="http://typo3.org/ns/MensCircle/Sitepackage/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
 <f:layout name="ContentElement" />
 
 <f:section name="Main">
     <section class="section section--large cta-section">
         <div class="container">
             <div class="cta__content fade-in">
-                <f:if condition="{record.subheader}">
-                    <p class="eyebrow">{record.subheader}</p>
-                </f:if>
-
-                <f:if condition="{record.header}">
-                    <h2 class="section-title cta__title">{record.header -> f:format.raw()}</h2>
-                </f:if>
-
-                <f:if condition="{record.bodytext}">
-                    <div class="cta__text">
-                        {record.bodytext -> f:format.nl2br()}
-                    </div>
-                </f:if>
+                <mc:molecule.sectionHeader
+                    eyebrow="{record.subheader}"
+                    title="{record.header}"
+                    subtitle="{record.bodytext}"
+                    align="center"
+                />
 
                 <f:if condition="{record.tx_sitepackage_button_text} && {record.tx_sitepackage_button_link}">
                     <f:link.typolink
