@@ -6,177 +6,264 @@
 
 <f:section name="Content">
     <div class="module-body">
+        <!-- Header with Actions -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>{event.title}</h1>
+            <div>
+                <h1 class="mb-1">{event.title}</h1>
+                <div>
+                    <f:if condition="{event.isPublished}">
+                        <span class="badge bg-success">
+                            <f:be.icon identifier="actions-toggle-on" /> Veröffentlicht
+                        </span>
+                    </f:if>
+                    <f:if condition="{isPast}">
+                        <span class="badge bg-warning">
+                            <f:be.icon identifier="actions-clock" /> Vergangen
+                        </span>
+                    </f:if>
+                    <f:if condition="{isFull}">
+                        <span class="badge bg-danger">
+                            <f:be.icon identifier="actions-close" /> Ausgebucht
+                        </span>
+                    </f:if>
+                </div>
+            </div>
             <div>
                 <f:link.action action="list" class="btn btn-secondary">
-                    Zurück zur Liste
+                    <f:be.icon identifier="actions-arrow-left" /> Zurück zur Liste
                 </f:link.action>
                 <be:link.editRecord uid="{event.uid}" table="tx_sitepackage_domain_model_event" class="btn btn-warning">
-                    Bearbeiten
+                    <f:be.icon identifier="actions-open" /> Bearbeiten
                 </be:link.editRecord>
                 <f:link.action action="exportRegistrations" arguments="{event: event}" class="btn btn-primary">
-                    CSV Export
+                    <f:be.icon identifier="actions-download" /> CSV Export
                 </f:link.action>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <!-- Event Details Card -->
+            <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h3 class="card-title mb-0">Event Details</h3>
+                        <h3 class="card-title mb-0">
+                            <f:be.icon identifier="actions-calendar" /> Event Details
+                        </h3>
                     </div>
                     <div class="card-body">
                         <dl class="row mb-0">
-                            <dt class="col-sm-4">Datum</dt>
-                            <dd class="col-sm-8">
+                            <dt class="col-sm-3">Datum</dt>
+                            <dd class="col-sm-9">
                                 <f:format.date format="d.m.Y">{event.eventDate}</f:format.date>
                             </dd>
 
-                            <dt class="col-sm-4">Uhrzeit</dt>
-                            <dd class="col-sm-8">
-                                {event.startTimeFormatted} - {event.endTimeFormatted} Uhr
+                            <dt class="col-sm-3">Uhrzeit</dt>
+                            <dd class="col-sm-9">
+                                <f:if condition="{event.startTimeFormatted}">
+                                    {event.startTimeFormatted}
+                                    <f:if condition="{event.endTimeFormatted}">
+                                        - {event.endTimeFormatted} Uhr
+                                    </f:if>
+                                </f:if>
                             </dd>
 
-                            <dt class="col-sm-4">Ort</dt>
-                            <dd class="col-sm-8">
+                            <dt class="col-sm-3">Ort</dt>
+                            <dd class="col-sm-9">
                                 {event.location}
                                 <f:if condition="{event.fullAddress}">
                                     <br><small class="text-muted">{event.fullAddress}</small>
                                 </f:if>
                             </dd>
 
-                            <dt class="col-sm-4">Kosten</dt>
-                            <dd class="col-sm-8">{event.costBasis}</dd>
+                            <dt class="col-sm-3">Kosten</dt>
+                            <dd class="col-sm-9">{event.costBasis}</dd>
 
-                            <dt class="col-sm-4">Status</dt>
-                            <dd class="col-sm-8">
-                                <f:if condition="{event.isPublished}">
-                                    <f:then>
-                                        <span class="badge bg-success">Veröffentlicht</span>
-                                    </f:then>
-                                    <f:else>
-                                        <span class="badge bg-secondary">Entwurf</span>
-                                    </f:else>
-                                </f:if>
-                                <f:if condition="{event.isPast}">
-                                    <span class="badge bg-warning">Vergangen</span>
-                                </f:if>
-                            </dd>
+                            <f:if condition="{event.description}">
+                                <dt class="col-sm-3">Beschreibung</dt>
+                                <dd class="col-sm-9">
+                                    <div class="mt-2">
+                                        <f:format.html>{event.description}</f:format.html>
+                                    </div>
+                                </dd>
+                            </f:if>
                         </dl>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h3 class="card-title mb-0">Anmeldungen</h3>
+            <!-- Registration Statistics Card -->
+            <div class="col-md-4">
+                <div class="card mb-4 {f:if(condition: isFull, then: 'border-danger', else: 'border-success')}">
+                    <div class="card-header {f:if(condition: isFull, then: 'bg-danger', else: 'bg-success')} text-white">
+                        <h3 class="card-title mb-0">
+                            <f:be.icon identifier="actions-user-group" /> Anmeldungen
+                        </h3>
                     </div>
                     <div class="card-body">
-                        <div class="row text-center">
+                        <div class="row text-center mb-3">
                             <div class="col-4">
-                                <div class="display-6">{confirmedCount}</div>
-                                <div class="text-muted">Bestätigt</div>
+                                <div class="display-6 text-success">{confirmedCount}</div>
+                                <div class="text-muted small">Bestätigt</div>
                             </div>
                             <div class="col-4">
-                                <div class="display-6">{event.maxParticipants}</div>
-                                <div class="text-muted">Max.</div>
+                                <div class="display-6 text-primary">{event.maxParticipants}</div>
+                                <div class="text-muted small">Max.</div>
                             </div>
                             <div class="col-4">
                                 <div class="display-6 {f:if(condition: '{availableSpots} == 0', then: 'text-danger', else: 'text-success')}">{availableSpots}</div>
-                                <div class="text-muted">Frei</div>
+                                <div class="text-muted small">Frei</div>
                             </div>
                         </div>
-                        <div class="progress mt-3" style="height: 20px;">
-                            <f:variable name="percentage" value="{confirmedCount / event.maxParticipants * 100}" />
-                            <div class="progress-bar {f:if(condition: '{availableSpots} == 0', then: 'bg-danger', else: 'bg-success')}"
+                        
+                        <div class="progress" style="height: 25px;">
+                            <f:variable name="percentage" value="{f:if(condition: '{event.maxParticipants} > 0', then: '{confirmedCount / event.maxParticipants * 100}', else: 0)}" />
+                            <div class="progress-bar {f:if(condition: isFull, then: 'bg-danger', else: 'bg-success')}"
                                  role="progressbar"
                                  style="width: {percentage}%"
                                  aria-valuenow="{confirmedCount}"
                                  aria-valuemin="0"
                                  aria-valuemax="{event.maxParticipants}">
-                                {confirmedCount} / {event.maxParticipants}
+                                <strong>{confirmedCount} / {event.maxParticipants}</strong>
                             </div>
                         </div>
+
+                        <f:if condition="{isFull}">
+                            <div class="alert alert-danger mt-3 mb-0">
+                                <small>
+                                    <f:be.icon identifier="actions-exclamation" /> 
+                                    Event ist ausgebucht
+                                </small>
+                            </div>
+                        </f:if>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            <f:be.icon identifier="actions-chart-bar" /> Statistik
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <dl class="mb-0">
+                            <dt>Gesamt Anmeldungen</dt>
+                            <dd class="mb-2">
+                                <span class="badge bg-primary">{registrationsCount}</span>
+                            </dd>
+                            
+                            <dt>Auslastung</dt>
+                            <dd class="mb-2">
+                                <f:variable name="percentage" value="{f:if(condition: '{event.maxParticipants} > 0', then: '{confirmedCount / event.maxParticipants * 100}', else: 0)}" />
+                                <span class="badge {f:if(condition: '{percentage} >= 100', then: 'bg-danger', else: 'bg-success')}">
+                                    <f:format.number decimals="0">{percentage}</f:format.number>%
+                                </span>
+                            </dd>
+                        </dl>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Registrations Table -->
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title mb-0">Anmeldungsliste</h3>
-                <span class="badge bg-primary">{registrations -> f:count()} Anmeldungen</span>
+                <h3 class="card-title mb-0">
+                    <f:be.icon identifier="actions-list" /> Anmeldungsliste
+                </h3>
+                <div>
+                    <span class="badge bg-primary">{registrationsCount} Gesamt</span>
+                    <span class="badge bg-success">{confirmedCount} Bestätigt</span>
+                </div>
             </div>
-            <div class="card-body">
+            <div class="card-body p-0">
                 <f:if condition="{registrations -> f:count()} > 0">
                     <f:then>
-                        <table class="table table-striped table-hover mb-0">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>E-Mail</th>
-                                    <th>Telefon</th>
-                                    <th>Status</th>
-                                    <th>Angemeldet am</th>
-                                    <th>Aktionen</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <f:for each="{registrations}" as="registration" iteration="i">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover mb-0">
+                                <thead>
                                     <tr>
-                                        <td>{i.cycle}</td>
-                                        <td>
-                                            <strong>{registration.fullName}</strong>
-                                        </td>
-                                        <td>
-                                            <a href="mailto:{registration.email}">{registration.email}</a>
-                                        </td>
-                                        <td>
-                                            <f:if condition="{registration.phoneNumber}">
-                                                <f:then>
-                                                    <a href="tel:{registration.phoneNumber}">{registration.phoneNumber}</a>
-                                                </f:then>
-                                                <f:else>
-                                                    <span class="text-muted">-</span>
-                                                </f:else>
-                                            </f:if>
-                                        </td>
-                                        <td>
-                                            <f:switch expression="{registration.status}">
-                                                <f:case value="confirmed">
-                                                    <span class="badge bg-success">Bestätigt</span>
-                                                </f:case>
-                                                <f:case value="pending">
-                                                    <span class="badge bg-warning">Ausstehend</span>
-                                                </f:case>
-                                                <f:case value="cancelled">
-                                                    <span class="badge bg-danger">Storniert</span>
-                                                </f:case>
-                                                <f:defaultCase>
-                                                    <span class="badge bg-secondary">{registration.status}</span>
-                                                </f:defaultCase>
-                                            </f:switch>
-                                        </td>
-                                        <td>
-                                            <f:format.date format="d.m.Y H:i">{registration.crdate}</f:format.date>
-                                        </td>
-                                        <td>
-                                            <be:link.editRecord uid="{registration.uid}" table="tx_sitepackage_domain_model_eventregistration" class="btn btn-sm btn-warning">
-                                                <f:be.icon identifier="actions-open" />
-                                            </be:link.editRecord>
-                                        </td>
+                                        <th style="width: 5%">#</th>
+                                        <th style="width: 20%">Name</th>
+                                        <th style="width: 25%">E-Mail</th>
+                                        <th style="width: 15%">Telefon</th>
+                                        <th style="width: 10%">Status</th>
+                                        <th style="width: 15%">Angemeldet am</th>
+                                        <th style="width: 10%">Aktionen</th>
                                     </tr>
-                                </f:for>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <f:for each="{registrations}" as="registration" iteration="i">
+                                        <tr class="{f:if(condition: '{registration.status} == \'cancelled\'', then: 'table-secondary')}">
+                                            <td>{i.cycle}</td>
+                                            <td>
+                                                <strong>{registration.fullName}</strong>
+                                            </td>
+                                            <td>
+                                                <a href="mailto:{registration.email}">
+                                                    <f:be.icon identifier="actions-envelope" /> 
+                                                    {registration.email}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <f:if condition="{registration.phoneNumber}">
+                                                    <f:then>
+                                                        <a href="tel:{registration.phoneNumber}">
+                                                            <f:be.icon identifier="actions-phone" /> 
+                                                            {registration.phoneNumber}
+                                                        </a>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <span class="text-muted">-</span>
+                                                    </f:else>
+                                                </f:if>
+                                            </td>
+                                            <td>
+                                                <f:switch expression="{registration.status}">
+                                                    <f:case value="confirmed">
+                                                        <span class="badge bg-success">
+                                                            <f:be.icon identifier="actions-check" /> Bestätigt
+                                                        </span>
+                                                    </f:case>
+                                                    <f:case value="pending">
+                                                        <span class="badge bg-warning">
+                                                            <f:be.icon identifier="actions-clock" /> Ausstehend
+                                                        </span>
+                                                    </f:case>
+                                                    <f:case value="cancelled">
+                                                        <span class="badge bg-danger">
+                                                            <f:be.icon identifier="actions-close" /> Storniert
+                                                        </span>
+                                                    </f:case>
+                                                    <f:defaultCase>
+                                                        <span class="badge bg-secondary">{registration.status}</span>
+                                                    </f:defaultCase>
+                                                </f:switch>
+                                            </td>
+                                            <td>
+                                                <f:format.date format="d.m.Y H:i">{registration.crdate}</f:format.date>
+                                            </td>
+                                            <td>
+                                                <be:link.editRecord 
+                                                    uid="{registration.uid}" 
+                                                    table="tx_sitepackage_domain_model_eventregistration" 
+                                                    class="btn btn-sm btn-warning"
+                                                    title="Bearbeiten">
+                                                    <f:be.icon identifier="actions-open" />
+                                                </be:link.editRecord>
+                                            </td>
+                                        </tr>
+                                    </f:for>
+                                </tbody>
+                            </table>
+                        </div>
                     </f:then>
                     <f:else>
-                        <div class="alert alert-info mb-0">
-                            Noch keine Anmeldungen für dieses Event.
+                        <div class="alert alert-info m-3 mb-0">
+                            <h5 class="alert-heading">
+                                <f:be.icon identifier="actions-info" /> Noch keine Anmeldungen
+                            </h5>
+                            <p class="mb-0">Für dieses Event liegen noch keine Anmeldungen vor.</p>
                         </div>
                     </f:else>
                 </f:if>

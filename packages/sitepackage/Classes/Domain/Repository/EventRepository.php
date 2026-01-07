@@ -165,4 +165,21 @@ class EventRepository extends Repository
 
         return $query->count();
     }
+
+    /**
+     * Count past events
+     */
+    public function countPast(): int
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('isPublished', true),
+                $query->lessThan('eventDate', new \DateTime('today')->getTimestamp())
+            )
+        );
+
+        return $query->count();
+    }
 }
